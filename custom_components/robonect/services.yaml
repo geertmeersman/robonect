@@ -1,0 +1,90 @@
+start:
+  name: Start the mower
+  description: "Start the Robonect mower."
+
+stop:
+  name: Stop the mower
+  description: "Stop the Robonect mower."
+
+reboot:
+  name: Reboot the mower
+  description: "Reboots the Robonect mower."
+
+shutdown:
+  name: Shuts the mower down
+  description: "Shuts the Robonect mower down."
+
+sleep:
+  name: Set the mower to sleep
+  description: "Sets the Robonect mower to sleep."
+
+operation_mode:
+  name: Set the operation mode
+  description: Set the operation mode of the mower.
+  fields:
+    mode:
+      description: Operation mode.
+      example: "eod"
+      default: "auto"
+      selector:
+        select:
+          options:
+            - "man"
+            - "auto"
+            - "eod"
+            - "home"
+
+job:
+  name: Place a mowing job
+  description: Mower performs a mowing job
+  fields:
+    start:
+      description: Start time 'hh:mm', if omitted, then 'Immediately' applies.
+      example: "10:00"
+    end:
+      description: End time 'hh:mm'.
+      example: "13:00"
+    duration:
+      description: Duration of the job in minutes. If the mower is charging, the 'clock' continues. Omitted if end is set.
+      example: "145"
+    after:
+      description: Mode that will be activated after this mowing job is done.
+      example: "Auto"
+      default: "Auto"
+      selector:
+        select:
+          options:
+            - "Auto"
+            - "Home"
+            - "End of day"
+    corridor:
+      description: Corridor width. If omitted, it will be set to Normal
+      example: "Normal"
+      default: "Normal"
+      selector:
+        select:
+          options:
+            - "Normal"
+            - "0"
+            - "1"
+            - "2"
+            - "3"
+            - "4"
+            - "5"
+            - "6"
+            - "7"
+            - "8"
+            - "9"
+    remotestart:
+      description: The remote mowing starting point.
+      default: "Normal"
+      selector:
+        select:
+          options:
+            - "Normal"
+            - "From charging station"
+            - "Remote start 1"
+            - "Remote start 2"
+            - "Remote start 3"
+            - "Remote start 4"
+            - "Remote start 5"

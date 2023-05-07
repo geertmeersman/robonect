@@ -201,6 +201,7 @@ class RobonectSensor(RobonectEntity, SensorEntity):
 
     @property
     def translation_key(self) -> str | None:
+        """Set the translation key for the sensor."""
         if self.entity_description.translation_key:
             return self.entity_description.translation_key
         return None

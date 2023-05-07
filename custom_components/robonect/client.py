@@ -108,18 +108,23 @@ class RobonectClient:
         return response
 
     def start(self) -> bool:
+        """Start the mower."""
         return self.command("start")
 
     def stop(self) -> bool:
+        """Stop the mower."""
         return self.command("stop")
 
     def reboot(self) -> bool:
+        """Reboot Robonect."""
         return self.command("service", params="service=reboot")
 
     def shutdown(self) -> bool:
+        """Shutdown robonect."""
         return self.command("service", params="service=shutdown")
 
     def sleep(self) -> bool:
+        """Make Robonect sleep."""
         return self.command("service", params="service=sleep")
 
     def job(
@@ -131,6 +136,7 @@ class RobonectClient:
         remotestart: str,
         corridor: str,
     ) -> bool:
+        """Place a mowing job."""
         params = ["mode=job"]
         if start is not None:
             params.append(f"start={start}")
