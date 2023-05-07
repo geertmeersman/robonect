@@ -7,6 +7,9 @@ from requests import (
 
 from .const import CONNECTION_RETRY
 from .const import REQUEST_TIMEOUT
+from .const import SERVICE_JOB_AFTER_VALUES
+from .const import SERVICE_JOB_CORRIDOR_VALUES
+from .const import SERVICE_JOB_REMOTESTART_VALUES
 from .exceptions import BadCredentialsException
 from .exceptions import RobonectException
 from .exceptions import RobonectServiceException
@@ -92,17 +95,77 @@ class RobonectClient:
             f"[{caller}] Response: {response.text}, Url: {response.url}"
         )
 
-    def command(self, cmd=None):
+    def command(self, cmd=None, params=""):
         """Get command."""
         if cmd is None:
             return False
         response = self.request(
-            f"{self.api_endpoint}/json?cmd={cmd}",
+            f"{self.api_endpoint}/json?cmd={cmd}&{params}",
             f"[RobonectClient|{cmd}]",
             None,
             200,
         )
         return response
+
+    def start(self) -> bool:
+        """Start the mower."""
+        return self.command("start")
+
+    def stop(self) -> bool:
+        """Stop the mower."""
+        return self.command("stop")
+
+    def reboot(self) -> bool:
+        """Reboot Robonect."""
+        return self.command("service", params="service=reboot")
+
+    def shutdown(self) -> bool:
+        """Shutdown robonect."""
+        return self.command("service", params="service=shutdown")
+
+    def sleep(self) -> bool:
+        """Make Robonect sleep."""
+        return self.command("service", params="service=sleep")
+
+    def job(
+        self,
+        start: str,
+        end: str,
+        duration: int,
+        after: str,
+        remotestart: str,
+        corridor: str,
+    ) -> bool:
+        """Place a mowing job."""
+        params = ["mode=job"]
+        if start is not None:
+            params.append(f"start={start}")
+        if end is not None:
+            params.append(f"end={end}")
+        if duration is not None:
+            params.append(f"duration={duration}")
+        if after is not None:
+            try:
+                index = SERVICE_JOB_AFTER_VALUES.index(after)
+            except ValueError as error:
+                raise RobonectException(error)
+            params.append(f"after={index}")
+        if remotestart is not None:
+            try:
+                index = SERVICE_JOB_REMOTESTART_VALUES.index(remotestart)
+            except ValueError as error:
+                raise RobonectException(error)
+            params.append(f"remotestart={index}")
+        if corridor is not None:
+            try:
+                if corridor == "Normal":
+                    pass
+                index = SERVICE_JOB_CORRIDOR_VALUES.index(corridor) - 1
+            except ValueError as error:
+                raise RobonectException(error)
+            params.append(f"corridor={index}")
+        self.command("mode", params="&".join(params))
+        return True
 
     def login(self) -> dict:
         """Start a new Robonect session with a user & password."""
@@ -208,4 +271,145 @@ class RobonectClient:
             state=wifi_signal_to_percentage(wlan.get("station").get("signal")),
             extra_attributes=wlan.get("station"),
         )
+        version = self.command("version")
+        key = format_entity_name(f"{id} version mower")
+        data[key] = RobonectItem(
+            name="Hardware",
+            key=key,
+            type="date",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=version.get("mower").get("hardware").get("production"),
+            extra_attributes=version.get("mower"),
+        )
+        key = format_entity_name(f"{id} version mower")
+        data[key] = RobonectItem(
+            name="Hardware Production",
+            key=key,
+            type="date",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=version.get("mower").get("hardware").get("production"),
+            extra_attributes=version.get("mower"),
+        )
+        key = format_entity_name(f"{id} version serial")
+        data[key] = RobonectItem(
+            name="Hardware Serial",
+            key=key,
+            type="version",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=version.get("serial"),
+        )
+        key = format_entity_name(f"{id} version bootloader")
+        data[key] = RobonectItem(
+            name="Bootloader version",
+            key=key,
+            type="version",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=version.get("bootloader").get("version"),
+            extra_attributes=version.get("bootloader"),
+        )
+        key = format_entity_name(f"{id} version wlan")
+        data[key] = RobonectItem(
+            name="Wlan version",
+            key=key,
+            type="version",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=version.get("wlan").get("at-version"),
+            extra_attributes=version.get("bootloader"),
+        )
+        key = format_entity_name(f"{id} version application")
+        data[key] = RobonectItem(
+            name="Application version",
+            key=key,
+            type="version",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=version.get("application").get("version"),
+            extra_attributes=version.get("application"),
+        )
+        key = format_entity_name(f"{id} version application")
+        data[key] = RobonectItem(
+            name="Application version",
+            key=key,
+            type="version",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=version.get("application").get("version"),
+            extra_attributes=version.get("application"),
+        )
+        status = self.command("status")
+        key = format_entity_name(f"{id} status")
+        data[key] = RobonectItem(
+            name="Status",
+            key=key,
+            type="status",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=f"raw_{status.get('status').get('status')}",
+            extra_attributes=status.get("status"),
+        )
+        key = format_entity_name(f"{id} mode")
+        data[key] = RobonectItem(
+            name="Mode",
+            key=key,
+            type="mode",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=f"raw_{status.get('status').get('mode')}",
+            extra_attributes=status.get("status"),
+        )
+        key = format_entity_name(f"{id} distance")
+        data[key] = RobonectItem(
+            name="Distance from home",
+            key=key,
+            type="distance",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=status.get("status").get("distance"),
+        )
+        key = format_entity_name(f"{id} stopped")
+        data[key] = RobonectItem(
+            name="Stopped",
+            key=key,
+            type="stopped",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=status.get("status").get("stopped"),
+        )
+        key = format_entity_name(f"{id} hours")
+        data[key] = RobonectItem(
+            name="Operation hours",
+            key=key,
+            type="hours",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=status.get("status").get("hours"),
+        )
+        key = format_entity_name(f"{id} duration")
+        data[key] = RobonectItem(
+            name="Status duration",
+            key=key,
+            type="seconds",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=status.get("status").get("duration"),
+        )
+
         return data

@@ -16,6 +16,14 @@ from .const import _LOGGER
 from .const import COORDINATOR_UPDATE_INTERVAL
 from .const import DOMAIN
 from .const import PLATFORMS
+from .const import SERVICE_JOB
+from .const import SERVICE_JOB_SCHEMA
+from .const import SERVICE_MODE_SCHEMA
+from .const import SERVICE_REBOOT
+from .const import SERVICE_SHUTDOWN
+from .const import SERVICE_SLEEP
+from .const import SERVICE_START
+from .const import SERVICE_STOP
 from .exceptions import RobonectException
 from .exceptions import RobonectServiceException
 from .models import RobonectItem
@@ -43,6 +51,59 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     await coordinator.async_config_entry_first_refresh()
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+
+    async def start(call) -> bool:
+        """Start the Robonect mower."""
+        return await hass.async_add_executor_job(client.start)
+
+    hass.services.async_register(DOMAIN, SERVICE_START, start)
+
+    async def stop(call) -> bool:
+        """Stop the Robonect mower."""
+        return await hass.async_add_executor_job(client.stop)
+
+    hass.services.async_register(DOMAIN, SERVICE_STOP, stop)
+
+    async def reboot(call) -> bool:
+        """Reboot the Robonect mower."""
+        return await hass.async_add_executor_job(client.reboot)
+
+    hass.services.async_register(DOMAIN, SERVICE_REBOOT, reboot)
+
+    async def shutdown(call) -> bool:
+        """Shut the Robonect mower down."""
+        return await hass.async_add_executor_job(client.shutdown)
+
+    hass.services.async_register(DOMAIN, SERVICE_SHUTDOWN, shutdown)
+
+    async def sleep(call) -> bool:
+        """Set the Robonect mower to sleep."""
+        return await hass.async_add_executor_job(client.sleep)
+
+    hass.services.async_register(DOMAIN, SERVICE_SLEEP, sleep)
+
+    async def job(call) -> bool:
+        """Place a mowing job."""
+        await hass.async_add_executor_job(
+            lambda: client.job(
+                start=call.data.get("start"),
+                end=call.data.get("end"),
+                duration=call.data.get("duration"),
+                after=call.data.get("after"),
+                remotestart=call.data.get("remotestart"),
+                corridor=call.data.get("corridor"),
+            )
+        )
+
+    hass.services.async_register(DOMAIN, SERVICE_JOB, job, schema=SERVICE_JOB_SCHEMA)
+
+    async def mode(call) -> bool:
+        """Set the Robonect mower mode."""
+        await hass.async_add_executor_job(
+            lambda: client.mode(mode=call.data.get("mode"))
+        )
+
+    hass.services.async_register(DOMAIN, SERVICE_JOB, mode, schema=SERVICE_MODE_SCHEMA)
 
     return True
 

@@ -63,5 +63,36 @@
       "unknown": "Onverwachte fout",
       "service_error": "Service niet beschikbaar"
     }
+  },
+  "entity": {
+    "sensor": {
+      "status": {
+        "state": {
+          "raw_0": "Status detecteren",
+          "raw_1": "Geparkeerd",
+          "raw_2": "Maaien",
+          "raw_3": "Laadstation zoeken",
+          "raw_4": "Laden",
+          "raw_5": "Zoeken",
+          "raw_7": "Fout",
+          "raw_8": "Kabelsignaal verloren",
+          "raw_16": "Uit",
+          "raw_17": "Slapen",
+          "raw_18": "Wachten op de garagedeur",
+          "raw_98": "Offline (onmogelijk te verbinden)",
+          "raw_99": "Ongekend"
+        }
+      },
+      "mode": {
+        "state": {
+          "raw_0": "Auto",
+          "raw_1": "Manueel",
+          "raw_2": "Home",
+          "raw_3": "Demo",
+          "raw_98": "Einde van de dag",
+          "raw_99": "Maaiopdracht"
+        }
+      }
+    }
   }
 }

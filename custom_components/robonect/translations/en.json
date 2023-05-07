@@ -62,5 +62,36 @@
     "abort": {
       "already_configured": "Account is already configured"
     }
+  },
+  "entity": {
+    "sensor": {
+      "status": {
+        "state": {
+          "raw_0": "Detecting status",
+          "raw_1": "Parked",
+          "raw_2": "Mowing",
+          "raw_3": "Searching charging station",
+          "raw_4": "Charging",
+          "raw_5": "Searching",
+          "raw_7": "Error",
+          "raw_8": "Cable signal lost",
+          "raw_16": "Off",
+          "raw_17": "Sleeping",
+          "raw_18": "Waiting for garage door",
+          "raw_98": "Offline (unable to bind)",
+          "raw_99": "Unkown"
+        }
+      },
+      "mode": {
+        "state": {
+          "raw_0": "Auto",
+          "raw_1": "Manually",
+          "raw_2": "Home",
+          "raw_3": "Demo",
+          "raw_98": "End of day",
+          "raw_99": "Job"
+        }
+      }
+    }
   }
 }
