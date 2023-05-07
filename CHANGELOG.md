@@ -1,5 +1,14 @@
 # Changelog
 
+## [v0.1.1](https://github.com/geertmeersman/robonect/tree/v0.1.1) (2023-05-07)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.1.0...v0.1.1)
+
+**Documentation:**
+
+- Robonect icons & logos black color improved [\#3](https://github.com/geertmeersman/robonect/pull/3) ([geertmeersman](https://github.com/geertmeersman))
+- Robonect icons & logos [\#2](https://github.com/geertmeersman/robonect/pull/2) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.1.0](https://github.com/geertmeersman/robonect/tree/v0.1.0) (2023-05-07)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/bb21ea38eb224911822e39398ff7565352c92941...v0.1.0)
