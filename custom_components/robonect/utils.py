@@ -79,6 +79,7 @@ def get_json_dict_path(dictionary, path):
 
 
 def wifi_signal_to_percentage(signal_strength):
+    """Convert wifi signal in dBm to percentage."""
     # Define the maximum and minimum WiFi signal strengths
     max_signal_strength = -30  # dBm
     min_signal_strength = -100  # dBm
