@@ -55,8 +55,8 @@ Category: Integration
 
 1. Simply search for `Robonect` in HACS and install it easily.
 2. Restart Home Assistant
-3. Add the 'robonect' integration via HA Settings > 'Devices and Services' > 'Integrations'
-4. Provide your robonect username and password
+3. Add the 'Robonect' integration via HA Settings > 'Devices and Services' > 'Integrations'
+4. Provide your Robonect username and password
 
 ### Manual
 
@@ -69,7 +69,7 @@ This integration will set up the following platforms.
 
 | Platform   | Description                                       |
 | ---------- | ------------------------------------------------- |
-| `robonect` | Home Assistant component for robonect BE services |
+| `robonect` | Home Assistant component for Robonect             |
 
 ## Contributions are welcome!
 
