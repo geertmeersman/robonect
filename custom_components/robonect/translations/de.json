@@ -1,0 +1,97 @@
+{
+  "config": {
+    "step": {
+      "connection_init": {
+        "title": "Neues Robonect Konto",
+        "description": "Richten Sie Ihr Robonect Konto ein",
+        "data": {
+          "host": "Host",
+          "username": "Benutzername",
+          "password": "Passwort"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Konto ist bereits konfiguriert"
+    },
+    "error": {
+      "cannot_connect": "Verbindung fehlgeschlagen",
+      "invalid_auth": "Ungültige Authentifizierung",
+      "unknown": "Unerwarteter Fehler",
+      "service_error": "Dienst nicht verfügbar"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Robonect neu konfigurieren",
+        "data": {
+          "host": "Host",
+          "username": "Benutzername",
+          "password": "Passwort"
+        }
+      },
+      "host": {
+        "title": "Aktualisiere die Robonect Hostadresse",
+        "description": "Zu tun, wenn sich Ihre Robonect Host-Adresse geändert hat",
+        "data": {
+          "host": "Host"
+        }
+      },
+      "password": {
+        "title": "Aktualisiere dein Passwort",
+        "description": "Zu tun, wenn Sie Ihr Passwort geändert haben",
+        "data": {
+          "password": "Passwort"
+        }
+      },
+      "options_init": {
+        "title": "Optionen ändern",
+        "menu_options": {
+          "host": "Host",
+          "password": "Passwort"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Konto ist bereits konfiguriert"
+    },
+    "error": {
+      "cannot_connect": "Verbindung fehlgeschlagen",
+      "invalid_auth": "Ungültige Authentifizierung",
+      "unknown": "Unerwarteter Fehler",
+      "service_error": "Dienst nicht verfügbar"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "status": {
+        "state": {
+          "raw_0": "Erkenne status",
+          "raw_1": "Parken",
+          "raw_2": "Mähen",
+          "raw_3": "Suchen der Ladestation",
+          "raw_4": "Laden",
+          "raw_5": "Umsetzen",
+          "raw_7": "Fehler",
+          "raw_8": "Schleifensignal verloren",
+          "raw_16": "Abgeschaltet",
+          "raw_17": "Schlafen",
+          "raw_18": "Wartet aus garagentor",
+          "raw_98": "Offline (Verbindung nicht möglich)",
+          "raw_99": "Unbekannt"
+        }
+      },
+      "mode": {
+        "state": {
+          "raw_0": "Auto",
+          "raw_1": "Manuell",
+          "raw_2": "Home",
+          "raw_3": "Demo",
+          "raw_98": "Feierabend",
+          "raw_99": "Mähauftrag"
+        }
+      }
+    }
+  }
+}

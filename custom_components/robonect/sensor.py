@@ -78,6 +78,49 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=PERCENTAGE,
     ),
+    RobonectSensorDescription(
+        key="date",
+        icon="mdi:calendar-star",
+        device_class=SensorDeviceClass.DATE,
+    ),
+    RobonectSensorDescription(
+        key="version",
+        icon="mdi:tag",
+    ),
+    RobonectSensorDescription(
+        key="status",
+        icon="mdi:crosshairs-question",
+        translation_key="status",
+    ),
+    RobonectSensorDescription(
+        key="mode",
+        icon="mdi:auto-mode",
+        translation_key="mode",
+    ),
+    RobonectSensorDescription(
+        key="stopped",
+        icon="mdi:stop",
+    ),
+    RobonectSensorDescription(
+        key="distance",
+        icon="mdi:map-marker-distance",
+        device_class=SensorDeviceClass.DISTANCE,
+        native_unit_of_measurement="m",
+    ),
+    RobonectSensorDescription(
+        key="hours",
+        icon="mdi:clock-star-four-points",
+        device_class=SensorDeviceClass.DURATION,
+        state_class=SensorStateClass.TOTAL_INCREASING,
+        native_unit_of_measurement="h",
+    ),
+    RobonectSensorDescription(
+        key="seconds",
+        icon="mdi:timer-sand",
+        device_class=SensorDeviceClass.DURATION,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement="s",
+    ),
 ]
 
 
@@ -111,6 +154,7 @@ async def async_setup_entry(
                     value_fn=description.value_fn,
                     native_unit_of_measurement=native_unit_of_measurement,
                     icon=description.icon,
+                    translation_key=description.translation_key,
                 )
 
                 log_debug(f"[sensor|async_setup_entry|adding] {item.name}")
@@ -154,6 +198,12 @@ class RobonectSensor(RobonectEntity, SensorEntity):
             return self.entity_description.value_fn(state)
 
         return state
+
+    @property
+    def translation_key(self) -> str | None:
+        if self.entity_description.translation_key:
+            return self.entity_description.translation_key
+        return None
 
     @property
     def extra_state_attributes(self):
