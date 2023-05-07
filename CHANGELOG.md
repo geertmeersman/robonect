@@ -1,28 +1,12 @@
 # Changelog
 
-## [v0.1.2](https://github.com/geertmeersman/miwa/tree/v0.1.2) (2023-05-06)
+## [v0.1.0](https://github.com/geertmeersman/robonect/tree/v0.1.0) (2023-05-07)
 
-[Full Changelog](https://github.com/geertmeersman/miwa/compare/v0.1.1...v0.1.2)
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/bb21ea38eb224911822e39398ff7565352c92941...v0.1.0)
 
 **Implemented enhancements:**
 
-- Ruff config, Debug off & delivery method sensor simplified [\#3](https://github.com/geertmeersman/miwa/pull/3) ([geertmeersman](https://github.com/geertmeersman))
-
-## [v0.1.1](https://github.com/geertmeersman/miwa/tree/v0.1.1) (2023-05-06)
-
-[Full Changelog](https://github.com/geertmeersman/miwa/compare/v0.1.0...v0.1.1)
-
-**Fixed bugs:**
-
-- Verzending correction for sensor class [\#2](https://github.com/geertmeersman/miwa/pull/2) ([geertmeersman](https://github.com/geertmeersman))
-
-## [v0.1.0](https://github.com/geertmeersman/miwa/tree/v0.1.0) (2023-05-06)
-
-[Full Changelog](https://github.com/geertmeersman/miwa/compare/5738c29a8f71cf01edb3bdfc2475b37a21a058e1...v0.1.0)
-
-**Merged pull requests:**
-
-- Bump ruff from 0.0.263 to 0.0.265 [\#1](https://github.com/geertmeersman/miwa/pull/1) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Initial version including battery sensors [\#1](https://github.com/geertmeersman/robonect/pull/1) ([geertmeersman](https://github.com/geertmeersman))
 
 
 
