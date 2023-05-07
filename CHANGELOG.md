@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.1.2](https://github.com/geertmeersman/robonect/tree/v0.1.2) (2023-05-07)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.1.1...v0.1.2)
+
+**Implemented enhancements:**
+
+- Robonect services & multiple sensors added [\#4](https://github.com/geertmeersman/robonect/pull/4) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.1.1](https://github.com/geertmeersman/robonect/tree/v0.1.1) (2023-05-07)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.1.0...v0.1.1)
