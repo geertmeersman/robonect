@@ -1,0 +1,21 @@
+- name: fix
+  description: A bug correction
+  color: d3fc03
+- name: enhancement
+  description: A new feature or request
+  color: a2eeef
+- name: documentation
+  description: This issue relates to writing documentation
+  color: D4C5F9
+- name: major
+  description: A change requiring a major version bump
+  color: 6b230e
+- name: minor
+  description: A change requiring a minor version bump
+  color: cc6749
+- name: patch
+  description: A change requiring a patch version bump
+  color: f9d0c4
+- name: breaking
+  description: A breaking change
+  color: d30000

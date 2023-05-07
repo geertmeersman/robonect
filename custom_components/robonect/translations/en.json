@@ -1,0 +1,66 @@
+{
+  "config": {
+    "step": {
+      "connection_init": {
+        "title": "New Robonect account",
+        "description": "Set up your Robonect account",
+        "data": {
+          "host": "Host",
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Account is already configured"
+    },
+    "error": {
+      "cannot_connect": "Failed to connect",
+      "invalid_auth": "Invalid authentication",
+      "unknown": "Unexpected error",
+      "service_error": "Service unavailable"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Reconfigure Robonect",
+        "data": {
+          "host": "Host",
+          "username": "Username",
+          "password": "Password"
+        }
+      },
+      "host": {
+        "title": "Update the Robonect Host Address",
+        "description": "To do when your Robonect Host address changed",
+        "data": {
+          "host": "Host"
+        }
+      },
+      "password": {
+        "title": "Update your password",
+        "description": "To do when you changed your password",
+        "data": {
+          "password": "Password"
+        }
+      },
+      "options_init": {
+        "title": "Change options",
+        "menu_options": {
+          "host": "Host",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect",
+      "invalid_auth": "Invalid authentication",
+      "unknown": "Unexpected error",
+      "service_error": "Service unavailable"
+    },
+    "abort": {
+      "already_configured": "Account is already configured"
+    }
+  }
+}

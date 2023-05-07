@@ -1,0 +1,67 @@
+{
+  "config": {
+    "step": {
+      "connection_init": {
+        "title": "Nieuwe Robonect account",
+        "description": "Configureer je Robonect account",
+        "data": {
+          "host": "Host",
+          "username": "Gebruiker",
+          "password": "Wachtwoord"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Account is al geconfigureerd"
+    },
+    "error": {
+      "cannot_connect": "Kan geen verbinding maken",
+      "invalid_auth": "Ongeldige authenticatie",
+      "unknown": "Onverwachte fout",
+      "service_error": "Service niet beschikbaar"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Herconfigureer Robonect",
+        "data": {
+          "host": "Host",
+          "username": "Gebruiker",
+          "password": "Wachtwoord"
+        }
+      },
+      "host": {
+        "title": "Pas je host adres aan",
+        "description": "Te doen wanneer het Robonect host adres gewijzigd is",
+        "data": {
+          "password": "Wachtwoord"
+        }
+      },
+      "password": {
+        "title": "Pas je wachtwoord aan",
+        "description": "Te doen wanneer je je account wachtwoord gewijzigd hebt",
+        "data": {
+          "host": "Host"
+        }
+      },
+      "options_init": {
+        "title": "Opties wijzigen",
+        "menu_options": {
+          "init": "Herconfigureer",
+          "host": "Host",
+          "password": "Wachtwoord"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Account is al geconfigureerd"
+    },
+    "error": {
+      "cannot_connect": "Kan geen verbinding maken",
+      "invalid_auth": "Ongeldige authenticatie",
+      "unknown": "Onverwachte fout",
+      "service_error": "Service niet beschikbaar"
+    }
+  }
+}
