@@ -92,6 +92,13 @@
           "raw_98": "Einde van de dag",
           "raw_99": "Maaiopdracht"
         }
+      },
+      "timer_status": {
+        "state": {
+          "raw_0": "Uitgeschakeld",
+          "raw_1": "Actief",
+          "raw_2": "Stand-by"
+        }
       }
     }
   }

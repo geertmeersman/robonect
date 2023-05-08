@@ -91,6 +91,13 @@
           "raw_98": "End of day",
           "raw_99": "Job"
         }
+      },
+      "timer_status": {
+        "state": {
+          "raw_0": "Disabled",
+          "raw_1": "Active",
+          "raw_2": "Standby"
+        }
       }
     }
   }

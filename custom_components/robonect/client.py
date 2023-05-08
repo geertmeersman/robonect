@@ -242,7 +242,7 @@ class RobonectClient:
             data[key] = RobonectItem(
                 name=f"Battery {battery.get('id')+1} Temperature",
                 key=key,
-                type="battery_temperature",
+                type="temperature",
                 device_key=device_key,
                 device_name=device_name,
                 device_model=device_model,
@@ -410,6 +410,149 @@ class RobonectClient:
             device_name=device_name,
             device_model=device_model,
             state=status.get("status").get("duration"),
+        )
+        key = format_entity_name(f"{id} timer next start")
+        data[key] = RobonectItem(
+            name="Next start",
+            key=key,
+            type="timestamp",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=f"{status.get('timer').get('next').get('date')} {status.get('timer').get('next').get('time')}",
+        )
+        timer = self.command("timer")
+        key = format_entity_name(f"{id} timer status")
+        data[key] = RobonectItem(
+            name="Timer status",
+            key=key,
+            type="timer_status",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=f"raw_{status.get('timer').get('status')}",
+            extra_attributes=timer,
+        )
+        key = format_entity_name(f"{id} blades quality")
+        data[key] = RobonectItem(
+            name="Blades quality",
+            key=key,
+            type="blades_quality",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=status.get("blades").get("quality"),
+        )
+        key = format_entity_name(f"{id} blades hours")
+        data[key] = RobonectItem(
+            name="Blades hours",
+            key=key,
+            type="hours",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=status.get("blades").get("hours"),
+        )
+        key = format_entity_name(f"{id} blades days")
+        data[key] = RobonectItem(
+            name="Blades days",
+            key=key,
+            type="days",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=status.get("blades").get("days"),
+        )
+        key = format_entity_name(f"{id} health temperature")
+        data[key] = RobonectItem(
+            name="Temperature",
+            key=key,
+            type="temperature",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=status.get("health").get("temperature"),
+        )
+        key = format_entity_name(f"{id} health humidity")
+        data[key] = RobonectItem(
+            name="Humidity",
+            key=key,
+            type="humidity",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=status.get("health").get("humidity"),
+        )
+        key = format_entity_name(f"{id} clock")
+        data[key] = RobonectItem(
+            name="Clock",
+            key=key,
+            type="timestamp",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=f"{status.get('clock').get('date')} {status.get('clock').get('time')}",
+        )
+        hour = self.command("hour")
+        key = format_entity_name(f"{id} mowing time")
+        data[key] = RobonectItem(
+            name="Mowing time",
+            key=key,
+            type="hours",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=hour.get("general").get("mow"),
+        )
+        key = format_entity_name(f"{id} search time")
+        data[key] = RobonectItem(
+            name="Search time",
+            key=key,
+            type="hours",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=hour.get("general").get("search"),
+        )
+        key = format_entity_name(f"{id} charging time")
+        data[key] = RobonectItem(
+            name="Charging time",
+            key=key,
+            type="hours",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=hour.get("general").get("charge"),
+        )
+        key = format_entity_name(f"{id} Full charges")
+        data[key] = RobonectItem(
+            name="Full charges",
+            key=key,
+            type="counter",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=hour.get("general").get("charges"),
+        )
+        key = format_entity_name(f"{id} faults")
+        data[key] = RobonectItem(
+            name="Faults",
+            key=key,
+            type="counter",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=hour.get("general").get("errors"),
+        )
+        key = format_entity_name(f"{id} data since")
+        data[key] = RobonectItem(
+            name="Data since",
+            key=key,
+            type="timestamp",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=hour.get("general").get("since"),
         )
 
         return data

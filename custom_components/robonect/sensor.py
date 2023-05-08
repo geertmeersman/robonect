@@ -62,7 +62,7 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
         native_unit_of_measurement=ELECTRIC_CURRENT_MILLIAMPERE,
     ),
     RobonectSensorDescription(
-        key="battery_temperature",
+        key="temperature",
         icon="mdi:temperature-celsius",
         device_class=SensorDeviceClass.TEMPERATURE,
         state_class=SensorStateClass.MEASUREMENT,
@@ -108,6 +108,13 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
         native_unit_of_measurement="m",
     ),
     RobonectSensorDescription(
+        key="days",
+        icon="mdi:calendar-arrow-right",
+        device_class=SensorDeviceClass.DURATION,
+        state_class=SensorStateClass.TOTAL_INCREASING,
+        native_unit_of_measurement="d",
+    ),
+    RobonectSensorDescription(
         key="hours",
         icon="mdi:clock-star-four-points",
         device_class=SensorDeviceClass.DURATION,
@@ -120,6 +127,40 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
         device_class=SensorDeviceClass.DURATION,
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement="s",
+    ),
+    RobonectSensorDescription(
+        key="blades_quality",
+        icon="mdi:fan-alert",
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    RobonectSensorDescription(
+        key="timestamp",
+        icon="mdi:calendar-start",
+        device_class=SensorDeviceClass.TIMESTAMP,
+    ),
+    RobonectSensorDescription(
+        key="timer_status",
+        icon="mdi:timer-cog-outline",
+        translation_key="timer_status",
+    ),
+    RobonectSensorDescription(
+        key="humidity",
+        icon="mdi:water-percent",
+        device_class=SensorDeviceClass.HUMIDITY,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement=PERCENTAGE,
+    ),
+    RobonectSensorDescription(
+        key="humidity",
+        icon="mdi:water-percent",
+        device_class=SensorDeviceClass.HUMIDITY,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement=PERCENTAGE,
+    ),
+    RobonectSensorDescription(
+        key="counter",
+        icon="mdi:counter",
+        state_class=SensorStateClass.MEASUREMENT,
     ),
 ]
 
