@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.1.3](https://github.com/geertmeersman/robonect/tree/v0.1.3) (2023-05-08)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.1.2...v0.1.3)
+
+**Implemented enhancements:**
+
+- Version, status, timer and hour sensors [\#5](https://github.com/geertmeersman/robonect/pull/5) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.1.2](https://github.com/geertmeersman/robonect/tree/v0.1.2) (2023-05-07)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.1.1...v0.1.2)
