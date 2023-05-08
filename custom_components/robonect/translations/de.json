@@ -91,6 +91,13 @@
           "raw_98": "Feierabend",
           "raw_99": "Mähauftrag"
         }
+      },
+      "timer_status": {
+        "state": {
+          "raw_0": "Deaktiviert",
+          "raw_1": "Aktiv",
+          "raw_2": "Standby"
+        }
       }
     }
   }
