@@ -7,7 +7,9 @@
         "data": {
           "host": "Host",
           "username": "Gebruiker",
-          "password": "Wachtwoord"
+          "password": "Wachtwoord",
+          "update_interval": "Update interval (min)",
+          "tracking": "Te volgen sensors"
         }
       }
     },
@@ -45,12 +47,32 @@
           "host": "Host"
         }
       },
+      "update_interval": {
+        "title": "Update interval",
+        "description": "Wijzig het update interval voor het verversen van de sensors",
+        "data": {
+          "update_interval": "Update interval (min)"
+        }
+      },
+      "sensors": {
+        "title": "Sensor",
+        "description": "Welke sensoren volgen",
+        "data": {
+          "track_battery": "Batterij",
+          "track_wlan": "WLAN",
+          "track_version": "Versie",
+          "track_timer": "Timer",
+          "track_hour": "Tijd",
+          "track_error": "Fouten"
+        }
+      },
       "options_init": {
         "title": "Opties wijzigen",
         "menu_options": {
-          "init": "Herconfigureer",
           "host": "Host",
-          "password": "Wachtwoord"
+          "password": "Wachtwoord",
+          "update_interval": "Update interval",
+          "sensors": "Sensors"
         }
       }
     },
@@ -99,6 +121,18 @@
           "raw_1": "Actief",
           "raw_2": "Stand-by"
         }
+      }
+    }
+  },
+  "selector": {
+    "tracking": {
+      "options": {
+        "battery": "Batterij",
+        "wlan": "Wlan",
+        "version": "Versie",
+        "timer": "Timer",
+        "hour": "Tijd",
+        "error": "Fouten"
       }
     }
   }

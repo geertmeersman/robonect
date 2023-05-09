@@ -14,14 +14,24 @@ from homeassistant.const import CONF_USERNAME
 from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowHandler
 from homeassistant.data_entry_flow import FlowResult
+from homeassistant.helpers.selector import NumberSelector
+from homeassistant.helpers.selector import NumberSelectorConfig
+from homeassistant.helpers.selector import NumberSelectorMode
+from homeassistant.helpers.selector import SelectSelector
+from homeassistant.helpers.selector import SelectSelectorConfig
+from homeassistant.helpers.selector import SelectSelectorMode
 from homeassistant.helpers.selector import TextSelector
 from homeassistant.helpers.selector import TextSelectorConfig
 from homeassistant.helpers.selector import TextSelectorType
 from homeassistant.helpers.typing import UNDEFINED
 
 from .client import RobonectClient
+from .const import CONF_TRACKING
+from .const import CONF_UPDATE_INTERVAL
+from .const import DEFAULT_UPDATE_INTERVAL
 from .const import DOMAIN
 from .const import NAME
+from .const import SENSOR_GROUPS
 from .exceptions import BadCredentialsException
 from .exceptions import RobonectServiceException
 from .models import RobonectConfigEntryData
@@ -31,6 +41,8 @@ DEFAULT_ENTRY_DATA = RobonectConfigEntryData(
     host=None,
     username=None,
     password=None,
+    tracking=[],
+    update_interval=DEFAULT_UPDATE_INTERVAL,
 )
 
 
@@ -58,6 +70,7 @@ class RobonectCommonFlow(ABC, FlowHandler):
             host=user_input[CONF_HOST],
             username=user_input[CONF_USERNAME],
             password=user_input[CONF_PASSWORD],
+            tracking=user_input[CONF_TRACKING],
         )
 
         return await self.hass.async_add_executor_job(client.login)
@@ -90,6 +103,20 @@ class RobonectCommonFlow(ABC, FlowHandler):
             vol.Required(CONF_PASSWORD): TextSelector(
                 TextSelectorConfig(
                     type=TextSelectorType.PASSWORD, autocomplete="password"
+                )
+            ),
+            vol.Required(
+                CONF_UPDATE_INTERVAL, default=DEFAULT_UPDATE_INTERVAL
+            ): NumberSelector(
+                NumberSelectorConfig(min=1, max=60, step=1, mode=NumberSelectorMode.BOX)
+            ),
+            vol.Required(CONF_TRACKING, default=SENSOR_GROUPS): SelectSelector(
+                SelectSelectorConfig(
+                    options=SENSOR_GROUPS,
+                    multiple=True,
+                    custom_value=False,
+                    mode=SelectSelectorMode.DROPDOWN,
+                    translation_key=CONF_TRACKING,
                 )
             ),
         }
@@ -175,6 +202,58 @@ class RobonectCommonFlow(ABC, FlowHandler):
             errors=errors,
         )
 
+    async def async_step_update_interval(
+        self, user_input: dict | None = None
+    ) -> FlowResult:
+        """Configure update interval."""
+        errors: dict = {}
+
+        if user_input is not None:
+            self.new_entry_data |= user_input
+            return self.finish_flow()
+
+        fields = {
+            vol.Required(CONF_UPDATE_INTERVAL): NumberSelector(
+                NumberSelectorConfig(min=1, max=60, step=1, mode=NumberSelectorMode.BOX)
+            ),
+        }
+        return self.async_show_form(
+            step_id="update_interval",
+            data_schema=self.add_suggested_values_to_schema(
+                vol.Schema(fields),
+                self.initial_data,
+            ),
+            errors=errors,
+        )
+
+    async def async_step_sensors(self, user_input: dict | None = None) -> FlowResult:
+        """Configure sensors."""
+        errors: dict = {}
+
+        if user_input is not None:
+            self.new_entry_data |= user_input
+            return self.finish_flow()
+
+        fields = {
+            vol.Required(CONF_TRACKING): SelectSelector(
+                SelectSelectorConfig(
+                    options=SENSOR_GROUPS,
+                    multiple=True,
+                    custom_value=False,
+                    mode=SelectSelectorMode.DROPDOWN,
+                    translation_key=CONF_TRACKING,
+                )
+            ),
+        }
+        return self.async_show_form(
+            step_id="sensors",
+            data_schema=self.add_suggested_values_to_schema(
+                vol.Schema(fields),
+                self.initial_data,
+            ),
+            errors=errors,
+        )
+
 
 class RobonectOptionsFlow(RobonectCommonFlow, OptionsFlow):
     """Handle Robonect options."""
@@ -195,6 +274,9 @@ class RobonectOptionsFlow(RobonectCommonFlow, OptionsFlow):
             data=new_data,
             title=self.new_title or UNDEFINED,
         )
+        self.hass.async_create_task(
+            self.hass.config_entries.async_reload(self.config_entry.entry_id)
+        )
         return self.async_create_entry(title="", data={})
 
     async def async_step_init(
@@ -206,6 +288,8 @@ class RobonectOptionsFlow(RobonectCommonFlow, OptionsFlow):
             menu_options=[
                 "host",
                 "password",
+                "update_interval",
+                "sensors",
             ],
         )
 

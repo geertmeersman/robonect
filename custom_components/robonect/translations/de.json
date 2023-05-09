@@ -7,7 +7,9 @@
         "data": {
           "host": "Host",
           "username": "Benutzername",
-          "password": "Passwort"
+          "password": "Passwort",
+          "update_interval": "Aktualisierungsintervall (min)",
+          "tracking": "Sensoren zum Nachverfolgen"
         }
       }
     },
@@ -45,11 +47,32 @@
           "password": "Passwort"
         }
       },
+      "update_interval": {
+        "title": "Aktualisierungsintervall",
+        "description": "Stellen Sie das Aktualisierungsintervall zum Aktualisieren der Sensoren ein",
+        "data": {
+          "update_interval": "Aktualisierungsintervall (min)"
+        }
+      },
+      "sensors": {
+        "title": "Sensor",
+        "description": "Welche Sensoren sollen verfolgt werden",
+        "data": {
+          "track_battery": "Batterie",
+          "track_wlan": "WLAN",
+          "track_version": "Version",
+          "track_timer": "Timer",
+          "track_hour": "Stunde",
+          "track_error": "Fehler"
+        }
+      },
       "options_init": {
         "title": "Optionen ändern",
         "menu_options": {
           "host": "Host",
-          "password": "Passwort"
+          "password": "Passwort",
+          "update_interval": "Aktualisierungsintervall",
+          "sensors": "Sensoren"
         }
       }
     },
@@ -98,6 +121,18 @@
           "raw_1": "Aktiv",
           "raw_2": "Standby"
         }
+      }
+    }
+  },
+  "selector": {
+    "tracking": {
+      "options": {
+        "battery": "Battery",
+        "wlan": "Wlan",
+        "version": "Version",
+        "timer": "Timer",
+        "hour": "Stunde",
+        "error": "Fehler"
       }
     }
   }
