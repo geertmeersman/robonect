@@ -127,6 +127,11 @@ class RobonectClient:
         """Make Robonect sleep."""
         return self.command("service", params="service=sleep")
 
+    def sleeping(self) -> int:
+        """Return raw status code"""
+        status = self.command("status")
+        return status.get("status").get("status") == 17
+
     def job(
         self,
         start: str,
@@ -179,174 +184,22 @@ class RobonectClient:
     def fetch_data(self):
         """Fetch Robonect data."""
         data = {}
-        name = self.command("name")
-        if not name:
+        status = self.command("status")
+        if not status:
             raise RobonectException()
-        id = name.get("id")
+        id = status.get("id")
         device_key = format_entity_name(f"Robonect {id}")
-        device_name = f"Robonect {name.get('name')}"
+        device_name = f"Robonect {status.get('name')}"
         device_model = "Robonect"
         key = format_entity_name(f"{id} id")
         data[key] = RobonectItem(
-            name=name.get("name"),
+            name=status.get("name"),
             key=key,
             type="mower",
             device_key=device_key,
             device_name=device_name,
             device_model=device_model,
             state=id,
-            extra_attributes=name,
-        )
-        for battery in self.command("battery").get("batteries"):
-            key = format_entity_name(f"{id} battery {battery.get('id')} status")
-            data[key] = RobonectItem(
-                name=f"Battery {battery.get('id')+1} Status",
-                key=key,
-                type="battery_percentage",
-                device_key=device_key,
-                device_name=device_name,
-                device_model=device_model,
-                state=battery.get("charge"),
-            )
-            key = format_entity_name(f"{id} battery {battery.get('id')} voltage")
-            data[key] = RobonectItem(
-                name=f"Battery {battery.get('id')+1} Voltage",
-                key=key,
-                type="battery_voltage",
-                device_key=device_key,
-                device_name=device_name,
-                device_model=device_model,
-                state=battery.get("voltage") / 1000,
-            )
-            key = format_entity_name(f"{id} battery {battery.get('id')} capacity")
-            data[key] = RobonectItem(
-                name=f"Battery {battery.get('id')+1} Capacity",
-                key=key,
-                type="battery_capacity",
-                device_key=device_key,
-                device_name=device_name,
-                device_model=device_model,
-                state=battery.get("capacity").get("remaining"),
-            )
-            key = format_entity_name(f"{id} battery {battery.get('id')} charge current")
-            data[key] = RobonectItem(
-                name=f"Battery {battery.get('id')+1} Charge current",
-                key=key,
-                type="battery_charge_current",
-                device_key=device_key,
-                device_name=device_name,
-                device_model=device_model,
-                state=battery.get("current"),
-            )
-            key = format_entity_name(f"{id} battery {battery.get('id')} temperature")
-            data[key] = RobonectItem(
-                name=f"Battery {battery.get('id')+1} Temperature",
-                key=key,
-                type="temperature",
-                device_key=device_key,
-                device_name=device_name,
-                device_model=device_model,
-                state=battery.get("temperature") / 10,
-            )
-        wlan = self.command("wlan")
-        key = format_entity_name(f"{id} wlan ap")
-        data[key] = RobonectItem(
-            name="WLAN AP",
-            key=key,
-            type="wlan_ap",
-            device_key=device_key,
-            device_name=device_name,
-            device_model=device_model,
-            state=wlan.get("ap").get("ssid"),
-            extra_attributes=wlan.get("ap"),
-        )
-        key = format_entity_name(f"{id} wlan station")
-        data[key] = RobonectItem(
-            name=f"WLAN {wlan.get('station').get('ssid')}",
-            key=key,
-            type="wlan_station",
-            device_key=device_key,
-            device_name=device_name,
-            device_model=device_model,
-            state=wifi_signal_to_percentage(wlan.get("station").get("signal")),
-            extra_attributes=wlan.get("station"),
-        )
-        version = self.command("version")
-        key = format_entity_name(f"{id} version mower")
-        data[key] = RobonectItem(
-            name="Hardware",
-            key=key,
-            type="date",
-            device_key=device_key,
-            device_name=device_name,
-            device_model=device_model,
-            state=version.get("mower").get("hardware").get("production"),
-            extra_attributes=version.get("mower"),
-        )
-        key = format_entity_name(f"{id} version mower")
-        data[key] = RobonectItem(
-            name="Hardware Production",
-            key=key,
-            type="date",
-            device_key=device_key,
-            device_name=device_name,
-            device_model=device_model,
-            state=version.get("mower").get("hardware").get("production"),
-            extra_attributes=version.get("mower"),
-        )
-        key = format_entity_name(f"{id} version serial")
-        data[key] = RobonectItem(
-            name="Hardware Serial",
-            key=key,
-            type="version",
-            device_key=device_key,
-            device_name=device_name,
-            device_model=device_model,
-            state=version.get("serial"),
-        )
-        key = format_entity_name(f"{id} version bootloader")
-        data[key] = RobonectItem(
-            name="Bootloader version",
-            key=key,
-            type="version",
-            device_key=device_key,
-            device_name=device_name,
-            device_model=device_model,
-            state=version.get("bootloader").get("version"),
-            extra_attributes=version.get("bootloader"),
-        )
-        key = format_entity_name(f"{id} version wlan")
-        data[key] = RobonectItem(
-            name="Wlan version",
-            key=key,
-            type="version",
-            device_key=device_key,
-            device_name=device_name,
-            device_model=device_model,
-            state=version.get("wlan").get("at-version"),
-            extra_attributes=version.get("bootloader"),
-        )
-        key = format_entity_name(f"{id} version application")
-        data[key] = RobonectItem(
-            name="Application version",
-            key=key,
-            type="version",
-            device_key=device_key,
-            device_name=device_name,
-            device_model=device_model,
-            state=version.get("application").get("version"),
-            extra_attributes=version.get("application"),
-        )
-        key = format_entity_name(f"{id} version application")
-        data[key] = RobonectItem(
-            name="Application version",
-            key=key,
-            type="version",
-            device_key=device_key,
-            device_name=device_name,
-            device_model=device_model,
-            state=version.get("application").get("version"),
-            extra_attributes=version.get("application"),
         )
         status = self.command("status")
         key = format_entity_name(f"{id} status")
@@ -412,7 +265,7 @@ class RobonectClient:
             state=status.get("status").get("duration"),
         )
         key = format_entity_name(f"{id} timer next start")
-        if status.get("timer").get("status") == 2:
+        if "next" in status.get("timer"):
             next_start = f"{status.get('timer').get('next').get('date')} {status.get('timer').get('next').get('time')}"
         else:
             next_start = ""
@@ -425,7 +278,6 @@ class RobonectClient:
             device_model=device_model,
             state=next_start,
         )
-        timer = self.command("timer")
         key = format_entity_name(f"{id} timer status")
         data[key] = RobonectItem(
             name="Timer status",
@@ -435,7 +287,6 @@ class RobonectClient:
             device_name=device_name,
             device_model=device_model,
             state=f"raw_{status.get('timer').get('status')}",
-            extra_attributes=timer,
         )
         key = format_entity_name(f"{id} blades quality")
         data[key] = RobonectItem(
@@ -497,92 +348,236 @@ class RobonectClient:
             device_model=device_model,
             state=f"{status.get('clock').get('date')} {status.get('clock').get('time')}",
         )
-        hour = self.command("hour")
-        key = format_entity_name(f"{id} mowing time")
-        data[key] = RobonectItem(
-            name="Mowing time",
-            key=key,
-            type="hours",
-            device_key=device_key,
-            device_name=device_name,
-            device_model=device_model,
-            state=hour.get("general").get("mow"),
-        )
-        key = format_entity_name(f"{id} search time")
-        data[key] = RobonectItem(
-            name="Search time",
-            key=key,
-            type="hours",
-            device_key=device_key,
-            device_name=device_name,
-            device_model=device_model,
-            state=hour.get("general").get("search"),
-        )
-        key = format_entity_name(f"{id} charging time")
-        data[key] = RobonectItem(
-            name="Charging time",
-            key=key,
-            type="hours",
-            device_key=device_key,
-            device_name=device_name,
-            device_model=device_model,
-            state=hour.get("general").get("charge"),
-        )
-        key = format_entity_name(f"{id} Full charges")
-        data[key] = RobonectItem(
-            name="Full charges",
-            key=key,
-            type="counter",
-            device_key=device_key,
-            device_name=device_name,
-            device_model=device_model,
-            state=hour.get("general").get("charges"),
-        )
-        error = self.command("error")
-        key = format_entity_name(f"{id} faults")
-        data[key] = RobonectItem(
-            name="Faults",
-            key=key,
-            type="counter",
-            device_key=device_key,
-            device_name=device_name,
-            device_model=device_model,
-            state=hour.get("general").get("errors"),
-            extra_attributes=error,
-        )
-        key = format_entity_name(f"{id} data since")
-        data[key] = RobonectItem(
-            name="Data since",
-            key=key,
-            type="timestamp",
-            device_key=device_key,
-            device_name=device_name,
-            device_model=device_model,
-            state=hour.get("general").get("since"),
-        )
-        key = format_entity_name(f"{id} last error")
-        data[key] = RobonectItem(
-            name="Last error",
-            key=key,
-            type="error",
-            device_key=device_key,
-            device_name=device_name,
-            device_model=device_model,
-            state=error.get("errors")[1].get("error_message"),
-            extra_attributes=error.get("errors")[1],
-        )
-        """
-        key = format_entity_name(f"{id} last error")
-        data[key] = RobonectItem(
-            name="Last error",
-            key=key,
-            type="error",
-            device_key=device_key,
-            device_name=device_name,
-            device_model=device_model,
-            state=error.get("errors")[1].get("error_message"),
-            extra_attributes=error.get("errors")[1],
-        )
-        """
-
+        if status.get("status").get("status") != 17:
+            for battery in self.command("battery").get("batteries"):
+                key = format_entity_name(f"{id} battery {battery.get('id')} status")
+                data[key] = RobonectItem(
+                    name=f"Battery {battery.get('id')+1} Status",
+                    key=key,
+                    type="battery_percentage",
+                    device_key=device_key,
+                    device_name=device_name,
+                    device_model=device_model,
+                    state=battery.get("charge"),
+                )
+                key = format_entity_name(f"{id} battery {battery.get('id')} voltage")
+                data[key] = RobonectItem(
+                    name=f"Battery {battery.get('id')+1} Voltage",
+                    key=key,
+                    type="battery_voltage",
+                    device_key=device_key,
+                    device_name=device_name,
+                    device_model=device_model,
+                    state=battery.get("voltage") / 1000,
+                )
+                key = format_entity_name(f"{id} battery {battery.get('id')} capacity")
+                data[key] = RobonectItem(
+                    name=f"Battery {battery.get('id')+1} Capacity",
+                    key=key,
+                    type="battery_capacity",
+                    device_key=device_key,
+                    device_name=device_name,
+                    device_model=device_model,
+                    state=battery.get("capacity").get("remaining"),
+                )
+                key = format_entity_name(
+                    f"{id} battery {battery.get('id')} charge current"
+                )
+                data[key] = RobonectItem(
+                    name=f"Battery {battery.get('id')+1} Charge current",
+                    key=key,
+                    type="battery_charge_current",
+                    device_key=device_key,
+                    device_name=device_name,
+                    device_model=device_model,
+                    state=battery.get("current"),
+                )
+                key = format_entity_name(
+                    f"{id} battery {battery.get('id')} temperature"
+                )
+                data[key] = RobonectItem(
+                    name=f"Battery {battery.get('id')+1} Temperature",
+                    key=key,
+                    type="temperature",
+                    device_key=device_key,
+                    device_name=device_name,
+                    device_model=device_model,
+                    state=battery.get("temperature") / 10,
+                )
+            wlan = self.command("wlan")
+            key = format_entity_name(f"{id} wlan ap")
+            data[key] = RobonectItem(
+                name="WLAN AP",
+                key=key,
+                type="wlan_ap",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=wlan.get("ap").get("ssid"),
+                extra_attributes=wlan.get("ap"),
+            )
+            key = format_entity_name(f"{id} wlan station")
+            data[key] = RobonectItem(
+                name=f"WLAN {wlan.get('station').get('ssid')}",
+                key=key,
+                type="wlan_station",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=wifi_signal_to_percentage(wlan.get("station").get("signal")),
+                extra_attributes=wlan.get("station"),
+            )
+            version = self.command("version")
+            key = format_entity_name(f"{id} version mower")
+            data[key] = RobonectItem(
+                name="Hardware",
+                key=key,
+                type="date",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=version.get("mower").get("hardware").get("production"),
+                extra_attributes=version.get("mower"),
+            )
+            key = format_entity_name(f"{id} version mower")
+            data[key] = RobonectItem(
+                name="Hardware Production",
+                key=key,
+                type="date",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=version.get("mower").get("hardware").get("production"),
+                extra_attributes=version.get("mower"),
+            )
+            key = format_entity_name(f"{id} version serial")
+            data[key] = RobonectItem(
+                name="Hardware Serial",
+                key=key,
+                type="version",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=version.get("serial"),
+            )
+            key = format_entity_name(f"{id} version bootloader")
+            data[key] = RobonectItem(
+                name="Bootloader version",
+                key=key,
+                type="version",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=version.get("bootloader").get("version"),
+                extra_attributes=version.get("bootloader"),
+            )
+            key = format_entity_name(f"{id} version wlan")
+            data[key] = RobonectItem(
+                name="Wlan version",
+                key=key,
+                type="version",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=version.get("wlan").get("at-version"),
+                extra_attributes=version.get("bootloader"),
+            )
+            key = format_entity_name(f"{id} version application")
+            data[key] = RobonectItem(
+                name="Application version",
+                key=key,
+                type="version",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=version.get("application").get("version"),
+                extra_attributes=version.get("application"),
+            )
+            key = format_entity_name(f"{id} version application")
+            data[key] = RobonectItem(
+                name="Application version",
+                key=key,
+                type="version",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=version.get("application").get("version"),
+                extra_attributes=version.get("application"),
+            )
+            # timer = self.command("timer")
+            hour = self.command("hour")
+            key = format_entity_name(f"{id} mowing time")
+            data[key] = RobonectItem(
+                name="Mowing time",
+                key=key,
+                type="hours",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=hour.get("general").get("mow"),
+            )
+            key = format_entity_name(f"{id} search time")
+            data[key] = RobonectItem(
+                name="Search time",
+                key=key,
+                type="hours",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=hour.get("general").get("search"),
+            )
+            key = format_entity_name(f"{id} charging time")
+            data[key] = RobonectItem(
+                name="Charging time",
+                key=key,
+                type="hours",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=hour.get("general").get("charge"),
+            )
+            key = format_entity_name(f"{id} Full charges")
+            data[key] = RobonectItem(
+                name="Full charges",
+                key=key,
+                type="counter",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=hour.get("general").get("charges"),
+            )
+            error = self.command("error")
+            key = format_entity_name(f"{id} faults")
+            data[key] = RobonectItem(
+                name="Faults",
+                key=key,
+                type="counter",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=hour.get("general").get("errors"),
+                extra_attributes=error,
+            )
+            key = format_entity_name(f"{id} data since")
+            data[key] = RobonectItem(
+                name="Data since",
+                key=key,
+                type="timestamp",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=hour.get("general").get("since"),
+            )
+            key = format_entity_name(f"{id} last error")
+            data[key] = RobonectItem(
+                name="Last error",
+                key=key,
+                type="error",
+                device_key=device_key,
+                device_name=device_name,
+                device_model=device_model,
+                state=error.get("errors")[1].get("error_message"),
+                extra_attributes=error.get("errors")[1]
+                | {"Fault-Memory": error.get("errors")},
+            )
         return data

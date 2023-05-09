@@ -79,7 +79,8 @@ class RobonectEntity(CoordinatorEntity[RobonectDataUpdateCoordinator]):
     @property
     def available(self) -> bool:
         """Return if entity is available."""
-        return self._item is not None
+        # Force available to True as when the mower is sleeping, the "non status" entities will not be fetched and otherwise they will become unavailable
+        return True
 
     async def async_update(self) -> None:
         """Update the entity.  Only used by the generic entity update service."""
