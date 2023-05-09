@@ -145,6 +145,7 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
         """Update data."""
         try:
             items = await self.hass.async_add_executor_job(self.client.fetch_data)
+            sleeping = await self.hass.async_add_executor_job(self.client.sleeping)
         except ConnectionError as exception:
             raise UpdateFailed(f"ConnectionError {exception}") from exception
         except RobonectServiceException as exception:
@@ -168,23 +169,24 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
             log_debug(
                 f"[init|RobonectDataUpdateCoordinator|_async_update_data|fetched_items] {fetched_items}"
             )
-            if stale_items := current_items - fetched_items:
-                for device_key in stale_items:
-                    if device := self._device_registry.async_get_device(
-                        {(DOMAIN, device_key)}
-                    ):
-                        log_debug(
-                            f"[init|RobonectDataUpdateCoordinator|_async_update_data|async_remove_device] {device_key}",
-                            True,
-                        )
-                        self._device_registry.async_remove_device(device.id)
+            if not sleeping:
+                if stale_items := current_items - fetched_items:
+                    for device_key in stale_items:
+                        if device := self._device_registry.async_get_device(
+                            {(DOMAIN, device_key)}
+                        ):
+                            log_debug(
+                                f"[init|RobonectDataUpdateCoordinator|_async_update_data|async_remove_device] {device_key}",
+                                True,
+                            )
+                            self._device_registry.async_remove_device(device.id)
 
             # If there are new items, we should reload the config entry so we can
             # create new devices and entities.
             if self.data and fetched_items - {
                 str(self.data[item].device_key) for item in self.data
             }:
-                # log_debug(f"[init|RobonectDataUpdateCoordinator|_async_update_data|async_reload] {product.product_name}")
+                # log_debug(f"[init|RobonectDataUpdateCoordinator|_async_update_data|async_reload] {product.product_name}", True)
                 self.hass.async_create_task(
                     self.hass.config_entries.async_reload(self._config_entry_id)
                 )

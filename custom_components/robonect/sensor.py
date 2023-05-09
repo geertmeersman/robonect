@@ -162,6 +162,10 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
         icon="mdi:counter",
         state_class=SensorStateClass.MEASUREMENT,
     ),
+    RobonectSensorDescription(
+        key="error",
+        icon="mdi:alert-decagram",
+    ),
 ]
 
 
