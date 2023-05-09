@@ -412,6 +412,10 @@ class RobonectClient:
             state=status.get("status").get("duration"),
         )
         key = format_entity_name(f"{id} timer next start")
+        if status.get("timer").get("status") == 2:
+            next_start = f"{status.get('timer').get('next').get('date')} {status.get('timer').get('next').get('time')}"
+        else:
+            next_start = ""
         data[key] = RobonectItem(
             name="Next start",
             key=key,
@@ -419,7 +423,7 @@ class RobonectClient:
             device_key=device_key,
             device_name=device_name,
             device_model=device_model,
-            state=f"{status.get('timer').get('next').get('date')} {status.get('timer').get('next').get('time')}",
+            state=next_start,
         )
         timer = self.command("timer")
         key = format_entity_name(f"{id} timer status")
@@ -534,6 +538,7 @@ class RobonectClient:
             device_model=device_model,
             state=hour.get("general").get("charges"),
         )
+        error = self.command("error")
         key = format_entity_name(f"{id} faults")
         data[key] = RobonectItem(
             name="Faults",
@@ -543,6 +548,7 @@ class RobonectClient:
             device_name=device_name,
             device_model=device_model,
             state=hour.get("general").get("errors"),
+            extra_attributes=error,
         )
         key = format_entity_name(f"{id} data since")
         data[key] = RobonectItem(
@@ -554,5 +560,29 @@ class RobonectClient:
             device_model=device_model,
             state=hour.get("general").get("since"),
         )
+        key = format_entity_name(f"{id} last error")
+        data[key] = RobonectItem(
+            name="Last error",
+            key=key,
+            type="error",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=error.get("errors")[1].get("error_message"),
+            extra_attributes=error.get("errors")[1],
+        )
+        """
+        key = format_entity_name(f"{id} last error")
+        data[key] = RobonectItem(
+            name="Last error",
+            key=key,
+            type="error",
+            device_key=device_key,
+            device_name=device_name,
+            device_model=device_model,
+            state=error.get("errors")[1].get("error_message"),
+            extra_attributes=error.get("errors")[1],
+        )
+        """
 
         return data
