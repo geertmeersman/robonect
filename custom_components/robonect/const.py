@@ -9,7 +9,7 @@ from homeassistant.const import Platform
 from homeassistant.helpers import config_validation as cv
 
 SHOW_DEBUG_AS_WARNING = False
-BYPASS_SLEEP = True
+BYPASS_SLEEP = False
 
 _LOGGER = logging.getLogger(__name__)
 
