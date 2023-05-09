@@ -1,7 +1,6 @@
 """Constants used by Robonect."""
 import json
 import logging
-from datetime import timedelta
 from pathlib import Path
 from typing import Final
 
@@ -10,8 +9,12 @@ from homeassistant.const import Platform
 from homeassistant.helpers import config_validation as cv
 
 SHOW_DEBUG_AS_WARNING = False
+BYPASS_SLEEP = True
 
 _LOGGER = logging.getLogger(__name__)
+
+CONF_TRACKING = "tracking"
+CONF_UPDATE_INTERVAL = "update_interval"
 
 PLATFORMS: Final = [Platform.SENSOR]
 
@@ -65,9 +68,10 @@ SERVICE_MODE_SCHEMA = vol.Schema(
         vol.Required("mode", default="auto"): vol.In(SERVICE_MODE_VALUES),
     }
 )
+SENSOR_GROUPS = ["battery", "wlan", "version", "timer", "hour", "error"]
 
 DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S%z"
-COORDINATOR_UPDATE_INTERVAL = timedelta(minutes=2)
+DEFAULT_UPDATE_INTERVAL = 2
 CONNECTION_RETRY = 5
 REQUEST_TIMEOUT = 20
 WEBSITE = "https://www.robonect-shop.de"

@@ -129,6 +129,10 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
         native_unit_of_measurement="s",
     ),
     RobonectSensorDescription(
+        key="duration",
+        icon="mdi:timer-sand",
+    ),
+    RobonectSensorDescription(
         key="blades_quality",
         icon="mdi:fan-alert",
         state_class=SensorStateClass.MEASUREMENT,

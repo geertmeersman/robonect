@@ -1,6 +1,8 @@
 """Robonect integration."""
 from __future__ import annotations
 
+from datetime import timedelta
+
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST
 from homeassistant.const import CONF_PASSWORD
@@ -13,7 +15,8 @@ from requests.exceptions import ConnectionError
 
 from .client import RobonectClient
 from .const import _LOGGER
-from .const import COORDINATOR_UPDATE_INTERVAL
+from .const import CONF_TRACKING
+from .const import CONF_UPDATE_INTERVAL
 from .const import DOMAIN
 from .const import PLATFORMS
 from .const import SERVICE_JOB
@@ -38,6 +41,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         host=entry.data[CONF_HOST],
         username=entry.data[CONF_USERNAME],
         password=entry.data[CONF_PASSWORD],
+        tracking=entry.data[CONF_TRACKING],
+        update_interval=entry.data[CONF_UPDATE_INTERVAL],
     )
 
     dev_reg = dr.async_get(hass)
@@ -130,16 +135,16 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
         client: RobonectClient,
     ) -> None:
         """Initialize coordinator."""
-        super().__init__(
-            hass,
-            _LOGGER,
-            name=DOMAIN,
-            update_interval=COORDINATOR_UPDATE_INTERVAL,
-        )
         self._config_entry_id = config_entry_id
         self._device_registry = dev_reg
         self.client = client
         self.hass = hass
+        super().__init__(
+            hass,
+            _LOGGER,
+            name=DOMAIN,
+            update_interval=timedelta(minutes=self.client.update_interval),
+        )
 
     async def _async_update_data(self) -> dict | None:
         """Update data."""

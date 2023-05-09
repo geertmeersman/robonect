@@ -26,7 +26,8 @@ def str_to_float(input) -> float:
 
 def float_to_timestring(float_time, unit_type) -> str:
     """Transform float to timestring."""
-    float_time = str_to_float(float_time)
+    if type(float_time) is str:
+        float_time = str_to_float(float_time)
     if unit_type.lower() == "seconds":
         float_time = float_time * 60 * 60
     elif unit_type.lower() == "minutes":
@@ -36,7 +37,7 @@ def float_to_timestring(float_time, unit_type) -> str:
     minutes, seconds = divmod(seconds, 60)  # split the seconds to minutes and seconds
     result = ""
     if hours:
-        result += f" {hours:02.0f}" + "u"
+        result += f" {hours:02.0f}" + "h"
     if minutes:
         result += f" {minutes:02.0f}" + " min"
     if seconds:

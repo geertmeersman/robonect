@@ -9,8 +9,11 @@ from typing import TypedDict
 class RobonectConfigEntryData(TypedDict):
     """Config entry for the Robonect integration."""
 
+    host: str | None
     username: str | None
     password: str | None
+    tracking: dict | None
+    update_interval: int | None
 
 
 @dataclass
