@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.1.5](https://github.com/geertmeersman/robonect/tree/v0.1.5) (2023-05-09)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.1.4...v0.1.5)
+
+**Implemented enhancements:**
+
+- Only update status entities when the mower is sleeping \(and prevent i… [\#7](https://github.com/geertmeersman/robonect/pull/7) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.1.4](https://github.com/geertmeersman/robonect/tree/v0.1.4) (2023-05-09)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.1.3...v0.1.4)
