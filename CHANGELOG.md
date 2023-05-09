@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.2.0](https://github.com/geertmeersman/robonect/tree/v0.2.0) (2023-05-09)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.1.5...v0.2.0)
+
+**Implemented enhancements:**
+
+- Device split and config flow options added for sensor tracking [\#8](https://github.com/geertmeersman/robonect/pull/8) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.1.5](https://github.com/geertmeersman/robonect/tree/v0.1.5) (2023-05-09)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.1.4...v0.1.5)
