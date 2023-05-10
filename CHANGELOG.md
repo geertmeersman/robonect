@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.2.3](https://github.com/geertmeersman/robonect/tree/v0.2.3) (2023-05-10)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.2.2...v0.2.3)
+
+**Merged pull requests:**
+
+- Check fault memory list size [\#11](https://github.com/geertmeersman/robonect/pull/11) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.2.2](https://github.com/geertmeersman/robonect/tree/v0.2.2) (2023-05-10)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.2.1...v0.2.2)
