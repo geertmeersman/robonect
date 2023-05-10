@@ -17,8 +17,10 @@ from .client import RobonectClient
 from .const import _LOGGER
 from .const import CONF_TRACKING
 from .const import CONF_UPDATE_INTERVAL
+from .const import DEFAULT_UPDATE_INTERVAL
 from .const import DOMAIN
 from .const import PLATFORMS
+from .const import SENSOR_GROUPS
 from .const import SERVICE_JOB
 from .const import SERVICE_JOB_SCHEMA
 from .const import SERVICE_MODE_SCHEMA
@@ -41,8 +43,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         host=entry.data[CONF_HOST],
         username=entry.data[CONF_USERNAME],
         password=entry.data[CONF_PASSWORD],
-        tracking=entry.data[CONF_TRACKING],
-        update_interval=entry.data[CONF_UPDATE_INTERVAL],
+        tracking=entry.data[CONF_TRACKING]
+        if CONF_TRACKING in entry.data
+        else SENSOR_GROUPS,
+        update_interval=entry.data[CONF_UPDATE_INTERVAL]
+        if CONF_UPDATE_INTERVAL in entry.data
+        else DEFAULT_UPDATE_INTERVAL,
     )
 
     dev_reg = dr.async_get(hass)

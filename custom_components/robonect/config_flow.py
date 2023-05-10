@@ -71,6 +71,7 @@ class RobonectCommonFlow(ABC, FlowHandler):
             username=user_input[CONF_USERNAME],
             password=user_input[CONF_PASSWORD],
             tracking=user_input[CONF_TRACKING],
+            update_interval=user_input[CONF_UPDATE_INTERVAL],
         )
 
         return await self.hass.async_add_executor_job(client.login)
