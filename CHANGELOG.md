@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.2.2](https://github.com/geertmeersman/robonect/tree/v0.2.2) (2023-05-10)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.2.1...v0.2.2)
+
+**Merged pull requests:**
+
+- Set tracking and update\_interval to default when integration already … [\#10](https://github.com/geertmeersman/robonect/pull/10) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.2.1](https://github.com/geertmeersman/robonect/tree/v0.2.1) (2023-05-09)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.2.0...v0.2.1)
