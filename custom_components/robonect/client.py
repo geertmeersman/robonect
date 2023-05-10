@@ -609,6 +609,14 @@ class RobonectClient:
                     state=hour.get("general").get("since"),
                 )
                 key = format_entity_name(f"{id} last error")
+                if len(error.get("errors")):
+                    state = error.get("errors")[1].get("error_message")
+                    extra_attributes = error.get("errors")[1] | {
+                        "Fault-Memory": error.get("errors")
+                    }
+                else:
+                    state = ""
+                    extra_attributes = {}
                 data[key] = RobonectItem(
                     name="Last error",
                     key=key,
@@ -616,8 +624,7 @@ class RobonectClient:
                     device_key=device_key,
                     device_name=device_name,
                     device_model=device_model,
-                    state=error.get("errors")[1].get("error_message"),
-                    extra_attributes=error.get("errors")[1]
-                    | {"Fault-Memory": error.get("errors")},
+                    state=state,
+                    extra_attributes=extra_attributes,
                 )
         return data
