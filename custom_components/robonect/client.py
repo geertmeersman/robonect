@@ -610,8 +610,8 @@ class RobonectClient:
                 )
                 key = format_entity_name(f"{id} last error")
                 if len(error.get("errors")):
-                    state = error.get("errors")[1].get("error_message")
-                    extra_attributes = error.get("errors")[1] | {
+                    state = error.get("errors")[0].get("error_message")
+                    extra_attributes = error.get("errors")[0] | {
                         "Fault-Memory": error.get("errors")
                     }
                 else:
