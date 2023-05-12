@@ -68,7 +68,6 @@ class RobonectEntity(CoordinatorEntity[RobonectDataUpdateCoordinator]):
                     return
         log_debug(
             f"[RobonectEntity|_handle_coordinator_update] {self._attr_unique_id}: async_write_ha_state ignored since API fetch failed or not found",
-            True,
         )
 
     @property
