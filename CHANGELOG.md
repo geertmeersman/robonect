@@ -1,5 +1,21 @@
 # Changelog
 
+## [v0.2.6](https://github.com/geertmeersman/robonect/tree/v0.2.6) (2023-05-12)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.2.5...v0.2.6)
+
+**Merged pull requests:**
+
+- Debug line fix & device renaming [\#14](https://github.com/geertmeersman/robonect/pull/14) ([geertmeersman](https://github.com/geertmeersman))
+
+## [v0.2.5](https://github.com/geertmeersman/robonect/tree/v0.2.5) (2023-05-12)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.2.4...v0.2.5)
+
+**Implemented enhancements:**
+
+- Reverting to 1 device [\#13](https://github.com/geertmeersman/robonect/pull/13) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.2.4](https://github.com/geertmeersman/robonect/tree/v0.2.4) (2023-05-12)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.2.3...v0.2.4)
