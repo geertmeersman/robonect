@@ -203,7 +203,7 @@ class RobonectClient:
         if not status:
             raise RobonectException()
         id = status.get("id")
-        device_model = "Status"
+        device_model = "Robonect"
         device_key = format_entity_name(f"Robonect {id} {device_model}")
         device_name = f"{status.get('name')} {device_model}"
         key = format_entity_name(f"{id} id")
@@ -365,10 +365,8 @@ class RobonectClient:
             state=f"{status.get('clock').get('date')} {status.get('clock').get('time')}",
         )
         if status.get("status").get("status") != 17 or BYPASS_SLEEP:
-            device_model = "Battery"
-            if self.need_tracking(device_model):
-                device_key = format_entity_name(f"Robonect {id} {device_model}")
-                device_name = f"{status.get('name')} {device_model}"
+            device_command = "Battery"
+            if self.need_tracking(device_command):
                 for battery in self.command("battery").get("batteries"):
                     key = format_entity_name(f"{id} battery {battery.get('id')} status")
                     data[key] = RobonectItem(
@@ -428,10 +426,8 @@ class RobonectClient:
                         device_model=device_model,
                         state=battery.get("temperature") / 10,
                     )
-            device_model = "Wlan"
-            if self.need_tracking(device_model):
-                device_key = format_entity_name(f"Robonect {id} {device_model}")
-                device_name = f"{status.get('name')} {device_model}"
+            device_command = "Wlan"
+            if self.need_tracking(device_command):
                 wlan = self.command("wlan")
                 key = format_entity_name(f"{id} wlan ap")
                 data[key] = RobonectItem(
@@ -455,10 +451,8 @@ class RobonectClient:
                     state=wifi_signal_to_percentage(wlan.get("station").get("signal")),
                     extra_attributes=wlan.get("station"),
                 )
-            device_model = "Version"
-            if self.need_tracking(device_model):
-                device_key = format_entity_name(f"Robonect {id} {device_model}")
-                device_name = f"{status.get('name')} {device_model}"
+            device_command = "Version"
+            if self.need_tracking(device_command):
                 version = self.command("version")
                 key = format_entity_name(f"{id} version mower")
                 data[key] = RobonectItem(
@@ -537,10 +531,8 @@ class RobonectClient:
                     extra_attributes=version.get("application"),
                 )
             # timer = self.command("timer")
-            device_model = "Hour"
-            if self.need_tracking(device_model):
-                device_key = format_entity_name(f"Robonect {id} {device_model}")
-                device_name = f"{status.get('name')} {device_model}"
+            device_command = "Hour"
+            if self.need_tracking(device_command):
                 hour = self.command("hour")
                 key = format_entity_name(f"{id} mowing time")
                 data[key] = RobonectItem(
@@ -582,10 +574,8 @@ class RobonectClient:
                     device_model=device_model,
                     state=hour.get("general").get("charges"),
                 )
-            device_model = "Error"
-            if self.need_tracking(device_model):
-                device_key = format_entity_name(f"Robonect {id} {device_model}")
-                device_name = f"{status.get('name')} {device_model}"
+            device_command = "Error"
+            if self.need_tracking(device_command):
                 error = self.command("error")
                 key = format_entity_name(f"{id} faults")
                 data[key] = RobonectItem(
