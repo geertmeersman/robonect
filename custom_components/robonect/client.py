@@ -8,6 +8,7 @@ from requests import (
 from .const import BYPASS_SLEEP
 from .const import CONNECTION_RETRY
 from .const import DEFAULT_UPDATE_INTERVAL
+from .const import DOMAIN
 from .const import REQUEST_TIMEOUT
 from .const import SERVICE_JOB_AFTER_VALUES
 from .const import SERVICE_JOB_CORRIDOR_VALUES
@@ -203,9 +204,10 @@ class RobonectClient:
         if not status:
             raise RobonectException()
         id = status.get("id")
-        device_model = "Robonect"
-        device_key = format_entity_name(f"Robonect {id} {device_model}")
-        device_name = f"{status.get('name')} {device_model}"
+        device_model = DOMAIN.title()
+        device_key = format_entity_name(f"{device_model} {id}")
+        device_name = status.get("name")
+
         key = format_entity_name(f"{id} id")
         data[key] = RobonectItem(
             name=status.get("name"),
