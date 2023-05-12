@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.2.4](https://github.com/geertmeersman/robonect/tree/v0.2.4) (2023-05-12)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.2.3...v0.2.4)
+
+**Merged pull requests:**
+
+- Fault-memory index fix [\#12](https://github.com/geertmeersman/robonect/pull/12) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v0.2.3](https://github.com/geertmeersman/robonect/tree/v0.2.3) (2023-05-10)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.2.2...v0.2.3)
