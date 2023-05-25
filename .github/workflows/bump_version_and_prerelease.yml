@@ -27,11 +27,6 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
-      - name: Set up Node.js 10
-        uses: actions/setup-node@v2
-        with:
-          node-version: 10
-
       - name: Determine next version
         id: next-version
         run: |
@@ -42,6 +37,8 @@ jobs:
 
           # gcv --type=beta
           next_version=$(gcv --type=beta)
+
+          echo "Calculated next verion: $next_version"
 
           echo "::set-output name=version::$next_version"
 
