@@ -311,10 +311,7 @@
             }
           },
           "status_plain": {
-            "name": "Status",
-            "state": {
-              "Sleeping": "Slapen"
-            }
+            "name": "Status"
           },
           "distance": {
             "name": "Afstand van basis"

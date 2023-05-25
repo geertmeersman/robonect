@@ -311,10 +311,7 @@
             }
           },
           "status_plain": {
-            "name": "Statut",
-            "state": {
-              "Sleeping": "En veille"
-            }
+            "name": "Statut"
           },
           "distance": {
             "name": "Distance depuis la base"
