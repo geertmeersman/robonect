@@ -46,6 +46,9 @@ jobs:
           # Switch to the specific branch
           git checkout dev-current
 
+          npm install --global conventional-recommended-bump
+          conventional-recommended-bump --help
+
           # Execute the conventional-commits tool to determine the next version
           NEXT_VERSION=$(npx conventional-recommended-bump)
 
