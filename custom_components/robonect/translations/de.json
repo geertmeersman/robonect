@@ -14,9 +14,7 @@
         "data_description": {
           "rest_enabled": "Die Anmeldeinformationen und die zu überwachenden Sensoren für die REST API werden im nächsten Bildschirm hinzugefügt.",
           "mqtt_enabled": "Hiermit werden automatisch Entitäten hinzugefügt, wenn sie in MQTT entdeckt werden.\n\n",
-          "mqtt_topic": "Thema, das in der MQTT-Sektion Ihrer {name} konfiguriert ist.\n\nAchtung: Dies wird auch für die Namensgebung der entity_id verwendet (auch für die REST API Überwachung).",
-          "brand": "",
-          "type": ""
+          "mqtt_topic": "Thema, das in der MQTT-Sektion Ihrer {name} konfiguriert ist.\n\nAchtung: Dies wird auch für die Namensgebung der entity_id verwendet (auch für die REST API Überwachung)."
         }
       },
       "connection_rest": {
@@ -28,9 +26,6 @@
           "password": "Passwort",
           "scan_interval": "Aktualisierungsintervall (Minuten)",
           "monitored_variables": "Zu überwachende Sensoren"
-        },
-        "data_description": {
-          "rest_enabled": "Hiermit werden Ihre Entitäten auf Basis der REST API hinzugefügt."
         }
       }
     },

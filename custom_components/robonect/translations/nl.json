@@ -14,9 +14,7 @@
         "data_description": {
           "rest_enabled": "De logingegevens en te volgen sensors voor de REST API worden in het volgende scherm toegevoegd",
           "mqtt_enabled": "Hiermee worden automatisch entiteiten toegevoegd bij ontdekking op MQTT\n\n",
-          "mqtt_topic": "Topic naam die geconfigureerd is in de MQTT sectie van je {name}.\n\nOpgelet: Deze wordt ook gebruikt in de entity_id naamgeving (van ook de REST API monitoring).",
-          "brand": "",
-          "type": ""
+          "mqtt_topic": "Topic naam die geconfigureerd is in de MQTT sectie van je {name}.\n\nOpgelet: Deze wordt ook gebruikt in de entity_id naamgeving (van ook de REST API monitoring)."
         }
       },
       "connection_rest": {
@@ -28,9 +26,6 @@
           "password": "Wachtwoord",
           "scan_interval": "Update interval (min)",
           "monitored_variables": "Te volgen sensors"
-        },
-        "data_description": {
-          "rest_enabled": "Hiermee worden je entiteiten toegevoegd op basis van de REST API"
         }
       }
     },
