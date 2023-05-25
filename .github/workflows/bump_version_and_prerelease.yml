@@ -46,10 +46,10 @@ jobs:
         run: |
           echo "** Manifest before replace **"
           cat custom_components/$GITHUB_REPO/manifest.json
-          sed -i 's/"version": ".*"/"version": "'${{ env.NEW_VERSION }}'"/g' custom_components/$GITHUB_REPO/manifest.json
+          sed -i 's/"version": ".*"/"version": "'${{ steps.next-version.outputs.NEW_VERSION }}'"/g' custom_components/$GITHUB_REPO/manifest.json
           echo "** Manifest after replace **"
           cat custom_components/$GITHUB_REPO/manifest.json
-          echo ${{ env.NEW_VERSION }} > VERSION
+          echo ${{ steps.next-version.outputs.NEW_VERSION }} > VERSION
 
       - name: 🚀　Add and commit changes
         uses: EndBug/add-and-commit@v9
@@ -66,13 +66,13 @@ jobs:
           prerelease: true
           publish: true
           commitish: ${{ github.ref }}
-          tag: ${{ env.NEW_VERSION }}
-          name: Release ${{ env.NEW_VERSION }}
-          body: "${{ env.CHANGELOG }}"
+          tag: ${{ steps.next-version.outputs.NEW_VERSION }}
+          name: Release ${{ steps.next-version.outputs.NEW_VERSION }}
+          header: "${{ steps.next-version.outputs.CHANGELOG }}"
 
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: "New BETA release published: https://github.com/{{ EVENT_PAYLOAD.repository.full_name }}/releases/tag/${{ env.NEW_VERSION }}."
+          args: "New BETA release published: https://github.com/{{ EVENT_PAYLOAD.repository.full_name }}/releases/tag/${{ steps.next-version.outputs.NEW_VERSION }}."
