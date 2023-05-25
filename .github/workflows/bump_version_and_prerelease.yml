@@ -27,8 +27,7 @@ jobs:
         with:
           node-version: "10"
 
-      - name: Determine Next Version
-        id: next_version
+      - name: Create package.json
         run: |
           echo '{
             "name": "Next version",
