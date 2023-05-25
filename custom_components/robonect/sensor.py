@@ -1,176 +1,38 @@
-"""Robonect sensor platform."""
+"""Support for Robonect through MQTT."""
 from __future__ import annotations
 
-from collections.abc import Callable
-from dataclasses import dataclass
-from typing import Any
+import logging
 
+from homeassistant.components import mqtt
 from homeassistant.components.sensor import SensorDeviceClass
 from homeassistant.components.sensor import SensorEntity
-from homeassistant.components.sensor import SensorEntityDescription
-from homeassistant.components.sensor import SensorStateClass
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import ELECTRIC_CURRENT_MILLIAMPERE
-from homeassistant.const import ELECTRIC_POTENTIAL_VOLT
-from homeassistant.const import PERCENTAGE
-from homeassistant.const import TEMP_CELSIUS
+from homeassistant.const import CONF_MONITORED_VARIABLES
+from homeassistant.const import STATE_UNAVAILABLE
+from homeassistant.const import STATE_UNKNOWN
+from homeassistant.core import callback
+from homeassistant.core import Event
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity import EntityDescription
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.typing import StateType
+from homeassistant.util import slugify
 
 from . import RobonectDataUpdateCoordinator
+from .const import ATTRIBUTION_MQTT
+from .const import ATTRIBUTION_REST
+from .const import CONF_MQTT_ENABLED
+from .const import CONF_MQTT_TOPIC
+from .const import CONF_REST_ENABLED
 from .const import DOMAIN
+from .const import EVENT_ROBONECT_RESPONSE
+from .definitions import RobonectSensorEntityDescription
+from .definitions import SENSORS
+from .entity import RobonectCoordinatorEntity
 from .entity import RobonectEntity
-from .models import RobonectItem
-from .utils import log_debug
+from .utils import get_json_dict_path
+from .utils import unix_to_datetime
 
-
-@dataclass
-class RobonectSensorDescription(SensorEntityDescription):
-    """Class to describe a Robonect sensor."""
-
-    value_fn: Callable[[Any], StateType] | None = None
-
-
-SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
-    RobonectSensorDescription(key="mower", icon="mdi:robot-mower"),
-    RobonectSensorDescription(
-        key="battery_percentage",
-        icon="mdi:percent",
-        device_class=SensorDeviceClass.BATTERY,
-        state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=PERCENTAGE,
-    ),
-    RobonectSensorDescription(
-        key="battery_voltage",
-        icon="mdi:flash",
-        device_class=SensorDeviceClass.VOLTAGE,
-        state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=ELECTRIC_POTENTIAL_VOLT,
-    ),
-    RobonectSensorDescription(
-        key="battery_capacity",
-        icon="mdi:battery",
-        state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement="mAh",
-    ),
-    RobonectSensorDescription(
-        key="battery_charge_current",
-        icon="mdi:current-ac",
-        state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=ELECTRIC_CURRENT_MILLIAMPERE,
-    ),
-    RobonectSensorDescription(
-        key="temperature",
-        icon="mdi:temperature-celsius",
-        device_class=SensorDeviceClass.TEMPERATURE,
-        state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=TEMP_CELSIUS,
-    ),
-    RobonectSensorDescription(
-        key="wlan_ap",
-        icon="mdi:router-wireless",
-    ),
-    RobonectSensorDescription(
-        key="wlan_station",
-        icon="mdi:wifi",
-        state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=PERCENTAGE,
-    ),
-    RobonectSensorDescription(
-        key="date",
-        icon="mdi:calendar-star",
-        device_class=SensorDeviceClass.DATE,
-    ),
-    RobonectSensorDescription(
-        key="version",
-        icon="mdi:tag",
-    ),
-    RobonectSensorDescription(
-        key="status",
-        icon="mdi:crosshairs-question",
-        translation_key="status",
-    ),
-    RobonectSensorDescription(
-        key="mode",
-        icon="mdi:auto-mode",
-        translation_key="mode",
-    ),
-    RobonectSensorDescription(
-        key="stopped",
-        icon="mdi:stop",
-    ),
-    RobonectSensorDescription(
-        key="distance",
-        icon="mdi:map-marker-distance",
-        device_class=SensorDeviceClass.DISTANCE,
-        native_unit_of_measurement="m",
-    ),
-    RobonectSensorDescription(
-        key="days",
-        icon="mdi:calendar-arrow-right",
-        device_class=SensorDeviceClass.DURATION,
-        state_class=SensorStateClass.TOTAL_INCREASING,
-        native_unit_of_measurement="d",
-    ),
-    RobonectSensorDescription(
-        key="hours",
-        icon="mdi:clock-star-four-points",
-        device_class=SensorDeviceClass.DURATION,
-        state_class=SensorStateClass.TOTAL_INCREASING,
-        native_unit_of_measurement="h",
-    ),
-    RobonectSensorDescription(
-        key="seconds",
-        icon="mdi:timer-sand",
-        device_class=SensorDeviceClass.DURATION,
-        state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement="s",
-    ),
-    RobonectSensorDescription(
-        key="duration",
-        icon="mdi:timer-sand",
-    ),
-    RobonectSensorDescription(
-        key="blades_quality",
-        icon="mdi:fan-alert",
-        state_class=SensorStateClass.MEASUREMENT,
-    ),
-    RobonectSensorDescription(
-        key="timestamp",
-        icon="mdi:calendar-start",
-        device_class=SensorDeviceClass.TIMESTAMP,
-    ),
-    RobonectSensorDescription(
-        key="timer_status",
-        icon="mdi:timer-cog-outline",
-        translation_key="timer_status",
-    ),
-    RobonectSensorDescription(
-        key="humidity",
-        icon="mdi:water-percent",
-        device_class=SensorDeviceClass.HUMIDITY,
-        state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=PERCENTAGE,
-    ),
-    RobonectSensorDescription(
-        key="humidity",
-        icon="mdi:water-percent",
-        device_class=SensorDeviceClass.HUMIDITY,
-        state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=PERCENTAGE,
-    ),
-    RobonectSensorDescription(
-        key="counter",
-        icon="mdi:counter",
-        state_class=SensorStateClass.MEASUREMENT,
-    ),
-    RobonectSensorDescription(
-        key="error",
-        icon="mdi:alert-decagram",
-    ),
-]
+_LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_entry(
@@ -178,92 +40,279 @@ async def async_setup_entry(
     entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Set up the Robonect sensors."""
-    log_debug("[sensor|async_setup_entry|async_add_entities|start]")
-    coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
-    entities: list[RobonectSensor] = []
+    """Set up Robonect sensors from config entry."""
 
-    SUPPORTED_KEYS = {
-        description.key: description for description in SENSOR_DESCRIPTIONS
-    }
+    # Make sure MQTT integration is enabled and the client is available
+    if entry.data[CONF_MQTT_ENABLED] is True:
+        if not await mqtt.async_wait_for_mqtt_client(hass):
+            _LOGGER.error("MQTT integration is not available")
+            return
 
-    # log_debug(f"[sensor|async_setup_entry|async_add_entities|SUPPORTED_KEYS] {SUPPORTED_KEYS}")
+    added_entities = []
 
-    if coordinator.data is not None:
-        for item in coordinator.data:
-            item = coordinator.data[item]
-            if description := SUPPORTED_KEYS.get(item.type):
-                if item.native_unit_of_measurement is not None:
-                    native_unit_of_measurement = item.native_unit_of_measurement
+    @callback
+    def async_mqtt_event_received(msg: mqtt.ReceiveMessage) -> None:
+        """Process events as sensors."""
+        slug = slugify(msg.topic.replace("/", "_"))
+        entity_id = f"sensor.{slug}"
+        if slug in hass.data[DOMAIN]["sensor"]:
+            return
+        hass.data[DOMAIN]["sensor"].add(slug)
+
+        if entity_id not in added_entities:
+            description_key = msg.topic.replace(f"{entry.data[CONF_MQTT_TOPIC]}/", "")
+            _LOGGER.debug(
+                f"[sensor.py|async_mqtt_event_received] Adding entity {entity_id} (MQTT Topic {msg.topic})"
+            )
+            async_add_entities([RobonectMqttSensor(hass, entry, description_key)])
+            added_entities.append(entity_id)
+
+    if entry.data[CONF_MQTT_ENABLED] is True:
+        _LOGGER.debug(f"MQTT Subscribing to {entry.data[CONF_MQTT_TOPIC]}/#")
+        await mqtt.async_subscribe(
+            hass, f"{entry.data[CONF_MQTT_TOPIC]}/#", async_mqtt_event_received, 0
+        )
+
+    if entry.data[CONF_REST_ENABLED] is True:
+        _LOGGER.debug("Creating REST sensors")
+        coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
+        entities: list[RobonectRestSensor] = []
+        entities.append(
+            RobonectServiceSensor(
+                hass,
+                entry,
+                description=RobonectSensorEntityDescription(
+                    key=".service/call/result",
+                    rest="$.service.call.result",
+                    icon="mdi:book-information-variant",
+                    entity_category=EntityCategory.DIAGNOSTIC,
+                    rest_category="NONE",
+                ),
+            )
+        )
+        if coordinator.data is not None:
+            for description in SENSORS:
+                if not description.rest:
+                    path = description.key
                 else:
-                    native_unit_of_measurement = description.native_unit_of_measurement
-                sensor_description = RobonectSensorDescription(
-                    key=str(item.key),
-                    name=item.name,
-                    value_fn=description.value_fn,
-                    native_unit_of_measurement=native_unit_of_measurement,
-                    icon=description.icon,
-                    translation_key=description.translation_key,
-                )
-
-                log_debug(f"[sensor|async_setup_entry|adding] {item.name}")
+                    if entry.data[CONF_MQTT_ENABLED] and description.key[0] != ".":
+                        _LOGGER.debug(
+                            f"[sensor|async_setup_entry|skipping since MQTT] {description.key}"
+                        )
+                        continue
+                    if description.rest == "$.none":
+                        continue
+                    if (
+                        description.rest_category
+                        not in entry.data[CONF_MONITORED_VARIABLES]
+                    ):
+                        continue
+                    path = description.rest
+                _LOGGER.debug(f"[sensor|async_setup_entry|adding] {path}")
                 entities.append(
-                    RobonectSensor(
+                    RobonectRestSensor(
+                        hass,
+                        entry,
                         coordinator=coordinator,
-                        description=sensor_description,
-                        item=item,
+                        description=description,
                     )
                 )
-            else:
-                log_debug(
-                    f"[sensor|async_setup_entry|no support type found] {item.name}, type: {item.type}, keys: {SUPPORTED_KEYS.get(item.type)}",
-                    True,
-                )
-
         async_add_entities(entities)
 
 
 class RobonectSensor(RobonectEntity, SensorEntity):
     """Representation of a Robonect sensor."""
 
-    entity_description: RobonectSensorDescription
+    entity_description: RobonectSensorEntityDescription
+    _attr_has_entity_name = True
 
     def __init__(
         self,
-        coordinator: RobonectDataUpdateCoordinator,
-        description: EntityDescription,
-        item: RobonectItem,
+        hass: HomeAssistant,
+        entry: ConfigEntry,
+        description: RobonectSensorEntityDescription,
     ) -> None:
-        """Set entity ID."""
-        super().__init__(coordinator, description, item)
-        self.entity_id = f"sensor.{DOMAIN}_{self.item.key}"
+        """Initialize the sensor."""
+        super().__init__(hass, entry, description)
+        self.entity_id = f"sensor.{self.slug}"
+        self._state = None
+        self._attributes = {}
+
+    async def async_added_to_hass(self) -> None:
+        """Subscribe to MQTT events."""
+
+        await super().async_added_to_hass()
+
+        @callback
+        def message_received(message):
+            """Handle new MQTT messages."""
+            if message.payload == "":
+                self._state = None
+            elif self.entity_description.state is not None:
+                self._state = self.entity_description.state(message.payload, self.hass)
+                self._attributes = {"Raw state": message.payload}
+            else:
+                self._state = message.payload
+            self.update_ha_state()
+
+        if state := await self.async_get_last_state():
+            if state.state in [STATE_UNAVAILABLE, STATE_UNKNOWN]:
+                _LOGGER.debug(f"Restoring state for: {self.entity_id} => {state.state}")
+            if (
+                state.state is not STATE_UNAVAILABLE
+                and state.as_dict().get("attributes").get("device_class")
+                == SensorDeviceClass.TIMESTAMP
+            ):
+                if state.state is STATE_UNKNOWN:
+                    self._state = None
+                else:
+                    self._state = unix_to_datetime(
+                        state.as_dict().get("attributes").get("unix"), self.hass
+                    )
+            else:
+                if state.state is STATE_UNAVAILABLE:
+                    self._state = None
+                else:
+                    self._state = state.state
+            self._attributes = state.attributes
+        else:
+            _LOGGER.debug(f"Last state is none for {self._attr_unique_id}")
+
+        if self.entry.data[CONF_MQTT_ENABLED] is True:
+            await mqtt.async_subscribe(self.hass, self.topic, message_received, 1)
+        return
+
+
+class RobonectMqttSensor(RobonectSensor):
+    """Representation of a Robonect sensor that is updated via MQTT."""
+
+    _attr_attribution = ATTRIBUTION_MQTT
+
+    def __init__(
+        self, hass: HomeAssistant, entry: ConfigEntry, description_key: str
+    ) -> None:
+        """Initialize the sensor."""
+        self._description_key = description_key
+        self.entity_description = self.get_mqtt_description()
+        self._attr_entity_registry_enabled_default = self.get_mqtt_description(True)
+        super().__init__(hass, entry, self.entity_description)
+
+    def get_mqtt_description(
+        self, return_bool=False
+    ) -> RobonectSensorEntityDescription:
+        """Return the RobonectSensorEntityDescription for the description_key."""
+        for description in SENSORS:
+            if description.key == self._description_key:
+                if return_bool:
+                    return True
+                return description
+        if return_bool:
+            return False
+        return RobonectSensorEntityDescription(
+            key=self._description_key,
+            icon="mdi:help",
+            entity_category=EntityCategory.DIAGNOSTIC,
+        )
 
     @property
-    def native_value(self) -> str:
+    def native_value(self):
         """Return the status of the sensor."""
-        state = self.item.state
-
-        if self.entity_description.value_fn:
-            return self.entity_description.value_fn(state)
-
-        return state
-
-    @property
-    def translation_key(self) -> str | None:
-        """Set the translation key for the sensor."""
-        if self.entity_description.translation_key:
-            return self.entity_description.translation_key
-        return None
+        return self._state
 
     @property
     def extra_state_attributes(self):
         """Return attributes for sensor."""
-        if not self.coordinator.data:
-            return {}
-        attributes = {
+        self._attributes |= {
             "last_synced": self.last_synced,
         }
-        if len(self.item.extra_attributes) > 0:
-            for attr in self.item.extra_attributes:
-                attributes[attr] = self.item.extra_attributes[attr]
-        return attributes
+        return self._attributes
+
+
+class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
+    """Representation of a Robonect sensor that is updated via REST API."""
+
+    _attr_attribution = ATTRIBUTION_REST
+
+    def __init__(
+        self,
+        hass: HomeAssistant,
+        entry: ConfigEntry,
+        coordinator: RobonectDataUpdateCoordinator,
+        description: RobonectSensorEntityDescription,
+    ) -> None:
+        """Initialize the sensor."""
+        super().__init__(coordinator, description)
+        RobonectSensor.__init__(self, hass, entry, description)
+        self.category = self.entity_description.rest.split(".")[1]
+        self.entity_description = description
+
+    @property
+    def native_value(self):
+        """Return the status of the sensor."""
+        if self.category in self.coordinator.data:
+            state = get_json_dict_path(
+                self.coordinator.data, self.entity_description.rest
+            )
+            if state is not None:
+                if self.entity_description.device_class == SensorDeviceClass.TIMESTAMP:
+                    state = unix_to_datetime(state, self.coordinator.hass)
+                elif self.entity_description.device_class == SensorDeviceClass.VOLTAGE:
+                    state = round(state / 1000, 1)
+                elif self.entity_description.rest == "$.status.status.duration":
+                    state = state / 60
+                self._state = state
+        return self._state
+
+    @property
+    def extra_state_attributes(self):
+        """Return attributes for sensor."""
+        if self.category in self.coordinator.data:
+            attributes = {
+                "last_synced": self.last_synced,
+            }
+            if self.entity_description.rest_attrs:
+                attrs = get_json_dict_path(
+                    self.coordinator.data, self.entity_description.rest_attrs
+                )
+                if attrs:
+                    attributes.update(attrs)
+            return attributes
+        return self._attributes
+
+
+class RobonectServiceSensor(RobonectSensor):
+    """Representation of a Robonect sensor that is updated via REST API."""
+
+    _attr_attribution = ATTRIBUTION_REST
+
+    def __init__(
+        self,
+        hass: HomeAssistant,
+        entry: ConfigEntry,
+        description: RobonectSensorEntityDescription,
+    ) -> None:
+        """Initialize the sensor."""
+        super().__init__(hass, entry, description)
+        self.category = self.entity_description.rest.split(".")[1]
+        self.entity_description = description
+        self._attributes = {}
+        self._state = "SUCCESS"
+        hass.bus.async_listen(EVENT_ROBONECT_RESPONSE, self.update_busevent)
+
+    def update_busevent(self, event: Event):
+        """Update sensor on bus event."""
+        client_response = event.data.get("client_response")
+        self._attributes = client_response
+        self._state = client_response.get("successful")
+        self.update_ha_state()
+        _LOGGER.debug(f"Event client_response: {client_response}")
+
+    @property
+    def native_value(self):
+        """Return the status of the sensor."""
+        return self._state
+
+    @property
+    def extra_state_attributes(self):
+        """Return attributes for sensor."""
+        return self._attributes | {"timestamp": self.last_synced}

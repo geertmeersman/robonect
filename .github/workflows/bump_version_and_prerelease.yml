@@ -26,7 +26,7 @@ jobs:
         with:
           prerelease: true
           publish: false
-          
+
       - name: 🔄　Update version in 'VERSION' and 'manifest.json' and push changes
         env:
           tag_name: ${{ steps.release_drafter.outputs.tag_name }}
