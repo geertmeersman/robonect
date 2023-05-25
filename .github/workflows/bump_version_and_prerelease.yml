@@ -40,7 +40,7 @@ jobs:
         run: |
           # Fetch the commit messages since the last tag
           git fetch --tags
-          last_tag=$(git describe --tags --abbrev=0 main)
+          last_tag=$(git describe --tags --abbrev=0 origin/main)
           commit_messages=$(git log --pretty=format:%s $last_tag..${{ github.ref }})
 
           # Use a script to determine the next version based on semantic naming
