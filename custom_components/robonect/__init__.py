@@ -19,14 +19,15 @@ from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-from homeassistant.helpers.update_coordinator import UpdateFailed
 
 from .const import CONF_MQTT_ENABLED
 from .const import CONF_REST_ENABLED
 from .const import DOMAIN
 from .const import PLATFORMS
-from .exceptions import RobonectException
 from .exceptions import RobonectServiceException
+
+# from homeassistant.helpers.update_coordinator import UpdateFailed
+# from .exceptions import RobonectException
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -112,18 +113,19 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def _async_update_data(self) -> dict | None:
         """Update data."""
-        try:
-            cleanup = False
-            if self.data is None:
-                cleanup = True
-            items = await self.client.async_cmds(
-                self.entry.data[CONF_MONITORED_VARIABLES], self.data is None
-            )
-            if cleanup:
-                await self.async_trigger_cleanup()
-            if items:
-                return items
-            return []
+        # try:
+        cleanup = False
+        if self.data is None:
+            cleanup = True
+        items = await self.client.async_cmds(
+            self.entry.data[CONF_MONITORED_VARIABLES], self.data is None
+        )
+        if cleanup:
+            await self.async_trigger_cleanup()
+        if items:
+            return items
+        return []
+        """
         except ClientConnectorError as exception:
             raise UpdateFailed(f"ConnectionError {exception}") from exception
         except ClientError as exception:
@@ -140,6 +142,7 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
             raise UpdateFailed(f"RobonectException {exception}") from exception
         except Exception as exception:
             raise UpdateFailed(f"Exception {exception}") from exception
+        """
 
     async def async_trigger_cleanup(self) -> None:
         """Trigger entity cleanup."""
