@@ -35,6 +35,7 @@ jobs:
       - name: Determine next version
         id: next-version
         run: |
+          yarn add detect-next-version
           # Fetch the commit messages since the last tag
           git fetch --tags
           last_tag=$(git describe --tags --abbrev=0 origin/main)
