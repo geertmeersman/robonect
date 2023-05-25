@@ -12,9 +12,11 @@
           "type": "Roboter-Rasenmäher Typ"
         },
         "data_description": {
+          "rest_enabled": "Die Anmeldeinformationen und die zu überwachenden Sensoren für die REST API werden im nächsten Bildschirm hinzugefügt.",
           "mqtt_enabled": "Hiermit werden automatisch Entitäten hinzugefügt, wenn sie in MQTT entdeckt werden.\n\n",
           "mqtt_topic": "Thema, das in der MQTT-Sektion Ihrer {name} konfiguriert ist.\n\nAchtung: Dies wird auch für die Namensgebung der entity_id verwendet (auch für die REST API Überwachung).",
-          "rest_enabled": "Die Anmeldeinformationen und die zu überwachenden Sensoren für die REST API werden im nächsten Bildschirm hinzugefügt."
+          "brand": "",
+          "type": ""
         }
       },
       "connection_rest": {
@@ -227,8 +229,10 @@
           },
           "service_call_result": {
             "name": "Antwort des Serviceaufrufs",
-            "timestamp": {
-              "name": "Ausführungszeitpunkt"
+            "state_attributes": {
+              "timestamp": {
+                "name": "Ausführungszeitpunkt"
+              }
             }
           }
         },
@@ -291,13 +295,7 @@
             },
             "state_attributes": {
               "substatus": {
-                "name": "Unterstatus",
-                "state": {
-                  "Charge completed": "Laden abgeschlossen",
-                  "drives": "Fahren",
-                  "following guidewire 1": "Folgt Führungsdraht 1",
-                  "Wheels slip!": "Räder rutschen!"
-                }
+                "name": "Unterstatus"
               },
               "mode": {
                 "name": "Modus",

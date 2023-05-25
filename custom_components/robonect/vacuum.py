@@ -197,7 +197,7 @@ class RobonectVacuumEntity(RobonectEntity, StateVacuumEntity, RestoreEntity):
         self.not_supported("pause")
 
     def update_rest_state(self):
-        """Update state based on REST State"""
+        """Update state based on REST State."""
         if self.coordinator is None:
             return False
         if len(self.coordinator.data) and "status" in self.coordinator.data:

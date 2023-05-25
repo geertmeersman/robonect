@@ -12,9 +12,11 @@
           "type": "Type robotmaaier"
         },
         "data_description": {
+          "rest_enabled": "De logingegevens en te volgen sensors voor de REST API worden in het volgende scherm toegevoegd",
           "mqtt_enabled": "Hiermee worden automatisch entiteiten toegevoegd bij ontdekking op MQTT\n\n",
           "mqtt_topic": "Topic naam die geconfigureerd is in de MQTT sectie van je {name}.\n\nOpgelet: Deze wordt ook gebruikt in de entity_id naamgeving (van ook de REST API monitoring).",
-          "rest_enabled": "De logingegevens en te volgen sensors voor de REST API worden in het volgende scherm toegevoegd"
+          "brand": "",
+          "type": ""
         }
       },
       "connection_rest": {
@@ -229,8 +231,10 @@
       },
       "service_call_result": {
         "name": "Service call antwoord",
-        "timestamp": {
-          "name": "Tijdstip uitvoering"
+        "state_attributes": {
+          "timestamp": {
+            "name": "Tijdstip uitvoering"
+          }
         }
       }
     },
@@ -293,13 +297,7 @@
         },
         "state_attributes": {
           "substatus": {
-            "name": "Sub-status",
-            "state": {
-              "Charge completed": "Opladen voltooid",
-              "drives": "Rijden",
-              "following guidewire 1": "Volgt geleidedraad 1",
-              "Wheels slip!": "Wielen slippen!"
-            }
+            "name": "Sub-status"
           },
           "mode": {
             "name": "Modus",

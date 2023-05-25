@@ -12,9 +12,11 @@
           "type": "Type de tondeuse robot"
         },
         "data_description": {
+          "rest_enabled": "Les informations de connexion et les capteurs à suivre pour l'API Rest seront ajoutés dans l'écran suivant",
           "mqtt_enabled": "Cela ajoutera automatiquement des entités lors de la détection sur MQTT\n\n",
           "mqtt_topic": "Nom du sujet configuré dans la section MQTT de votre {name}.\n\nNote: Il est également utilisé dans la dénomination des entity_id (pour la surveillance de l'API Rest également).",
-          "rest_enabled": "Les informations de connexion et les capteurs à suivre pour l'API Rest seront ajoutés dans l'écran suivant"
+          "brand": "",
+          "type": ""
         }
       },
       "connection_rest": {
@@ -229,8 +231,10 @@
       },
       "service_call_result": {
         "name": "Résultat de l'appel de service",
-        "timestamp": {
-          "name": "Heure d'exécution"
+        "state_attributes": {
+          "timestamp": {
+            "name": "Heure d'exécution"
+          }
         }
       }
     },
@@ -293,13 +297,7 @@
         },
         "state_attributes": {
           "substatus": {
-            "name": "Sous-état",
-            "state": {
-              "Charge completed": "Charge terminée",
-              "drives": "Conduite",
-              "following guidewire 1": "Suivre le fil de guidage 1",
-              "Wheels slip!": "Les roues patinent !"
-            }
+            "name": "Sous-état"
           },
           "mode": {
             "name": "Mode",

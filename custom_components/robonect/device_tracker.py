@@ -152,7 +152,7 @@ class RobonectGPSEntity(RobonectEntity, TrackerEntity, RestoreEntity):
         return SourceType.GPS
 
     def update_rest_gps_state(self):
-        """Update state based on REST GPS State"""
+        """Update state based on REST GPS State."""
         if self.coordinator is None:
             return False
         if len(self.coordinator.data) and "gps" in self.coordinator.data:
