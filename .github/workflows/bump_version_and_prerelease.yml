@@ -31,9 +31,12 @@ jobs:
         id: next-version
         run: |
           # Switch to the specific branch
-          git switch dev-current
 
           pip install git-conventional-version
+
+          git switch dev-current
+
+          git log --pretty=format:%s v0.2.6..dev-current
 
           # gcv --type=beta
           next_version=$(gcv --type=beta)
