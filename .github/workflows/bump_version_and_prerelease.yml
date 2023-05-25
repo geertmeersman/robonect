@@ -27,7 +27,7 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
-      - name: Set up Node.js
+      - name: Set up Node.js 10
         uses: actions/setup-node@v2
         with:
           node-version: 10
@@ -35,7 +35,8 @@ jobs:
       - name: Determine next version
         id: next-version
         run: |
-          yarn add detect-next-version
+          # Execute the detect-next-version script with Node.js 10
+          NEXT_VERSION=$(node -e "const detectNextVersion = require('detect-next-version'); console.log(detectNextVersion())")
           # Fetch the commit messages since the last tag
           git fetch --tags
           last_tag=$(git describe --tags --abbrev=0 origin/main)
