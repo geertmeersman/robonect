@@ -49,6 +49,8 @@ jobs:
           # Execute the conventional-commits tool to determine the next version
           NEXT_VERSION=$(npx conventional-recommended-bump)
 
+          echo "Next version: $NEXT_VERSION"
+
           # Extract the recommended bump from the output
           NEXT_VERSION=$(echo $NEXT_VERSION | awk '{print $2}')
 
