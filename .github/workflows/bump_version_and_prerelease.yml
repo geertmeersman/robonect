@@ -15,6 +15,36 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  determine_next_version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Determine Next Version
+        id: next_version
+        run: |
+          # Switch to the specific branch
+          git checkout dev-current
+
+          # Execute the conventional-commits tool to determine the next version
+          NEXT_VERSION=$(npx conventional-recommended-bump)
+
+          # Extract the recommended bump from the output
+          NEXT_VERSION=$(echo $NEXT_VERSION | awk '{print $2}')
+
+          # Set the output for the next version
+          echo "::set-output name=next_version::$NEXT_VERSION"
+
+      - name: Use Next Version
+        run: |
+          NEXT_VERSION=${{ steps.next_version.outputs.next_version }}
+          echo "Next version: $NEXT_VERSION"
+
   create_beta_release:
     name: Create a BETA release from dev-current
     runs-on: ubuntu-latest
