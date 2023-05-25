@@ -31,7 +31,7 @@ jobs:
         id: next-version
         run: |
           # Switch to the specific branch
-          git checkout dev-current
+          git switch dev-current
 
           pip install git-conventional-version
 
