@@ -15,56 +15,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  determine_next_version:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js 10
-        uses: actions/setup-node@v2
-        with:
-          node-version: "10"
-
-      - name: Create package.json
-        run: |
-          echo '{
-            "name": "Next version",
-            "version": "1.0.0",
-            "dependencies": {
-              "conventional-recommended-bump": "^8.1.0"
-            }
-          }' > package.json
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Determine Next Version
-        id: next_version
-        run: |
-          # Switch to the specific branch
-          git checkout dev-current
-
-          npm install --global conventional-recommended-bump
-          DEBUG=conventional-recommended-bump conventional-recommended-bump
-
-          # Execute the conventional-commits tool to determine the next version
-          NEXT_VERSION=$(npx conventional-recommended-bump)
-
-          echo "Next version: $NEXT_VERSION"
-
-          # Extract the recommended bump from the output
-          NEXT_VERSION=$(echo $NEXT_VERSION | awk '{print $2}')
-
-          # Set the output for the next version
-          echo "::set-output name=next_version::$NEXT_VERSION"
-
-      - name: Use Next Version
-        run: |
-          NEXT_VERSION=${{ steps.next_version.outputs.next_version }}
-          echo "Next version: $NEXT_VERSION"
-
   create_beta_release:
     name: Create a BETA release from dev-current
     runs-on: ubuntu-latest
@@ -85,15 +35,13 @@ jobs:
       - name: Determine next version
         id: next-version
         run: |
-          # Execute the detect-next-version script with Node.js 10
-          NEXT_VERSION=$(node -e "const detectNextVersion = require('detect-next-version'); console.log(detectNextVersion())")
-          # Fetch the commit messages since the last tag
-          git fetch --tags
-          last_tag=$(git describe --tags --abbrev=0 origin/main)
-          commit_messages=$(git log --pretty=format:%s $last_tag..${{ github.ref }})
+          # Switch to the specific branch
+          git checkout dev-current
 
-          # Use a script to determine the next version based on semantic naming
-          next_version=$(node determine-next-version.js "$commit_messages")
+          pip install git-conventional-version
+
+          # gcv --type=beta
+          next_version=$(gcv --type=beta)
 
           echo "::set-output name=version::$next_version"
 
@@ -104,7 +52,7 @@ jobs:
 
       - name: 🔄　Update version in 'VERSION' and 'manifest.json' and push changes
         env:
-          tag_name: v${{ steps.next-version.outputs.version }}-beta
+          tag_name: v${{ steps.next-version.outputs.version }}
           GITHUB_REPO: ${{ github.event.repository.name }}
           github_ref: ${{ github.ref }}
         run: |
@@ -130,5 +78,5 @@ jobs:
           prerelease: true
           publish: true
           commitish: ${{ github.ref }}
-          tag: v${{ steps.next-version.outputs.version }}-beta
-          name: Release v${{ steps.next-version.outputs.version }}-beta
+          tag: v${{ steps.next-version.outputs.version }}
+          name: Release v${{ steps.next-version.outputs.version }}
