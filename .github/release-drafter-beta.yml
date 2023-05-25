@@ -1,10 +1,8 @@
-name-template: "Release v$RESOLVED_VERSION-beta"
-tag-template: "v$RESOLVED_VERSION-beta"
 template: |
   ## What Changed 👀
 
   $CHANGES
-  **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION-beta
+  **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
 categories:
   - title: 🚀 Features
     labels:

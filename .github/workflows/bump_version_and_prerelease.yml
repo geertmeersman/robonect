@@ -77,3 +77,11 @@ jobs:
           commitish: ${{ github.ref }}
           tag: v${{ steps.next-version.outputs.version }}
           name: Release v${{ steps.next-version.outputs.version }}
+
+      - name: Discord notification
+        env:
+          tag_name: ${{ steps.release_drafter.outputs.tag_name }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: "New BETA release published: https://github.com/{{ EVENT_PAYLOAD.repository.full_name }}/releases/tag/{{tag_name}} ."
