@@ -27,26 +27,35 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Determine next version
+        id: next-version
+        run: |
+          # Fetch the commit messages since the last tag
+          git fetch --tags
+          last_tag=$(git describe --tags --abbrev=0 main)
+          commit_messages=$(git log --pretty=format:%s $last_tag..${{ github.ref }})
+
+          # Use a script to determine the next version based on semantic naming
+          next_version=$(node determine-next-version.js "$commit_messages")
+
+          echo "::set-output name=version::$next_version"
+
       - name: 🗑　Delete drafts
         uses: hugo19941994/delete-draft-releases@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 📝　Draft release
-        uses: release-drafter/release-drafter@v5
-        id: release_drafter
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          config-name: release-drafter-beta.yml
-          prerelease: true
-          publish: false
-          version: ${{ github.event.inputs.version }}
-          commitish: ${{ github.ref }}
-
       - name: 🔄　Update version in 'VERSION' and 'manifest.json' and push changes
         env:
-          tag_name: ${{ steps.release_drafter.outputs.tag_name }}
+          tag_name: v${{ steps.next-version.outputs.version }}-beta
           GITHUB_REPO: ${{ github.event.repository.name }}
           github_ref: ${{ github.ref }}
         run: |
@@ -71,5 +80,6 @@ jobs:
           config-name: release-drafter-beta.yml
           prerelease: true
           publish: true
-          version: ${{ github.event.inputs.version }}
           commitish: ${{ github.ref }}
+          tag: v${{ steps.next-version.outputs.version }}-beta
+          name: Release v${{ steps.next-version.outputs.version }}-beta
