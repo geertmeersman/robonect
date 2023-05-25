@@ -18,6 +18,11 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
+      - name: 🗑　Delete drafts
+        uses: hugo19941994/delete-draft-releases@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: 📝　Draft release
         uses: release-drafter/release-drafter@v5
         id: release_drafter
@@ -26,7 +31,7 @@ jobs:
         with:
           config-name: release-drafter-beta.yml
           prerelease: true
-          publish: true
+          publish: false
           commitish: ${{ github.ref }}
 
       - name: 🔄　Update version in 'VERSION' and 'manifest.json' and push changes
@@ -36,5 +41,24 @@ jobs:
           github_ref: ${{ github.ref }}
         run: |
           echo "** Manifest before replace **"
-          echo $tag_name
-          echo $github_ref
+          cat custom_components/$GITHUB_REPO/manifest.json
+          sed -i 's/"version": ".*"/"version": "'$tag_name'"/g' custom_components/$GITHUB_REPO/manifest.json
+          echo "** Manifest after replace **"
+          cat custom_components/$GITHUB_REPO/manifest.json
+          echo $tag_name > VERSION
+
+      - name: 🚀　Add and commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: Bump version
+
+      - name: 📝　Publish release
+        uses: release-drafter/release-drafter@v5
+        id: release_published
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            config-name: release-drafter-beta.yml
+            prerelease: true
+            publish: true
+            commitish: ${{ github.ref }}
