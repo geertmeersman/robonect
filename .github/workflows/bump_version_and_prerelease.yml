@@ -22,8 +22,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Set up Node.js 10
+        uses: actions/setup-node@v2
+        with:
+          node-version: "10"
+
+      - name: Determine Next Version
+        id: next_version
+        run: |
+          echo '{
+            "name": "Next version",
+            "version": "1.0.0",
+            "dependencies": {
+              "conventional-recommended-bump": "^8.1.0"
+            }
+          }' > package.json
+
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Determine Next Version
         id: next_version
