@@ -1,9 +1,11 @@
 """Robonect utils."""
 from __future__ import annotations
 
+import datetime
 import logging
 import re
 
+import pytz
 from jsonpath import jsonpath
 
 from .const import SHOW_DEBUG_AS_WARNING
@@ -19,12 +21,22 @@ def log_debug(input, force=False) -> None:
         _LOGGER.debug(input)
 
 
-def str_to_float(input) -> float:
+def str_to_float(input, entity=None) -> float:
     """Transform float to string."""
     return float(input.replace(",", "."))
 
 
-def float_to_timestring(float_time, unit_type) -> str:
+def raw_prefix(value, entity=None):
+    """Prefix raw."""
+    return f"raw_{value}"
+
+
+def float_minutes_to_timestring(float_time, entity=None):
+    """Transform float minutes to timestring."""
+    return float_to_timestring(float_time, "minutes")
+
+
+def float_to_timestring(float_time, unit_type="") -> str:
     """Transform float to timestring."""
     if type(float_time) is str:
         float_time = str_to_float(float_time)
@@ -72,16 +84,18 @@ def sizeof_fmt(num, suffix="b"):
 
 def get_json_dict_path(dictionary, path):
     """Fetch info based on jsonpath from dict."""
-    # log_debug(f"[get_json_dict_path] Path: {path}, Dict: {dictionary}")
     json_dict = jsonpath(dictionary, path)
+    if json_dict is False:
+        return None
     if isinstance(json_dict, list):
         json_dict = json_dict[0]
     return json_dict
 
 
-def wifi_signal_to_percentage(signal_strength):
+def wifi_signal_to_percentage(signal_strength, entity=None):
     """Convert wifi signal in dBm to percentage."""
     # Define the maximum and minimum WiFi signal strengths
+    signal_strength = int(signal_strength)
     max_signal_strength = -30  # dBm
     min_signal_strength = -100  # dBm
 
@@ -97,3 +111,21 @@ def wifi_signal_to_percentage(signal_strength):
 
     # Return the percentage
     return round(percentage, 1)
+
+
+def unix_to_datetime(epoch_timestamp, hass=None):
+    """Convert unix epoch to datetime."""
+
+    if epoch_timestamp is None or int(epoch_timestamp) == 0 or hass is None:
+        return None
+    # Convert epoch timestamp to datetime object in UTC
+    datetime_utc = datetime.datetime.fromtimestamp(int(epoch_timestamp), pytz.UTC)
+
+    # Convert UTC datetime to the desired timezone
+    timezone = pytz.timezone(hass.config.time_zone)
+    datetime_with_timezone = datetime_utc.astimezone(timezone)
+
+    # Subtract 2 hours from the timestamp
+    new_datetime = datetime_with_timezone - datetime.timedelta(hours=2)
+
+    return new_datetime

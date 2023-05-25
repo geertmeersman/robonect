@@ -1,127 +1,89 @@
-"""Robonect integration."""
-from __future__ import annotations
-
+"""The Robonect component."""
+import logging
 from datetime import timedelta
 
+from aiohttp import ClientConnectorError
+from aiohttp import ClientError
+from aiohttp import ClientResponseError
+from aiorobonect import RobonectClient
+from homeassistant.components import mqtt
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST
+from homeassistant.const import CONF_MONITORED_VARIABLES
 from homeassistant.const import CONF_PASSWORD
+from homeassistant.const import CONF_SCAN_INTERVAL
 from homeassistant.const import CONF_USERNAME
+from homeassistant.core import callback
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
+from homeassistant.helpers import entity_registry as er
+from homeassistant.helpers.typing import ConfigType
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-from homeassistant.helpers.update_coordinator import UpdateFailed
-from requests.exceptions import ConnectionError
 
-from .client import RobonectClient
-from .const import _LOGGER
-from .const import CONF_TRACKING
-from .const import CONF_UPDATE_INTERVAL
-from .const import DEFAULT_UPDATE_INTERVAL
+from .const import CONF_MQTT_ENABLED
+from .const import CONF_REST_ENABLED
 from .const import DOMAIN
 from .const import PLATFORMS
-from .const import SENSOR_GROUPS
-from .const import SERVICE_JOB
-from .const import SERVICE_JOB_SCHEMA
-from .const import SERVICE_MODE_SCHEMA
-from .const import SERVICE_REBOOT
-from .const import SERVICE_SHUTDOWN
-from .const import SERVICE_SLEEP
-from .const import SERVICE_START
-from .const import SERVICE_STOP
-from .exceptions import RobonectException
 from .exceptions import RobonectServiceException
-from .models import RobonectItem
-from .utils import log_debug
+
+# from homeassistant.helpers.update_coordinator import UpdateFailed
+# from .exceptions import RobonectException
+
+_LOGGER = logging.getLogger(__name__)
+
+
+async def async_setup(hass: HomeAssistant, hass_config: ConfigType) -> bool:
+    """Set up the Robonect component."""
+    hass.data[DOMAIN] = {
+        "device_tracker": set(),
+        "vacuum": set(),
+        "sensor": set(),
+    }
+    return True
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up Robonect from a config entry."""
-    hass.data.setdefault(DOMAIN, {})
+    """Set up the Robonect integration."""
 
-    client = RobonectClient(
-        host=entry.data[CONF_HOST],
-        username=entry.data[CONF_USERNAME],
-        password=entry.data[CONF_PASSWORD],
-        tracking=entry.data[CONF_TRACKING]
-        if CONF_TRACKING in entry.data
-        else SENSOR_GROUPS,
-        update_interval=entry.data[CONF_UPDATE_INTERVAL]
-        if CONF_UPDATE_INTERVAL in entry.data
-        else DEFAULT_UPDATE_INTERVAL,
-    )
+    if entry.data[CONF_MQTT_ENABLED] is True:
+        if not await mqtt.async_wait_for_mqtt_client(hass):
+            _LOGGER.error("MQTT integration is not available")
+            return False
 
-    dev_reg = dr.async_get(hass)
-    hass.data[DOMAIN][entry.entry_id] = coordinator = RobonectDataUpdateCoordinator(
-        hass,
-        config_entry_id=entry.entry_id,
-        dev_reg=dev_reg,
-        client=client,
-    )
+    if entry.data[CONF_REST_ENABLED] is True:
+        client = RobonectClient(
+            host=entry.data[CONF_HOST],
+            username=entry.data[CONF_USERNAME],
+            password=entry.data[CONF_PASSWORD],
+        )
 
-    await coordinator.async_config_entry_first_refresh()
+        try:
+            await hass.async_add_executor_job(client.state)
+        except ClientConnectorError as exception:
+            raise RobonectServiceException(f"Bad response {exception.message}")
+        except ClientResponseError as exception:
+            raise RobonectServiceException(f"Bad response {exception.message}")
+        except ClientError as exception:
+            raise RobonectServiceException(f"Request failed {exception.message}")
+        except TimeoutError:
+            raise RobonectServiceException("Request timed out")
+        except Exception as exception:
+            raise exception.message
 
+        hass.data[DOMAIN][entry.entry_id] = coordinator = RobonectDataUpdateCoordinator(
+            hass,
+            entry=entry,
+            client=client,
+        )
+        await coordinator.async_config_entry_first_refresh()
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
-
-    async def start(call) -> bool:
-        """Start the Robonect mower."""
-        return await hass.async_add_executor_job(client.start)
-
-    hass.services.async_register(DOMAIN, SERVICE_START, start)
-
-    async def stop(call) -> bool:
-        """Stop the Robonect mower."""
-        return await hass.async_add_executor_job(client.stop)
-
-    hass.services.async_register(DOMAIN, SERVICE_STOP, stop)
-
-    async def reboot(call) -> bool:
-        """Reboot the Robonect mower."""
-        return await hass.async_add_executor_job(client.reboot)
-
-    hass.services.async_register(DOMAIN, SERVICE_REBOOT, reboot)
-
-    async def shutdown(call) -> bool:
-        """Shut the Robonect mower down."""
-        return await hass.async_add_executor_job(client.shutdown)
-
-    hass.services.async_register(DOMAIN, SERVICE_SHUTDOWN, shutdown)
-
-    async def sleep(call) -> bool:
-        """Set the Robonect mower to sleep."""
-        return await hass.async_add_executor_job(client.sleep)
-
-    hass.services.async_register(DOMAIN, SERVICE_SLEEP, sleep)
-
-    async def job(call) -> bool:
-        """Place a mowing job."""
-        await hass.async_add_executor_job(
-            lambda: client.job(
-                start=call.data.get("start"),
-                end=call.data.get("end"),
-                duration=call.data.get("duration"),
-                after=call.data.get("after"),
-                remotestart=call.data.get("remotestart"),
-                corridor=call.data.get("corridor"),
-            )
-        )
-
-    hass.services.async_register(DOMAIN, SERVICE_JOB, job, schema=SERVICE_JOB_SCHEMA)
-
-    async def mode(call) -> bool:
-        """Set the Robonect mower mode."""
-        await hass.async_add_executor_job(
-            lambda: client.mode(mode=call.data.get("mode"))
-        )
-
-    hass.services.async_register(DOMAIN, SERVICE_JOB, mode, schema=SERVICE_MODE_SCHEMA)
-
     return True
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
-    if unload_ok := await hass.config_entries.async_unload_platforms(entry, PLATFORMS):
+    unload_ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
+    if unload_ok:
         hass.data[DOMAIN].pop(entry.entry_id)
 
     return unload_ok
@@ -130,77 +92,95 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
     """Data update coordinator for Robonect."""
 
-    data: list[RobonectItem]
     config_entry: ConfigEntry
 
     def __init__(
         self,
         hass: HomeAssistant,
-        config_entry_id: str,
-        dev_reg: dr.DeviceRegistry,
+        entry: ConfigEntry,
         client: RobonectClient,
     ) -> None:
         """Initialize coordinator."""
-        self._config_entry_id = config_entry_id
-        self._device_registry = dev_reg
+        self.entry = entry
         self.client = client
         self.hass = hass
         super().__init__(
             hass,
             _LOGGER,
             name=DOMAIN,
-            update_interval=timedelta(minutes=self.client.update_interval),
+            update_interval=timedelta(minutes=entry.data[CONF_SCAN_INTERVAL]),
         )
 
     async def _async_update_data(self) -> dict | None:
         """Update data."""
-        try:
-            items = await self.hass.async_add_executor_job(self.client.fetch_data)
-            sleeping = await self.hass.async_add_executor_job(self.client.sleeping)
+        # try:
+        cleanup = False
+        if self.data is None:
+            cleanup = True
+        items = await self.client.async_cmds(
+            self.entry.data[CONF_MONITORED_VARIABLES], self.data is None
+        )
+        if cleanup:
+            await self.async_trigger_cleanup()
+        if items:
+            return items
+        return []
+        """
+        except ClientConnectorError as exception:
+            raise UpdateFailed(f"ConnectionError {exception}") from exception
+        except ClientError as exception:
+            raise UpdateFailed(f"Request failed {exception.message}")
+        except TimeoutError:
+            raise UpdateFailed("Request timed out")
         except ConnectionError as exception:
             raise UpdateFailed(f"ConnectionError {exception}") from exception
         except RobonectServiceException as exception:
             raise UpdateFailed(f"RobonectServiceException {exception}") from exception
         except RobonectException as exception:
             raise UpdateFailed(f"RobonectException {exception}") from exception
+        except ClientResponseError as exception:
+            raise UpdateFailed(f"RobonectException {exception}") from exception
         except Exception as exception:
             raise UpdateFailed(f"Exception {exception}") from exception
+        """
 
-        items: list[RobonectItem] = items
+    async def async_trigger_cleanup(self) -> None:
+        """Trigger entity cleanup."""
+        entity_reg: er.EntityRegistry = er.async_get(self.hass)
+        ha_entity_reg_list: list[er.RegistryEntry] = er.async_entries_for_config_entry(
+            entity_reg, self.entry.entry_id
+        )
 
-        current_items = {
-            list(device.identifiers)[0][1]
-            for device in dr.async_entries_for_config_entry(
-                self._device_registry, self._config_entry_id
-            )
-        }
+        """
+        for e in self.hass.states.async_entity_ids(DOMAIN):
+            _LOGGER.critical(e)
+        for state in self.hass.states.async_all():
+            _LOGGER.critical(f"state: {state}")
+        """
+        entities_removed: bool = False
+        allowed = self.entry.data[CONF_MONITORED_VARIABLES] + ["NONE"]
+        for entry in ha_entity_reg_list:
+            if entry.original_name is None:
+                continue
+            entry_name = entry.name or entry.original_name
+            if entry.unique_id.split("-")[1] not in allowed:
+                _LOGGER.info("Removing entity: %s", entry_name)
+                entity_reg.async_remove(entry.entity_id)
+                entities_removed = True
+        if entities_removed:
+            self._async_remove_empty_devices(entity_reg)
 
-        if len(items) > 0:
-            fetched_items = {str(items[item].device_key) for item in items}
-            log_debug(
-                f"[init|RobonectDataUpdateCoordinator|_async_update_data|fetched_items] {fetched_items}"
-            )
-            if not sleeping:
-                if stale_items := current_items - fetched_items:
-                    for device_key in stale_items:
-                        if device := self._device_registry.async_get_device(
-                            {(DOMAIN, device_key)}
-                        ):
-                            log_debug(
-                                f"[init|RobonectDataUpdateCoordinator|_async_update_data|async_remove_device] {device_key}",
-                                True,
-                            )
-                            self._device_registry.async_remove_device(device.id)
+    @callback
+    def _async_remove_empty_devices(self, entity_reg: er.EntityRegistry) -> None:
+        """Remove devices with no entities."""
 
-            # If there are new items, we should reload the config entry so we can
-            # create new devices and entities.
-            if self.data and fetched_items - {
-                str(self.data[item].device_key) for item in self.data
-            }:
-                # log_debug(f"[init|RobonectDataUpdateCoordinator|_async_update_data|async_reload] {product.product_name}", True)
-                self.hass.async_create_task(
-                    self.hass.config_entries.async_reload(self._config_entry_id)
-                )
-                return None
-            return items
-        return []
+        device_reg = dr.async_get(self.hass)
+        device_list = dr.async_entries_for_config_entry(device_reg, self.entry.entry_id)
+        for device_entry in device_list:
+            if not er.async_entries_for_device(
+                entity_reg,
+                device_entry.id,
+                include_disabled_entities=True,
+            ):
+                _LOGGER.info("Removing device: %s", device_entry.name)
+                device_reg.async_remove_device(device_entry.id)

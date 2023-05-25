@@ -1,19 +1,31 @@
-"""Config flow to configure the Robonect integration."""
+"""Config flow to configure Robonect MQTT."""
+from __future__ import annotations
+
+import logging
 from abc import ABC
 from abc import abstractmethod
+from collections.abc import Awaitable
 from typing import Any
 
+import aiohttp
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
+from aiorobonect import RobonectClient
+from homeassistant.components import mqtt
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.config_entries import ConfigFlow
 from homeassistant.config_entries import OptionsFlow
 from homeassistant.const import CONF_HOST
+from homeassistant.const import CONF_MONITORED_VARIABLES
 from homeassistant.const import CONF_PASSWORD
+from homeassistant.const import CONF_SCAN_INTERVAL
+from homeassistant.const import CONF_TYPE
 from homeassistant.const import CONF_USERNAME
 from homeassistant.core import callback
+from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowHandler
 from homeassistant.data_entry_flow import FlowResult
+from homeassistant.helpers.config_entry_flow import DiscoveryFlowHandler
 from homeassistant.helpers.selector import NumberSelector
 from homeassistant.helpers.selector import NumberSelectorConfig
 from homeassistant.helpers.selector import NumberSelectorMode
@@ -25,25 +37,63 @@ from homeassistant.helpers.selector import TextSelectorConfig
 from homeassistant.helpers.selector import TextSelectorType
 from homeassistant.helpers.typing import UNDEFINED
 
-from .client import RobonectClient
-from .const import CONF_TRACKING
-from .const import CONF_UPDATE_INTERVAL
-from .const import DEFAULT_UPDATE_INTERVAL
+from .const import CONF_BRAND
+from .const import CONF_MQTT_ENABLED
+from .const import CONF_MQTT_TOPIC
+from .const import CONF_REST_ENABLED
+from .const import CONF_SUGGESTED_BRAND
+from .const import CONF_SUGGESTED_HOST
+from .const import CONF_SUGGESTED_TYPE
+from .const import DEFAULT_MQTT_TOPIC
+from .const import DEFAULT_SCAN_INTERVAL
 from .const import DOMAIN
 from .const import NAME
+from .const import ROBONECT_BRANDS
 from .const import SENSOR_GROUPS
 from .exceptions import BadCredentialsException
 from .exceptions import RobonectServiceException
 from .models import RobonectConfigEntryData
-from .utils import log_debug
+
+_LOGGER = logging.getLogger(__name__)
 
 DEFAULT_ENTRY_DATA = RobonectConfigEntryData(
-    host=None,
+    mqtt_enabled=True,
+    mqtt_topic=DEFAULT_MQTT_TOPIC,
+    host=CONF_SUGGESTED_HOST,
+    type=CONF_SUGGESTED_TYPE,
+    brand=CONF_SUGGESTED_BRAND,
+    rest_enabled=True,
     username=None,
     password=None,
-    tracking=[],
-    update_interval=DEFAULT_UPDATE_INTERVAL,
+    monitored_variables=SENSOR_GROUPS,
+    scan_interval=DEFAULT_SCAN_INTERVAL,
 )
+
+
+async def _async_has_devices(_: HomeAssistant) -> bool:
+    """MQTT is set as dependency, so that should be sufficient."""
+    return True
+
+
+class RobonectFlowHandler(DiscoveryFlowHandler[Awaitable[bool]], domain=DOMAIN):
+    """Handle Robonect MQTT DiscoveryFlow. The MQTT step is inherited from the parent class."""
+
+    VERSION = 1
+
+    def __init__(self) -> None:
+        """Set up the config flow."""
+        super().__init__(DOMAIN, "Robonect", _async_has_devices)
+
+    async def async_step_confirm(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
+        """Confirm setup."""
+        if user_input is None:
+            return self.async_show_form(
+                step_id="confirm",
+            )
+
+        return await super().async_step_confirm(user_input)
 
 
 class RobonectCommonFlow(ABC, FlowHandler):
@@ -54,6 +104,7 @@ class RobonectCommonFlow(ABC, FlowHandler):
         self.initial_data = initial_data
         self.new_entry_data = RobonectConfigEntryData()
         self.new_title: str | None = None
+        self._config_id = None
 
     @abstractmethod
     def finish_flow(self) -> FlowResult:
@@ -70,30 +121,100 @@ class RobonectCommonFlow(ABC, FlowHandler):
             host=user_input[CONF_HOST],
             username=user_input[CONF_USERNAME],
             password=user_input[CONF_PASSWORD],
-            tracking=user_input[CONF_TRACKING],
-            update_interval=user_input[CONF_UPDATE_INTERVAL],
         )
 
-        return await self.hass.async_add_executor_job(client.login)
+        return await client.state()
 
-    async def async_step_connection_init(
+    async def async_step_connection_methods(
         self, user_input: dict | None = None
     ) -> FlowResult:
         """Handle connection configuration."""
         errors: dict = {}
 
+        if not await mqtt.async_wait_for_mqtt_client(self.hass):
+            self.new_entry_data |= RobonectConfigEntryData(
+                mqtt_enabled=False,
+            )
+
         if user_input is not None:
             user_input = self.new_data() | user_input
-            test = await self.test_connection(user_input)
-            log_debug(test)
-            if not test["errors"]:
-                self.new_title = test["profile"].get("name")
-                self.new_entry_data |= user_input
-                await self.async_set_unique_id(f"{DOMAIN}_" + test["profile"].get("id"))
+            self.new_entry_data |= user_input
+            if user_input[
+                CONF_MQTT_ENABLED
+            ] and not await mqtt.async_wait_for_mqtt_client(self.hass):
+                errors["base"] = "mqtt_disabled"
+                self.new_entry_data |= RobonectConfigEntryData(
+                    mqtt_enabled=False,
+                )
+            else:
+                self._config_id = f"{DOMAIN}_" + user_input[CONF_MQTT_TOPIC]
+                if (
+                    self.hass.config_entries.async_get_entry(self._config_id)
+                    is not None
+                ):
+                    errors["CONF_MQTT_TOPIC"] = "topic_used"
+                else:
+                    return await self.async_step_connection_rest()
+        else:
+            self.new_entry_data = self.new_data()
+
+        fields = {
+            vol.Required(CONF_MQTT_ENABLED): bool,
+            vol.Required(CONF_MQTT_TOPIC): str,
+            vol.Required(CONF_REST_ENABLED): bool,
+            vol.Required(CONF_BRAND): SelectSelector(
+                SelectSelectorConfig(
+                    options=ROBONECT_BRANDS,
+                    multiple=False,
+                    custom_value=False,
+                    mode=SelectSelectorMode.DROPDOWN,
+                ),
+            ),
+            vol.Required(CONF_TYPE): TextSelector(
+                TextSelectorConfig(type=TextSelectorType.TEXT, autocomplete=CONF_TYPE)
+            ),
+        }
+        return self.async_show_form(
+            step_id="connection_methods",
+            data_schema=self.add_suggested_values_to_schema(
+                vol.Schema(fields), self.new_entry_data
+            ),
+            description_placeholders={
+                "name": NAME,
+            },
+            errors=errors,
+        )
+
+    async def async_step_connection_rest(
+        self, user_input: dict | None = None
+    ) -> FlowResult:
+        """Handle connection configuration."""
+        errors: dict = {}
+        placeholders = {
+            "name": NAME,
+        }
+        if user_input is not None:
+            user_input = self.new_data() | user_input
+            self.new_entry_data |= user_input
+            if user_input[CONF_REST_ENABLED]:
+                test = await self.test_connection(user_input)
+                if not test["errors"]:
+                    self.new_title = test["status"].get("name")
+                    await self.async_set_unique_id(self._config_id)
+                    self._abort_if_unique_id_configured()
+                    _LOGGER.debug(f"New account {self.new_title} added")
+                    return self.finish_flow()
+                if test["exception"]:
+                    placeholders |= {"exception": test["exception"]}
+            else:
+                await self.async_set_unique_id(self._config_id)
                 self._abort_if_unique_id_configured()
-                log_debug(f"New account {self.new_title} added")
+                _LOGGER.debug(f"New account {self.new_title} added")
                 return self.finish_flow()
             errors = test["errors"]
+        else:
+            self.new_entry_data = self.new_data()
+
         fields = {
             vol.Required(CONF_HOST): TextSelector(
                 TextSelectorConfig(type=TextSelectorType.TEXT, autocomplete="host")
@@ -107,50 +228,65 @@ class RobonectCommonFlow(ABC, FlowHandler):
                 )
             ),
             vol.Required(
-                CONF_UPDATE_INTERVAL, default=DEFAULT_UPDATE_INTERVAL
+                CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL
             ): NumberSelector(
                 NumberSelectorConfig(min=1, max=60, step=1, mode=NumberSelectorMode.BOX)
             ),
-            vol.Required(CONF_TRACKING, default=SENSOR_GROUPS): SelectSelector(
+            vol.Required(
+                CONF_MONITORED_VARIABLES, default=SENSOR_GROUPS
+            ): SelectSelector(
                 SelectSelectorConfig(
                     options=SENSOR_GROUPS,
                     multiple=True,
                     custom_value=False,
                     mode=SelectSelectorMode.DROPDOWN,
-                    translation_key=CONF_TRACKING,
+                    translation_key=CONF_MONITORED_VARIABLES,
                 )
             ),
         }
         return self.async_show_form(
-            step_id="connection_init",
-            data_schema=vol.Schema(fields),
+            step_id="connection_rest",
+            data_schema=self.add_suggested_values_to_schema(
+                vol.Schema(fields), self.new_entry_data
+            ),
+            description_placeholders=placeholders,
             errors=errors,
         )
 
     async def test_connection(self, user_input: dict | None = None) -> dict:
         """Test the connection to Robonect."""
         errors: dict = {}
-        profile: dict = {}
+        status: dict = {}
+        exception: dict = {}
 
         if user_input is not None:
             user_input = self.new_data() | user_input
             try:
-                profile = await self.async_validate_input(user_input)
+                status = await self.async_validate_input(user_input)
+                if not status.get("successful") or status.get("successful") is not True:
+                    raise RobonectServiceException
             except AssertionError as exception:
                 errors["base"] = "cannot_connect"
-                log_debug(f"[async_step_password|login] AssertionError {exception}")
+                _LOGGER.debug(f"[async_step_password|login] AssertionError {exception}")
+            except aiohttp.ClientConnectorError:
+                errors["base"] = "cannot_connect"
             except ConnectionError:
                 errors["base"] = "cannot_connect"
             except RobonectServiceException:
                 errors["base"] = "service_error"
             except BadCredentialsException:
                 errors["base"] = "invalid_auth"
-            except Exception as exception:
-                errors["base"] = "unknown"
-                log_debug(exception)
-        return {"profile": profile, "errors": errors}
+            except Exception as e:
+                if isinstance(e, aiohttp.ClientResponseError):
+                    errors["base"] = "invalid_auth"
+                else:
+                    errors["base"] = "unknown"
+                exception = e.message
+        return {"status": status, "errors": errors, "exception": exception}
 
-    async def async_step_password(self, user_input: dict | None = None) -> FlowResult:
+    async def async_step_username_password(
+        self, user_input: dict | None = None
+    ) -> FlowResult:
         """Configure password."""
         errors: dict = {}
 
@@ -164,10 +300,11 @@ class RobonectCommonFlow(ABC, FlowHandler):
                 return self.finish_flow()
 
         fields = {
+            vol.Required(CONF_USERNAME): cv.string,
             vol.Required(CONF_PASSWORD): cv.string,
         }
         return self.async_show_form(
-            step_id="password",
+            step_id="username_password",
             data_schema=self.add_suggested_values_to_schema(
                 vol.Schema(fields),
                 self.initial_data
@@ -175,6 +312,42 @@ class RobonectCommonFlow(ABC, FlowHandler):
                     password=None,
                 ),
             ),
+            errors=errors,
+        )
+
+    async def async_step_connection_options(
+        self, user_input: dict | None = None
+    ) -> FlowResult:
+        """Configure password."""
+        errors: dict = {}
+
+        if user_input is not None:
+            user_input = self.new_data() | user_input
+            self.new_entry_data |= user_input
+            if user_input[
+                CONF_MQTT_ENABLED
+            ] and not await mqtt.async_wait_for_mqtt_client(self.hass):
+                errors["base"] = "mqtt_disabled"
+                self.new_entry_data |= RobonectConfigEntryData(
+                    mqtt_enabled=False,
+                )
+            else:
+                return self.finish_flow()
+
+        fields = {
+            vol.Required(CONF_MQTT_ENABLED): bool,
+            vol.Required(CONF_REST_ENABLED): bool,
+        }
+
+        return self.async_show_form(
+            step_id="connection_options",
+            data_schema=self.add_suggested_values_to_schema(
+                vol.Schema(fields),
+                self.initial_data,
+            ),
+            description_placeholders={
+                "name": NAME,
+            },
             errors=errors,
         )
 
@@ -203,7 +376,7 @@ class RobonectCommonFlow(ABC, FlowHandler):
             errors=errors,
         )
 
-    async def async_step_update_interval(
+    async def async_step_scan_interval(
         self, user_input: dict | None = None
     ) -> FlowResult:
         """Configure update interval."""
@@ -214,12 +387,12 @@ class RobonectCommonFlow(ABC, FlowHandler):
             return self.finish_flow()
 
         fields = {
-            vol.Required(CONF_UPDATE_INTERVAL): NumberSelector(
+            vol.Required(CONF_SCAN_INTERVAL): NumberSelector(
                 NumberSelectorConfig(min=1, max=60, step=1, mode=NumberSelectorMode.BOX)
             ),
         }
         return self.async_show_form(
-            step_id="update_interval",
+            step_id="scan_interval",
             data_schema=self.add_suggested_values_to_schema(
                 vol.Schema(fields),
                 self.initial_data,
@@ -227,8 +400,10 @@ class RobonectCommonFlow(ABC, FlowHandler):
             errors=errors,
         )
 
-    async def async_step_sensors(self, user_input: dict | None = None) -> FlowResult:
-        """Configure sensors."""
+    async def async_step_monitored_variables(
+        self, user_input: dict | None = None
+    ) -> FlowResult:
+        """Configure monitored variables."""
         errors: dict = {}
 
         if user_input is not None:
@@ -236,18 +411,18 @@ class RobonectCommonFlow(ABC, FlowHandler):
             return self.finish_flow()
 
         fields = {
-            vol.Required(CONF_TRACKING): SelectSelector(
+            vol.Required(CONF_MONITORED_VARIABLES): SelectSelector(
                 SelectSelectorConfig(
                     options=SENSOR_GROUPS,
                     multiple=True,
                     custom_value=False,
                     mode=SelectSelectorMode.DROPDOWN,
-                    translation_key=CONF_TRACKING,
+                    translation_key=CONF_MONITORED_VARIABLES,
                 )
             ),
         }
         return self.async_show_form(
-            step_id="sensors",
+            step_id="monitored_variables",
             data_schema=self.add_suggested_values_to_schema(
                 vol.Schema(fields),
                 self.initial_data,
@@ -287,10 +462,11 @@ class RobonectOptionsFlow(RobonectCommonFlow, OptionsFlow):
         return self.async_show_menu(
             step_id="options_init",
             menu_options=[
+                "connection_options",
                 "host",
-                "password",
-                "update_interval",
-                "sensors",
+                "username_password",
+                "scan_interval",
+                "monitored_variables",
             ],
         )
 
@@ -321,4 +497,10 @@ class RobonectConfigFlow(RobonectCommonFlow, ConfigFlow, domain=DOMAIN):
 
     async def async_step_user(self, user_input: dict | None = None) -> FlowResult:
         """Handle a flow initialized by the user."""
-        return await self.async_step_connection_init()
+        return await self.async_step_connection_methods()
+
+        #    async def async_step_mqtt(self, user_input: dict | None = None) -> FlowResult:
+        """Handle a flow initialized by the autodiscovery."""
+
+
+#        return await self.async_step_connection_methods()
