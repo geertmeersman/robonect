@@ -26,13 +26,14 @@ jobs:
         with:
           prerelease: true
           publish: true
-          tag: "v$RESOLVED_VERSION-beta"
-          name: "Release v$RESOLVED_VERSION-beta"
+          commitish: refs/heads/dev-current
 
       - name: 🔄　Update version in 'VERSION' and 'manifest.json' and push changes
         env:
           tag_name: ${{ steps.release_drafter.outputs.tag_name }}
           GITHUB_REPO: ${{ github.event.repository.name }}
+          github_ref: ${{ github.ref }}
         run: |
           echo "** Manifest before replace **"
           echo $tag_name
+          echo $github_ref
