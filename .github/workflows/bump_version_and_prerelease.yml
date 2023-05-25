@@ -57,8 +57,8 @@ jobs:
         id: release_published
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          with:
-            config-name: release-drafter-beta.yml
-            prerelease: true
-            publish: true
-            commitish: ${{ github.ref }}
+        with:
+          config-name: release-drafter-beta.yml
+          prerelease: true
+          publish: true
+          commitish: ${{ github.ref }}
