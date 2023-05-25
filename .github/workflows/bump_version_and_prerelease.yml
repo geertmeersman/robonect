@@ -6,8 +6,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  create_release_draft:
-    name: Create the release draft
+  create_beta_release:
+    name: Create a BETA release from dev-current
     runs-on: ubuntu-latest
     permissions:
       contents: write
