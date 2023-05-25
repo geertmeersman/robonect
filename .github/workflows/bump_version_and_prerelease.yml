@@ -26,6 +26,8 @@ jobs:
         with:
           prerelease: true
           publish: false
+          version-resolver: major
+          tag: "v$RESOLVED_VERSION-beta"
 
       - name: 🔄　Update version in 'VERSION' and 'manifest.json' and push changes
         env:
