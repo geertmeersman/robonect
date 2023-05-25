@@ -1,5 +1,14 @@
 name: Pre-Release
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        type: choice
+        description: Version bump
+        options:
+          - major
+          - minor
+          - patch
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -32,6 +41,7 @@ jobs:
           config-name: release-drafter-beta.yml
           prerelease: true
           publish: false
+          version: ${{ github.event.inputs.version }}
           commitish: ${{ github.ref }}
 
       - name: 🔄　Update version in 'VERSION' and 'manifest.json' and push changes
@@ -61,4 +71,5 @@ jobs:
           config-name: release-drafter-beta.yml
           prerelease: true
           publish: true
+          version: ${{ github.event.inputs.version }}
           commitish: ${{ github.ref }}
