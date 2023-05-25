@@ -1,14 +1,6 @@
 name: Pre-Release
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        type: choice
-        description: Version bump
-        options:
-          - major
-          - minor
-          - patch
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
