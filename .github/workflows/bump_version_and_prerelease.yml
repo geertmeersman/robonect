@@ -26,10 +26,13 @@ jobs:
           pip install git-conventional-version semantic_version semver
           next_version=$(python .github/scripts/get_new_version.py)
           last_tag=$(git describe --tags --abbrev=0 origin/main)
+          echo Last tag: $last_tag
           changelog=$(gcv-log;echo -e "##Commits\n";git log --pretty=format:%s $last_tag..${{ github.ref }}|while read i; do echo "- $i";done)
           echo "Calculated next verion: $next_version"
           echo "NEXT_VERSION=$next_version" >> "$GITHUB_OUTPUT"
-          echo "CHANGELOG=$changelog" >> "$GITHUB_OUTPUT"
+          echo "CHANGELOG<<$EOF" >> $GITHUB_OUTPUT
+          echo "$changelog" >> $GITHUB_OUTPUT
+          echo "$EOF" >> $GITHUB_OUTPUT
 
       - name: 🗑　Delete drafts
         uses: hugo19941994/delete-draft-releases@v1.0.1
