@@ -1,44 +1,10 @@
 name-template: "Release v$RESOLVED_VERSION-beta"
 tag-template: "v$RESOLVED_VERSION-beta"
 template: |
-  ## What Changed 👀
-
-  $CHANGES
-  **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION-beta
-categories:
-  - title: 🚀 Features
-    labels:
-      - feature
-      - enhancement
-  - title: 🐛 Bug Fixes
-    labels:
-      - fix
-      - bug
-  - title: ⚠️ Breaking
-    labels:
-      - breaking
-  - title: ⚠️ Changes
-    labels:
-      - changed
-  - title: ⛔️ Deprecated
-    labels:
-      - deprecated
-  - title: 🗑 Removed
-    labels:
-      - removed
-  - title: 🔐 Security
-    labels:
-      - security
-  - title: 📄 Documentation
-    labels:
-      - docs
-      - documentation
-  - title: 🧩 Dependency Updates
-    labels:
-      - deps
-      - dependencies
-
-change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
-change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
-exclude-labels:
-  - skip-changelog
+  ## Changes
+  {{#each .Versions}}
+  ### {{#if .Name}}{{.Name.split('.')[0]}}{{else}}Unreleased{{/if}}
+  {{#each .PullRequests}}
+  - {{#if .Draft}}{{.Number}}: (DRAFT){{else}}{{.Number}}:{{/if}} {{title}} ({{user.login}})
+  {{/each}}
+  {{/each}}
