@@ -35,7 +35,7 @@ jobs:
           pip install git-conventional-version
 
           git switch dev-current
-
+          git fetch --tags
           git log --pretty=format:%s v0.2.6..dev-current
 
           # gcv --type=beta
