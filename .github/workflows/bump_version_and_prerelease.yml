@@ -1,0 +1,30 @@
+name: Pre-Release
+on: [workflow_dispatch]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  create_release_draft:
+    name: Create the release draft
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: ⤵️　Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+
+      - id: semver-tag
+        uses: wakatime/semver-action@v1.5.1
+        with:
+          prefix: "v"
+          prerelease_id: "rc"
+          main_branch_name: "main"
+          develop_branch_name: "dev-current"
+          debug: "true"
+      - name: "Created tag"
+        run: echo "tag ${{ steps.semver-tag.outputs.semver_tag }}"

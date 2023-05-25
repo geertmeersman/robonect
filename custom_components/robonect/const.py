@@ -1,6 +1,5 @@
 """Constants used by Robonect."""
 import json
-import logging
 from pathlib import Path
 from typing import Final
 
@@ -11,14 +10,29 @@ from homeassistant.helpers import config_validation as cv
 SHOW_DEBUG_AS_WARNING = False
 BYPASS_SLEEP = False
 
-_LOGGER = logging.getLogger(__name__)
+EVENT_ROBONECT_RESPONSE = "robonect_response"
 
-CONF_TRACKING = "tracking"
-CONF_UPDATE_INTERVAL = "update_interval"
+ATTR_SATELLITES = "satellites"
 
-PLATFORMS: Final = [Platform.SENSOR]
+MQTT_TOPIC = "automower"
+CONF_MQTT_ENABLED = "mqtt_enabled"
+CONF_MQTT_TOPIC = "mqtt_topic"
+CONF_REST_ENABLED = "rest_enabled"
+DEFAULT_MQTT_TOPIC = "automower"
+CONF_SUGGESTED_TYPE = "Automower 310"
+CONF_SUGGESTED_HOST = "10.0.0.99"
+CONF_SUGGESTED_BRAND = "Husqvarna"
+CONF_BRAND = "brand"
 
-ATTRIBUTION: Final = "Data provided by Robonect"
+PLATFORMS: Final = [
+    Platform.SENSOR,
+    Platform.BUTTON,
+    Platform.DEVICE_TRACKER,
+    Platform.VACUUM,
+]
+
+ATTRIBUTION_REST: Final = "Data provided by Robonect REST"
+ATTRIBUTION_MQTT: Final = "Data provided by Robonect MQTT"
 
 SERVICE_START = "start"
 SERVICE_STOP = "stop"
@@ -27,6 +41,7 @@ SERVICE_SHUTDOWN = "shutdown"
 SERVICE_SLEEP = "sleep"
 SERVICE_JOB = "job"
 
+ROBONECT_BRANDS = ["Husqvarna", "Gardena", "Flymo", "McCulloch"]
 SERVICE_JOB_AFTER_VALUES = ["Auto", "Home", "End of day"]
 SERVICE_JOB_REMOTESTART_VALUES = [
     "Normal",
@@ -68,10 +83,29 @@ SERVICE_MODE_SCHEMA = vol.Schema(
         vol.Required("mode", default="auto"): vol.In(SERVICE_MODE_VALUES),
     }
 )
-SENSOR_GROUPS = ["battery", "wlan", "version", "timer", "hour", "error"]
+SENSOR_GROUPS = [
+    "battery",
+    "clock",
+    "door",
+    "error",
+    "ext",
+    "gps",
+    "health",
+    "hour",
+    "motor",
+    "portal",
+    "push",
+    "remote",
+    "status",
+    "timer",
+    "version",
+    "weather",
+    "wlan",
+    "wire",
+]
 
 DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S%z"
-DEFAULT_UPDATE_INTERVAL = 2
+DEFAULT_SCAN_INTERVAL = 2
 CONNECTION_RETRY = 5
 REQUEST_TIMEOUT = 20
 WEBSITE = "https://www.robonect-shop.de"
@@ -95,3 +129,5 @@ If you have any issues with this you need to open an issue here:
 """.format(
     name=NAME, version=VERSION, issueurl=ISSUEURL
 )
+
+TRACKER_UPDATE = f"{DOMAIN}_tracker_update"

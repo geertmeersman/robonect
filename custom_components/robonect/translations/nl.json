@@ -1,15 +1,34 @@
 {
   "config": {
     "step": {
-      "connection_init": {
-        "title": "Nieuwe Robonect account",
-        "description": "Configureer je Robonect account",
+      "connection_methods": {
+        "title": "{name} account setup",
+        "description": "Connectiviteit",
+        "data": {
+          "rest_enabled": "Rest API monitoring",
+          "mqtt_enabled": "MQTT monitoring",
+          "mqtt_topic": "MQTT topic en sensor prefix",
+          "brand": "Merk robotmaaier",
+          "type": "Type robotmaaier"
+        },
+        "data_description": {
+          "mqtt_enabled": "Hiermee worden automatisch entiteiten toegevoegd bij ontdekking op MQTT\n\n",
+          "mqtt_topic": "Topic naam die geconfigureerd is in de MQTT sectie van je {name}.\n\nOpgelet: Deze wordt ook gebruikt in de entity_id naamgeving (van ook de REST API monitoring).",
+          "rest_enabled": "De logingegevens en te volgen sensors voor de REST API worden in het volgende scherm toegevoegd"
+        }
+      },
+      "connection_rest": {
+        "title": "{name} account setup - REST",
+        "description": "Configureer je {name} account.\n",
         "data": {
           "host": "Host",
           "username": "Gebruiker",
           "password": "Wachtwoord",
-          "update_interval": "Update interval (min)",
-          "tracking": "Te volgen sensors"
+          "scan_interval": "Update interval (min)",
+          "monitored_variables": "Te volgen sensors"
+        },
+        "data_description": {
+          "rest_enabled": "Hiermee worden je entiteiten toegevoegd op basis van de REST API"
         }
       }
     },
@@ -18,44 +37,55 @@
     },
     "error": {
       "cannot_connect": "Kan geen verbinding maken",
-      "invalid_auth": "Ongeldige authenticatie",
-      "unknown": "Onverwachte fout",
+      "topic_used": "MQTT Topic reeds in gebruik",
+      "invalid_auth": "Ongeldige authenticatie | {exception}",
+      "mqtt_disabled": "MQTT integratie is niet beschikbaar.\nVoeg ze toe aan Home Assistant (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nJe kan uiteraard kiezen om enkel REST API monitoring te gebruiken.",
+      "unknown": "Onverwachte fout | {exception}",
       "service_error": "Service niet beschikbaar"
     }
   },
   "options": {
     "step": {
-      "init": {
-        "title": "Herconfigureer Robonect",
+      "connection_options": {
+        "title": "{name} account",
+        "description": "Connectiviteit",
         "data": {
-          "host": "Host",
-          "username": "Gebruiker",
-          "password": "Wachtwoord"
+          "rest_enabled": "Rest API monitoring",
+          "mqtt_enabled": "MQTT monitoring",
+          "mqtt_topic": "MQTT topic en sensor prefix",
+          "brand": "Merk robotmaaier",
+          "type": "Type robotmaaier"
+        },
+        "data_description": {
+          "mqtt_enabled": "Hiermee worden automatisch entiteiten toegevoegd bij ontdekking op MQTT\n\n",
+          "mqtt_topic": "Topic naam die geconfigureerd is in de MQTT sectie van je {name}.\n\nOpgelet: Deze wordt ook gebruikt in de entity_id naamgeving (van ook de REST API monitoring).",
+          "rest_enabled": "De logingegevens en te volgen sensors voor de REST API worden in het volgende scherm toegevoegd"
         }
       },
       "host": {
         "title": "Pas je host adres aan",
         "description": "Te doen wanneer het Robonect host adres gewijzigd is",
         "data": {
-          "password": "Wachtwoord"
-        }
-      },
-      "password": {
-        "title": "Pas je wachtwoord aan",
-        "description": "Te doen wanneer je je account wachtwoord gewijzigd hebt",
-        "data": {
           "host": "Host"
         }
       },
-      "update_interval": {
+      "username_password": {
+        "title": "Pas je gebruikersnaam en wachtwoord aan",
+        "description": "Te doen wanneer je je account referenties gewijzigd hebt",
+        "data": {
+          "username": "Gebruiker",
+          "password": "Wachtwoord"
+        }
+      },
+      "scan_interval": {
         "title": "Update interval",
         "description": "Wijzig het update interval voor het verversen van de sensors",
         "data": {
-          "update_interval": "Update interval (min)"
+          "scan_interval": "Update interval (min)"
         }
       },
-      "sensors": {
-        "title": "Sensor",
+      "monitored_variables": {
+        "title": "Sensors",
         "description": "Welke sensoren volgen",
         "data": {
           "track_battery": "Batterij",
@@ -69,10 +99,11 @@
       "options_init": {
         "title": "Opties wijzigen",
         "menu_options": {
+          "connection_options": "Connectie methodes",
           "host": "Host",
-          "password": "Wachtwoord",
-          "update_interval": "Update interval",
-          "sensors": "Sensors"
+          "username_password": "Gebruikersnaam en wachtwoord",
+          "scan_interval": "Update interval",
+          "monitored_variables": "Sensors"
         }
       }
     },
@@ -82,57 +113,230 @@
     "error": {
       "cannot_connect": "Kan geen verbinding maken",
       "invalid_auth": "Ongeldige authenticatie",
+      "mqtt_disabled": "MQTT integratie is niet beschikbaar.\nVoeg ze toe aan Home Assistant (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nJe kan uiteraard kiezen om enkel REST API monitoring te gebruiken.",
       "unknown": "Onverwachte fout",
       "service_error": "Service niet beschikbaar"
     }
   },
   "entity": {
     "sensor": {
-      "status": {
+      "mower_status": {
+        "name": "Status",
         "state": {
-          "raw_0": "Status detecteren",
-          "raw_1": "Geparkeerd",
-          "raw_2": "Maaien",
-          "raw_3": "Laadstation zoeken",
-          "raw_4": "Laden",
-          "raw_5": "Zoeken",
-          "raw_7": "Fout",
-          "raw_8": "Kabelsignaal verloren",
-          "raw_16": "Uit",
-          "raw_17": "Slapen",
-          "raw_18": "Wachten op de garagedeur",
-          "raw_98": "Offline (onmogelijk te verbinden)",
-          "raw_99": "Ongekend"
+          "0": "Status detecteren",
+          "1": "Geparkeerd",
+          "2": "Maaien",
+          "3": "Op zoek naar oplaadstation",
+          "4": "Opladen",
+          "5": "Zoeken",
+          "7": "Fout",
+          "8": "Kabelsignaal verloren",
+          "16": "Uit",
+          "17": "Slapen",
+          "18": "Wachten op garagedeur",
+          "98": "Offline (kan niet binden)",
+          "99": "Onbekend"
         }
       },
-      "mode": {
+      "mower_battery_charge": {
+        "name": "Batterij"
+      },
+      "mower_status_duration": {
+        "name": "Tijd in huidige status"
+      },
+      "device_serial": {
+        "name": "Serienummer"
+      },
+      "mower_distance": {
+        "name": "Afstand"
+      },
+      "device_name": {
+        "name": "Naam"
+      },
+      "health_climate_temperature": {
+        "name": "Interne temperatuur maairobot"
+      },
+      "health_climate_humidity": {
+        "name": "Interne luchtvochtigheid"
+      },
+      "mower_blades_quality": {
+        "name": "Kwaliteit messen"
+      },
+      "mower_blades_days": {
+        "name": "Leeftijd messen"
+      },
+      "mower_blades_hours": {
+        "name": "Bedrijfsuren messen"
+      },
+      "mower_stopped": {
+        "name": "Gestopt"
+      },
+      "wlan_rssi": {
+        "name": "Wi-Fi signaalsterkte"
+      },
+      "mower_mode": {
+        "name": "Modus",
         "state": {
-          "raw_0": "Auto",
-          "raw_1": "Manueel",
-          "raw_2": "Home",
-          "raw_3": "Demo",
-          "raw_98": "Einde van de dag",
-          "raw_99": "Maaiopdracht"
+          "0": "Auto",
+          "1": "Manueel",
+          "2": "Home",
+          "3": "Demo",
+          "98": "Einde van de dag",
+          "99": "Maaiopdracht"
         }
       },
-      "timer_status": {
-        "state": {
-          "raw_0": "Uitgeschakeld",
-          "raw_1": "Actief",
-          "raw_2": "Stand-by"
+      "mower_statistic_hours": {
+        "name": "Bedrijfsuren"
+      },
+      "mower_error_code": {
+        "name": "Laatste foutcode"
+      },
+      "mower_error_message": {
+        "name": "Laatste foutmelding"
+      },
+      "weather_data_break": {
+        "name": "Gestopt vanwege weer"
+      },
+      "mower_substatus": {
+        "name": "Substatus"
+      },
+      "mower_substatus_plain": {
+        "name": "Substatus eenvoudig"
+      },
+      "mower_timer_next_unix": {
+        "name": "Volgende starttijd"
+      },
+      "health_voltage_int33": {
+        "name": "Bedrijfsspanning Robonect"
+      },
+      "health_voltage_ext33": {
+        "name": "Bedrijfsspanning maaier"
+      },
+      "health_voltage_batt": {
+        "name": "Batterijspanning"
+      },
+      "clock_time": {
+        "name": "Klok"
+      },
+      "passage_open": {
+        "name": "Passage open"
+      },
+      "gps_longitude": {
+        "name": "GPS Lengtegraad"
+      },
+      "gps_latitude": {
+        "name": "GPS Breedtegraad"
+      },
+      "service_call_result": {
+        "name": "Service call antwoord",
+        "timestamp": {
+          "name": "Tijdstip uitvoering"
         }
       }
-    }
-  },
-  "selector": {
-    "tracking": {
-      "options": {
-        "battery": "Batterij",
-        "wlan": "Wlan",
-        "version": "Versie",
-        "timer": "Timer",
-        "hour": "Tijd",
-        "error": "Fouten"
+    },
+    "button": {
+      "start": {
+        "name": "Start"
+      },
+      "stop": {
+        "name": "Stop"
+      },
+      "reboot": {
+        "name": "Herstarten"
+      },
+      "shutdown": {
+        "name": "Afsluiten"
+      },
+      "sleep": {
+        "name": "Slapen"
+      },
+      "home": {
+        "name": "Terug naar huis"
+      },
+      "eod": {
+        "name": "Einde van de dag"
+      },
+      "auto": {
+        "name": "Automatisch"
+      },
+      "man": {
+        "name": "Handmatig"
+      }
+    },
+    "device_tracker": {
+      "gps": {
+        "name": "GPS Tracker",
+        "state_attributes": {
+          "last_synced": {
+            "name": "Laatste synchronisatie"
+          }
+        }
+      }
+    },
+    "vacuum": {
+      "automower": {
+        "name": "Robotmaaier",
+        "state": {
+          "0": "Status detecteren",
+          "1": "Geparkeerd",
+          "2": "Maaien",
+          "3": "Laadstation zoeken",
+          "4": "Laden",
+          "5": "Zoeken",
+          "7": "Fout",
+          "8": "Kabelsignaal verloren",
+          "16": "Uit",
+          "17": "Slapen",
+          "18": "Wachten op de garagedeur",
+          "98": "Offline (onmogelijk te verbinden)",
+          "99": "Ongekend"
+        },
+        "state_attributes": {
+          "substatus": {
+            "name": "Sub-status",
+            "state": {
+              "Charge completed": "Opladen voltooid",
+              "drives": "Rijden",
+              "following guidewire 1": "Volgt geleidedraad 1",
+              "Wheels slip!": "Wielen slippen!"
+            }
+          },
+          "mode": {
+            "name": "Modus",
+            "state": {
+              "0": "Auto",
+              "1": "Manueel",
+              "2": "Home",
+              "3": "Demo",
+              "98": "Einde van de dag",
+              "99": "Maaiopdracht"
+            }
+          },
+          "status_plain": {
+            "name": "Status",
+            "state": {
+              "Sleeping": "Slapen"
+            }
+          },
+          "distance": {
+            "name": "Afstand van basis"
+          },
+          "status_duration": {
+            "name": "Tijd in huidige status"
+          },
+          "statistic_hours": {
+            "name": "Bedrijfsuren"
+          },
+          "timer_next_unix": {
+            "name": "Volgende starttijd"
+          },
+          "last_synced": {
+            "name": "Laatste synchronisatie"
+          },
+          "blades_quality": {
+            "name": "Kwaliteit messen"
+          }
+        }
       }
     }
   }

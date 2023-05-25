@@ -27,6 +27,7 @@ class RobonectEnvironment:
 class RobonectItem:
     """Robonect item model."""
 
+    platform: str = ""
     name: str = ""
     key: str = ""
     type: str = ""
@@ -34,6 +35,23 @@ class RobonectItem:
     device_key: str = ""
     device_name: str = ""
     device_model: str = ""
+    serial: str = ""
+    firmware: str = ""
+    status: dict = field(default_factory=dict)
     data: dict = field(default_factory=dict)
     extra_attributes: dict = field(default_factory=dict)
     native_unit_of_measurement: str = None
+
+
+@dataclass
+class RobonectSensorItem(RobonectItem):
+    """Robonect sensor model."""
+
+    platform: str = "sensor"
+
+
+@dataclass
+class RobonectVacuumItem(RobonectItem):
+    """Robonect Vacuum model."""
+
+    platform: str = "vacuum"
