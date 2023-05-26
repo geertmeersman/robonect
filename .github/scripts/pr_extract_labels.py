@@ -1,4 +1,7 @@
+"""Script to extract the labels for a PR."""
+import os
 import re
+import sys
 
 
 def extract_semver_types(commit_messages):
@@ -25,11 +28,15 @@ def get_semver_level(commit_messages):
     return "patch"
 
 
-with open("COMMIT_MESSAGES", "r") as file:
-    messages = []
-    for line in file:
-        messages.append(line.strip())
-    semver_level = get_semver_level(messages)
-    types = extract_semver_types(messages)
-    types.append(semver_level)
-    print(types)
+file_path = "COMMIT_MESSAGES"
+if os.path.exists(file_path):
+    with open(file_path) as file:
+        messages = []
+        for line in file:
+            messages.append(line.strip())
+        semver_level = get_semver_level(messages)
+        types = extract_semver_types(messages)
+        types.append(semver_level)
+        sys.exit(types)
+else:
+    sys.exit(f"ERROR: {file_path} does not exist")
