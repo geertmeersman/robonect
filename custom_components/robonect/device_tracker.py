@@ -159,8 +159,8 @@ class RobonectGPSEntity(RobonectEntity, TrackerEntity, RestoreEntity):
             status = self.coordinator.data.get("status")
             if "gps" in gps_state:
                 gps_state = gps_state.get("gps")
-                self._latitude = float(filter_out_units(gps_state.get(ATTR_LATITUDE)))
-                self._longitude = float(filter_out_units(gps_state.get(ATTR_LONGITUDE)))
+                self._latitude = float(gps_state.get(ATTR_LATITUDE))
+                self._longitude = float(gps_state.get(ATTR_LONGITUDE))
                 self._attributes = {
                     "last_synced": self.last_synced,
                     ATTR_SATELLITES: gps_state.get(ATTR_SATELLITES),
@@ -184,19 +184,19 @@ class RobonectGPSEntity(RobonectEntity, TrackerEntity, RestoreEntity):
         @callback
         def latitude_received(message):
             """Handle new latitude topic."""
-            self._latitude = float(message.payload)
+            self._latitude = float(filter_out_units(message.payload))
             self.update_ha_state()
 
         @callback
         def longitude_received(message):
             """Handle new longitude topic."""
-            self._longitude = float(message.payload)
+            self._longitude = float(filter_out_units(message.payload))
             self.update_ha_state()
 
         @callback
         def battery_received(message):
             """Handle battery topic."""
-            self._battery = int(message.payload)
+            self._battery = int(filter_out_units(message.payload))
             self.update_ha_state()
 
         @callback
