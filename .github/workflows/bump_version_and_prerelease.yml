@@ -67,7 +67,7 @@ jobs:
           publish: true
           commitish: ${{ github.ref }}
           tag: ${{ steps.next-version.outputs.NEW_VERSION }}
-          name: Release ${{ steps.next-version.outputs.NEW_VERSION }}
+          name: Prerelease ${{ steps.next-version.outputs.NEW_VERSION }}
           footer: "${{ steps.next-version.outputs.CHANGELOG }}"
 
       - name: Discord notification
