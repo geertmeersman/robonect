@@ -1,4 +1,4 @@
-name: PR Compliancy
+name: PR Labels and Checks
 on:
   pull_request:
     types:
@@ -12,8 +12,52 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  assign_labels:
+    name: Assign SemVer labels
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: ⤵️　Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Get commit messages
+        id: commit_messages
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          COMMIT_MESSAGES=$(curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER}/commits" | \
+            jq -r '.[].commit.message')
+          echo "$COMMIT_MESSAGES" > COMMIT_MESSAGES
+          echo "$COMMIT_MESSAGES"
+
+      - name: Determine SemVer level
+        id: semver_level
+        run: |
+          labels=$(python .github/scripts/pr_extract_labels.py)
+          echo Labels: $labels
+          echo "labels=$labels" >> "$GITHUB_OUTPUT"
+
+      - name: Delete commit messages file
+        run: |
+          rm COMMIT_MESSAGES
+
+      - name: Assign SemVer label
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ${{ steps.semver_level.outputs.labels }}
+            });
   check_semver_labels:
-    name: Check Semver labels
+    name: Check Semver labels in PR
+    needs: assign_labels
     runs-on: "ubuntu-latest"
     steps:
       - name: Check for Semver labels

@@ -1,12 +1,33 @@
-- name: fix
-  description: A bug correction
-  color: d3fc03
-- name: enhancement
-  description: A new feature or request
+- name: feat
+  description: A new feature
   color: a2eeef
+- name: fix
+  description: A bug fix
+  color: d3fc03
+- name: docs
+  description: Documentation only changes
+  color: D4C5F9
 - name: documentation
   description: This issue relates to writing documentation
   color: D4C5F9
+- name: doc
+  description: This issue relates to writing documentation
+  color: D4C5F9
+- name: style
+  description: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+  color: D4C5F9
+- name: refactor
+  description: A code change that neither fixes a bug nor adds a feature
+  color: D4C5F9
+- name: perf
+  description: A code change that improves performance
+  color: d3fc03
+- name: test
+  description: Adding missing or correcting existing tests
+  color: d3fc03
+- name: chore
+  description: Changes to the build process or auxiliary tools and libraries such as documentation generation
+  color: d3fc03
 - name: major
   description: A change requiring a major version bump
   color: 6b230e
@@ -17,5 +38,8 @@
   description: A change requiring a patch version bump
   color: f9d0c4
 - name: breaking
+  description: A breaking change
+  color: d30000
+- name: breaking change
   description: A breaking change
   color: d30000
