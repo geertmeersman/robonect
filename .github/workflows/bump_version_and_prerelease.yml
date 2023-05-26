@@ -28,7 +28,7 @@ jobs:
           last_beta_tag=$(git describe --tags --abbrev=0 --match "*beta*")
           last_tag=$(git describe --tags --abbrev=0 origin/main)
           echo Last tag: $last_tag
-          changelog=$(gcv-log;echo -e "## Commits\n";git log --pretty=format:%s $last_beta_tag..${{ github.ref }}|while read i; do echo "- $i";done)
+          changelog=$(echo -e "## Commits\n";git log --pretty=format:%s $last_beta_tag..${{ github.ref }}|while read i; do echo "- $i";done)
           echo "Calculated next verion: $next_version"
           echo "NEW_VERSION=$next_version" >> "$GITHUB_OUTPUT"
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
