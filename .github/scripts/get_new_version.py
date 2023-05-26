@@ -30,5 +30,5 @@ if new_tag != last_beta_tag_without_prerelease:
     new_version = f"{new_tag}-beta.1"
 else:
     new_version = ver.bump_prerelease()
-
-sys.exit(new_version)
+print(new_version)
+sys.exit(0)
