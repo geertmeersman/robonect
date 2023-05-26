@@ -68,7 +68,7 @@ jobs:
           commitish: ${{ github.ref }}
           tag: ${{ steps.next-version.outputs.NEW_VERSION }}
           name: Release ${{ steps.next-version.outputs.NEW_VERSION }}
-          header: "${{ steps.next-version.outputs.CHANGELOG }}"
+          footer: "${{ steps.next-version.outputs.CHANGELOG }}"
 
       - name: Discord notification
         env:
