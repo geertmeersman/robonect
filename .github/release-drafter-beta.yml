@@ -1,5 +1,7 @@
 template: |
+
   ## This is a beta release
+  
 categories:
   - title: 🚀 Features
     labels:
