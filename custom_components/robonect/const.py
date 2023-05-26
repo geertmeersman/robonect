@@ -3,9 +3,9 @@ import json
 from pathlib import Path
 from typing import Final
 
-import voluptuous as vol
-from homeassistant.const import Platform
+from homeassistant.const import CONF_ENTITY_ID, Platform
 from homeassistant.helpers import config_validation as cv
+import voluptuous as vol
 
 SHOW_DEBUG_AS_WARNING = False
 BYPASS_SLEEP = False
@@ -41,6 +41,8 @@ SERVICE_SHUTDOWN = "shutdown"
 SERVICE_SLEEP = "sleep"
 SERVICE_JOB = "job"
 
+CONF_ENTRY_ID = "entry_id"
+
 ROBONECT_BRANDS = ["Husqvarna", "Gardena", "Flymo", "McCulloch"]
 SERVICE_JOB_AFTER_VALUES = ["Auto", "Home", "End of day"]
 SERVICE_JOB_REMOTESTART_VALUES = [
@@ -68,6 +70,7 @@ SERVICE_JOB_CORRIDOR_VALUES = [
 SERVICE_MODE_VALUES = ["man", "auto", "eod", "home"]
 SERVICE_JOB_SCHEMA = vol.Schema(
     {
+        vol.Required(CONF_ENTITY_ID): cv.string,
         vol.Optional("start"): cv.string,
         vol.Optional("end"): cv.string,
         vol.Optional("duration"): cv.positive_int,

@@ -1,32 +1,38 @@
 """The Robonect component."""
-import logging
 from datetime import timedelta
+import logging
+from typing import Any
 
-from aiohttp import ClientConnectorError
-from aiohttp import ClientError
-from aiohttp import ClientResponseError
+from aiohttp import ClientConnectorError, ClientError, ClientResponseError
 from aiorobonect import RobonectClient
 from homeassistant.components import mqtt
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_HOST
-from homeassistant.const import CONF_MONITORED_VARIABLES
-from homeassistant.const import CONF_PASSWORD
-from homeassistant.const import CONF_SCAN_INTERVAL
-from homeassistant.const import CONF_USERNAME
-from homeassistant.core import callback
-from homeassistant.core import HomeAssistant
-from homeassistant.helpers import device_registry as dr
-from homeassistant.helpers import entity_registry as er
+from homeassistant.const import (
+    CONF_HOST,
+    CONF_MONITORED_VARIABLES,
+    CONF_PASSWORD,
+    CONF_SCAN_INTERVAL,
+    CONF_USERNAME,
+)
+from homeassistant.core import HomeAssistant, ServiceCall, callback
+from homeassistant.helpers import device_registry as dr, entity_registry as er
 from homeassistant.helpers.typing import ConfigType
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-from homeassistant.helpers.update_coordinator import UpdateFailed
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .const import CONF_MQTT_ENABLED
-from .const import CONF_REST_ENABLED
-from .const import DOMAIN
-from .const import PLATFORMS
-from .exceptions import RobonectException
-from .exceptions import RobonectServiceException
+from .const import (
+    CONF_MQTT_ENABLED,
+    CONF_MQTT_TOPIC,
+    CONF_REST_ENABLED,
+    DOMAIN,
+    EVENT_ROBONECT_RESPONSE,
+    PLATFORMS,
+    SERVICE_JOB,
+    SERVICE_JOB_AFTER_VALUES,
+    SERVICE_JOB_CORRIDOR_VALUES,
+    SERVICE_JOB_REMOTESTART_VALUES,
+    SERVICE_JOB_SCHEMA,
+)
+from .exceptions import RobonectException, RobonectServiceException
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -43,7 +49,6 @@ async def async_setup(hass: HomeAssistant, hass_config: ConfigType) -> bool:
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up the Robonect integration."""
-
     if entry.data[CONF_MQTT_ENABLED] is True:
         if not await mqtt.async_wait_for_mqtt_client(hass):
             _LOGGER.error("MQTT integration is not available")
@@ -76,6 +81,45 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         )
         await coordinator.async_config_entry_first_refresh()
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+
+    async def job(service: ServiceCall) -> bool:
+        """Set the Robonect mower to sleep."""
+        _LOGGER.critical(f"CALL: {service.data}")
+
+        params = {"mode": "job"}
+        if "start" in service.data:
+            params |= {"start": service.data["start"][0:5]}
+        if "end" in service.data:
+            params |= {"end": service.data["end"][0:5]}
+        if "duration" in service.data:
+            params |= {"duration": service.data["duration"]}
+        if "after" in service.data:
+            try:
+                index = SERVICE_JOB_AFTER_VALUES.index(service.data["after"])
+            except ValueError as error:
+                raise RobonectException(error)
+            params |= {"after": index}
+        if "remotestart" in service.data:
+            try:
+                index = SERVICE_JOB_REMOTESTART_VALUES.index(
+                    service.data["remotestart"]
+                )
+            except ValueError as error:
+                raise RobonectException(error)
+            params |= {"remotestart": index}
+        if "corridor" in service.data:
+            try:
+                if service.data["corridor"] == "Normal":
+                    pass
+                index = SERVICE_JOB_CORRIDOR_VALUES.index(service.data["corridor"]) - 1
+            except ValueError as error:
+                raise RobonectException(error)
+            params |= {"corridor": index}
+
+        await async_send_command(hass, entry, "mode", params)
+
+    hass.services.async_register(DOMAIN, SERVICE_JOB, job, schema=SERVICE_JOB_SCHEMA)
+
     return True
 
 
@@ -181,3 +225,68 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
             ):
                 _LOGGER.info("Removing device: %s", device_entry.name)
                 device_reg.async_remove_device(device_entry.id)
+
+
+async def async_fire_event(
+    hass: HomeAssistant,
+    entry: ConfigEntry,
+    response: dict,
+):
+    """Fire a bus event."""
+    dev_reg = dr.async_get(hass)
+
+    device = dev_reg.async_get_device({(DOMAIN, entry.data[CONF_MQTT_TOPIC])})
+    hass.bus.async_fire(
+        EVENT_ROBONECT_RESPONSE,
+        {"device_id": device.id, "client_response": response},
+    )
+
+
+async def async_send_command(
+    hass: HomeAssistant,
+    entry: ConfigEntry,
+    command: str,
+    params: dict[str, Any] | list[Any] | None = None,
+    **kwargs: Any,
+) -> None:
+    """Send a command to a Robonect mower."""
+
+    coordinator = hass.data[DOMAIN][entry.entry_id]
+    if not coordinator:
+        _LOGGER.critical("COORDINATOR NOK")
+
+    _LOGGER.critical(f"[REST async_send_command] command: {command}, params: {params}")
+
+    try:
+        response = await coordinator.client.async_cmd(command, params)
+    except Exception as exception:
+        response = {"successful": False, "exception": exception.message}
+    await async_fire_event(
+        hass, entry, response | {"command": command, "params": params}
+    )
+
+    return
+    """
+    if not command:
+        _LOGGER.error(f"No command defined for entity {self.entity_id}")
+    if params is None:
+        params = {}
+    if self.coordinator or "force_rest" in kwargs:
+        _LOGGER.debug(f"[REST async_send_command] command: {command}, params: {params}")
+        try:
+            response = await self.coordinator.client.async_cmd(command, params)
+        except Exception as exception:
+            response = {"successful": False, "exception": exception.message}
+        await self.async_fire_event(response | {"command": command, "params": params})
+    elif self.entry.data[CONF_MQTT_ENABLED] is True and "topic" in kwargs:
+        _LOGGER.debug(
+            f"[MQTT async_send_command] MQTT publish to topic: {self.entry.data[CONF_MQTT_TOPIC]}/{kwargs['topic']} with payload: {command}"
+        )
+        await mqtt.async_publish(
+            self.hass,
+            f"{self.entry.data[CONF_MQTT_TOPIC]}/{kwargs['topic']}",
+            command,
+            qos=0,
+            retain=False,
+        )
+    """
