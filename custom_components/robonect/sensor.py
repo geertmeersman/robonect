@@ -4,33 +4,31 @@ from __future__ import annotations
 import logging
 
 from homeassistant.components import mqtt
-from homeassistant.components.sensor import SensorDeviceClass
-from homeassistant.components.sensor import SensorEntity
+from homeassistant.components.sensor import SensorDeviceClass, SensorEntity
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_MONITORED_VARIABLES
-from homeassistant.const import STATE_UNAVAILABLE
-from homeassistant.const import STATE_UNKNOWN
-from homeassistant.core import callback
-from homeassistant.core import Event
-from homeassistant.core import HomeAssistant
+from homeassistant.const import (
+    CONF_MONITORED_VARIABLES,
+    STATE_UNAVAILABLE,
+    STATE_UNKNOWN,
+)
+from homeassistant.core import Event, HomeAssistant, callback
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.util import slugify
 
 from . import RobonectDataUpdateCoordinator
-from .const import ATTRIBUTION_MQTT
-from .const import ATTRIBUTION_REST
-from .const import CONF_MQTT_ENABLED
-from .const import CONF_MQTT_TOPIC
-from .const import CONF_REST_ENABLED
-from .const import DOMAIN
-from .const import EVENT_ROBONECT_RESPONSE
-from .definitions import RobonectSensorEntityDescription
-from .definitions import SENSORS
-from .entity import RobonectCoordinatorEntity
-from .entity import RobonectEntity
-from .utils import get_json_dict_path
-from .utils import unix_to_datetime
+from .const import (
+    ATTRIBUTION_MQTT,
+    ATTRIBUTION_REST,
+    CONF_MQTT_ENABLED,
+    CONF_MQTT_TOPIC,
+    CONF_REST_ENABLED,
+    DOMAIN,
+    EVENT_ROBONECT_RESPONSE,
+)
+from .definitions import SENSORS, RobonectSensorEntityDescription
+from .entity import RobonectCoordinatorEntity, RobonectEntity
+from .utils import filter_out_units, get_json_dict_path, unix_to_datetime
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -148,11 +146,16 @@ class RobonectSensor(RobonectEntity, SensorEntity):
             """Handle new MQTT messages."""
             if message.payload == "":
                 self._state = None
-            elif self.entity_description.state is not None:
-                self._state = self.entity_description.state(message.payload, self.hass)
-                self._attributes = {"Raw state": message.payload}
             else:
-                self._state = message.payload
+                if self.entity_description.native_unit_of_measurement:
+                    state = filter_out_units(message.payload)
+                else:
+                    state = message.payload
+                if self.entity_description.state is not None:
+                    self._state = self.entity_description.state(state, self.hass)
+                    self._attributes = {"Raw state": message.payload}
+                else:
+                    self._state = state
             self.update_ha_state()
 
         if state := await self.async_get_last_state():

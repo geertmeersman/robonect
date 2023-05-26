@@ -5,8 +5,8 @@ import datetime
 import logging
 import re
 
-import pytz
 from jsonpath import jsonpath
+import pytz
 
 from .const import SHOW_DEBUG_AS_WARNING
 
@@ -129,3 +129,9 @@ def unix_to_datetime(epoch_timestamp, hass=None):
     new_datetime = datetime_with_timezone - datetime.timedelta(hours=2)
 
     return new_datetime
+
+
+def filter_out_units(string):
+    """Filter out units in a string, keep only the numbers."""
+    filtered_string = re.sub(r"[^0-9.-]", "", string)
+    return filtered_string

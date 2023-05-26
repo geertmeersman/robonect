@@ -1,31 +1,29 @@
 """Robonect device tracking."""
-import logging
 from dataclasses import dataclass
 from datetime import datetime
+import logging
 
 from homeassistant.components import mqtt
-from homeassistant.components.device_tracker import SourceType
-from homeassistant.components.device_tracker import TrackerEntity
+from homeassistant.components.device_tracker import SourceType, TrackerEntity
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import ATTR_BATTERY_LEVEL
-from homeassistant.const import ATTR_LATITUDE
-from homeassistant.const import ATTR_LONGITUDE
-from homeassistant.core import callback
-from homeassistant.core import HomeAssistant
+from homeassistant.const import ATTR_BATTERY_LEVEL, ATTR_LATITUDE, ATTR_LONGITUDE
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity import EntityDescription
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.restore_state import RestoreEntity
 
 from . import RobonectDataUpdateCoordinator
-from .const import ATTR_SATELLITES
-from .const import ATTRIBUTION_MQTT
-from .const import ATTRIBUTION_REST
-from .const import CONF_MQTT_ENABLED
-from .const import CONF_REST_ENABLED
-from .const import DOMAIN
-from .const import MQTT_TOPIC
-from .entity import RobonectCoordinatorEntity
-from .entity import RobonectEntity
+from .const import (
+    ATTR_SATELLITES,
+    ATTRIBUTION_MQTT,
+    ATTRIBUTION_REST,
+    CONF_MQTT_ENABLED,
+    CONF_REST_ENABLED,
+    DOMAIN,
+    MQTT_TOPIC,
+)
+from .entity import RobonectCoordinatorEntity, RobonectEntity
+from .utils import filter_out_units
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -161,8 +159,8 @@ class RobonectGPSEntity(RobonectEntity, TrackerEntity, RestoreEntity):
             status = self.coordinator.data.get("status")
             if "gps" in gps_state:
                 gps_state = gps_state.get("gps")
-                self._latitude = float(gps_state.get(ATTR_LATITUDE))
-                self._longitude = float(gps_state.get(ATTR_LONGITUDE))
+                self._latitude = float(filter_out_units(gps_state.get(ATTR_LATITUDE)))
+                self._longitude = float(filter_out_units(gps_state.get(ATTR_LONGITUDE)))
                 self._attributes = {
                     "last_synced": self.last_synced,
                     ATTR_SATELLITES: gps_state.get(ATTR_SATELLITES),

@@ -1,19 +1,15 @@
 """Robonect vacuum platform."""
 from __future__ import annotations
 
-import logging
 from dataclasses import dataclass
+import logging
 from typing import Any
 
 from homeassistant.components import mqtt
-from homeassistant.components.vacuum import StateVacuumEntity
-from homeassistant.components.vacuum import VacuumEntityFeature
+from homeassistant.components.vacuum import StateVacuumEntity, VacuumEntityFeature
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import (
-    ATTR_BATTERY_LEVEL,
-)
-from homeassistant.core import callback
-from homeassistant.core import HomeAssistant
+from homeassistant.const import ATTR_BATTERY_LEVEL
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity import EntityDescription
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.icon import icon_for_battery_level
@@ -21,16 +17,16 @@ from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.util import slugify
 
 from . import RobonectDataUpdateCoordinator
-from .const import ATTRIBUTION_MQTT
-from .const import ATTRIBUTION_REST
-from .const import CONF_MQTT_ENABLED
-from .const import CONF_REST_ENABLED
-from .const import DOMAIN
-from .const import MQTT_TOPIC
-from .entity import RobonectCoordinatorEntity
-from .entity import RobonectEntity
-from .utils import get_json_dict_path
-from .utils import unix_to_datetime
+from .const import (
+    ATTRIBUTION_MQTT,
+    ATTRIBUTION_REST,
+    CONF_MQTT_ENABLED,
+    CONF_REST_ENABLED,
+    DOMAIN,
+    MQTT_TOPIC,
+)
+from .entity import RobonectCoordinatorEntity, RobonectEntity
+from .utils import filter_out_units, get_json_dict_path, unix_to_datetime
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -232,7 +228,7 @@ class RobonectVacuumEntity(RobonectEntity, StateVacuumEntity, RestoreEntity):
         @callback
         def battery_received(message):
             """Handle battery topic."""
-            self._battery = int(message.payload)
+            self._battery = int(filter_out_units(message.payload))
             self.update_ha_state()
 
         @callback
