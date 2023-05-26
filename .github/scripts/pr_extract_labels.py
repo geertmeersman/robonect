@@ -37,6 +37,7 @@ if os.path.exists(file_path):
         semver_level = get_semver_level(messages)
         types = extract_semver_types(messages)
         types.append(semver_level)
-        sys.exit(types)
+        print(types)
+        sys.exit(0)
 else:
     sys.exit(f"ERROR: {file_path} does not exist")
