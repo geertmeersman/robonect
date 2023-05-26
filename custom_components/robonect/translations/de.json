@@ -193,7 +193,27 @@
             "name": "Aufgrund des Wetters gestoppt"
           },
           "mower_substatus": {
-            "name": "Unterstatus"
+            "name": "Unterstatus",
+            "state": {
+              "1": "Fährt",
+              "2": "Draußen",
+              "4": "Räder rutschen!",
+              "6": "Kollision!",
+              "7": "Angehoben!",
+              "8": "Spiralschnitt",
+              "9": "Folgt Leitdraht 1 zur Ladestation",
+              "10": "Folgt rechtem Begrenzungsdraht",
+              "11": "Dockt an",
+              "12": "Schnellladung",
+              "14": "Ladung abgeschlossen",
+              "15": "Ausfahrtswinkel",
+              "16": "Folgt Leitdraht 1 zum Startpunkt",
+              "18": "Kein Schleifensignal!",
+              "19": "Mähmotor blockiert!",
+              "21": "Folgt Leitdraht 2 zur Ladestation",
+              "23": "Folgt Leitdraht 2 zum Startpunkt",
+              "25": "Folgt linkem Begrenzungsdraht"
+            }
           },
           "mower_substatus_plain": {
             "name": "Einfacher Unterstatus"
@@ -290,7 +310,27 @@
             },
             "state_attributes": {
               "substatus": {
-                "name": "Unterstatus"
+                "name": "Unterstatus",
+                "state": {
+                  "1": "Fährt",
+                  "2": "Draußen",
+                  "4": "Räder rutschen!",
+                  "6": "Kollision!",
+                  "7": "Angehoben!",
+                  "8": "Spiralschnitt",
+                  "9": "Folgt Leitdraht 1 zur Ladestation",
+                  "10": "Folgt rechtem Begrenzungsdraht",
+                  "11": "Dockt an",
+                  "12": "Schnellladung",
+                  "14": "Ladung abgeschlossen",
+                  "15": "Ausfahrtswinkel",
+                  "16": "Folgt Leitdraht 1 zum Startpunkt",
+                  "18": "Kein Schleifensignal!",
+                  "19": "Mähmotor blockiert!",
+                  "21": "Folgt Leitdraht 2 zur Ladestation",
+                  "23": "Folgt Leitdraht 2 zum Startpunkt",
+                  "25": "Folgt linkem Begrenzungsdraht"
+                }
               },
               "mode": {
                 "name": "Modus",

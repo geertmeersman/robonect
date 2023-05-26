@@ -260,10 +260,10 @@ class RobonectVacuumEntity(RobonectEntity, StateVacuumEntity, RestoreEntity):
                 self.hass, f"{MQTT_TOPIC}/mower/battery/charge", battery_received, 1
             )
             await mqtt.async_subscribe(
-                self.hass, f"{MQTT_TOPIC}/mower/status/plain", state_received, 1
+                self.hass, f"{MQTT_TOPIC}/mower/status", state_received, 1
             )
             await mqtt.async_subscribe(
-                self.hass, f"{MQTT_TOPIC}/mower/substatus/plain", substatus_received, 1
+                self.hass, f"{MQTT_TOPIC}/mower/substatus", substatus_received, 1
             )
             await mqtt.async_subscribe(
                 self.hass, f"{MQTT_TOPIC}/mower/#", topic_received, 1

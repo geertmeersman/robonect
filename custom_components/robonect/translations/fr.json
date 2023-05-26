@@ -195,7 +195,27 @@
         "name": "Arrêt en raison des conditions météorologiques"
       },
       "mower_substatus": {
-        "name": "Sous-statut"
+        "name": "Sous-statut",
+        "state": {
+          "1": "En mouvement",
+          "2": "A l'extérieur",
+          "4": "Les roues glissent !",
+          "6": "Collision !",
+          "7": "Soulevé !",
+          "8": "Coupe en spirale",
+          "9": "Suit le fil guide 1 vers la station de charge",
+          "10": "Suit le fil de délimitation droit",
+          "11": "S'amarrer",
+          "12": "Charge rapide",
+          "14": "Charge terminée",
+          "15": "Angle de sortie",
+          "16": "Suit le fil guide 1 vers le point de départ",
+          "18": "Aucun signal de boucle !",
+          "19": "Le moteur de la tondeuse est bloqué !",
+          "21": "Suit le fil guide 2 vers la station de charge",
+          "23": "Suit le fil guide 2 vers le point de départ",
+          "25": "Suit le fil de délimitation gauche"
+        }
       },
       "mower_substatus_plain": {
         "name": "Sous-statut simple"
@@ -292,7 +312,27 @@
         },
         "state_attributes": {
           "substatus": {
-            "name": "Sous-état"
+            "name": "Sous-état",
+            "state": {
+              "1": "En mouvement",
+              "2": "A l'extérieur",
+              "4": "Les roues glissent !",
+              "6": "Collision !",
+              "7": "Soulevé !",
+              "8": "Coupe en spirale",
+              "9": "Suit le fil guide 1 vers la station de charge",
+              "10": "Suit le fil de délimitation droit",
+              "11": "S'amarrer",
+              "12": "Charge rapide",
+              "14": "Charge terminée",
+              "15": "Angle de sortie",
+              "16": "Suit le fil guide 1 vers le point de départ",
+              "18": "Aucun signal de boucle !",
+              "19": "Le moteur de la tondeuse est bloqué !",
+              "21": "Suit le fil guide 2 vers la station de charge",
+              "23": "Suit le fil guide 2 vers le point de départ",
+              "25": "Suit le fil de délimitation gauche"
+            }
           },
           "mode": {
             "name": "Mode",

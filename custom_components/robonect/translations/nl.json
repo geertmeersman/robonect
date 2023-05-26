@@ -195,7 +195,27 @@
         "name": "Gestopt vanwege weer"
       },
       "mower_substatus": {
-        "name": "Substatus"
+        "name": "Substatus",
+        "state": {
+          "1": "Rijdt",
+          "2": "Buiten",
+          "4": "Wielen slippen!",
+          "6": "Botsing!",
+          "7": "Opgetild!",
+          "8": "Spiraalsnede",
+          "9": "Volgt geleidingsdraad 1 naar het laadstation",
+          "10": "Volgt rechter grensdraad",
+          "11": "Koppelt aan",
+          "12": "Snelladen",
+          "14": "Laden voltooid",
+          "15": "Uitrijhoek",
+          "16": "Volgt geleidingsdraad 1 naar het startpunt",
+          "18": "Geen lussignaal!",
+          "19": "Maaimotor geblokkeerd!",
+          "21": "Volgt geleidingsdraad 2 naar het laadstation",
+          "23": "Volgt geleidingsdraad 2 naar het startpunt",
+          "25": "Volgt linker grensdraad"
+        }
       },
       "mower_substatus_plain": {
         "name": "Substatus eenvoudig"
@@ -292,7 +312,27 @@
         },
         "state_attributes": {
           "substatus": {
-            "name": "Sub-status"
+            "name": "Sub-status",
+            "state": {
+              "1": "Rijdt",
+              "2": "Buiten",
+              "4": "Wielen slippen!",
+              "6": "Botsing!",
+              "7": "Opgetild!",
+              "8": "Spiraalsnede",
+              "9": "Volgt geleidingsdraad 1 naar het laadstation",
+              "10": "Volgt rechter grensdraad",
+              "11": "Koppelt aan",
+              "12": "Snelladen",
+              "14": "Laden voltooid",
+              "15": "Uitrijhoek",
+              "16": "Volgt geleidingsdraad 1 naar het startpunt",
+              "18": "Geen lussignaal!",
+              "19": "Maaimotor geblokkeerd!",
+              "21": "Volgt geleidingsdraad 2 naar het laadstation",
+              "23": "Volgt geleidingsdraad 2 naar het startpunt",
+              "25": "Volgt linker grensdraad"
+            }
           },
           "mode": {
             "name": "Modus",

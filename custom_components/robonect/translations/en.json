@@ -195,7 +195,27 @@
         "name": "Stopped due to weather"
       },
       "mower_substatus": {
-        "name": "Substatus"
+        "name": "Substatus",
+        "state": {
+          "1": "Driving",
+          "2": "Outside",
+          "4": "Wheels slipping!",
+          "6": "Collision!",
+          "7": "Lifted!",
+          "8": "Spiral cut",
+          "9": "Following guide wire 1 to charging station",
+          "10": "Following right boundary wire",
+          "11": "Docked",
+          "12": "Fast charging",
+          "14": "Charging complete",
+          "15": "Exit angle",
+          "16": "Following guide wire 1 to starting point",
+          "18": "No loop signal!",
+          "19": "Mowing motor blocked!",
+          "21": "Following guide wire 2 to charging station",
+          "23": "Following guide wire 2 to starting point",
+          "25": "Following left boundary wire"
+        }
       },
       "mower_substatus_plain": {
         "name": "Simple substatus"
@@ -292,7 +312,27 @@
         },
         "state_attributes": {
           "substatus": {
-            "name": "Sub-status"
+            "name": "Sub-status",
+            "state": {
+              "1": "Driving",
+              "2": "Outside",
+              "4": "Wheels slipping!",
+              "6": "Collision!",
+              "7": "Lifted!",
+              "8": "Spiral cut",
+              "9": "Following guide wire 1 to charging station",
+              "10": "Following right boundary wire",
+              "11": "Docked",
+              "12": "Fast charging",
+              "14": "Charging complete",
+              "15": "Exit angle",
+              "16": "Following guide wire 1 to starting point",
+              "18": "No loop signal!",
+              "19": "Mowing motor blocked!",
+              "21": "Following guide wire 2 to charging station",
+              "23": "Following guide wire 2 to starting point",
+              "25": "Following left boundary wire"
+            }
           },
           "mode": {
             "name": "Mode",
