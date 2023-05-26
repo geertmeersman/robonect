@@ -23,7 +23,7 @@ from .const import (
     MQTT_TOPIC,
 )
 from .entity import RobonectCoordinatorEntity, RobonectEntity
-from .utils import filter_out_units
+from .utils import convert_coordinate_degree_to_float, filter_out_units
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -184,13 +184,13 @@ class RobonectGPSEntity(RobonectEntity, TrackerEntity, RestoreEntity):
         @callback
         def latitude_received(message):
             """Handle new latitude topic."""
-            self._latitude = float(filter_out_units(message.payload))
+            self._latitude = convert_coordinate_degree_to_float(message.payload)
             self.update_ha_state()
 
         @callback
         def longitude_received(message):
             """Handle new longitude topic."""
-            self._longitude = float(filter_out_units(message.payload))
+            self._longitude = convert_coordinate_degree_to_float(message.payload)
             self.update_ha_state()
 
         @callback
