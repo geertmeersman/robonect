@@ -35,6 +35,7 @@ ignore = [
     "D407",  # Section name underlining
     "D411",  # Missing blank line before section
     "E501",  # line too long
+    "T201",  # 'print' found
     "E731",  # do not assign a lambda expression, use a def
 ]
 
