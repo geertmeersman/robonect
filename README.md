@@ -19,7 +19,7 @@ A Home Assistant integration to monitor Robonect
 
 [![maintainer](https://img.shields.io/badge/maintainer-Geert%20Meersman-green?style=for-the-badge&logo=github)](https://github.com/geertmeersman)
 [![buyme_coffee](https://img.shields.io/badge/Buy%20me%20a%20Duvel-donate-yellow?style=for-the-badge&logo=buymeacoffee)](https://www.buymeacoffee.com/geertmeersman)
-[![discord](https://img.shields.io/discord/1094198226493636638?style=for-the-badge&logo=discord)](https://discord.gg/wZHsA4aGvS)
+[![discord](https://img.shields.io/discord/1104706338111627385?style=for-the-badge&logo=discord)](https://discord.gg/wZHsA4aGvS)
 
 [![MIT License](https://img.shields.io/github/license/geertmeersman/robonect?style=flat-square)](https://github.com/geertmeersman/robonect/blob/master/LICENSE)
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=flat-square)](https://github.com/hacs/integration)
@@ -70,9 +70,9 @@ Category: Integration
 
 This integration will set up the following platforms.
 
-| Platform   | Description                                       |
-| ---------- | ------------------------------------------------- |
-| `robonect` | Home Assistant component for Robonect             |
+| Platform   | Description                           |
+| ---------- | ------------------------------------- |
+| `robonect` | Home Assistant component for Robonect |
 
 ## Contributions are welcome!
 

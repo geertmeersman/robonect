@@ -144,20 +144,10 @@ def convert_coordinate_degree_to_float(coordinate_str):
 
     direction = coordinate_str[-1]
     coordinate_str = coordinate_str[:-2]
-
-    degrees, rest = coordinate_str.split("°")
-    minutes, seconds = rest.split(".")
-
-    degrees = float(degrees)
-    minutes = float(minutes)
-    seconds = float(seconds)
-
-    minutes_decimal = minutes / 60
-    seconds_decimal = seconds / 3600
-
-    decimal_degrees = degrees + minutes_decimal + seconds_decimal
+    degrees, minutes = coordinate_str.split("°")
+    decimal_degrees = float(degrees) * 60 + float(minutes)
 
     if direction in ["S", "W"]:
         decimal_degrees = -decimal_degrees
 
-    return decimal_degrees
+    return decimal_degrees / 60
