@@ -51,7 +51,7 @@ async def async_setup_entry(
 
     if entry.data[CONF_MQTT_ENABLED] is True:
         await mqtt.async_subscribe(
-            hass, f"{MQTT_TOPIC}/gps", async_mqtt_event_received, 0
+            hass, f"{MQTT_TOPIC}/gps/latitude", async_mqtt_event_received, 0
         )
     elif entry.data[CONF_REST_ENABLED] is True:
         _LOGGER.debug("Creating REST device tracker")
