@@ -271,6 +271,48 @@
             "name": "Heure d'exécution"
           }
         }
+      },
+      "motor_drive_left": {
+        "name": "Entraînement du moteur gauche",
+        "state_attributes": {
+          "power": {
+            "name": "Puissance"
+          },
+          "speed": {
+            "name": "Vitesse"
+          },
+          "current": {
+            "name": "Courant"
+          }
+        }
+      },
+      "motor_drive_right": {
+        "name": "Entraînement du moteur droit",
+        "state_attributes": {
+          "power": {
+            "name": "Puissance"
+          },
+          "speed": {
+            "name": "Vitesse"
+          },
+          "current": {
+            "name": "Courant"
+          }
+        }
+      },
+      "motor_blade": {
+        "name": "Moteur lames",
+        "state_attributes": {
+          "speed": {
+            "name": "Vitesse"
+          },
+          "average": {
+            "name": "Moyenne"
+          },
+          "current": {
+            "name": "Courant"
+          }
+        }
       }
     },
     "button": {

@@ -271,6 +271,48 @@
             "name": "Tijdstip uitvoering"
           }
         }
+      },
+      "motor_drive_left": {
+        "name": "Aandrijving motor links",
+        "state_attributes": {
+          "power": {
+            "name": "Vermogen"
+          },
+          "speed": {
+            "name": "Snelheid"
+          },
+          "current": {
+            "name": "Stroom"
+          }
+        }
+      },
+      "motor_drive_right": {
+        "name": "Aandrijving motor rechts",
+        "state_attributes": {
+          "power": {
+            "name": "Vermogen"
+          },
+          "speed": {
+            "name": "Snelheid"
+          },
+          "current": {
+            "name": "Stroom"
+          }
+        }
+      },
+      "motor_blade": {
+        "name": "Motor messen",
+        "state_attributes": {
+          "speed": {
+            "name": "Snelheid"
+          },
+          "average": {
+            "name": "Gemiddeld"
+          },
+          "current": {
+            "name": "Stroom"
+          }
+        }
       }
     },
     "button": {

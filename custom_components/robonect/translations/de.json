@@ -271,6 +271,48 @@
             "name": "Ausführungszeitpunkt"
           }
         }
+      },
+      "motor_drive_left": {
+        "name": "Antrieb linker Motor",
+        "state_attributes": {
+          "power": {
+            "name": "Leistung"
+          },
+          "speed": {
+            "name": "Geschwindigkeit"
+          },
+          "current": {
+            "name": "Strom"
+          }
+        }
+      },
+      "motor_drive_right": {
+        "name": "Antrieb Motor rechts",
+        "state_attributes": {
+          "power": {
+            "name": "Leistung"
+          },
+          "speed": {
+            "name": "Geschwindigkeit"
+          },
+          "current": {
+            "name": "Strom"
+          }
+        }
+      },
+      "motor_blade": {
+        "name": "Motor messen",
+        "state_attributes": {
+          "speed": {
+            "name": "Geschwindigkeit"
+          },
+          "average": {
+            "name": "Durchschnitt"
+          },
+          "current": {
+            "name": "Strom"
+          }
+        }
       }
     },
     "button": {
