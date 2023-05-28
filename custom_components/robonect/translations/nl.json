@@ -117,6 +117,26 @@
   },
   "entity": {
     "sensor": {
+      "battery": {
+        "name": "Batterij",
+        "state_attributes": {
+          "charge": {
+            "name": "Lading"
+          },
+          "voltage": {
+            "name": "Spanning"
+          },
+          "current": {
+            "name": "Stroom"
+          },
+          "temperature": {
+            "name": "Temperatuur"
+          },
+          "capacity": {
+            "name": "Capaciteit"
+          }
+        }
+      },
       "mower_status": {
         "name": "Status",
         "state": {

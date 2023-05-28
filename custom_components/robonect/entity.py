@@ -1,32 +1,31 @@
 """Base Robonect entity."""
 from __future__ import annotations
 
-import logging
 from datetime import datetime
+import logging
 from typing import Any
 
 from homeassistant.components import mqtt
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_HOST
-from homeassistant.const import CONF_TYPE
-from homeassistant.core import callback
-from homeassistant.core import HomeAssistant
+from homeassistant.const import CONF_HOST, CONF_TYPE
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.device_registry import DeviceEntryType
-from homeassistant.helpers.entity import DeviceInfo
-from homeassistant.helpers.entity import EntityDescription
+from homeassistant.helpers.entity import DeviceInfo, EntityDescription
 from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import slugify
 
 from . import RobonectDataUpdateCoordinator
-from .const import CONF_BRAND
-from .const import CONF_MQTT_ENABLED
-from .const import CONF_MQTT_TOPIC
-from .const import DOMAIN
-from .const import EVENT_ROBONECT_RESPONSE
-from .const import NAME
-from .const import VERSION
+from .const import (
+    CONF_BRAND,
+    CONF_MQTT_ENABLED,
+    CONF_MQTT_TOPIC,
+    DOMAIN,
+    EVENT_ROBONECT_RESPONSE,
+    NAME,
+    VERSION,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -52,9 +51,12 @@ class RobonectEntity(RestoreEntity):
             if self.entity_description.name is None
             else slugify(self.entity_description.name)
         )
-        self._attr_translation_key = slugify(
-            self.entity_description.key.replace("/", "_")
-        )
+        if self.entity_description.translation_key:
+            self._attr_translation_key = self.entity_description.translation_key
+        else:
+            self._attr_translation_key = slugify(
+                self.entity_description.key.replace("/", "_")
+            )
         self._attr_unique_id = (
             f"{entry.entry_id}-{self.entity_description.rest_category}-{self.slug}"
         )

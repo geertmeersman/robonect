@@ -117,6 +117,26 @@
   },
   "entity": {
     "sensor": {
+      "battery": {
+        "name": "Battery",
+        "state_attributes": {
+          "charge": {
+            "name": "Charge"
+          },
+          "voltage": {
+            "name": "Voltage"
+          },
+          "current": {
+            "name": "Current"
+          },
+          "temperature": {
+            "name": "Temperature"
+          },
+          "capacity": {
+            "name": "Capacity"
+          }
+        }
+      },
       "mower_status": {
         "name": "Status",
         "state": {

@@ -1,6 +1,7 @@
 """Support for Robonect through MQTT."""
 from __future__ import annotations
 
+import copy
 import logging
 
 from homeassistant.components import mqtt
@@ -107,14 +108,35 @@ async def async_setup_entry(
                         continue
                     path = description.rest
                 _LOGGER.debug(f"[sensor|async_setup_entry|adding] {path}")
-                entities.append(
-                    RobonectRestSensor(
-                        hass,
-                        entry,
-                        coordinator=coordinator,
-                        description=description,
+                if description.array:
+                    array = get_json_dict_path(
+                        coordinator.data, description.rest_attrs.replace(".0", "")
                     )
-                )
+                    for idx, item in enumerate(array):
+                        desc = copy.copy(description)
+                        desc.rest_attrs = description.rest_attrs.replace(
+                            ".0", f".{idx}"
+                        )
+                        desc.key = description.key.replace(
+                            ".0", f".{idx}"
+                        )  # TODO Iterate
+                        entities.append(
+                            RobonectRestSensor(
+                                hass,
+                                entry,
+                                coordinator=coordinator,
+                                description=desc,
+                            )
+                        )
+                else:
+                    entities.append(
+                        RobonectRestSensor(
+                            hass,
+                            entry,
+                            coordinator=coordinator,
+                            description=description,
+                        )
+                    )
         async_add_entities(entities)
 
 

@@ -4,16 +4,15 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass
 
-from homeassistant.components.sensor import SensorDeviceClass
-from homeassistant.components.sensor import SensorEntityDescription
-from homeassistant.components.sensor import SensorStateClass
-from homeassistant.const import ELECTRIC_POTENTIAL_VOLT
-from homeassistant.const import PERCENTAGE
-from homeassistant.const import TEMP_CELSIUS
+from homeassistant.components.sensor import (
+    SensorDeviceClass,
+    SensorEntityDescription,
+    SensorStateClass,
+)
+from homeassistant.const import ELECTRIC_POTENTIAL_VOLT, PERCENTAGE, TEMP_CELSIUS
 from homeassistant.helpers.entity import EntityCategory
 
-from .utils import unix_to_datetime
-from .utils import wifi_signal_to_percentage
+from .utils import unix_to_datetime, wifi_signal_to_percentage
 
 
 @dataclass
@@ -24,6 +23,8 @@ class RobonectSensorEntityDescription(SensorEntityDescription):
     rest: str | None = None
     rest_attrs: dict | None = None
     rest_category: str | None = None
+    translation_key: str | None = None
+    array: bool | True = None
 
 
 BUTTONS: tuple[RobonectSensorEntityDescription, ...] = (
@@ -51,6 +52,19 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
 )
 
 SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
+    RobonectSensorEntityDescription(
+        key=".battery/0",
+        rest="$.battery.batteries.0.charge",
+        rest_attrs="$.battery.batteries.0",
+        array=True,
+        device_class=SensorDeviceClass.BATTERY,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement=PERCENTAGE,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        icon="mdi:battery",
+        rest_category="status",
+        translation_key="battery",
+    ),
     RobonectSensorEntityDescription(
         key="mower/battery/charge",
         rest="$.status.status.battery",
