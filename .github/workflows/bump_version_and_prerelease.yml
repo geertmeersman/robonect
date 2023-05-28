@@ -30,6 +30,7 @@ jobs:
           echo Last tag: $last_tag
           changelog=$(echo -e "## Commits\n";git log --pretty=format:%s $last_beta_tag..${{ github.ref }}|while read i; do echo "- $i";done)
           echo "Calculated next verion: $next_version"
+          echo "Changelog: $changelog"
           echo "NEW_VERSION=$next_version" >> "$GITHUB_OUTPUT"
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "CHANGELOG<<$EOF" >> $GITHUB_OUTPUT

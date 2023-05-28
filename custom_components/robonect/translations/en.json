@@ -313,6 +313,62 @@
             "name": "Current"
           }
         }
+      },
+      "ext_gpio1": {
+        "name": "GPIO 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash on error"
+          },
+          "inverted": {
+            "name": "Inverted"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_gpio2": {
+        "name": "GPIO 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash on error"
+          },
+          "inverted": {
+            "name": "Inverted"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out1": {
+        "name": "OUT 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash on error"
+          },
+          "inverted": {
+            "name": "Inverted"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out2": {
+        "name": "OUT 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash on error"
+          },
+          "inverted": {
+            "name": "Inverted"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
       }
     },
     "button": {

@@ -278,6 +278,10 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
             state = get_json_dict_path(
                 self.coordinator.data, self.entity_description.rest
             )
+            if self.category == "ext":
+                _LOGGER.debug(
+                    f"REST: {self.entity_description.rest} {state} {self.coordinator.data}"
+                )
             if state is not None:
                 if self.entity_description.device_class == SensorDeviceClass.TIMESTAMP:
                     state = unix_to_datetime(state, self.coordinator.hass)

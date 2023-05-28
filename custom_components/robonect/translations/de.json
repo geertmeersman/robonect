@@ -313,6 +313,62 @@
             "name": "Strom"
           }
         }
+      },
+      "ext_gpio1": {
+        "name": "GPIO 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash bei Fehler"
+          },
+          "inverted": {
+            "name": "Umgekehrt"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_gpio2": {
+        "name": "GPIO 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash bei Fehler"
+          },
+          "inverted": {
+            "name": "Umgekehrt"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out1": {
+        "name": "OUT 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash bei Fehler"
+          },
+          "inverted": {
+            "name": "Umgekehrt"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out2": {
+        "name": "OUT 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash bei Fehler"
+          },
+          "inverted": {
+            "name": "Umgekehrt"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
       }
     },
     "button": {

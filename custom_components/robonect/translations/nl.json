@@ -313,6 +313,62 @@
             "name": "Stroom"
           }
         }
+      },
+      "ext_gpio1": {
+        "name": "GPIO 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flits bij fout"
+          },
+          "inverted": {
+            "name": "Omgekeerd"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_gpio2": {
+        "name": "GPIO 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flits bij fout"
+          },
+          "inverted": {
+            "name": "Omgekeerd"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out1": {
+        "name": "OUT 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flits bij fout"
+          },
+          "inverted": {
+            "name": "Omgekeerd"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out2": {
+        "name": "OUT 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flits bij fout"
+          },
+          "inverted": {
+            "name": "Omgekeerd"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
       }
     },
     "button": {
