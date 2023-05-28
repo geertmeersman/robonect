@@ -162,5 +162,5 @@ def add_attr_units(attr_dict, category):
 
 
 def dummy_math(input):
-    """Dummy math function to let the lint validation pass."""
+    """Dummy math function."""
     return math.floor(input)
