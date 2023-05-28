@@ -25,7 +25,8 @@
           "username": "Username",
           "password": "Password",
           "scan_interval": "Update interval (min)",
-          "monitored_variables": "Monitored sensors"
+          "monitored_variables": "Monitored sensors",
+          "attributes_units": "Add units to sensor attributes"
         }
       }
     },
@@ -90,7 +91,8 @@
           "track_version": "Version",
           "track_timer": "Timer",
           "track_hour": "Time",
-          "track_error": "Errors"
+          "track_error": "Errors",
+          "attributes_units": "Add units to sensor attributes"
         }
       },
       "options_init": {

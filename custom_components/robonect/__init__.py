@@ -12,6 +12,7 @@ from homeassistant.const import (
     CONF_MONITORED_VARIABLES,
     CONF_PASSWORD,
     CONF_SCAN_INTERVAL,
+    CONF_TYPE,
     CONF_USERNAME,
 )
 from homeassistant.core import HomeAssistant, ServiceCall, callback
@@ -20,12 +21,19 @@ from homeassistant.helpers.typing import ConfigType
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .const import (
+    CONF_ATTRS_UNITS,
+    CONF_BRAND,
     CONF_MQTT_ENABLED,
     CONF_MQTT_TOPIC,
     CONF_REST_ENABLED,
+    CONF_SUGGESTED_BRAND,
+    CONF_SUGGESTED_TYPE,
+    DEFAULT_MQTT_TOPIC,
     DOMAIN,
     EVENT_ROBONECT_RESPONSE,
+    MQTT_TOPIC,
     PLATFORMS,
+    SENSOR_GROUPS,
     SERVICE_JOB,
     SERVICE_JOB_AFTER_VALUES,
     SERVICE_JOB_CORRIDOR_VALUES,
@@ -49,6 +57,7 @@ async def async_setup(hass: HomeAssistant, hass_config: ConfigType) -> bool:
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up the Robonect integration."""
+
     if entry.data[CONF_MQTT_ENABLED] is True:
         if not await mqtt.async_wait_for_mqtt_client(hass):
             _LOGGER.error("MQTT integration is not available")
@@ -84,8 +93,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     async def job(service: ServiceCall) -> bool:
         """Set the Robonect mower to sleep."""
-        _LOGGER.critical(f"CALL: {service.data}")
-
         params = {"mode": "job"}
         if "start" in service.data:
             params |= {"start": service.data["start"][0:5]}
@@ -192,12 +199,6 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
             entity_reg, self.entry.entry_id
         )
 
-        """
-        for e in self.hass.states.async_entity_ids(DOMAIN):
-            _LOGGER.critical(e)
-        for state in self.hass.states.async_all():
-            _LOGGER.critical(f"state: {state}")
-        """
         entities_removed: bool = False
         allowed = self.entry.data[CONF_MONITORED_VARIABLES] + ["NONE"]
         for entry in ha_entity_reg_list:
@@ -253,9 +254,9 @@ async def async_send_command(
 
     coordinator = hass.data[DOMAIN][entry.entry_id]
     if not coordinator:
-        _LOGGER.critical("COORDINATOR NOK")
+        _LOGGER.debug("[REST async_send_command] COORDINATOR NOK")
 
-    _LOGGER.critical(f"[REST async_send_command] command: {command}, params: {params}")
+    _LOGGER.debug(f"[REST async_send_command] command: {command}, params: {params}")
 
     try:
         response = await coordinator.client.async_cmd(command, params)
@@ -266,27 +267,32 @@ async def async_send_command(
     )
 
     return
-    """
-    if not command:
-        _LOGGER.error(f"No command defined for entity {self.entity_id}")
-    if params is None:
-        params = {}
-    if self.coordinator or "force_rest" in kwargs:
-        _LOGGER.debug(f"[REST async_send_command] command: {command}, params: {params}")
-        try:
-            response = await self.coordinator.client.async_cmd(command, params)
-        except Exception as exception:
-            response = {"successful": False, "exception": exception.message}
-        await self.async_fire_event(response | {"command": command, "params": params})
-    elif self.entry.data[CONF_MQTT_ENABLED] is True and "topic" in kwargs:
-        _LOGGER.debug(
-            f"[MQTT async_send_command] MQTT publish to topic: {self.entry.data[CONF_MQTT_TOPIC]}/{kwargs['topic']} with payload: {command}"
-        )
-        await mqtt.async_publish(
-            self.hass,
-            f"{self.entry.data[CONF_MQTT_TOPIC]}/{kwargs['topic']}",
-            command,
-            qos=0,
-            retain=False,
-        )
-    """
+
+
+async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
+    """Migrate old entry."""
+    _LOGGER.info("Migrating from version %s", config_entry.version)
+
+    if config_entry.version == 1:
+        new = {**config_entry.data}
+        # TODO: modify Config Entry data
+        if CONF_MONITORED_VARIABLES not in new:
+            _LOGGER.critical(f"Migrating! {config_entry}")
+            new[CONF_MONITORED_VARIABLES] = SENSOR_GROUPS
+            new[CONF_MQTT_ENABLED] = False
+            new[MQTT_TOPIC] = DEFAULT_MQTT_TOPIC
+            new[CONF_TYPE] = CONF_SUGGESTED_TYPE
+            new[CONF_BRAND] = CONF_SUGGESTED_BRAND
+            new[CONF_REST_ENABLED] = True
+            new[CONF_SCAN_INTERVAL] = new["update_interval"]
+            del new["update_interval"]
+            del new["tracking"]
+
+        new[CONF_ATTRS_UNITS] = True
+
+        config_entry.version = 2
+        hass.config_entries.async_update_entry(config_entry, data=new)
+
+    _LOGGER.info("Migration to version %s successful", config_entry.version)
+
+    return True

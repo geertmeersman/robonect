@@ -7,8 +7,33 @@ from homeassistant.const import CONF_ENTITY_ID, Platform
 from homeassistant.helpers import config_validation as cv
 import voluptuous as vol
 
-SHOW_DEBUG_AS_WARNING = False
-BYPASS_SLEEP = False
+ATTR_STATE_UNITS = {
+    "battery": {
+        "charge": "%",
+        "voltage": {"lambda": "lambda a : round(a / 1000, 2)", "unit": "V"},
+        "current": "mA",
+        "temperature": {"lambda": "lambda a : a / 10", "unit": "°C"},
+        "full": "mAh",
+        "remaining": "mAh",
+    },
+    "motor": {
+        "power": "%",
+        "speed": {"lambda": "lambda a : round(a , 1)", "unit": "cm/s"},
+        "current": "mA",
+        "average": "RPM",
+    },
+    "status": {
+        "distance": "m",
+        "duration": "min",
+        "battery": "%",
+        "hours": "h",
+        "quality": "%",
+        "days": "d",
+        "signal": "dBm",
+        "temperature": "°C",
+        "humidity": "%",
+    },
+}
 
 EVENT_ROBONECT_RESPONSE = "robonect_response"
 
@@ -18,6 +43,7 @@ MQTT_TOPIC = "automower"
 CONF_MQTT_ENABLED = "mqtt_enabled"
 CONF_MQTT_TOPIC = "mqtt_topic"
 CONF_REST_ENABLED = "rest_enabled"
+CONF_ATTRS_UNITS = "attributes_units"
 DEFAULT_MQTT_TOPIC = "automower"
 CONF_SUGGESTED_TYPE = "Automower 310"
 CONF_SUGGESTED_HOST = "10.0.0.99"

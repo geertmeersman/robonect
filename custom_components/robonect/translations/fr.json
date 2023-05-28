@@ -25,7 +25,8 @@
           "username": "Utilisateur",
           "password": "Mot de passe",
           "scan_interval": "Intervalle de mise à jour (min)",
-          "monitored_variables": "Capteurs à suivre"
+          "monitored_variables": "Capteurs à suivre",
+          "attributes_units": "Ajouter des unités aux attributs du capteur"
         }
       }
     },
@@ -90,7 +91,8 @@
           "track_version": "Version",
           "track_timer": "Minuterie",
           "track_hour": "Heure",
-          "track_error": "Erreurs"
+          "track_error": "Erreurs",
+          "attributes_units": "Ajouter des unités aux attributs du capteur"
         }
       },
       "options_init": {

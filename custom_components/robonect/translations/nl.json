@@ -25,7 +25,8 @@
           "username": "Gebruiker",
           "password": "Wachtwoord",
           "scan_interval": "Update interval (min)",
-          "monitored_variables": "Te volgen sensors"
+          "monitored_variables": "Te volgen sensors",
+          "attributes_units": "Units toevoegen aan sensor attributen"
         }
       }
     },
@@ -90,7 +91,8 @@
           "track_version": "Versie",
           "track_timer": "Timer",
           "track_hour": "Tijd",
-          "track_error": "Fouten"
+          "track_error": "Fouten",
+          "attributes_units": "Units toevoegen aan sensor attributen"
         }
       },
       "options_init": {

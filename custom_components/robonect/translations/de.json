@@ -25,7 +25,8 @@
           "username": "Benutzername",
           "password": "Passwort",
           "scan_interval": "Aktualisierungsintervall (Minuten)",
-          "monitored_variables": "Zu überwachende Sensoren"
+          "monitored_variables": "Zu überwachende Sensoren",
+          "attributes_units": "Einheiten zu Sensoreigenschaften hinzufügen"
         }
       }
     },
@@ -90,7 +91,8 @@
           "track_version": "Version",
           "track_timer": "Timer",
           "track_hour": "Zeit",
-          "track_error": "Fehler"
+          "track_error": "Fehler",
+          "attributes_units": "Einheiten zu Sensoreigenschaften hinzufügen"
         }
       },
       "options_init": {

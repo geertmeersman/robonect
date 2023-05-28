@@ -8,17 +8,9 @@ import re
 from jsonpath import jsonpath
 import pytz
 
-from .const import SHOW_DEBUG_AS_WARNING
+from .const import ATTR_STATE_UNITS
 
 _LOGGER = logging.getLogger(__name__)
-
-
-def log_debug(input, force=False) -> None:
-    """Log to logger as debug or force as warning."""
-    if SHOW_DEBUG_AS_WARNING is True or force is True:
-        _LOGGER.warning(input)
-    else:
-        _LOGGER.debug(input)
 
 
 def str_to_float(input, entity=None) -> float:
@@ -151,3 +143,18 @@ def convert_coordinate_degree_to_float(coordinate_str):
         decimal_degrees = -decimal_degrees
 
     return decimal_degrees / 60
+
+
+def add_attr_units(attr_dict, category):
+    """Add attribute state units."""
+    for key, value in attr_dict.items():
+        if isinstance(value, dict):
+            add_attr_units(value, category)
+        else:
+            if category in ATTR_STATE_UNITS and key in ATTR_STATE_UNITS.get(category):
+                unit = ATTR_STATE_UNITS.get(category).get(key)
+                if isinstance(unit, dict):
+                    lambda_func = eval(unit.get("lambda"))
+                    attr_dict.update({key: f"{lambda_func(value)} {unit.get('unit')}"})
+                else:
+                    attr_dict.update({key: f"{value} {unit}"})

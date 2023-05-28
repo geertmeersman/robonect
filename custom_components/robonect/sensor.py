@@ -21,6 +21,7 @@ from . import RobonectDataUpdateCoordinator
 from .const import (
     ATTRIBUTION_MQTT,
     ATTRIBUTION_REST,
+    CONF_ATTRS_UNITS,
     CONF_MQTT_ENABLED,
     CONF_MQTT_TOPIC,
     CONF_REST_ENABLED,
@@ -29,7 +30,12 @@ from .const import (
 )
 from .definitions import SENSORS, RobonectSensorEntityDescription
 from .entity import RobonectCoordinatorEntity, RobonectEntity
-from .utils import filter_out_units, get_json_dict_path, unix_to_datetime
+from .utils import (
+    add_attr_units,
+    filter_out_units,
+    get_json_dict_path,
+    unix_to_datetime,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -279,10 +285,6 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
             state = get_json_dict_path(
                 self.coordinator.data, self.entity_description.rest
             )
-            if self.category == "ext":
-                _LOGGER.debug(
-                    f"REST: {self.entity_description.rest} {state} {self.coordinator.data}"
-                )
             if state is not None:
                 if self.entity_description.device_class == SensorDeviceClass.TIMESTAMP:
                     state = unix_to_datetime(state, self.coordinator.hass)
@@ -305,6 +307,8 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
                     self.coordinator.data, self.entity_description.rest_attrs
                 )
                 if attrs:
+                    if self.entry.data[CONF_ATTRS_UNITS]:
+                        add_attr_units(attrs, self.category)
                     attributes.update(attrs)
             return attributes
         return self._attributes

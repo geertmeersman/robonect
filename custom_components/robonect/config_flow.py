@@ -1,72 +1,74 @@
 """Config flow to configure Robonect MQTT."""
 from __future__ import annotations
 
-import logging
-from abc import ABC
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from collections.abc import Awaitable
+import logging
 from typing import Any
 
 import aiohttp
-import homeassistant.helpers.config_validation as cv
-import voluptuous as vol
 from aiorobonect import RobonectClient
 from homeassistant.components import mqtt
-from homeassistant.config_entries import ConfigEntry
-from homeassistant.config_entries import ConfigFlow
-from homeassistant.config_entries import OptionsFlow
-from homeassistant.const import CONF_HOST
-from homeassistant.const import CONF_MONITORED_VARIABLES
-from homeassistant.const import CONF_PASSWORD
-from homeassistant.const import CONF_SCAN_INTERVAL
-from homeassistant.const import CONF_TYPE
-from homeassistant.const import CONF_USERNAME
-from homeassistant.core import callback
-from homeassistant.core import HomeAssistant
-from homeassistant.data_entry_flow import FlowHandler
-from homeassistant.data_entry_flow import FlowResult
+from homeassistant.config_entries import ConfigEntry, ConfigFlow, OptionsFlow
+from homeassistant.const import (
+    CONF_HOST,
+    CONF_MONITORED_VARIABLES,
+    CONF_PASSWORD,
+    CONF_SCAN_INTERVAL,
+    CONF_TYPE,
+    CONF_USERNAME,
+)
+from homeassistant.core import HomeAssistant, callback
+from homeassistant.data_entry_flow import FlowHandler, FlowResult
 from homeassistant.helpers.config_entry_flow import DiscoveryFlowHandler
-from homeassistant.helpers.selector import NumberSelector
-from homeassistant.helpers.selector import NumberSelectorConfig
-from homeassistant.helpers.selector import NumberSelectorMode
-from homeassistant.helpers.selector import SelectSelector
-from homeassistant.helpers.selector import SelectSelectorConfig
-from homeassistant.helpers.selector import SelectSelectorMode
-from homeassistant.helpers.selector import TextSelector
-from homeassistant.helpers.selector import TextSelectorConfig
-from homeassistant.helpers.selector import TextSelectorType
+import homeassistant.helpers.config_validation as cv
+from homeassistant.helpers.selector import (
+    NumberSelector,
+    NumberSelectorConfig,
+    NumberSelectorMode,
+    SelectSelector,
+    SelectSelectorConfig,
+    SelectSelectorMode,
+    TextSelector,
+    TextSelectorConfig,
+    TextSelectorType,
+)
 from homeassistant.helpers.typing import UNDEFINED
+import voluptuous as vol
 
-from .const import CONF_BRAND
-from .const import CONF_MQTT_ENABLED
-from .const import CONF_MQTT_TOPIC
-from .const import CONF_REST_ENABLED
-from .const import CONF_SUGGESTED_BRAND
-from .const import CONF_SUGGESTED_HOST
-from .const import CONF_SUGGESTED_TYPE
-from .const import DEFAULT_MQTT_TOPIC
-from .const import DEFAULT_SCAN_INTERVAL
-from .const import DOMAIN
-from .const import NAME
-from .const import ROBONECT_BRANDS
-from .const import SENSOR_GROUPS
-from .exceptions import BadCredentialsException
-from .exceptions import RobonectServiceException
+from .const import (
+    CONF_ATTRS_UNITS,
+    CONF_BRAND,
+    CONF_MQTT_ENABLED,
+    CONF_MQTT_TOPIC,
+    CONF_REST_ENABLED,
+    CONF_SUGGESTED_BRAND,
+    CONF_SUGGESTED_HOST,
+    CONF_SUGGESTED_TYPE,
+    DEFAULT_MQTT_TOPIC,
+    DEFAULT_SCAN_INTERVAL,
+    DOMAIN,
+    NAME,
+    ROBONECT_BRANDS,
+    SENSOR_GROUPS,
+)
+from .exceptions import BadCredentialsException, RobonectServiceException
 from .models import RobonectConfigEntryData
 
 _LOGGER = logging.getLogger(__name__)
 
 DEFAULT_ENTRY_DATA = RobonectConfigEntryData(
-    mqtt_enabled=True,
-    mqtt_topic=DEFAULT_MQTT_TOPIC,
-    host=CONF_SUGGESTED_HOST,
-    type=CONF_SUGGESTED_TYPE,
-    brand=CONF_SUGGESTED_BRAND,
-    rest_enabled=True,
-    username=None,
-    password=None,
-    monitored_variables=SENSOR_GROUPS,
-    scan_interval=DEFAULT_SCAN_INTERVAL,
+    CONF_MQTT_ENABLED=True,
+    MQTT_TOPIC=DEFAULT_MQTT_TOPIC,
+    CONF_HOST=CONF_SUGGESTED_HOST,
+    CONF_TYPE=CONF_SUGGESTED_TYPE,
+    CONF_BRAND=CONF_SUGGESTED_BRAND,
+    CONF_REST_ENABLED=True,
+    CONF_USERNAME=None,
+    CONF_PASSWORD=None,
+    CONF_MONITORED_VARIABLES=SENSOR_GROUPS,
+    CONF_SCAN_INTERVAL=DEFAULT_SCAN_INTERVAL,
+    CONF_ATTRS_UNITS=True,
 )
 
 
@@ -243,6 +245,7 @@ class RobonectCommonFlow(ABC, FlowHandler):
                     translation_key=CONF_MONITORED_VARIABLES,
                 )
             ),
+            vol.Required(CONF_ATTRS_UNITS): bool,
         }
         return self.async_show_form(
             step_id="connection_rest",
@@ -420,6 +423,7 @@ class RobonectCommonFlow(ABC, FlowHandler):
                     translation_key=CONF_MONITORED_VARIABLES,
                 )
             ),
+            vol.Required(CONF_ATTRS_UNITS): bool,
         }
         return self.async_show_form(
             step_id="monitored_variables",
@@ -474,7 +478,7 @@ class RobonectOptionsFlow(RobonectCommonFlow, OptionsFlow):
 class RobonectConfigFlow(RobonectCommonFlow, ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Robonect."""
 
-    VERSION = 1
+    VERSION = 2
 
     def __init__(self) -> None:
         """Initialize Robonect Config Flow."""
@@ -501,6 +505,3 @@ class RobonectConfigFlow(RobonectCommonFlow, ConfigFlow, domain=DOMAIN):
 
         #    async def async_step_mqtt(self, user_input: dict | None = None) -> FlowResult:
         """Handle a flow initialized by the autodiscovery."""
-
-
-#        return await self.async_step_connection_methods()
