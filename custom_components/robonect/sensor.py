@@ -113,6 +113,7 @@ async def async_setup_entry(
                         coordinator.data, description.rest_attrs.replace(".0", "")
                     )
                     for idx, item in enumerate(array):
+                        _LOGGER.debug(f"Item in array: {item}")
                         desc = copy.copy(description)
                         desc.rest_attrs = description.rest_attrs.replace(
                             ".0", f".{idx}"
