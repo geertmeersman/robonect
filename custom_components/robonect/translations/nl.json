@@ -118,6 +118,11 @@
     }
   },
   "entity": {
+    "binary_sensor": {
+      "health_alarm": {
+        "name": "Gezondheidsalarm"
+      }
+    },
     "sensor": {
       "battery": {
         "name": "Batterij",

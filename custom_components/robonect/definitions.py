@@ -4,6 +4,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass
 
+from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntityDescription,
@@ -38,16 +39,15 @@ BUTTONS: tuple[RobonectSensorEntityDescription, ...] = (
     ),
 )
 
-SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
+BINARY_SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
     RobonectSensorEntityDescription(
-        key="$.status.status.battery",
-        name="Battery",
-        device_class=SensorDeviceClass.BATTERY,
-        state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=PERCENTAGE,
+        key=".health/alarm",
+        rest="$.health.health.alarm",
+        rest_attrs="$.health.health.alarm",
+        icon="mdi:medication",
+        device_class=BinarySensorDeviceClass.SAFETY,
         entity_category=EntityCategory.DIAGNOSTIC,
-        icon="mdi:battery",
-        rest_category="status",
+        rest_category="health",
     ),
 )
 

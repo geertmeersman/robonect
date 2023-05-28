@@ -49,6 +49,7 @@ async def async_setup(hass: HomeAssistant, hass_config: ConfigType) -> bool:
     """Set up the Robonect component."""
     hass.data[DOMAIN] = {
         "device_tracker": set(),
+        "binary_sensor": set(),
         "vacuum": set(),
         "sensor": set(),
     }
@@ -277,7 +278,6 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
         new = {**config_entry.data}
         # TODO: modify Config Entry data
         if CONF_MONITORED_VARIABLES not in new:
-            _LOGGER.critical(f"Migrating! {config_entry}")
             new[CONF_MONITORED_VARIABLES] = SENSOR_GROUPS
             new[CONF_MQTT_ENABLED] = False
             new[MQTT_TOPIC] = DEFAULT_MQTT_TOPIC

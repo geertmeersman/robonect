@@ -7,10 +7,18 @@ from homeassistant.const import CONF_ENTITY_ID, Platform
 from homeassistant.helpers import config_validation as cv
 import voluptuous as vol
 
+PLATFORMS: Final = [
+    Platform.BINARY_SENSOR,
+    Platform.SENSOR,
+    Platform.BUTTON,
+    Platform.DEVICE_TRACKER,
+    Platform.VACUUM,
+]
+
 ATTR_STATE_UNITS = {
     "battery": {
         "charge": "%",
-        "voltage": {"lambda": "lambda a : round(a / 1000, 2)", "unit": "V"},
+        "voltage": {"lambda": "lambda a : math.ceil(a / 10)/100", "unit": "V"},
         "current": "mA",
         "temperature": {"lambda": "lambda a : a / 10", "unit": "°C"},
         "full": "mAh",
@@ -49,13 +57,6 @@ CONF_SUGGESTED_TYPE = "Automower 310"
 CONF_SUGGESTED_HOST = "10.0.0.99"
 CONF_SUGGESTED_BRAND = "Husqvarna"
 CONF_BRAND = "brand"
-
-PLATFORMS: Final = [
-    Platform.SENSOR,
-    Platform.BUTTON,
-    Platform.DEVICE_TRACKER,
-    Platform.VACUUM,
-]
 
 ATTRIBUTION_REST: Final = "Data provided by Robonect REST"
 ATTRIBUTION_MQTT: Final = "Data provided by Robonect MQTT"

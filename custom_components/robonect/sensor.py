@@ -124,9 +124,7 @@ async def async_setup_entry(
                         desc.rest_attrs = description.rest_attrs.replace(
                             ".0", f".{idx}"
                         )
-                        desc.key = description.key.replace(
-                            ".0", f".{idx}"
-                        )  # TODO Iterate
+                        desc.key = description.key.replace(".0", f".{idx}")
                         entities.append(
                             RobonectRestSensor(
                                 hass,
@@ -285,6 +283,11 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
             state = get_json_dict_path(
                 self.coordinator.data, self.entity_description.rest
             )
+            if self.entity_description.rest == "$.health.health.alarm":
+                for alarm in state:
+                    if state[alarm]:
+                        return True
+                return False
             if state is not None:
                 if self.entity_description.device_class == SensorDeviceClass.TIMESTAMP:
                     state = unix_to_datetime(state, self.coordinator.hass)
