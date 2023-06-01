@@ -312,7 +312,12 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
                 if attrs:
                     if self.entry.data[CONF_ATTRS_UNITS]:
                         add_attr_units(attrs, self.category)
-                    attributes.update(attrs)
+                    if isinstance(attrs, list):
+                        attributes.update(
+                            {self.entity_description.rest_attrs.split(".").pop(): attrs}
+                        )
+                    else:
+                        attributes.update(attrs)
             return attributes
         return self._attributes
 

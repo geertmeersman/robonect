@@ -18,9 +18,9 @@ from .const import (
     ATTRIBUTION_MQTT,
     ATTRIBUTION_REST,
     CONF_MQTT_ENABLED,
+    CONF_MQTT_TOPIC,
     CONF_REST_ENABLED,
     DOMAIN,
-    MQTT_TOPIC,
 )
 from .entity import RobonectCoordinatorEntity, RobonectEntity
 from .utils import convert_coordinate_degree_to_float, filter_out_units
@@ -42,16 +42,19 @@ async def async_setup_entry(
     @callback
     def async_mqtt_event_received(msg: mqtt.ReceiveMessage) -> None:
         """Receive set latitude."""
-        if MQTT_TOPIC in hass.data[DOMAIN]["device_tracker"]:
+        if entry.data[CONF_MQTT_TOPIC] in hass.data[DOMAIN]["device_tracker"]:
             return
 
-        hass.data[DOMAIN]["device_tracker"].add(MQTT_TOPIC)
+        hass.data[DOMAIN]["device_tracker"].add(entry.data[CONF_MQTT_TOPIC])
 
         async_add_entities([RobonectMqttGPSEntity(hass, entry)])
 
     if entry.data[CONF_MQTT_ENABLED] is True:
         await mqtt.async_subscribe(
-            hass, f"{MQTT_TOPIC}/gps/latitude", async_mqtt_event_received, 0
+            hass,
+            f"{entry.data[CONF_MQTT_TOPIC]}/gps/latitude",
+            async_mqtt_event_received,
+            0,
         )
     elif entry.data[CONF_REST_ENABLED] is True:
         _LOGGER.debug("Creating REST device tracker")
@@ -207,16 +210,28 @@ class RobonectGPSEntity(RobonectEntity, TrackerEntity, RestoreEntity):
 
         if self.entry.data[CONF_MQTT_ENABLED] is True:
             await mqtt.async_subscribe(
-                self.hass, f"{MQTT_TOPIC}/gps/latitude", latitude_received, 1
+                self.hass,
+                f"{self.entry.data[CONF_MQTT_TOPIC]}/gps/latitude",
+                latitude_received,
+                1,
             )
             await mqtt.async_subscribe(
-                self.hass, f"{MQTT_TOPIC}/gps/longitude", longitude_received, 1
+                self.hass,
+                f"{self.entry.data[CONF_MQTT_TOPIC]}/gps/longitude",
+                longitude_received,
+                1,
             )
             await mqtt.async_subscribe(
-                self.hass, f"{MQTT_TOPIC}/gps/satellites", satellites_received, 1
+                self.hass,
+                f"{self.entry.data[CONF_MQTT_TOPIC]}/gps/satellites",
+                satellites_received,
+                1,
             )
             await mqtt.async_subscribe(
-                self.hass, f"{MQTT_TOPIC}/mower/battery/charge", battery_received, 1
+                self.hass,
+                f"{self.entry.data[CONF_MQTT_TOPIC]}/mower/battery/charge",
+                battery_received,
+                1,
             )
 
         # Don't restore if status is fetched from coordinator data

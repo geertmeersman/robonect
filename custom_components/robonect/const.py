@@ -47,7 +47,6 @@ EVENT_ROBONECT_RESPONSE = "robonect_response"
 
 ATTR_SATELLITES = "satellites"
 
-MQTT_TOPIC = "automower"
 CONF_MQTT_ENABLED = "mqtt_enabled"
 CONF_MQTT_TOPIC = "mqtt_topic"
 CONF_REST_ENABLED = "rest_enabled"

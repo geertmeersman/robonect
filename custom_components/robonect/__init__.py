@@ -31,7 +31,6 @@ from .const import (
     DEFAULT_MQTT_TOPIC,
     DOMAIN,
     EVENT_ROBONECT_RESPONSE,
-    MQTT_TOPIC,
     PLATFORMS,
     SENSOR_GROUPS,
     SERVICE_JOB,
@@ -152,6 +151,7 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
         client: RobonectClient,
     ) -> None:
         """Initialize coordinator."""
+        self._debug = _LOGGER.isEnabledFor(logging.DEBUG)
         self.entry = entry
         self.client = client
         self.hass = hass
@@ -164,6 +164,19 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def _async_update_data(self) -> dict | None:
         """Update data."""
+        if self._debug:
+            cleanup = False
+            if self.data is None:
+                cleanup = True
+            items = await self.client.async_cmds(
+                self.entry.data[CONF_MONITORED_VARIABLES], self.data is None
+            )
+            if cleanup:
+                await self.async_trigger_cleanup()
+            if items:
+                return items
+            return []
+
         try:
             cleanup = False
             if self.data is None:
@@ -206,7 +219,10 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
             if entry.original_name is None:
                 continue
             entry_name = entry.name or entry.original_name
-            if entry.unique_id.split("-")[1] not in allowed:
+            if (
+                len(entry.unique_id.split("-")) == 1
+                or entry.unique_id.split("-")[1] not in allowed
+            ):
                 _LOGGER.info("Removing entity: %s", entry_name)
                 entity_reg.async_remove(entry.entity_id)
                 entities_removed = True
@@ -280,7 +296,7 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
         if CONF_MONITORED_VARIABLES not in new:
             new[CONF_MONITORED_VARIABLES] = SENSOR_GROUPS
             new[CONF_MQTT_ENABLED] = False
-            new[MQTT_TOPIC] = DEFAULT_MQTT_TOPIC
+            new[CONF_MQTT_TOPIC] = DEFAULT_MQTT_TOPIC
             new[CONF_TYPE] = CONF_SUGGESTED_TYPE
             new[CONF_BRAND] = CONF_SUGGESTED_BRAND
             new[CONF_REST_ENABLED] = True

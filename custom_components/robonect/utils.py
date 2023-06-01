@@ -148,6 +148,8 @@ def convert_coordinate_degree_to_float(coordinate_str):
 
 def add_attr_units(attr_dict, category):
     """Add attribute state units."""
+    if not isinstance(attr_dict, dict):
+        return
     for key, value in attr_dict.items():
         if isinstance(value, dict):
             add_attr_units(value, category)
@@ -162,5 +164,5 @@ def add_attr_units(attr_dict, category):
 
 
 def dummy_math(input):
-    """Dummy math function."""
+    """Dummy math function to let the lint validation pass."""
     return math.floor(input)
