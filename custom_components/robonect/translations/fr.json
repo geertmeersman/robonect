@@ -67,6 +67,13 @@
           "host": "Hôte"
         }
       },
+      "brand_type": {
+        "title": "Modifier votre marque en type de la tondeuse robot",
+        "data": {
+          "brand": "Marque de la tondeuse robot",
+          "type": "Type de tondeuse robot"
+        }
+      },
       "username_password": {
         "title": "Modifier votre nom d'utilisateur et votre mot de passe",
         "description": "À faire lorsque vous avez modifié vos références de compte",
@@ -99,6 +106,7 @@
         "title": "Modifier les options",
         "menu_options": {
           "connection_options": "Méthodes de connexion",
+          "brand_type": "Marque et type",
           "host": "Hôte",
           "username_password": "Nom d'utilisateur et mot de passe",
           "scan_interval": "Intervalle de mise à jour",

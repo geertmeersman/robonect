@@ -354,6 +354,40 @@ class RobonectCommonFlow(ABC, FlowHandler):
             errors=errors,
         )
 
+    async def async_step_brand_type(self, user_input: dict | None = None) -> FlowResult:
+        """Configure brand and type."""
+        errors: dict = {}
+
+        if user_input is not None:
+            self.new_entry_data |= user_input
+            return self.finish_flow()
+
+        fields = {
+            vol.Required(CONF_BRAND): SelectSelector(
+                SelectSelectorConfig(
+                    options=ROBONECT_BRANDS,
+                    multiple=False,
+                    custom_value=False,
+                    mode=SelectSelectorMode.DROPDOWN,
+                ),
+            ),
+            vol.Required(CONF_TYPE): TextSelector(
+                TextSelectorConfig(type=TextSelectorType.TEXT, autocomplete=CONF_TYPE)
+            ),
+        }
+
+        return self.async_show_form(
+            step_id="brand_type",
+            data_schema=self.add_suggested_values_to_schema(
+                vol.Schema(fields),
+                self.initial_data,
+            ),
+            description_placeholders={
+                "name": NAME,
+            },
+            errors=errors,
+        )
+
     async def async_step_host(self, user_input: dict | None = None) -> FlowResult:
         """Configure host."""
         errors: dict = {}
@@ -467,6 +501,7 @@ class RobonectOptionsFlow(RobonectCommonFlow, OptionsFlow):
             step_id="options_init",
             menu_options=[
                 "connection_options",
+                "brand_type",
                 "host",
                 "username_password",
                 "scan_interval",

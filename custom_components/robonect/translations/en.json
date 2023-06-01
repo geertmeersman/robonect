@@ -67,6 +67,13 @@
           "host": "Host"
         }
       },
+      "brand_type": {
+        "title": "Modify your robotic mower brand and type",
+        "data": {
+          "brand": "Robotic mower brand",
+          "type": "Robotic mower type"
+        }
+      },
       "username_password": {
         "title": "Modify your username and password",
         "description": "To be done when you have changed your account credentials",
@@ -99,6 +106,7 @@
         "title": "Change options",
         "menu_options": {
           "connection_options": "Connection methods",
+          "brand_type": "Brand and type",
           "host": "Host",
           "username_password": "Username and password",
           "scan_interval": "Update interval",

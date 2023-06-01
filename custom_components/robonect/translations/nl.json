@@ -67,6 +67,13 @@
           "host": "Host"
         }
       },
+      "brand_type": {
+        "title": "Wijzig je merk en type",
+        "data": {
+          "brand": "Merk robotmaaier",
+          "type": "Type robotmaaier"
+        }
+      },
       "username_password": {
         "title": "Pas je gebruikersnaam en wachtwoord aan",
         "description": "Te doen wanneer je je account referenties gewijzigd hebt",
@@ -99,6 +106,7 @@
         "title": "Opties wijzigen",
         "menu_options": {
           "connection_options": "Connectie methodes",
+          "brand_type": "Merk en type",
           "host": "Host",
           "username_password": "Gebruikersnaam en wachtwoord",
           "scan_interval": "Update interval",

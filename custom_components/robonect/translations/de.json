@@ -67,6 +67,13 @@
           "host": "Host"
         }
       },
+      "brand_type": {
+        "title": "Passen Sie Ihre Roboter-Rasenmäher Marke und Typ an",
+        "data": {
+          "brand": "Roboter-Rasenmäher Marke",
+          "type": "Roboter-Rasenmäher Typ"
+        }
+      },
       "username_password": {
         "title": "Benutzername und Passwort anpassen",
         "description": "Wenn Sie Ihre Kontoinformationen geändert haben",
@@ -99,6 +106,7 @@
         "title": "Optionen ändern",
         "menu_options": {
           "connection_options": "Verbindungsmethoden",
+          "brand_type": "Marke und Typ",
           "host": "Host",
           "username_password": "Benutzername und Passwort",
           "scan_interval": "Aktualisierungsintervall",
