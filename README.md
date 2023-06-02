@@ -94,3 +94,15 @@ logger:
 ```
 
 ## Screenshots
+
+### Integration page
+
+![Integration device](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/integration_device.png)
+
+![Diagnostic](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/diagnostic_1.png)
+![Diagnostic](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/diagnostic_2.png)
+![Diagnostic](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/diagnostic_3.png)
+
+### Mowing job
+
+![Mowing job](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/mowing_job.png)
