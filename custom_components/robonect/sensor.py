@@ -66,11 +66,12 @@ async def async_setup_entry(
 
         if entity_id not in added_entities:
             description_key = msg.topic.replace(f"{entry.data[CONF_MQTT_TOPIC]}/", "")
-            _LOGGER.debug(
-                f"[sensor.py|async_mqtt_event_received] Adding entity {entity_id} (MQTT Topic {msg.topic})"
-            )
-            async_add_entities([RobonectMqttSensor(hass, entry, description_key)])
-            added_entities.append(entity_id)
+            if description_key[0] != ".":
+                _LOGGER.debug(
+                    f"[async_mqtt_event_received] Adding entity {entity_id} (MQTT Topic {msg.topic})"
+                )
+                async_add_entities([RobonectMqttSensor(hass, entry, description_key)])
+                added_entities.append(entity_id)
 
     if entry.data[CONF_MQTT_ENABLED] is True:
         _LOGGER.debug(f"MQTT Subscribing to {entry.data[CONF_MQTT_TOPIC]}/#")
@@ -113,13 +114,15 @@ async def async_setup_entry(
                     ):
                         continue
                     path = description.rest
-                _LOGGER.debug(f"[sensor|async_setup_entry|adding] {path}")
+                _LOGGER.debug(f"[async_setup_entry|REST|adding] {path}")
                 if description.array:
                     array = get_json_dict_path(
                         coordinator.data, description.rest_attrs.replace(".0", "")
                     )
                     for idx, item in enumerate(array):
-                        _LOGGER.debug(f"Item in array: {item}")
+                        _LOGGER.debug(
+                            f"[async_setup_entry|REST|adding] Item in array: {item}"
+                        )
                         desc = copy.copy(description)
                         desc.rest_attrs = description.rest_attrs.replace(
                             ".0", f".{idx}"
@@ -309,15 +312,20 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
                 attrs = get_json_dict_path(
                     self.coordinator.data, self.entity_description.rest_attrs
                 )
+                attrs_copy = copy.copy(attrs)
                 if attrs:
                     if self.entry.data[CONF_ATTRS_UNITS]:
-                        add_attr_units(attrs, self.category)
-                    if isinstance(attrs, list):
+                        add_attr_units(attrs_copy, self.category)
+                    if isinstance(attrs_copy, list):
                         attributes.update(
-                            {self.entity_description.rest_attrs.split(".").pop(): attrs}
+                            {
+                                self.entity_description.rest_attrs.split(
+                                    "."
+                                ).pop(): attrs_copy
+                            }
                         )
                     else:
-                        attributes.update(attrs)
+                        attributes.update(attrs_copy)
             return attributes
         return self._attributes
 

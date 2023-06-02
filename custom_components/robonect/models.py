@@ -1,19 +1,24 @@
 """Models used by Robonect."""
 from __future__ import annotations
 
-from dataclasses import dataclass
-from dataclasses import field
+from dataclasses import dataclass, field
 from typing import TypedDict
 
 
 class RobonectConfigEntryData(TypedDict):
     """Config entry for the Robonect integration."""
 
+    mqtt_enabled: bool | None
+    mqtt_topic: str | None
     host: str | None
     username: str | None
     password: str | None
-    tracking: dict | None
-    update_interval: int | None
+    type: str | None
+    brand: str | None
+    rest_enabled: bool | None
+    monitored_variables: dict | None
+    scan_interval: int | None
+    attributes_units: bool | True
 
 
 @dataclass

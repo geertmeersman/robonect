@@ -9,8 +9,12 @@ A Home Assistant integration to monitor Robonect
 
 ### Features
 
-- All possible Robonect sensors
-- Service calls to Robonect actions
+- MQTT listener
+- REST API client
+- All Robonect sensors (if MQTT enabled priority to MQTT sensors)
+- Automower vacuum entity
+- Buttons (change mode, start, stop, return home, ...)
+- Service calls to Robonect actions, like scheduling a job
 
 ---
 

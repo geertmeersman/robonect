@@ -127,6 +127,8 @@ def unix_to_datetime(epoch_timestamp, hass=None):
 def filter_out_units(string):
     """Filter out units in a string, keep only the numbers."""
     filtered_string = re.sub(r"[^0-9.-]", "", string)
+    if filtered_string.endswith("."):
+        filtered_string = filtered_string[:-1]
     return filtered_string
 
 

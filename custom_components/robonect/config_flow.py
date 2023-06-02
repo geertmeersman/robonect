@@ -58,17 +58,17 @@ from .models import RobonectConfigEntryData
 _LOGGER = logging.getLogger(__name__)
 
 DEFAULT_ENTRY_DATA = RobonectConfigEntryData(
-    CONF_MQTT_ENABLED=True,
-    CONF_MQTT_TOPIC=DEFAULT_MQTT_TOPIC,
-    CONF_HOST=CONF_SUGGESTED_HOST,
-    CONF_TYPE=CONF_SUGGESTED_TYPE,
-    CONF_BRAND=CONF_SUGGESTED_BRAND,
-    CONF_REST_ENABLED=True,
-    CONF_USERNAME=None,
-    CONF_PASSWORD=None,
-    CONF_MONITORED_VARIABLES=SENSOR_GROUPS,
-    CONF_SCAN_INTERVAL=DEFAULT_SCAN_INTERVAL,
-    CONF_ATTRS_UNITS=True,
+    mqtt_enabled=True,
+    mqtt_topic=DEFAULT_MQTT_TOPIC,
+    host=CONF_SUGGESTED_HOST,
+    type=CONF_SUGGESTED_TYPE,
+    brand=CONF_SUGGESTED_BRAND,
+    rest_enabled=True,
+    username=None,
+    password=None,
+    monitoried_variables=SENSOR_GROUPS,
+    scan_interval=DEFAULT_SCAN_INTERVAL,
+    attributes_units=True,
 )
 
 
@@ -133,6 +133,9 @@ class RobonectCommonFlow(ABC, FlowHandler):
         """Handle connection configuration."""
         errors: dict = {}
 
+        if user_input is None:
+            self.new_entry_data = self.new_data()
+
         if not await mqtt.async_wait_for_mqtt_client(self.hass):
             self.new_entry_data |= RobonectConfigEntryData(
                 mqtt_enabled=False,
@@ -157,8 +160,6 @@ class RobonectCommonFlow(ABC, FlowHandler):
                     errors["CONF_MQTT_TOPIC"] = "topic_used"
                 else:
                     return await self.async_step_connection_rest()
-        else:
-            self.new_entry_data = self.new_data()
 
         fields = {
             vol.Required(CONF_MQTT_ENABLED): bool,
