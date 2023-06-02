@@ -1,5 +1,98 @@
 # Changelog
 
+## [v1.0.0](https://github.com/geertmeersman/robonect/tree/v1.0.0) (2023-06-02)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.17...v1.0.0)
+
+**Breaking changes:**
+
+- MQTT & Rest version [\#21](https://github.com/geertmeersman/robonect/pull/21) ([geertmeersman](https://github.com/geertmeersman))
+
+**Merged pull requests:**
+
+- Bump actions/setup-python from 4.6.0 to 4.6.1 [\#23](https://github.com/geertmeersman/robonect/pull/23) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump ruff from 0.0.269 to 0.0.270 [\#22](https://github.com/geertmeersman/robonect/pull/22) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [1.0.0-beta.17](https://github.com/geertmeersman/robonect/tree/1.0.0-beta.17) (2023-06-02)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.16...1.0.0-beta.17)
+
+## [1.0.0-beta.16](https://github.com/geertmeersman/robonect/tree/1.0.0-beta.16) (2023-06-01)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.15...1.0.0-beta.16)
+
+## [1.0.0-beta.15](https://github.com/geertmeersman/robonect/tree/1.0.0-beta.15) (2023-05-28)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.14...1.0.0-beta.15)
+
+## [1.0.0-beta.14](https://github.com/geertmeersman/robonect/tree/1.0.0-beta.14) (2023-05-28)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.13...1.0.0-beta.14)
+
+## [1.0.0-beta.13](https://github.com/geertmeersman/robonect/tree/1.0.0-beta.13) (2023-05-28)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.12...1.0.0-beta.13)
+
+## [1.0.0-beta.12](https://github.com/geertmeersman/robonect/tree/1.0.0-beta.12) (2023-05-28)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.11...1.0.0-beta.12)
+
+## [1.0.0-beta.11](https://github.com/geertmeersman/robonect/tree/1.0.0-beta.11) (2023-05-27)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.10...1.0.0-beta.11)
+
+## [1.0.0-beta.10](https://github.com/geertmeersman/robonect/tree/1.0.0-beta.10) (2023-05-26)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.9...1.0.0-beta.10)
+
+## [1.0.0-beta.9](https://github.com/geertmeersman/robonect/tree/1.0.0-beta.9) (2023-05-26)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.8...1.0.0-beta.9)
+
+## [1.0.0-beta.8](https://github.com/geertmeersman/robonect/tree/1.0.0-beta.8) (2023-05-26)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.7...1.0.0-beta.8)
+
+## [1.0.0-beta.7](https://github.com/geertmeersman/robonect/tree/1.0.0-beta.7) (2023-05-26)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.6...1.0.0-beta.7)
+
+## [1.0.0-beta.6](https://github.com/geertmeersman/robonect/tree/1.0.0-beta.6) (2023-05-26)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.5...1.0.0-beta.6)
+
+## [1.0.0-beta.5](https://github.com/geertmeersman/robonect/tree/1.0.0-beta.5) (2023-05-26)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.4...1.0.0-beta.5)
+
+## [1.0.0-beta.4](https://github.com/geertmeersman/robonect/tree/1.0.0-beta.4) (2023-05-26)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.3...1.0.0-beta.4)
+
+## [1.0.0-beta.3](https://github.com/geertmeersman/robonect/tree/1.0.0-beta.3) (2023-05-26)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.2...1.0.0-beta.3)
+
+## [1.0.0-beta.2](https://github.com/geertmeersman/robonect/tree/1.0.0-beta.2) (2023-05-25)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.1...1.0.0-beta.2)
+
+## [1.0.0-beta.1](https://github.com/geertmeersman/robonect/tree/1.0.0-beta.1) (2023-05-25)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.2.6...1.0.0-beta.1)
+
+**Closed issues:**
+
+- Use mqtt as alternative to polling for faster response [\#18](https://github.com/geertmeersman/robonect/issues/18)
+
+**Merged pull requests:**
+
+- Bump ruff from 0.0.267 to 0.0.269 [\#20](https://github.com/geertmeersman/robonect/pull/20) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump danielchabr/pr-labels-checker from 3.2 to 3.3 [\#19](https://github.com/geertmeersman/robonect/pull/19) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Discord webhook [\#17](https://github.com/geertmeersman/robonect/pull/17) ([geertmeersman](https://github.com/geertmeersman))
+- Bump danielchabr/pr-labels-checker from 3.1 to 3.2 [\#16](https://github.com/geertmeersman/robonect/pull/16) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump ruff from 0.0.265 to 0.0.267 [\#15](https://github.com/geertmeersman/robonect/pull/15) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.2.6](https://github.com/geertmeersman/robonect/tree/v0.2.6) (2023-05-12)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.2.5...v0.2.6)
@@ -12,7 +105,7 @@
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.2.4...v0.2.5)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
 - Reverting to 1 device [\#13](https://github.com/geertmeersman/robonect/pull/13) ([geertmeersman](https://github.com/geertmeersman))
 
@@ -44,7 +137,7 @@
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.2.0...v0.2.1)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
 - Don't bypass sleep :-\) [\#9](https://github.com/geertmeersman/robonect/pull/9) ([geertmeersman](https://github.com/geertmeersman))
 
@@ -52,7 +145,7 @@
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.1.5...v0.2.0)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
 - Device split and config flow options added for sensor tracking [\#8](https://github.com/geertmeersman/robonect/pull/8) ([geertmeersman](https://github.com/geertmeersman))
 
@@ -60,7 +153,7 @@
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.1.4...v0.1.5)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
 - Only update status entities when the mower is sleeping \(and prevent i… [\#7](https://github.com/geertmeersman/robonect/pull/7) ([geertmeersman](https://github.com/geertmeersman))
 
@@ -76,7 +169,7 @@
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.1.2...v0.1.3)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
 - Version, status, timer and hour sensors [\#5](https://github.com/geertmeersman/robonect/pull/5) ([geertmeersman](https://github.com/geertmeersman))
 
@@ -84,7 +177,7 @@
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v0.1.1...v0.1.2)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
 - Robonect services & multiple sensors added [\#4](https://github.com/geertmeersman/robonect/pull/4) ([geertmeersman](https://github.com/geertmeersman))
 
@@ -101,7 +194,7 @@
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/bb21ea38eb224911822e39398ff7565352c92941...v0.1.0)
 
-**Implemented enhancements:**
+**Merged pull requests:**
 
 - Initial version including battery sensors [\#1](https://github.com/geertmeersman/robonect/pull/1) ([geertmeersman](https://github.com/geertmeersman))
 
