@@ -1,13 +1,14 @@
-name: Pre-Release
-on: [workflow_dispatch]
+name: Create a BETA release
+on:
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  create_release_draft:
-    name: Create the release draft
+  create_beta_release:
+    name: Create a BETA release
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -16,21 +17,65 @@ jobs:
       - name: ⤵️　Checkout code
         uses: actions/checkout@v3
         with:
+          fetch-depth: 0
           ref: ${{ github.ref }}
 
-      - name: 📝　Draft release
-        uses: release-drafter/release-drafter@v5
-        id: release_drafter
+      - name: Determine next version
+        id: next-version
+        run: |
+          pip install git-conventional-version semantic_version semver
+          git pull
+          next_version=$(python .github/scripts/get_new_version.py)
+          last_beta_tag=$(git describe --tags --abbrev=0 --match "*beta*")
+          last_tag=$(git describe --tags --abbrev=0 origin/main)
+          echo Last tag: $last_tag
+          changelog=$(echo -e "## Commits\n";git log --pretty=format:%s $last_beta_tag..refs/heads/dev-current|while read i; do echo "- $i";done)
+          echo "Calculated next verion: $next_version"
+          echo "Changelog: $changelog"
+          echo "NEW_VERSION=$next_version" >> "$GITHUB_OUTPUT"
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "CHANGELOG<<$EOF" >> $GITHUB_OUTPUT
+          echo "$changelog" >> $GITHUB_OUTPUT
+          echo "$EOF" >> $GITHUB_OUTPUT
+
+      - name: 🗑　Delete drafts
+        uses: hugo19941994/delete-draft-releases@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          prerelease: true
-          publish: false
-          
+
       - name: 🔄　Update version in 'VERSION' and 'manifest.json' and push changes
         env:
-          tag_name: ${{ steps.release_drafter.outputs.tag_name }}
           GITHUB_REPO: ${{ github.event.repository.name }}
         run: |
           echo "** Manifest before replace **"
-          echo $tag_name
+          cat custom_components/$GITHUB_REPO/manifest.json
+          sed -i 's/"version": ".*"/"version": "'${{ steps.next-version.outputs.NEW_VERSION }}'"/g' custom_components/$GITHUB_REPO/manifest.json
+          echo "** Manifest after replace **"
+          cat custom_components/$GITHUB_REPO/manifest.json
+          echo ${{ steps.next-version.outputs.NEW_VERSION }} > VERSION
+
+      - name: 🚀　Add and commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: Bump version
+
+      - name: 📝　Publish release
+        uses: release-drafter/release-drafter@v5
+        id: release_published
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          config-name: release-drafter-beta.yml
+          prerelease: true
+          publish: true
+          commitish: ${{ github.ref }}
+          tag: ${{ steps.next-version.outputs.NEW_VERSION }}
+          name: Prerelease ${{ steps.next-version.outputs.NEW_VERSION }}
+          footer: "${{ steps.next-version.outputs.CHANGELOG }}"
+
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: "New BETA release published: https://github.com/{{ EVENT_PAYLOAD.repository.full_name }}/releases/tag/${{ steps.next-version.outputs.NEW_VERSION }}"

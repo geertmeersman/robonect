@@ -9,8 +9,12 @@ A Home Assistant integration to monitor Robonect
 
 ### Features
 
-- All possible Robonect sensors
-- Service calls to Robonect actions
+- MQTT listener
+- REST API client
+- All Robonect sensors (if MQTT enabled priority to MQTT sensors)
+- Automower vacuum entity
+- Buttons (change mode, start, stop, return home, ...)
+- Service calls to Robonect actions, like scheduling a job
 
 ---
 
@@ -19,7 +23,7 @@ A Home Assistant integration to monitor Robonect
 
 [![maintainer](https://img.shields.io/badge/maintainer-Geert%20Meersman-green?style=for-the-badge&logo=github)](https://github.com/geertmeersman)
 [![buyme_coffee](https://img.shields.io/badge/Buy%20me%20a%20Duvel-donate-yellow?style=for-the-badge&logo=buymeacoffee)](https://www.buymeacoffee.com/geertmeersman)
-[![discord](https://img.shields.io/discord/1094198226493636638?style=for-the-badge&logo=discord)](https://discord.gg/wZHsA4aGvS)
+[![discord](https://img.shields.io/discord/1104706338111627385?style=for-the-badge&logo=discord)](https://discord.gg/wZHsA4aGvS)
 
 [![MIT License](https://img.shields.io/github/license/geertmeersman/robonect?style=flat-square)](https://github.com/geertmeersman/robonect/blob/master/LICENSE)
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=flat-square)](https://github.com/hacs/integration)
@@ -70,9 +74,9 @@ Category: Integration
 
 This integration will set up the following platforms.
 
-| Platform   | Description                                       |
-| ---------- | ------------------------------------------------- |
-| `robonect` | Home Assistant component for Robonect             |
+| Platform   | Description                           |
+| ---------- | ------------------------------------- |
+| `robonect` | Home Assistant component for Robonect |
 
 ## Contributions are welcome!
 
@@ -80,13 +84,28 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 
 ## Troubleshooting
 
-1. You can enable logging for this integration specifically and share your logs, so I can have a deep dive investigation. To enable logging, update your `configuration.yaml` like this, we can get more information in Configuration -> Logs page
+### ENABLING DEBUG LOGGING
 
-```
-logger:
-  default: warning
-  logs:
-    custom_components.robonect: debug
-```
+To enable debug logging, go to Settings -> Devices & Services and then click the triple dots for the Robonect integration and click Enable Debug Logging.
+
+![enable-debug-logging](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/enable-debug-logging.gif)
+
+### DISABLE DEBUG LOGGING AND DOWNLOAD LOGS
+
+Once you enable debug logging, you ideally need to make the error happen. Run your automation, change up your device or whatever was giving you an error and then come back and disable Debug Logging. Disabling debug logging is the same as enabling, but now you will see Disable Debug Logging. After you disable debug logging, it will automatically prompt you to download your log file. Please provide this logfile.
+
+![disable-debug-logging](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/disable-debug-logging.gif)
 
 ## Screenshots
+
+### Integration page
+
+![Integration device](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/integration_device.png)
+
+![Diagnostic](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/diagnostic_1.png)
+![Diagnostic](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/diagnostic_2.png)
+![Diagnostic](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/diagnostic_3.png)
+
+### Mowing job
+
+![Mowing job](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/mowing_job.png)

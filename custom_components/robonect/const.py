@@ -1,24 +1,64 @@
 """Constants used by Robonect."""
 import json
-import logging
 from pathlib import Path
 from typing import Final
 
-import voluptuous as vol
-from homeassistant.const import Platform
+from homeassistant.const import CONF_ENTITY_ID, Platform
 from homeassistant.helpers import config_validation as cv
+import voluptuous as vol
 
-SHOW_DEBUG_AS_WARNING = False
-BYPASS_SLEEP = False
+PLATFORMS: Final = [
+    Platform.BINARY_SENSOR,
+    Platform.SENSOR,
+    Platform.BUTTON,
+    Platform.DEVICE_TRACKER,
+    Platform.VACUUM,
+]
 
-_LOGGER = logging.getLogger(__name__)
+ATTR_STATE_UNITS = {
+    "battery": {
+        "charge": "%",
+        "voltage": {"lambda": "lambda a : math.ceil(a / 10)/100", "unit": "V"},
+        "current": "mA",
+        "temperature": {"lambda": "lambda a : a / 10", "unit": "°C"},
+        "full": "mAh",
+        "remaining": "mAh",
+    },
+    "motor": {
+        "power": "%",
+        "speed": {"lambda": "lambda a : round(a , 1)", "unit": "cm/s"},
+        "current": "mA",
+        "average": "RPM",
+    },
+    "status": {
+        "distance": "m",
+        "duration": "min",
+        "battery": "%",
+        "hours": "h",
+        "quality": "%",
+        "days": "d",
+        "signal": "dBm",
+        "temperature": "°C",
+        "humidity": "%",
+    },
+}
 
-CONF_TRACKING = "tracking"
-CONF_UPDATE_INTERVAL = "update_interval"
+EVENT_ROBONECT_RESPONSE = "robonect_response"
 
-PLATFORMS: Final = [Platform.SENSOR]
+ATTR_SATELLITES = "satellites"
 
-ATTRIBUTION: Final = "Data provided by Robonect"
+CONF_MQTT_ENABLED = "mqtt_enabled"
+CONF_MQTT_TOPIC = "mqtt_topic"
+CONF_REST_ENABLED = "rest_enabled"
+CONF_ATTRS_UNITS = "attributes_units"
+DEFAULT_MQTT_TOPIC = "automower"
+CONF_SUGGESTED_TYPE = "Automower 310"
+CONF_SUGGESTED_HOST = "10.0.0.99"
+CONF_SUGGESTED_BRAND = "Husqvarna"
+CONF_BRAND = "brand"
+
+ATTRIBUTION_REST: Final = "Data provided by Robonect REST"
+ATTRIBUTION_MQTT: Final = "Data provided by Robonect MQTT"
 
 SERVICE_START = "start"
 SERVICE_STOP = "stop"
@@ -27,6 +67,9 @@ SERVICE_SHUTDOWN = "shutdown"
 SERVICE_SLEEP = "sleep"
 SERVICE_JOB = "job"
 
+CONF_ENTRY_ID = "entry_id"
+
+ROBONECT_BRANDS = ["Husqvarna", "Gardena", "Flymo", "McCulloch"]
 SERVICE_JOB_AFTER_VALUES = ["Auto", "Home", "End of day"]
 SERVICE_JOB_REMOTESTART_VALUES = [
     "Normal",
@@ -53,6 +96,7 @@ SERVICE_JOB_CORRIDOR_VALUES = [
 SERVICE_MODE_VALUES = ["man", "auto", "eod", "home"]
 SERVICE_JOB_SCHEMA = vol.Schema(
     {
+        vol.Required(CONF_ENTITY_ID): cv.string,
         vol.Optional("start"): cv.string,
         vol.Optional("end"): cv.string,
         vol.Optional("duration"): cv.positive_int,
@@ -68,10 +112,29 @@ SERVICE_MODE_SCHEMA = vol.Schema(
         vol.Required("mode", default="auto"): vol.In(SERVICE_MODE_VALUES),
     }
 )
-SENSOR_GROUPS = ["battery", "wlan", "version", "timer", "hour", "error"]
+SENSOR_GROUPS = [
+    "battery",
+    "clock",
+    "door",
+    "error",
+    "ext",
+    "gps",
+    "health",
+    "hour",
+    "motor",
+    "portal",
+    "push",
+    "remote",
+    "status",
+    "timer",
+    "version",
+    "weather",
+    "wlan",
+    "wire",
+]
 
 DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S%z"
-DEFAULT_UPDATE_INTERVAL = 2
+DEFAULT_SCAN_INTERVAL = 2
 CONNECTION_RETRY = 5
 REQUEST_TIMEOUT = 20
 WEBSITE = "https://www.robonect-shop.de"
@@ -95,3 +158,5 @@ If you have any issues with this you need to open an issue here:
 """.format(
     name=NAME, version=VERSION, issueurl=ISSUEURL
 )
+
+TRACKER_UPDATE = f"{DOMAIN}_tracker_update"

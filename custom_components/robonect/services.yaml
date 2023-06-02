@@ -38,15 +38,34 @@ job:
   name: Place a mowing job
   description: Mower performs a mowing job
   fields:
+    entity_id:
+      name: Entity ID
+      description: Entity ID of the Robonect Vacuum
+      required: true
+      example: vacuum.automower_robonect
+      selector:
+        entity:
+          domain: vacuum
+          integration: robonect
     start:
       description: Start time 'hh:mm', if omitted, then 'Immediately' applies.
       example: "10:00"
+      selector:
+        time:
     end:
       description: End time 'hh:mm'.
       example: "13:00"
+      selector:
+        time:
     duration:
       description: Duration of the job in minutes. If the mower is charging, the 'clock' continues. Omitted if end is set.
       example: "145"
+      selector:
+        number:
+          min: 1
+          max: 10080
+          mode: box
+          unit_of_measurement: min
     after:
       description: Mode that will be activated after this mowing job is done.
       example: "Auto"

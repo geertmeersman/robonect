@@ -1,15 +1,32 @@
 {
   "config": {
     "step": {
-      "connection_init": {
-        "title": "New Robonect account",
-        "description": "Set up your Robonect account",
+      "connection_methods": {
+        "title": "{name} account setup",
+        "description": "Connectivity",
+        "data": {
+          "rest_enabled": "Rest API monitoring",
+          "mqtt_enabled": "MQTT monitoring",
+          "mqtt_topic": "MQTT topic and sensor prefix",
+          "brand": "Robotic mower brand",
+          "type": "Robotic mower type"
+        },
+        "data_description": {
+          "rest_enabled": "Login credentials and monitored sensors for the REST API will be added in the next screen",
+          "mqtt_enabled": "Automatically adds entities when discovered on MQTT\n\n",
+          "mqtt_topic": "Topic name configured in the MQTT section of your {name}.\n\nNote: This is also used in entity_id naming (including REST API monitoring)."
+        }
+      },
+      "connection_rest": {
+        "title": "{name} account setup - REST",
+        "description": "Configure your {name} account.\n",
         "data": {
           "host": "Host",
           "username": "Username",
           "password": "Password",
-          "update_interval": "Update interval (min)",
-          "tracking": "Sensors to track"
+          "scan_interval": "Update interval (min)",
+          "monitored_variables": "Monitored sensors",
+          "attributes_units": "Add units to sensor attributes"
         }
       }
     },
@@ -17,122 +34,472 @@
       "already_configured": "Account is already configured"
     },
     "error": {
-      "cannot_connect": "Failed to connect",
-      "invalid_auth": "Invalid authentication",
-      "unknown": "Unexpected error",
-      "service_error": "Service unavailable"
+      "cannot_connect": "Cannot connect",
+      "topic_used": "MQTT Topic already in use",
+      "invalid_auth": "Invalid authentication | {exception}",
+      "mqtt_disabled": "MQTT integration is not available.\nAdd it to Home Assistant (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nYou can choose to use only REST API monitoring.",
+      "unknown": "Unexpected error | {exception}",
+      "service_error": "Service not available"
     }
   },
   "options": {
     "step": {
-      "init": {
-        "title": "Reconfigure Robonect",
+      "connection_options": {
+        "title": "{name} account",
+        "description": "Connectivity",
         "data": {
-          "host": "Host",
-          "username": "Username",
-          "password": "Password"
+          "rest_enabled": "Rest API monitoring",
+          "mqtt_enabled": "MQTT monitoring",
+          "mqtt_topic": "MQTT topic and sensor prefix",
+          "brand": "Robotic mower brand",
+          "type": "Robotic mower type"
+        },
+        "data_description": {
+          "mqtt_enabled": "Automatically adds entities when discovered on MQTT\n\n",
+          "mqtt_topic": "Topic name configured in the MQTT section of your {name}.\n\nNote: This is also used in entity_id naming (including REST API monitoring).",
+          "rest_enabled": "Login credentials and monitored sensors for the REST API will be added in the next screen"
         }
       },
       "host": {
-        "title": "Update the Robonect Host Address",
-        "description": "To do when your Robonect Host address changed",
+        "title": "Modify your host address",
+        "description": "To be done when the Robonect host address has changed",
         "data": {
           "host": "Host"
         }
       },
-      "password": {
-        "title": "Update your password",
-        "description": "To do when you changed your password",
+      "brand_type": {
+        "title": "Modify your robotic mower brand and type",
         "data": {
+          "brand": "Robotic mower brand",
+          "type": "Robotic mower type"
+        }
+      },
+      "username_password": {
+        "title": "Modify your username and password",
+        "description": "To be done when you have changed your account credentials",
+        "data": {
+          "username": "Username",
           "password": "Password"
         }
       },
-      "update_interval": {
+      "scan_interval": {
         "title": "Update interval",
-        "description": "Set the update interval for refreshing the sensors",
+        "description": "Change the update interval for refreshing the sensors",
         "data": {
-          "update_interval": "Update interval (min)"
+          "scan_interval": "Update interval (min)"
         }
       },
-      "sensors": {
-        "title": "Sensor",
+      "monitored_variables": {
+        "title": "Sensors",
         "description": "Which sensors to track",
         "data": {
           "track_battery": "Battery",
           "track_wlan": "WLAN",
           "track_version": "Version",
           "track_timer": "Timer",
-          "track_hour": "Hour",
-          "track_error": "Errors"
+          "track_hour": "Time",
+          "track_error": "Errors",
+          "attributes_units": "Add units to sensor attributes"
         }
       },
       "options_init": {
         "title": "Change options",
         "menu_options": {
+          "connection_options": "Connection methods",
+          "brand_type": "Brand and type",
           "host": "Host",
-          "password": "Password",
-          "update_interval": "Update interval",
-          "sensors": "Sensors"
+          "username_password": "Username and password",
+          "scan_interval": "Update interval",
+          "monitored_variables": "Sensors"
         }
       }
-    },
-    "error": {
-      "cannot_connect": "Failed to connect",
-      "invalid_auth": "Invalid authentication",
-      "unknown": "Unexpected error",
-      "service_error": "Service unavailable"
     },
     "abort": {
       "already_configured": "Account is already configured"
+    },
+    "error": {
+      "cannot_connect": "Unable to connect",
+      "invalid_auth": "Invalid authentication",
+      "mqtt_disabled": "MQTT integration is not available.\nAdd them to Home Assistant (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nYou can choose to use only REST API monitoring.",
+      "unknown": "Unexpected error",
+      "service_error": "Service not available"
     }
   },
   "entity": {
+    "binary_sensor": {
+      "health_alarm": {
+        "name": "Health alarm"
+      }
+    },
     "sensor": {
-      "status": {
-        "state": {
-          "raw_0": "Detecting status",
-          "raw_1": "Parked",
-          "raw_2": "Mowing",
-          "raw_3": "Searching charging station",
-          "raw_4": "Charging",
-          "raw_5": "Searching",
-          "raw_7": "Error",
-          "raw_8": "Cable signal lost",
-          "raw_16": "Off",
-          "raw_17": "Sleeping",
-          "raw_18": "Waiting for garage door",
-          "raw_98": "Offline (unable to bind)",
-          "raw_99": "Unkown"
+      "battery": {
+        "name": "Battery",
+        "state_attributes": {
+          "charge": {
+            "name": "Charge"
+          },
+          "voltage": {
+            "name": "Voltage"
+          },
+          "current": {
+            "name": "Current"
+          },
+          "temperature": {
+            "name": "Temperature"
+          },
+          "capacity": {
+            "name": "Capacity"
+          }
         }
       },
-      "mode": {
+      "mower_status": {
+        "name": "Status",
         "state": {
-          "raw_0": "Auto",
-          "raw_1": "Manually",
-          "raw_2": "Home",
-          "raw_3": "Demo",
-          "raw_98": "End of day",
-          "raw_99": "Job"
+          "0": "Detecting status",
+          "1": "Parked",
+          "2": "Mowing",
+          "3": "Searching for charging station",
+          "4": "Charging",
+          "5": "Searching",
+          "7": "Error",
+          "8": "Lost cable signal",
+          "16": "Off",
+          "17": "Sleeping",
+          "18": "Waiting for garage door",
+          "98": "Offline (cannot bind)",
+          "99": "Unknown"
         }
       },
-      "timer_status": {
+      "mower_battery_charge": {
+        "name": "Battery"
+      },
+      "mower_status_duration": {
+        "name": "Time in current status"
+      },
+      "device_serial": {
+        "name": "Serial number"
+      },
+      "mower_distance": {
+        "name": "Distance"
+      },
+      "device_name": {
+        "name": "Name"
+      },
+      "health_climate_temperature": {
+        "name": "Internal mower temperature"
+      },
+      "health_climate_humidity": {
+        "name": "Internal humidity"
+      },
+      "mower_blades_quality": {
+        "name": "Blade quality"
+      },
+      "mower_blades_days": {
+        "name": "Blade age"
+      },
+      "mower_blades_hours": {
+        "name": "Blade operating hours"
+      },
+      "mower_stopped": {
+        "name": "Stopped"
+      },
+      "wlan_rssi": {
+        "name": "Wi-Fi signal strength"
+      },
+      "mower_mode": {
+        "name": "Mode",
         "state": {
-          "raw_0": "Disabled",
-          "raw_1": "Active",
-          "raw_2": "Standby"
+          "0": "Auto",
+          "1": "Manual",
+          "2": "Home",
+          "3": "Demo",
+          "98": "End of day",
+          "99": "Mowing task"
+        }
+      },
+      "mower_statistic_hours": {
+        "name": "Operating hours"
+      },
+      "mower_error_code": {
+        "name": "Last error code"
+      },
+      "mower_error_message": {
+        "name": "Last error message"
+      },
+      "weather_data_break": {
+        "name": "Stopped due to weather"
+      },
+      "mower_substatus": {
+        "name": "Substatus",
+        "state": {
+          "1": "Driving",
+          "2": "Outside",
+          "4": "Wheels slipping!",
+          "6": "Collision!",
+          "7": "Lifted!",
+          "8": "Spiral cut",
+          "9": "Following guide wire 1 to charging station",
+          "10": "Following right boundary wire",
+          "11": "Docked",
+          "12": "Fast charging",
+          "14": "Charging complete",
+          "15": "Exit angle",
+          "16": "Following guide wire 1 to starting point",
+          "18": "No loop signal!",
+          "19": "Mowing motor blocked!",
+          "21": "Following guide wire 2 to charging station",
+          "23": "Following guide wire 2 to starting point",
+          "25": "Following left boundary wire"
+        }
+      },
+      "mower_substatus_plain": {
+        "name": "Simple substatus"
+      },
+      "mower_timer_next_unix": {
+        "name": "Next start time"
+      },
+      "health_voltage_int33": {
+        "name": "Robonect operating voltage"
+      },
+      "health_voltage_ext33": {
+        "name": "Mower operating voltage"
+      },
+      "health_voltage_batt": {
+        "name": "Battery voltage"
+      },
+      "clock_time": {
+        "name": "Clock"
+      },
+      "passage_open": {
+        "name": "Passage open"
+      },
+      "gps_longitude": {
+        "name": "GPS Longitude"
+      },
+      "gps_latitude": {
+        "name": "GPS Latitude"
+      },
+      "service_call_result": {
+        "name": "Service call response",
+        "state_attributes": {
+          "timestamp": {
+            "name": "Execution timestamp"
+          }
+        }
+      },
+      "motor_drive_left": {
+        "name": "Motor drive left",
+        "state_attributes": {
+          "power": {
+            "name": "Power"
+          },
+          "speed": {
+            "name": "Speed"
+          },
+          "current": {
+            "name": "Current"
+          }
+        }
+      },
+      "motor_drive_right": {
+        "name": "Motor drive right",
+        "state_attributes": {
+          "power": {
+            "name": "Power"
+          },
+          "speed": {
+            "name": "Speed"
+          },
+          "current": {
+            "name": "Current"
+          }
+        }
+      },
+      "motor_blade": {
+        "name": "Motor blades",
+        "state_attributes": {
+          "speed": {
+            "name": "Speed"
+          },
+          "average": {
+            "name": "Average"
+          },
+          "current": {
+            "name": "Current"
+          }
+        }
+      },
+      "ext_gpio1": {
+        "name": "GPIO 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash on error"
+          },
+          "inverted": {
+            "name": "Inverted"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_gpio2": {
+        "name": "GPIO 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash on error"
+          },
+          "inverted": {
+            "name": "Inverted"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out1": {
+        "name": "OUT 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash on error"
+          },
+          "inverted": {
+            "name": "Inverted"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out2": {
+        "name": "OUT 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash on error"
+          },
+          "inverted": {
+            "name": "Inverted"
+          },
+          "status": {
+            "name": "Status"
+          }
         }
       }
-    }
-  },
-  "selector": {
-    "tracking": {
-      "options": {
-        "battery": "Battery",
-        "wlan": "Wlan",
-        "version": "Version",
-        "timer": "Timer",
-        "hour": "Hour",
-        "error": "Error"
+    },
+    "button": {
+      "start": {
+        "name": "Start"
+      },
+      "stop": {
+        "name": "Stop"
+      },
+      "reboot": {
+        "name": "Reboot"
+      },
+      "shutdown": {
+        "name": "Shutdown"
+      },
+      "sleep": {
+        "name": "Sleep"
+      },
+      "home": {
+        "name": "Go back home"
+      },
+      "eod": {
+        "name": "End of day"
+      },
+      "auto": {
+        "name": "Automatic"
+      },
+      "man": {
+        "name": "Manual"
+      }
+    },
+    "device_tracker": {
+      "gps": {
+        "name": "GPS Tracker",
+        "state_attributes": {
+          "last_synced": {
+            "name": "Last synchronization"
+          }
+        }
+      }
+    },
+    "vacuum": {
+      "automower": {
+        "name": "Robotic Lawn Mower",
+        "state": {
+          "0": "Detecting status",
+          "1": "Parked",
+          "2": "Mowing",
+          "3": "Searching for charging station",
+          "4": "Charging",
+          "5": "Searching",
+          "7": "Error",
+          "8": "Lost cable signal",
+          "16": "Off",
+          "17": "Sleeping",
+          "18": "Waiting for garage door",
+          "98": "Offline (unable to connect)",
+          "99": "Unknown"
+        },
+        "state_attributes": {
+          "substatus": {
+            "name": "Sub-status",
+            "state": {
+              "1": "Driving",
+              "2": "Outside",
+              "4": "Wheels slipping!",
+              "6": "Collision!",
+              "7": "Lifted!",
+              "8": "Spiral cut",
+              "9": "Following guide wire 1 to charging station",
+              "10": "Following right boundary wire",
+              "11": "Docked",
+              "12": "Fast charging",
+              "14": "Charging complete",
+              "15": "Exit angle",
+              "16": "Following guide wire 1 to starting point",
+              "18": "No loop signal!",
+              "19": "Mowing motor blocked!",
+              "21": "Following guide wire 2 to charging station",
+              "23": "Following guide wire 2 to starting point",
+              "25": "Following left boundary wire"
+            }
+          },
+          "mode": {
+            "name": "Mode",
+            "state": {
+              "0": "Auto",
+              "1": "Manual",
+              "2": "Home",
+              "3": "Demo",
+              "98": "End of day",
+              "99": "Mowing task"
+            }
+          },
+          "status_plain": {
+            "name": "Status"
+          },
+          "distance": {
+            "name": "Distance from base"
+          },
+          "status_duration": {
+            "name": "Time in current status"
+          },
+          "statistic_hours": {
+            "name": "Operating hours"
+          },
+          "timer_next_unix": {
+            "name": "Next start time"
+          },
+          "last_synced": {
+            "name": "Last synchronization"
+          },
+          "blades_quality": {
+            "name": "Blades quality"
+          }
+        }
       }
     }
   }
