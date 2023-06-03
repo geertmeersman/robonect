@@ -96,6 +96,336 @@ Once you enable debug logging, you ideally need to make the error happen. Run yo
 
 ![disable-debug-logging](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/disable-debug-logging.gif)
 
+## Lovelace examples
+
+### Mower card with some nice buttons
+
+![Lovelace mower card](https://github.com/geertmeersman/telenet/raw/main/images/screenshots/lovelace_card.png)
+
+<details><summary>Show markdown code</summary>
+
+```
+type: custom:stack-in-card
+mode: vertical
+keep:
+  border_radius: true
+cards:
+  - type: horizontal-stack
+    cards:
+      - entity: sensor.automower_mower_status_duration
+        show_entity_picture: true
+        show_name: false
+        font-size: 11px
+        show_state: true
+        show_label: true
+        styles:
+          card:
+            - height: 40px
+            - padding: 5px
+            - margin-top: 10px
+            - border-top: 1px solid var(--state-icon-color)
+            - border: 0px solid var(--primary-background-color)
+            - font-size: 11px
+        type: custom:button-card
+      - entity: sensor.automower_mower_blades_quality
+        show_entity_picture: true
+        show_name: false
+        font-size: 11px
+        show_state: true
+        show_label: true
+        styles:
+          card:
+            - height: 40px
+            - padding: 5px
+            - margin-top: 10px
+            - border-top: 1px solid var(--state-icon-color)
+            - border: 0px solid var(--primary-background-color)
+            - font-size: 11px
+        type: custom:button-card
+      - entity: binary_sensor.automower_health_alarm
+        show_entity_picture: true
+        show_name: false
+        font-size: 11px
+        show_state: true
+        show_label: true
+        styles:
+          card:
+            - height: 40px
+            - padding: 5px
+            - margin-top: 10px
+            - border-top: 1px solid var(--state-icon-color)
+            - border: 0px solid var(--primary-background-color)
+            - font-size: 11px
+        type: custom:button-card
+      - entity: sensor.automower_mower_distance
+        show_entity_picture: true
+        show_name: false
+        font-size: 11px
+        show_state: true
+        show_label: true
+        styles:
+          card:
+            - height: 40px
+            - padding: 5px
+            - margin-top: 10px
+            - border-top: 1px solid var(--state-icon-color)
+            - border: 0px solid var(--primary-background-color)
+            - font-size: 11px
+        type: custom:button-card
+      - entity: sensor.automower_wlan_rssi
+        show_entity_picture: true
+        show_name: false
+        font-size: 11px
+        show_state: true
+        show_label: true
+        styles:
+          card:
+            - height: 40px
+            - padding: 5px
+            - margin-top: 10px
+            - border-top: 1px solid var(--state-icon-color)
+            - border: 0px solid var(--primary-background-color)
+            - font-size: 11px
+        type: custom:button-card
+      - entity: sensor.automower_health_climate_temperature
+        show_entity_picture: true
+        show_name: false
+        font-size: 11px
+        show_state: true
+        show_label: true
+        styles:
+          card:
+            - height: 40px
+            - padding: 5px
+            - margin-top: 10px
+            - border-top: 1px solid var(--state-icon-color)
+            - border: 0px solid var(--primary-background-color)
+            - font-size: 11px
+        type: custom:button-card
+      - entity: sensor.automower_health_climate_humidity
+        show_entity_picture: true
+        show_name: false
+        font-size: 11px
+        show_state: true
+        show_label: true
+        styles:
+          card:
+            - height: 40px
+            - padding: 5px
+            - margin-top: 10px
+            - border-top: 1px solid var(--state-icon-color)
+            - border: 0px solid var(--primary-background-color)
+            - font-size: 11px
+        type: custom:button-card
+  - type: conditional
+    conditions:
+      - entity: sensor.automower_mower_timer_next_unix
+        state_not: Unknown
+    card:
+      type: markdown
+      content: >
+        {% set time =
+        states.sensor.automower_mower_timer_next_unix.state|as_datetime %} {%
+        set day = as_timestamp(time)|timestamp_custom('%d', true)|int %} {% set
+        weekday = as_timestamp(time)|timestamp_custom('%w', true)|int %} {% set
+        month = as_timestamp(time)|timestamp_custom('%m', true)|int -1 %} {% set
+        weekday = ["zondag",
+        "maandag","dinsdag","woensdag","donderdag","vrijdag","zaterdag"][weekday]
+        %} {% set month = ["januari",
+        "februari","maart","april","mei","juni","juli","augustus","september","oktober","november","december"][month]
+        %} Volgende start gepland op {{weekday}} {{day}} {{month}} {{
+        as_timestamp(time)|timestamp_custom('om %H:%M', true) }}
+      card_mod:
+        style: |
+          ha-card {
+            border-width: 0;
+            text-align: center;
+          }
+  - type: tile
+    entity: vacuum.automower_robonect
+    show_entity_picture: true
+    vertical: true
+    features:
+      - type: vacuum-commands
+        commands:
+          - start_pause
+          - stop
+          - return_home
+    card_mod:
+      style: |
+        ha-card {
+          border-width: 0;
+        }
+  - type: horizontal-stack
+    style: |
+      ha-card {
+        margin-left: 10px;
+      }
+    cards:
+      - show_name: false
+        show_icon: true
+        type: custom:button-card
+        tap_action:
+          action: call-service
+          service: button.press
+          service_data:
+            entity_id: button.automower_auto
+        entity: button.automower_auto
+        styles:
+          card:
+            - height: 40px
+            - border: 0px solid var(--primary-background-color)
+            - background: |
+                [[[
+                  if (states['sensor.automower_mower_mode'].state == '0' )
+                    return 'var(--state-vacuum-17-color, var(--state-vacuum-active-color, var(--state-active-color)))'
+                  return ''
+                ]]]
+            - font-size: 11px
+            - border-radius: 10px
+            - '--keep-background': 'true'
+      - show_name: false
+        show_icon: true
+        type: custom:button-card
+        entity: button.automower_man
+        tap_action:
+          action: call-service
+          service: button.press
+          service_data:
+            entity_id: button.automower_man
+        styles:
+          card:
+            - height: 40px
+            - border: 0px solid var(--primary-background-color)
+            - background: |
+                [[[
+                  if (states['sensor.automower_mower_mode'].state == '1' )
+                    return 'var(--state-vacuum-17-color, var(--state-vacuum-active-color, var(--state-active-color)))'
+                  return ''
+                ]]]
+            - font-size: 11px
+            - '--keep-background': 'true'
+      - show_name: false
+        show_icon: true
+        type: custom:button-card
+        tap_action:
+          action: call-service
+          service: button.press
+          service_data:
+            entity_id: button.automower_eod
+        entity: button.automower_eod
+        styles:
+          card:
+            - height: 40px
+            - border: 0px solid var(--primary-background-color)
+            - background: |
+                [[[
+                  if (states['sensor.automower_mower_mode'].state == '98' )
+                    return 'var(--state-vacuum-17-color, var(--state-vacuum-active-color, var(--state-active-color)))'
+                  return ''
+                ]]]
+            - font-size: 11px
+            - '--keep-background': 'true'
+  - type: horizontal-stack
+    cards:
+      - entities:
+          - entity: sensor.automower_battery_0
+            attribute: voltage
+            unit: V
+            index: 0
+        show:
+          icon: false
+        font_size: 80
+        name: Batt Volt
+        decimals: 1
+        animate: true
+        color_thresholds:
+          - value: 0
+            color: red
+          - value: 17
+            color: orange
+          - value: 19.3
+            color: green
+        type: custom:mini-graph-card
+        card_mod:
+          style: |
+            ha-card {
+              border-width: 0;
+              border-radius: 0
+            }
+      - entities:
+          - entity: sensor.automower_battery_0
+            attribute: current
+            unit: mA
+            index: 0
+        show:
+          icon: false
+        font_size: 80
+        name: Batt Curr
+        decimals: 1
+        animate: true
+        color_thresholds:
+          - value: -2500
+            color: red
+          - value: -1000
+            color: orange
+          - value: 0
+            color: green
+        type: custom:mini-graph-card
+        card_mod:
+          style: |
+            ha-card {
+              border-width: 0;
+              border-radius: 0
+            }
+      - entities:
+          - entity: sensor.automower_battery_0
+            attribute: temperature
+            unit: °C
+            index: 0
+        show:
+          state: true
+          icon: false
+        font_size: 80
+        name: Batt Temp
+        decimals: 1
+        animate: true
+        color_thresholds:
+          - value: 0
+            color: red
+          - value: 10
+            color: green
+          - value: 30
+            color: red
+        type: custom:mini-graph-card
+        card_mod:
+          style: |
+            ha-card {
+              border-width: 0;
+              border-radius: 0
+            }
+      - aggregate_func: max
+        name: Maaitijd
+        entities:
+          - entity: sensor.maaitijd
+        group_by: date
+        hour24: true
+        hours_to_show: 360
+        line_color: green
+        show:
+          graph: bar
+          icon: false
+        type: custom:mini-graph-card
+        card_mod:
+          style: |
+            ha-card {
+              border-width: 0;
+            }
+
+```
+
+</details>
+
 ## Screenshots
 
 ### Integration page
