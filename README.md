@@ -420,6 +420,7 @@ cards:
           style: |
             ha-card {
               border-width: 0;
+              border-radius: 0
             }
 
 ```
