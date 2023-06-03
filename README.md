@@ -100,7 +100,7 @@ Once you enable debug logging, you ideally need to make the error happen. Run yo
 
 ### Mower card with some nice buttons
 
-![Lovelace mower card](https://github.com/geertmeersman/telenet/raw/main/images/screenshots/lovelace_card.png)
+![Lovelace mower card](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/lovelace_card.png)
 
 <details><summary>Show markdown code</summary>
 
