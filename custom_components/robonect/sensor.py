@@ -279,6 +279,12 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
         self.category = self.entity_description.rest.split(".")[1]
         self.entity_description = description
 
+    @callback
+    def _handle_coordinator_update(self) -> None:
+        """Handle updated data from the coordinator."""
+        self.set_extra_attributes()
+        super()._handle_coordinator_update()
+
     @property
     def native_value(self):
         """Return the status of the sensor."""
@@ -301,9 +307,8 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
                 self._state = state
         return self._state
 
-    @property
-    def extra_state_attributes(self):
-        """Return attributes for sensor."""
+    def set_extra_attributes(self):
+        """Return attributes for sensor from coordinator."""
         if self.category in self.coordinator.data:
             attributes = {
                 "last_synced": self.last_synced,
@@ -318,8 +323,13 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
                     )
                     if not isinstance(attrs, list):
                         attributes.update(attrs)
-            return attributes
-        return self._attributes
+            self._attr_extra_state_attributes = attributes
+
+    @property
+    def extra_state_attributes(self):
+        """Return attributes for sensor."""
+        self.set_extra_attributes()
+        return self._attr_extra_state_attributes
 
 
 class RobonectServiceSensor(RobonectSensor):

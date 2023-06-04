@@ -215,7 +215,6 @@ class RobonectRestButton(RobonectButton):
         """Initialize the sensor."""
         self.coordinator = coordinator
         super().__init__(hass, entry, description)
-        self._last_api_response = {}
 
     async def async_press(self) -> None:
         """Press the button."""
@@ -229,11 +228,3 @@ class RobonectRestButton(RobonectButton):
         )
         await self.coordinator.async_refresh()
         return
-
-    @property
-    def extra_state_attributes(self):
-        """Return attributes for button."""
-        attributes = {}
-        if not self._last_api_response:
-            attributes |= self._last_api_response
-        return attributes
