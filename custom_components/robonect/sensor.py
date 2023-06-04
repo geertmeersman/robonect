@@ -31,7 +31,7 @@ from .const import (
 from .definitions import SENSORS, RobonectSensorEntityDescription
 from .entity import RobonectCoordinatorEntity, RobonectEntity
 from .utils import (
-    add_attr_units,
+    adapt_attributes,
     filter_out_units,
     get_json_dict_path,
     unix_to_datetime,
@@ -279,6 +279,12 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
         self.category = self.entity_description.rest.split(".")[1]
         self.entity_description = description
 
+    @callback
+    def _handle_coordinator_update(self) -> None:
+        """Handle updated data from the coordinator."""
+        self.set_extra_attributes()
+        super()._handle_coordinator_update()
+
     @property
     def native_value(self):
         """Return the status of the sensor."""
@@ -301,9 +307,8 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
                 self._state = state
         return self._state
 
-    @property
-    def extra_state_attributes(self):
-        """Return attributes for sensor."""
+    def set_extra_attributes(self):
+        """Return attributes for sensor from coordinator."""
         if self.category in self.coordinator.data:
             attributes = {
                 "last_synced": self.last_synced,
@@ -312,22 +317,19 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
                 attrs = get_json_dict_path(
                     self.coordinator.data, self.entity_description.rest_attrs
                 )
-                attrs_copy = copy.copy(attrs)
                 if attrs:
-                    if self.entry.data[CONF_ATTRS_UNITS]:
-                        add_attr_units(attrs_copy, self.category)
-                    if isinstance(attrs_copy, list):
-                        attributes.update(
-                            {
-                                self.entity_description.rest_attrs.split(
-                                    "."
-                                ).pop(): attrs_copy
-                            }
-                        )
-                    else:
-                        attributes.update(attrs_copy)
-            return attributes
-        return self._attributes
+                    adapt_attributes(
+                        attrs, self.category, self.entry.data[CONF_ATTRS_UNITS]
+                    )
+                    if not isinstance(attrs, list):
+                        attributes.update(attrs)
+            self._attr_extra_state_attributes = attributes
+
+    @property
+    def extra_state_attributes(self):
+        """Return attributes for sensor."""
+        self.set_extra_attributes()
+        return self._attr_extra_state_attributes
 
 
 class RobonectServiceSensor(RobonectSensor):

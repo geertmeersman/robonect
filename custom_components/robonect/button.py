@@ -1,12 +1,11 @@
 """Support for Robonect through MQTT."""
 from __future__ import annotations
 
-import logging
 from dataclasses import dataclass
+import logging
 
 from homeassistant.components import mqtt
-from homeassistant.components.button import ButtonEntity
-from homeassistant.components.button import ButtonEntityDescription
+from homeassistant.components.button import ButtonEntity, ButtonEntityDescription
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
@@ -14,12 +13,14 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.util import slugify
 
 from . import RobonectDataUpdateCoordinator
-from .const import ATTRIBUTION_MQTT
-from .const import ATTRIBUTION_REST
-from .const import CONF_MQTT_ENABLED
-from .const import CONF_MQTT_TOPIC
-from .const import CONF_REST_ENABLED
-from .const import DOMAIN
+from .const import (
+    ATTRIBUTION_MQTT,
+    ATTRIBUTION_REST,
+    CONF_MQTT_ENABLED,
+    CONF_MQTT_TOPIC,
+    CONF_REST_ENABLED,
+    DOMAIN,
+)
 from .entity import RobonectEntity
 
 _LOGGER = logging.getLogger(__name__)
@@ -33,6 +34,8 @@ class RobonectButtonEntityDescription(ButtonEntityDescription):
     cmd: str | None = None
     params: dict | None = None
     topic: str | None = None
+    key: str | None = None
+    icon: str | None = None
 
 
 BUTTON_TYPES = (
@@ -212,7 +215,6 @@ class RobonectRestButton(RobonectButton):
         """Initialize the sensor."""
         self.coordinator = coordinator
         super().__init__(hass, entry, description)
-        self._last_api_response = {}
 
     async def async_press(self) -> None:
         """Press the button."""
@@ -226,11 +228,3 @@ class RobonectRestButton(RobonectButton):
         )
         await self.coordinator.async_refresh()
         return
-
-    @property
-    def extra_state_attributes(self):
-        """Return attributes for button."""
-        attributes = {}
-        if not self._last_api_response:
-            attributes |= self._last_api_response
-        return attributes

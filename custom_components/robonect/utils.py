@@ -148,20 +148,25 @@ def convert_coordinate_degree_to_float(coordinate_str):
     return decimal_degrees / 60
 
 
-def add_attr_units(attr_dict, category):
+def adapt_attributes(attr_dict, category, add_units=False):
     """Add attribute state units."""
     if not isinstance(attr_dict, dict):
         return
     for key, value in attr_dict.items():
         if isinstance(value, dict):
-            add_attr_units(value, category)
+            adapt_attributes(value, category, add_units)
         else:
             if category in ATTR_STATE_UNITS and key in ATTR_STATE_UNITS.get(category):
                 unit = ATTR_STATE_UNITS.get(category).get(key)
                 if isinstance(unit, dict):
                     lambda_func = eval(unit.get("lambda"))
-                    attr_dict.update({key: f"{lambda_func(value)} {unit.get('unit')}"})
-                else:
+                    if add_units:
+                        attr_dict.update(
+                            {key: f"{lambda_func(value)} {unit.get('unit')}"}
+                        )
+                    else:
+                        attr_dict.update({key: lambda_func(value)})
+                elif add_units:
                     attr_dict.update({key: f"{value} {unit}"})
 
 
