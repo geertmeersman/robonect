@@ -169,8 +169,6 @@ class RobonectSensor(RobonectEntity, SensorEntity):
     async def async_added_to_hass(self) -> None:
         """Subscribe to MQTT events."""
 
-        await super().async_added_to_hass()
-
         @callback
         def message_received(message):
             """Handle new MQTT messages."""
@@ -213,6 +211,9 @@ class RobonectSensor(RobonectEntity, SensorEntity):
 
         if self.entry.data[CONF_MQTT_ENABLED] is True:
             await mqtt.async_subscribe(self.hass, self.topic, message_received, 1)
+
+        await super().async_added_to_hass()
+
         return
 
 

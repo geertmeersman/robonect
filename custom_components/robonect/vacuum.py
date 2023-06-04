@@ -223,7 +223,6 @@ class RobonectVacuumEntity(RobonectEntity, StateVacuumEntity, RestoreEntity):
 
     async def async_added_to_hass(self) -> None:
         """Subscribe to MQTT events."""
-        await super().async_added_to_hass()
 
         @callback
         def battery_received(message):
@@ -284,17 +283,20 @@ class RobonectVacuumEntity(RobonectEntity, StateVacuumEntity, RestoreEntity):
             )
         # Don't restore if status is fetched from coordinator data
         if self.entry.data[CONF_MQTT_ENABLED] is False and self.update_rest_state():
+            await super().async_added_to_hass()
             return
 
         if (state := await self.async_get_last_state()) is None:
             self._attr_state = None
             self._battery = None
             self._attributes = {}
+            await super().async_added_to_hass()
             return
 
         attr = state.attributes
         self._attributes = attr
         self._battery = attr.get(ATTR_BATTERY_LEVEL)
+        await super().async_added_to_hass()
 
 
 class RobonectMqttVacuumEntity(RobonectVacuumEntity):
