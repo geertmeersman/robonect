@@ -1,5 +1,20 @@
 # Changelog
 
+## [v1.0.1](https://github.com/geertmeersman/robonect/tree/v1.0.1) (2023-06-04)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.0...v1.0.1)
+
+**Merged pull requests:**
+
+- fix: convert attribute values [\#32](https://github.com/geertmeersman/robonect/pull/32) ([geertmeersman](https://github.com/geertmeersman))
+- docs: TOC & daily mowing time sensor [\#31](https://github.com/geertmeersman/robonect/pull/31) ([geertmeersman](https://github.com/geertmeersman))
+- docs: lovelace EOD correction in card [\#30](https://github.com/geertmeersman/robonect/pull/30) ([geertmeersman](https://github.com/geertmeersman))
+- docs: lovelace example details on cards, references \#28 [\#29](https://github.com/geertmeersman/robonect/pull/29) ([geertmeersman](https://github.com/geertmeersman))
+- docs: lovelace mower card [\#27](https://github.com/geertmeersman/robonect/pull/27) ([geertmeersman](https://github.com/geertmeersman))
+- docs: lovelace mower card [\#26](https://github.com/geertmeersman/robonect/pull/26) ([geertmeersman](https://github.com/geertmeersman))
+- docs: lovelace mower card [\#25](https://github.com/geertmeersman/robonect/pull/25) ([geertmeersman](https://github.com/geertmeersman))
+- docs: lovelace mower card [\#24](https://github.com/geertmeersman/robonect/pull/24) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.0.0](https://github.com/geertmeersman/robonect/tree/v1.0.0) (2023-06-02)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/1.0.0-beta.17...v1.0.0)
