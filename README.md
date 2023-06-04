@@ -104,6 +104,12 @@ Once you enable debug logging, you ideally need to make the error happen. Run yo
 
 <details><summary>Show markdown code</summary>
 
+The example uses the following custom lovelace cards:
+
+- custom:button-card: https://github.com/custom-cards/button-card
+- custom:mini-graph-card: https://github.com/kalkih/mini-graph-card
+- custom:stack-in-card: https://github.com/custom-cards/stack-in-card
+
 ```
 type: custom:stack-in-card
 mode: vertical
