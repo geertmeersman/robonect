@@ -326,7 +326,7 @@ cards:
             - border: 0px solid var(--primary-background-color)
             - background: |
                 [[[
-                  if (states['sensor.automower_mower_mode'].state == '98' )
+                  if (states['sensor.automower_mower_mode'].state == '2' )
                     return 'var(--state-vacuum-17-color, var(--state-vacuum-active-color, var(--state-active-color)))'
                   return ''
                 ]]]
