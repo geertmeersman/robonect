@@ -31,7 +31,7 @@ from .const import (
 from .definitions import SENSORS, RobonectSensorEntityDescription
 from .entity import RobonectCoordinatorEntity, RobonectEntity
 from .utils import (
-    add_attr_units,
+    adapt_attributes,
     filter_out_units,
     get_json_dict_path,
     unix_to_datetime,
@@ -312,10 +312,11 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
                 attrs = get_json_dict_path(
                     self.coordinator.data, self.entity_description.rest_attrs
                 )
-                attrs_copy = copy.copy(attrs)
                 if attrs:
-                    if self.entry.data[CONF_ATTRS_UNITS]:
-                        add_attr_units(attrs_copy, self.category)
+                    attrs_copy = copy.copy(attrs)
+                    adapt_attributes(
+                        attrs_copy, self.category, self.entry.data[CONF_ATTRS_UNITS]
+                    )
                     if isinstance(attrs_copy, list):
                         attributes.update(
                             {

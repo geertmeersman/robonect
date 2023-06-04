@@ -19,7 +19,7 @@ from . import RobonectDataUpdateCoordinator
 from .const import ATTRIBUTION_REST, CONF_ATTRS_UNITS, CONF_REST_ENABLED, DOMAIN
 from .definitions import BINARY_SENSORS, RobonectSensorEntityDescription
 from .entity import RobonectCoordinatorEntity, RobonectEntity
-from .utils import add_attr_units, get_json_dict_path
+from .utils import adapt_attributes, get_json_dict_path
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -154,8 +154,10 @@ class RobonectRestBinarySensor(RobonectCoordinatorEntity, RobonectBinarySensor):
                     self.coordinator.data, self.entity_description.rest_attrs
                 )
                 if attrs:
-                    if self.entry.data[CONF_ATTRS_UNITS]:
-                        add_attr_units(attrs, self.category)
-                    attributes.update(attrs)
+                    attrs_copy = copy.copy(attrs)
+                    adapt_attributes(
+                        attrs_copy, self.category, self.entry.data[CONF_ATTRS_UNITS]
+                    )
+                    attributes.update(attrs_copy)
             return attributes
         return self._attributes
