@@ -7,7 +7,26 @@
 
 A Home Assistant integration to monitor Robonect
 
-### Features
+## Table of contents
+
+- [Robonect for Home Assistant](#robonect-for-home-assistant)
+  - [Table of contents](#table-of-contents)
+  - [Features](#features)
+  - [Installation](#installation)
+    - [Using HACS (recommended)](#using-hacs-recommended)
+    - [Manual](#manual)
+  - [Contributions are welcome!](#contributions-are-welcome)
+  - [Troubleshooting](#troubleshooting)
+    - [ENABLING DEBUG LOGGING](#enabling-debug-logging)
+    - [DISABLE DEBUG LOGGING AND DOWNLOAD LOGS](#disable-debug-logging-and-download-logs)
+  - [Extra sensor for daily mowing time](#extra-sensor-for-daily-mowing-time)
+  - [Lovelace examples](#lovelace-examples)
+    - [Mower card with some nice buttons](#mower-card-with-some-nice-buttons)
+  - [Screenshots](#screenshots)
+    - [Integration page](#integration-page)
+    - [Mowing job](#mowing-job)
+
+## Features
 
 - MQTT listener
 - REST API client
@@ -95,6 +114,21 @@ To enable debug logging, go to Settings -> Devices & Services and then click the
 Once you enable debug logging, you ideally need to make the error happen. Run your automation, change up your device or whatever was giving you an error and then come back and disable Debug Logging. Disabling debug logging is the same as enabling, but now you will see Disable Debug Logging. After you disable debug logging, it will automatically prompt you to download your log file. Please provide this logfile.
 
 ![disable-debug-logging](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/disable-debug-logging.gif)
+
+## Extra sensor for daily mowing time
+
+Define a daily mowing time sensor by adding the followinng lines to your configuration.yaml:
+
+```
+sensor:
+     - platform: history_stats
+       name: Daily mowing time
+       entity_id: sensor.automower_mower_status
+       state: 2
+       type: time
+       start: '{{ now().replace(hour=0, minute=0, second=0) }}'
+       end: '{{ now() }}'
+```
 
 ## Lovelace examples
 
