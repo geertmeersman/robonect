@@ -154,10 +154,9 @@ class RobonectRestBinarySensor(RobonectCoordinatorEntity, RobonectBinarySensor):
                     self.coordinator.data, self.entity_description.rest_attrs
                 )
                 if attrs:
-                    attrs_copy = copy.copy(attrs)
                     adapt_attributes(
-                        attrs_copy, self.category, self.entry.data[CONF_ATTRS_UNITS]
+                        attrs, self.category, self.entry.data[CONF_ATTRS_UNITS]
                     )
-                    attributes.update(attrs_copy)
+                    attributes.update(attrs)
             return attributes
         return self._attributes

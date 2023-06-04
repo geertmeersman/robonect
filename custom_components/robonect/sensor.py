@@ -313,20 +313,11 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
                     self.coordinator.data, self.entity_description.rest_attrs
                 )
                 if attrs:
-                    attrs_copy = copy.copy(attrs)
                     adapt_attributes(
-                        attrs_copy, self.category, self.entry.data[CONF_ATTRS_UNITS]
+                        attrs, self.category, self.entry.data[CONF_ATTRS_UNITS]
                     )
-                    if isinstance(attrs_copy, list):
-                        attributes.update(
-                            {
-                                self.entity_description.rest_attrs.split(
-                                    "."
-                                ).pop(): attrs_copy
-                            }
-                        )
-                    else:
-                        attributes.update(attrs_copy)
+                    if not isinstance(attrs, list):
+                        attributes.update(attrs)
             return attributes
         return self._attributes
 
