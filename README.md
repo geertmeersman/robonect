@@ -7,25 +7,6 @@
 
 A Home Assistant integration to monitor Robonect
 
-## Table of contents
-
-- [Robonect for Home Assistant](#robonect-for-home-assistant)
-  - [Table of contents](#table-of-contents)
-  - [Features](#features)
-  - [Installation](#installation)
-    - [Using HACS (recommended)](#using-hacs-recommended)
-    - [Manual](#manual)
-  - [Contributions are welcome!](#contributions-are-welcome)
-  - [Troubleshooting](#troubleshooting)
-    - [ENABLING DEBUG LOGGING](#enabling-debug-logging)
-    - [DISABLE DEBUG LOGGING AND DOWNLOAD LOGS](#disable-debug-logging-and-download-logs)
-  - [Extra sensor for daily mowing time](#extra-sensor-for-daily-mowing-time)
-  - [Lovelace examples](#lovelace-examples)
-    - [Mower card with some nice buttons](#mower-card-with-some-nice-buttons)
-  - [Screenshots](#screenshots)
-    - [Integration page](#integration-page)
-    - [Mowing job](#mowing-job)
-
 ## Features
 
 - MQTT listener
@@ -65,6 +46,25 @@ A Home Assistant integration to monitor Robonect
 [![github commit activity](https://img.shields.io/github/commit-activity/y/geertmeersman/robonect?logo=github)](https://github.com/geertmeersman/robonect/commits/main)
 
 <!-- [END BADGES] -->
+
+## Table of contents
+
+- [Robonect for Home Assistant](#robonect-for-home-assistant)
+  - [Table of contents](#table-of-contents)
+  - [Features](#features)
+  - [Installation](#installation)
+    - [Using HACS (recommended)](#using-hacs-recommended)
+    - [Manual](#manual)
+  - [Contributions are welcome!](#contributions-are-welcome)
+  - [Troubleshooting](#troubleshooting)
+    - [ENABLING DEBUG LOGGING](#enabling-debug-logging)
+    - [DISABLE DEBUG LOGGING AND DOWNLOAD LOGS](#disable-debug-logging-and-download-logs)
+  - [Extra sensor for daily mowing time](#extra-sensor-for-daily-mowing-time)
+  - [Lovelace examples](#lovelace-examples)
+    - [Mower card with some nice buttons](#mower-card-with-some-nice-buttons)
+  - [Screenshots](#screenshots)
+    - [Integration page](#integration-page)
+    - [Mowing job](#mowing-job)
 
 ## Installation
 
