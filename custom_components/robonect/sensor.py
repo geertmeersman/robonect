@@ -300,7 +300,9 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
                         return True
                 return False
             if state is not None:
-                state = filter_out_units(copy.copy(state))
+                state = copy.copy(state)
+                if isinstance(state, str):
+                    state = filter_out_units(state)
                 if self.entity_description.device_class == SensorDeviceClass.TIMESTAMP:
                     state = unix_to_datetime(state, self.coordinator.hass)
                 elif self.entity_description.device_class == SensorDeviceClass.VOLTAGE:
