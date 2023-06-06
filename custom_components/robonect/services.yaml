@@ -109,6 +109,7 @@ job:
             - "Remote start 5"
 timer:
   name: Modify a timer
+  description: Modify a Robonect timer
   fields:
     entity_id:
       name: Entity ID

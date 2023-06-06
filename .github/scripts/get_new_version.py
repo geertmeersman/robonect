@@ -1,42 +1,63 @@
-"""Script to calculate the next version."""
-import subprocess
+import os
 import sys
 
-from git import Repo
-from git_conventional_version.api import Api
-import semantic_version
-import semver
+import requests
+
+# Get repository owner and repository name from the environment variable
+repository = os.environ["GITHUB_REPOSITORY"]
+owner, repo = repository.split("/")
+
+# print(f"Repository: {repo}")
+# print(f"Owner: {owner}")
+
+# Get the latest release information
+response = requests.get(f"https://api.github.com/repos/{owner}/{repo}/releases/latest")
+latest_release = response.json()
+latest_version = latest_release["tag_name"]
+
+# Get the commit count since the latest release
+response = requests.get(
+    f"https://api.github.com/repos/{owner}/{repo}/compare/{latest_version}...HEAD"
+)
+compare_info = response.json()
+commit_count = compare_info["total_commits"]
 
 
-def get_last_beta_tag():
-    """Get the last beta tag from GIT."""
-    command = ["git", "describe", "--tags", "--abbrev=0", "--match", "*beta*"]
-    try:
-        output = (
-            subprocess.check_output(command, stderr=subprocess.STDOUT).decode().strip()
-        )
-    except subprocess.CalledProcessError as e:
-        # If the command returns a non-zero exit status, you can access the output and trace
-        # output = e.output.decode().strip()
-        # trace = e.stderr.decode().strip()
-        print(e)
-        return output
+def get_semver_level(commit_messages):
+    """Extract SemVer level."""
+    major_keywords = ["breaking change", "major"]
+    minor_keywords = ["feat", "minor"]
+    for message in commit_messages:
+        if any(keyword in message for keyword in major_keywords):
+            return "major"
+    for message in commit_messages:
+        if any(keyword in message for keyword in minor_keywords):
+            return "minor"
+    return "patch"
 
 
-def get_version_without_prerelease(version):
-    """Get SemVer version without prerelease suffix."""
-    semver = semantic_version.Version(version)
-    return str(semver.major) + "." + str(semver.minor) + "." + str(semver.patch)
+# Determine version components based on commit messages
+commit_messages = []
+for commit in compare_info["commits"]:
+    commit_messages.append(commit["commit"]["message"])
 
+bump = get_semver_level(commit_messages)
 
-api = Api(repo=Repo(search_parent_directories=True))
-last_beta_tag = get_last_beta_tag()
-new_tag = api.get_new_version(type="final")
-last_beta_tag_without_prerelease = get_version_without_prerelease(last_beta_tag)
-ver = semver.Version.parse(last_beta_tag)
-if new_tag != last_beta_tag_without_prerelease:
-    new_version = f"{new_tag}-beta.1"
+major, minor, patch = map(int, latest_version[1:].split("."))
+
+if bump == "major":
+    major += 1
+elif bump == "minor":
+    minor += 1
 else:
-    new_version = ver.bump_prerelease()
-print(new_version)
+    patch += 1
+
+# Create the next version
+next_version = f"v{major}.{minor}.{patch}"
+
+# Check if there are any commits since the latest release
+if commit_count > 0:
+    next_version += f".beta.{commit_count}"
+
+print(next_version)
 sys.exit(0)
