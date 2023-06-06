@@ -75,7 +75,7 @@ jobs:
 
       - name: Discord notification
         env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_BETA }}
         uses: Ilshidur/action-discord@master
         with:
           args: "New BETA release published: https://github.com/{{ EVENT_PAYLOAD.repository.full_name }}/releases/tag/${{ steps.next-version.outputs.NEW_VERSION }}"
