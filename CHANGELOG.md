@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.0.2](https://github.com/geertmeersman/robonect/tree/v1.0.2) (2023-06-06)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.1...v1.0.2)
+
+**Merged pull requests:**
+
+- fix: Reset error button [\#34](https://github.com/geertmeersman/robonect/pull/34) ([geertmeersman](https://github.com/geertmeersman))
+- docs: TOC Update README.md [\#33](https://github.com/geertmeersman/robonect/pull/33) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.0.1](https://github.com/geertmeersman/robonect/tree/v1.0.1) (2023-06-04)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.0...v1.0.1)
