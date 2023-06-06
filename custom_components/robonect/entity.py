@@ -108,7 +108,7 @@ class RobonectEntity(RestoreEntity):
             try:
                 response = await self.coordinator.client.async_cmd(command, params)
             except Exception as exception:
-                response = {"successful": False, "exception": exception.message}
+                response = {"successful": False, "exception": f"{exception}"}
             await self.async_fire_event(
                 response | {"command": command, "params": params}
             )

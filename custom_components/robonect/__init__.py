@@ -218,7 +218,7 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
         except ClientConnectorError as exception:
             raise UpdateFailed(f"ConnectionError {exception}") from exception
         except ClientError as exception:
-            raise UpdateFailed(f"Request failed {exception.message}")
+            raise UpdateFailed(f"Request failed {exception}")
         except TimeoutError:
             raise UpdateFailed("Request timed out")
         except ConnectionError as exception:
