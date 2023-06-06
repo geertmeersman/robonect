@@ -132,6 +132,132 @@
       }
     },
     "sensor": {
+      "timer_0": {
+        "name": "Timer 1",
+        "state_attributes": {
+          "enabled": "enabled",
+          "start": "start",
+          "end": "end",
+          "weekdays": "weekdays"
+        }
+      },
+      "timer_1": {
+        "name": "Timer 2",
+        "state_attributes": {
+          "enabled": "enabled",
+          "start": "start",
+          "end": "end",
+          "weekdays": "weekdays"
+        }
+      },
+      "timer_2": {
+        "name": "Timer 3",
+        "state_attributes": {
+          "enabled": "enabled",
+          "start": "start",
+          "end": "end",
+          "weekdays": "weekdays"
+        }
+      },
+      "timer_3": {
+        "name": "Timer 4",
+        "state_attributes": {
+          "enabled": "enabled",
+          "start": "start",
+          "end": "end",
+          "weekdays": "weekdays"
+        }
+      },
+      "timer_4": {
+        "name": "Timer 5",
+        "state_attributes": {
+          "enabled": "enabled",
+          "start": "start",
+          "end": "end",
+          "weekdays": "weekdays"
+        }
+      },
+      "timer_5": {
+        "name": "Timer 6",
+        "state_attributes": {
+          "enabled": "enabled",
+          "start": "start",
+          "end": "end",
+          "weekdays": "weekdays"
+        }
+      },
+      "timer_6": {
+        "name": "Timer 7",
+        "state_attributes": {
+          "enabled": "enabled",
+          "start": "start",
+          "end": "end",
+          "weekdays": "weekdays"
+        }
+      },
+      "timer_7": {
+        "name": "Timer 8",
+        "state_attributes": {
+          "enabled": "enabled",
+          "start": "start",
+          "end": "end",
+          "weekdays": "weekdays"
+        }
+      },
+      "timer_8": {
+        "name": "Timer 9",
+        "state_attributes": {
+          "enabled": "enabled",
+          "start": "start",
+          "end": "end",
+          "weekdays": "weekdays"
+        }
+      },
+      "timer_9": {
+        "name": "Timer 10",
+        "state_attributes": {
+          "enabled": "enabled",
+          "start": "start",
+          "end": "end",
+          "weekdays": "weekdays"
+        }
+      },
+      "timer_10": {
+        "name": "Timer 11",
+        "state_attributes": {
+          "enabled": "enabled",
+          "start": "start",
+          "end": "end",
+          "weekdays": "weekdays"
+        }
+      },
+      "timer_11": {
+        "name": "Timer 12",
+        "state_attributes": {
+          "enabled": "enabled",
+          "start": "start",
+          "end": "end",
+          "weekdays": "weekdays"
+        }
+      },
+      "timer_12": {
+        "name": "Timer 13",
+        "state_attributes": {
+          "enabled": "enabled",
+          "start": "start",
+          "end": "end",
+          "weekdays": "weekdays"
+        }
+      },
+      "timer_13": {
+        "name": "Timer 14",
+        "state_attributes": {
+          "enabled": "enabled",
+          "start": "start",
+          "end": "end",
+          "weekdays": "weekdays"
+        }
+      },
       "battery": {
         "name": "Battery",
         "state_attributes": {
@@ -503,6 +629,19 @@
             "name": "Blades quality"
           }
         }
+      }
+    }
+  },
+  "selector": {
+    "weekdays": {
+      "options": {
+        "mo": "Monday",
+        "tu": "Tuesday",
+        "we": "Wednesday",
+        "th": "Thursday",
+        "fr": "Friday",
+        "sa": "Saturday",
+        "su": "Sunday"
       }
     }
   }

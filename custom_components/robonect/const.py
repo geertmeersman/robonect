@@ -5,6 +5,11 @@ from typing import Final
 
 from homeassistant.const import CONF_ENTITY_ID, Platform
 from homeassistant.helpers import config_validation as cv
+from homeassistant.helpers.selector import (
+    SelectSelector,
+    SelectSelectorConfig,
+    SelectSelectorMode,
+)
 import voluptuous as vol
 
 PLATFORMS: Final = [
@@ -56,6 +61,7 @@ CONF_SUGGESTED_TYPE = "Automower 310"
 CONF_SUGGESTED_HOST = "10.0.0.99"
 CONF_SUGGESTED_BRAND = "Husqvarna"
 CONF_BRAND = "brand"
+CONF_ENABLE = "enable"
 
 ATTRIBUTION_REST: Final = "Data provided by Robonect REST"
 ATTRIBUTION_MQTT: Final = "Data provided by Robonect MQTT"
@@ -65,6 +71,7 @@ SERVICE_STOP = "stop"
 SERVICE_REBOOT = "reboot"
 SERVICE_SHUTDOWN = "shutdown"
 SERVICE_SLEEP = "sleep"
+SERVICE_TIMER = "timer"
 SERVICE_JOB = "job"
 
 CONF_ENTRY_ID = "entry_id"
@@ -107,6 +114,27 @@ SERVICE_JOB_SCHEMA = vol.Schema(
         vol.Optional("corridor", default="Normal"): vol.In(SERVICE_JOB_CORRIDOR_VALUES),
     }
 )
+WEEKDAYS_SHORT = ["mo", "tu", "we", "th", "fr", "sa", "su"]
+SERVICE_TIMER_IDS = list(range(1, 15))
+SERVICE_TIMER_SCHEMA = vol.Schema(
+    {
+        vol.Required(CONF_ENTITY_ID): cv.string,
+        vol.Required("timer"): vol.In(SERVICE_TIMER_IDS),
+        vol.Required(CONF_ENABLE): bool,
+        vol.Required("start"): cv.string,
+        vol.Required("end"): cv.string,
+        vol.Required("weekdays"): SelectSelector(
+            SelectSelectorConfig(
+                options=WEEKDAYS_SHORT,
+                multiple=True,
+                custom_value=False,
+                mode=SelectSelectorMode.LIST,
+                translation_key="weekdays",
+            )
+        ),
+    }
+)
+
 SERVICE_MODE_SCHEMA = vol.Schema(
     {
         vol.Required("mode", default="auto"): vol.In(SERVICE_MODE_VALUES),

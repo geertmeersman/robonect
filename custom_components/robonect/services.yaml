@@ -107,3 +107,77 @@ job:
             - "Remote start 3"
             - "Remote start 4"
             - "Remote start 5"
+timer:
+  name: Modify a timer
+  fields:
+    entity_id:
+      name: Entity ID
+      description: Entity ID of the Robonect Vacuum
+      required: true
+      example: vacuum.automower_robonect
+      selector:
+        entity:
+          domain: vacuum
+          integration: robonect
+    timer:
+      description: Timer ID
+      required: true
+      example: "1"
+      default: "1"
+      selector:
+        select:
+          options:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+            - 7
+            - 8
+            - 9
+            - 10
+            - 11
+            - 12
+            - 13
+            - 14
+    enable:
+      required: true
+      description: Timer enable
+      selector:
+        boolean:
+    start:
+      required: true
+      description: Start time 'hh:mm'
+      example: "10:00"
+      selector:
+        time:
+    end:
+      required: true
+      description: End time 'hh:mm'
+      example: "13:00"
+      selector:
+        time:
+    weekdays:
+      required: true
+      description: Weekdays
+      selector:
+        select:
+          multiple: true
+          mode: list
+          translation_key: weekdays
+          options:
+            - label: Monday
+              value: mo
+            - label: Tuesday
+              value: tu
+            - label: Wednesday
+              value: we
+            - label: Thursday
+              value: th
+            - label: Friday
+              value: fr
+            - label: Saturday
+              value: sa
+            - label: Sunday
+              value: su
