@@ -132,6 +132,244 @@
       }
     },
     "sensor": {
+      "timer_0": {
+        "name": "Minuterie 1",
+        "state_attributes": {
+          "enabled": {
+            "name": "activé"
+          },
+          "start": {
+            "name": "début"
+          },
+          "end": {
+            "name": "fin"
+          },
+          "weekdays": {
+            "name": "jours de la semaine"
+          }
+        }
+      },
+      "timer_1": {
+        "name": "Minuterie 2",
+        "state_attributes": {
+          "enabled": {
+            "name": "activé"
+          },
+          "start": {
+            "name": "début"
+          },
+          "end": {
+            "name": "fin"
+          },
+          "weekdays": {
+            "name": "jours de la semaine"
+          }
+        }
+      },
+      "timer_2": {
+        "name": "Minuterie 3",
+        "state_attributes": {
+          "enabled": {
+            "name": "activé"
+          },
+          "start": {
+            "name": "début"
+          },
+          "end": {
+            "name": "fin"
+          },
+          "weekdays": {
+            "name": "jours de la semaine"
+          }
+        }
+      },
+      "timer_3": {
+        "name": "Minuterie 4",
+        "state_attributes": {
+          "enabled": {
+            "name": "activé"
+          },
+          "start": {
+            "name": "début"
+          },
+          "end": {
+            "name": "fin"
+          },
+          "weekdays": {
+            "name": "jours de la semaine"
+          }
+        }
+      },
+      "timer_4": {
+        "name": "Minuterie 5",
+        "state_attributes": {
+          "enabled": {
+            "name": "activé"
+          },
+          "start": {
+            "name": "début"
+          },
+          "end": {
+            "name": "fin"
+          },
+          "weekdays": {
+            "name": "jours de la semaine"
+          }
+        }
+      },
+      "timer_5": {
+        "name": "Minuterie 6",
+        "state_attributes": {
+          "enabled": {
+            "name": "activé"
+          },
+          "start": {
+            "name": "début"
+          },
+          "end": {
+            "name": "fin"
+          },
+          "weekdays": {
+            "name": "jours de la semaine"
+          }
+        }
+      },
+      "timer_6": {
+        "name": "Minuterie 7",
+        "state_attributes": {
+          "enabled": {
+            "name": "activé"
+          },
+          "start": {
+            "name": "début"
+          },
+          "end": {
+            "name": "fin"
+          },
+          "weekdays": {
+            "name": "jours de la semaine"
+          }
+        }
+      },
+      "timer_7": {
+        "name": "Minuterie 8",
+        "state_attributes": {
+          "enabled": {
+            "name": "activé"
+          },
+          "start": {
+            "name": "début"
+          },
+          "end": {
+            "name": "fin"
+          },
+          "weekdays": {
+            "name": "jours de la semaine"
+          }
+        }
+      },
+      "timer_8": {
+        "name": "Minuterie 9",
+        "state_attributes": {
+          "enabled": {
+            "name": "activé"
+          },
+          "start": {
+            "name": "début"
+          },
+          "end": {
+            "name": "fin"
+          },
+          "weekdays": {
+            "name": "jours de la semaine"
+          }
+        }
+      },
+      "timer_9": {
+        "name": "Minuterie 10",
+        "state_attributes": {
+          "enabled": {
+            "name": "activé"
+          },
+          "start": {
+            "name": "début"
+          },
+          "end": {
+            "name": "fin"
+          },
+          "weekdays": {
+            "name": "jours de la semaine"
+          }
+        }
+      },
+      "timer_10": {
+        "name": "Minuterie 11",
+        "state_attributes": {
+          "enabled": {
+            "name": "activé"
+          },
+          "start": {
+            "name": "début"
+          },
+          "end": {
+            "name": "fin"
+          },
+          "weekdays": {
+            "name": "jours de la semaine"
+          }
+        }
+      },
+      "timer_11": {
+        "name": "Minuterie 12",
+        "state_attributes": {
+          "enabled": {
+            "name": "activé"
+          },
+          "start": {
+            "name": "début"
+          },
+          "end": {
+            "name": "fin"
+          },
+          "weekdays": {
+            "name": "jours de la semaine"
+          }
+        }
+      },
+      "timer_12": {
+        "name": "Minuterie 13",
+        "state_attributes": {
+          "enabled": {
+            "name": "activé"
+          },
+          "start": {
+            "name": "début"
+          },
+          "end": {
+            "name": "fin"
+          },
+          "weekdays": {
+            "name": "jours de la semaine"
+          }
+        }
+      },
+      "timer_13": {
+        "name": "Minuterie 14",
+        "state_attributes": {
+          "enabled": {
+            "name": "activé"
+          },
+          "start": {
+            "name": "début"
+          },
+          "end": {
+            "name": "fin"
+          },
+          "weekdays": {
+            "name": "jours de la semaine"
+          }
+        }
+      },
       "battery": {
         "name": "Batterie",
         "state_attributes": {
@@ -503,6 +741,19 @@
             "name": "Qualité des lames"
           }
         }
+      }
+    }
+  },
+  "selector": {
+    "weekdays": {
+      "options": {
+        "mo": "Lundi",
+        "tu": "Mardi",
+        "we": "Mercredi",
+        "th": "Jeudi",
+        "fr": "Vendredi",
+        "sa": "Samedi",
+        "su": "Dimanche"
       }
     }
   }

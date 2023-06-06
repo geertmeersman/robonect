@@ -12,7 +12,7 @@ from homeassistant.const import (
     STATE_ON,
     STATE_UNAVAILABLE,
 )
-from homeassistant.core import HomeAssistant, State
+from homeassistant.core import HomeAssistant, State, callback
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import RobonectDataUpdateCoordinator
@@ -127,25 +127,36 @@ class RobonectRestBinarySensor(RobonectCoordinatorEntity, RobonectBinarySensor):
             elif last_state.state == STATE_UNAVAILABLE:
                 self._attr_available = False
 
-    @property
-    def is_on(self) -> bool:
-        """Return true if the binary sensor is on."""
-        if self.category in self.coordinator.data:
+    @callback
+    def _handle_coordinator_update(self) -> None:
+        """Handle updated data from the coordinator."""
+        self.set_extra_attributes()
+        self.set_is_on()
+        super()._handle_coordinator_update()
+
+    def set_is_on(self):
+        """Set the status of the from the coordinatorsensor."""
+        if len(self.coordinator.data) and self.category in self.coordinator.data:
             state = get_json_dict_path(
                 self.coordinator.data, self.entity_description.rest
             )
             if self.entity_description.rest == "$.health.health.alarm":
                 for alarm in state:
                     if state[alarm]:
-                        return True
-                return False
-            return state
-        return False
+                        self._attr_is_on = True
+                        return
+                self._attr_is_on = False
+                return
+            if state is True:
+                self._attr_is_on = True
+            else:
+                self._attr_is_on = False
+        self._attr_is_on = False
+        return
 
-    @property
-    def extra_state_attributes(self):
-        """Return attributes for sensor."""
-        if self.category in self.coordinator.data:
+    def set_extra_attributes(self):
+        """Set the attributes for the sensor from coordinator."""
+        if len(self.coordinator.data) and self.category in self.coordinator.data:
             attributes = {
                 "last_synced": self.last_synced,
             }
@@ -157,6 +168,12 @@ class RobonectRestBinarySensor(RobonectCoordinatorEntity, RobonectBinarySensor):
                     adapt_attributes(
                         attrs, self.category, self.entry.data[CONF_ATTRS_UNITS]
                     )
-                    attributes.update(attrs)
-            return attributes
-        return self._attributes
+                    if not isinstance(attrs, list):
+                        attributes.update(attrs)
+            self._attr_extra_state_attributes = attributes
+
+    @property
+    def extra_state_attributes(self):
+        """Return attributes for sensor."""
+        self.set_extra_attributes()
+        return self._attr_extra_state_attributes

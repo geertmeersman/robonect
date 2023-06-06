@@ -124,10 +124,11 @@ async def async_setup_entry(
                             f"[async_setup_entry|REST|adding] Item in array: {item}"
                         )
                         desc = copy.copy(description)
+                        desc.rest = description.rest.replace(".0", f".{idx}")
                         desc.rest_attrs = description.rest_attrs.replace(
                             ".0", f".{idx}"
                         )
-                        desc.key = description.key.replace(".0", f".{idx}")
+                        desc.key = description.key.replace("/0", f"/{idx}")
                         entities.append(
                             RobonectRestSensor(
                                 hass,
@@ -284,12 +285,12 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
         self.set_extra_attributes()
+        self.set_state()
         super()._handle_coordinator_update()
 
-    @property
-    def native_value(self):
-        """Return the status of the sensor."""
-        if self.category in self.coordinator.data:
+    def set_state(self):
+        """Set the status of the sensor from the coordinatorsensor."""
+        if len(self.coordinator.data) and self.category in self.coordinator.data:
             state = get_json_dict_path(
                 self.coordinator.data, self.entity_description.rest
             )
@@ -299,6 +300,9 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
                         return True
                 return False
             if state is not None:
+                state = copy.copy(state)
+                if isinstance(state, str):
+                    state = filter_out_units(state)
                 if self.entity_description.device_class == SensorDeviceClass.TIMESTAMP:
                     state = unix_to_datetime(state, self.coordinator.hass)
                 elif self.entity_description.device_class == SensorDeviceClass.VOLTAGE:
@@ -306,11 +310,15 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
                 elif self.entity_description.rest == "$.status.status.duration":
                     state = state / 60
                 self._state = state
+
+    @property
+    def native_value(self):
+        """Return the status of the sensor."""
         return self._state
 
     def set_extra_attributes(self):
-        """Return attributes for sensor from coordinator."""
-        if self.category in self.coordinator.data:
+        """Set the attributes for the sensor from coordinator."""
+        if len(self.coordinator.data) and self.category in self.coordinator.data:
             attributes = {
                 "last_synced": self.last_synced,
             }

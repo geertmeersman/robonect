@@ -33,6 +33,8 @@ _LOGGER = logging.getLogger(__name__)
 class RobonectEntity(RestoreEntity):
     """Base Robonect entity."""
 
+    _attr_translation_key = None
+
     def __init__(
         self,
         hass: HomeAssistant,
@@ -51,15 +53,17 @@ class RobonectEntity(RestoreEntity):
             if self.entity_description.name is None
             else slugify(self.entity_description.name)
         )
-        if self.entity_description.translation_key:
-            self._attr_translation_key = self.entity_description.translation_key
-        else:
-            self._attr_translation_key = slugify(
-                self.entity_description.key.replace("/", "_")
+        if self._attr_translation_key is None:
+            if self.entity_description.translation_key:
+                self._attr_translation_key = self.entity_description.translation_key
+            else:
+                self._attr_translation_key = slugify(
+                    self.entity_description.key.replace("/", "_")
+                )
+        if self._attr_unique_id is None:
+            self._attr_unique_id = (
+                f"{entry.entry_id}-{self.entity_description.rest_category}-{self.slug}"
             )
-        self._attr_unique_id = (
-            f"{entry.entry_id}-{self.entity_description.rest_category}-{self.slug}"
-        )
         self.device_identifier = {(DOMAIN, self.base_topic)}
 
         self._attr_device_info = DeviceInfo(
@@ -104,7 +108,7 @@ class RobonectEntity(RestoreEntity):
             try:
                 response = await self.coordinator.client.async_cmd(command, params)
             except Exception as exception:
-                response = {"successful": False, "exception": exception.message}
+                response = {"successful": False, "exception": f"{exception}"}
             await self.async_fire_event(
                 response | {"command": command, "params": params}
             )

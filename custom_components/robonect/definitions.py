@@ -377,4 +377,13 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         entity_category=EntityCategory.DIAGNOSTIC,
         rest_category="ext",
     ),
+    RobonectSensorEntityDescription(
+        key=".timer/0",
+        array=True,
+        rest="$.timer.timer.0.enabled",
+        rest_attrs="$.timer.timer.0",
+        icon="mdi:calendar-clock",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        rest_category="timer",
+    ),
 )

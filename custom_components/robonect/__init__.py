@@ -23,6 +23,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from .const import (
     CONF_ATTRS_UNITS,
     CONF_BRAND,
+    CONF_ENABLE,
     CONF_MQTT_ENABLED,
     CONF_MQTT_TOPIC,
     CONF_REST_ENABLED,
@@ -38,6 +39,9 @@ from .const import (
     SERVICE_JOB_CORRIDOR_VALUES,
     SERVICE_JOB_REMOTESTART_VALUES,
     SERVICE_JOB_SCHEMA,
+    SERVICE_TIMER,
+    SERVICE_TIMER_SCHEMA,
+    WEEKDAYS_SHORT,
 )
 from .exceptions import RobonectException, RobonectServiceException
 
@@ -73,15 +77,15 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         try:
             await hass.async_add_executor_job(client.state)
         except ClientConnectorError as exception:
-            raise RobonectServiceException(f"Bad response {exception.message}")
+            raise RobonectServiceException(f"Bad response {exception}")
         except ClientResponseError as exception:
-            raise RobonectServiceException(f"Bad response {exception.message}")
+            raise RobonectServiceException(f"Bad response {exception}")
         except ClientError as exception:
-            raise RobonectServiceException(f"Request failed {exception.message}")
+            raise RobonectServiceException(f"Request failed {exception}")
         except TimeoutError:
             raise RobonectServiceException("Request timed out")
         except Exception as exception:
-            raise exception.message
+            raise exception
 
         hass.data[DOMAIN][entry.entry_id] = coordinator = RobonectDataUpdateCoordinator(
             hass,
@@ -91,8 +95,30 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         await coordinator.async_config_entry_first_refresh()
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
+    async def timer(service: ServiceCall) -> bool:
+        """Modify a timer."""
+        params = {}
+        try:
+            if CONF_ENABLE in service.data:
+                params |= {CONF_ENABLE: 1 if service.data[CONF_ENABLE] is True else 0}
+            params |= {"timer": service.data["timer"]}
+            params |= {"start": service.data["start"][0:5]}
+            params |= {"end": service.data["end"][0:5]}
+            for weekday in WEEKDAYS_SHORT:
+                if weekday in service.data["weekdays"]:
+                    params |= {weekday: 1}
+                else:
+                    params |= {weekday: 0}
+        except ValueError as error:
+            raise RobonectException(error)
+        await async_send_command(hass, entry, "timer", params)
+
+    hass.services.async_register(
+        DOMAIN, SERVICE_TIMER, timer, schema=SERVICE_TIMER_SCHEMA
+    )
+
     async def job(service: ServiceCall) -> bool:
-        """Set the Robonect mower to sleep."""
+        """Schedule a mowing job."""
         params = {"mode": "job"}
         if "start" in service.data:
             params |= {"start": service.data["start"][0:5]}
@@ -192,7 +218,7 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
         except ClientConnectorError as exception:
             raise UpdateFailed(f"ConnectionError {exception}") from exception
         except ClientError as exception:
-            raise UpdateFailed(f"Request failed {exception.message}")
+            raise UpdateFailed(f"Request failed {exception}")
         except TimeoutError:
             raise UpdateFailed("Request timed out")
         except ConnectionError as exception:
@@ -278,7 +304,7 @@ async def async_send_command(
     try:
         response = await coordinator.client.async_cmd(command, params)
     except Exception as exception:
-        response = {"successful": False, "exception": exception.message}
+        response = {"successful": False, "exception": f"{exception}"}
     await async_fire_event(
         hass, entry, response | {"command": command, "params": params}
     )

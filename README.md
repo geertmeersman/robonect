@@ -14,7 +14,7 @@ A Home Assistant integration to monitor Robonect
 - All Robonect sensors (if MQTT enabled priority to MQTT sensors)
 - Automower vacuum entity
 - Buttons (change mode, start, stop, return home, ...)
-- Service calls to Robonect actions, like scheduling a job
+- Service calls to Robonect actions, like scheduling a job, modifying a timer
 
 ---
 
@@ -50,8 +50,8 @@ A Home Assistant integration to monitor Robonect
 ## Table of contents
 
 - [Robonect for Home Assistant](#robonect-for-home-assistant)
-  - [Table of contents](#table-of-contents)
   - [Features](#features)
+  - [Table of contents](#table-of-contents)
   - [Installation](#installation)
     - [Using HACS (recommended)](#using-hacs-recommended)
     - [Manual](#manual)
@@ -65,6 +65,7 @@ A Home Assistant integration to monitor Robonect
   - [Screenshots](#screenshots)
     - [Integration page](#integration-page)
     - [Mowing job](#mowing-job)
+    - [Timer](#timer)
 
 ## Installation
 
@@ -480,3 +481,7 @@ cards:
 ### Mowing job
 
 ![Mowing job](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/mowing_job.png)
+
+### Timer
+
+![Timer](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/timer.png)
