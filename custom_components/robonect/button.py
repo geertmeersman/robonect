@@ -225,7 +225,6 @@ class RobonectRestButton(RobonectButton):
 
     async def async_press(self) -> None:
         """Press the button."""
-        # self.hass.config.time_zone
         _LOGGER.debug(
             f"REST BUTTON PRESSED: {self.entity_description.cmd} {self.entity_id} {self.entity_description.params}",
             True,
