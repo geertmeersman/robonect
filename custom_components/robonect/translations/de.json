@@ -387,6 +387,9 @@
       }
     },
     "button": {
+      "error_reset": {
+        "name": "Fehler zurücksetzen"
+      },
       "start": {
         "name": "Start"
       },

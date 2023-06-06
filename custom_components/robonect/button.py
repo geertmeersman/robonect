@@ -40,6 +40,13 @@ class RobonectButtonEntityDescription(ButtonEntityDescription):
 
 BUTTON_TYPES = (
     RobonectButtonEntityDescription(
+        key="error_reset",
+        icon="mdi:backup-restore",
+        cmd="error",
+        params={"reset": 1},
+        rest_category="NONE",
+    ),
+    RobonectButtonEntityDescription(
         key="home",
         icon="mdi:home-import-outline",
         topic="control/mode",

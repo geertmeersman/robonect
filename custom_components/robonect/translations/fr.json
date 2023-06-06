@@ -387,6 +387,9 @@
       }
     },
     "button": {
+      "error_reset": {
+        "name": "Réinitialiser l'erreur"
+      },
       "start": {
         "name": "Démarrer"
       },
