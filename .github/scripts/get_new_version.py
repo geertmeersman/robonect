@@ -1,3 +1,4 @@
+"""Script to calculate the next beta version."""
 import os
 import sys
 
