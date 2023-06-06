@@ -387,6 +387,9 @@
       }
     },
     "button": {
+      "error_reset": {
+        "name": "Reset error"
+      },
       "start": {
         "name": "Start"
       },
