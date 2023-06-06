@@ -289,7 +289,7 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
         super()._handle_coordinator_update()
 
     def set_state(self):
-        """Set the status of the from the coordinatorsensor."""
+        """Set the status of the sensor from the coordinatorsensor."""
         if len(self.coordinator.data) and self.category in self.coordinator.data:
             state = get_json_dict_path(
                 self.coordinator.data, self.entity_description.rest
