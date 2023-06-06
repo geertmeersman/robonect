@@ -162,7 +162,7 @@ def adapt_attributes(attr_dict, category, add_units=False):
                     lambda_func = eval(unit.get("lambda"))
                     if add_units:
                         if isinstance(value, str):
-                            value = filter_out_units(value)
+                            value = str_to_float(filter_out_units(value))
                         attr_dict.update(
                             {key: f"{lambda_func(value)} {unit.get('unit')}"}
                         )
