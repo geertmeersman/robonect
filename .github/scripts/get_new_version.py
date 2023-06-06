@@ -12,13 +12,16 @@ owner, repo = repository.split("/")
 # print(f"Owner: {owner}")
 
 # Get the latest release information
-response = requests.get(f"https://api.github.com/repos/{owner}/{repo}/releases/latest")
+response = requests.get(
+    f"https://api.github.com/repos/{owner}/{repo}/releases/latest", timeout=10
+)
 latest_release = response.json()
 latest_version = latest_release["tag_name"]
 
 # Get the commit count since the latest release
 response = requests.get(
-    f"https://api.github.com/repos/{owner}/{repo}/compare/{latest_version}...HEAD"
+    f"https://api.github.com/repos/{owner}/{repo}/compare/{latest_version}...HEAD",
+    timeout=10,
 )
 compare_info = response.json()
 commit_count = compare_info["total_commits"]
