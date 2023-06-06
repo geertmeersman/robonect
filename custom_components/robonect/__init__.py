@@ -77,15 +77,15 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         try:
             await hass.async_add_executor_job(client.state)
         except ClientConnectorError as exception:
-            raise RobonectServiceException(f"Bad response {exception.message}")
+            raise RobonectServiceException(f"Bad response {exception}")
         except ClientResponseError as exception:
-            raise RobonectServiceException(f"Bad response {exception.message}")
+            raise RobonectServiceException(f"Bad response {exception}")
         except ClientError as exception:
-            raise RobonectServiceException(f"Request failed {exception.message}")
+            raise RobonectServiceException(f"Request failed {exception}")
         except TimeoutError:
             raise RobonectServiceException("Request timed out")
         except Exception as exception:
-            raise exception.message
+            raise exception
 
         hass.data[DOMAIN][entry.entry_id] = coordinator = RobonectDataUpdateCoordinator(
             hass,
@@ -304,7 +304,7 @@ async def async_send_command(
     try:
         response = await coordinator.client.async_cmd(command, params)
     except Exception as exception:
-        response = {"successful": False, "exception": exception.message}
+        response = {"successful": False, "exception": f"{exception}"}
     await async_fire_event(
         hass, entry, response | {"command": command, "params": params}
     )
