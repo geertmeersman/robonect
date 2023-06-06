@@ -135,127 +135,239 @@
       "timer_0": {
         "name": "Timer 1",
         "state_attributes": {
-          "enabled": "ingeschakeld",
-          "start": "start",
-          "end": "einde",
-          "weekdays": "weekdagen"
+          "enabled": {
+            "name": "ingeschakeld"
+          },
+          "start": {
+            "name": "start"
+          },
+          "end": {
+            "name": "einde"
+          },
+          "weekdays": {
+            "name": "weekdagen"
+          }
         }
       },
       "timer_1": {
         "name": "Timer 2",
         "state_attributes": {
-          "enabled": "ingeschakeld",
-          "start": "start",
-          "end": "einde",
-          "weekdays": "weekdagen"
+          "enabled": {
+            "name": "ingeschakeld"
+          },
+          "start": {
+            "name": "start"
+          },
+          "end": {
+            "name": "einde"
+          },
+          "weekdays": {
+            "name": "weekdagen"
+          }
         }
       },
       "timer_2": {
         "name": "Timer 3",
         "state_attributes": {
-          "enabled": "ingeschakeld",
-          "start": "start",
-          "end": "einde",
-          "weekdays": "weekdagen"
+          "enabled": {
+            "name": "ingeschakeld"
+          },
+          "start": {
+            "name": "start"
+          },
+          "end": {
+            "name": "einde"
+          },
+          "weekdays": {
+            "name": "weekdagen"
+          }
         }
       },
       "timer_3": {
         "name": "Timer 4",
         "state_attributes": {
-          "enabled": "ingeschakeld",
-          "start": "start",
-          "end": "einde",
-          "weekdays": "weekdagen"
+          "enabled": {
+            "name": "ingeschakeld"
+          },
+          "start": {
+            "name": "start"
+          },
+          "end": {
+            "name": "einde"
+          },
+          "weekdays": {
+            "name": "weekdagen"
+          }
         }
       },
       "timer_4": {
         "name": "Timer 5",
         "state_attributes": {
-          "enabled": "ingeschakeld",
-          "start": "start",
-          "end": "einde",
-          "weekdays": "weekdagen"
+          "enabled": {
+            "name": "ingeschakeld"
+          },
+          "start": {
+            "name": "start"
+          },
+          "end": {
+            "name": "einde"
+          },
+          "weekdays": {
+            "name": "weekdagen"
+          }
         }
       },
       "timer_5": {
         "name": "Timer 6",
         "state_attributes": {
-          "enabled": "ingeschakeld",
-          "start": "start",
-          "end": "einde",
-          "weekdays": "weekdagen"
+          "enabled": {
+            "name": "ingeschakeld"
+          },
+          "start": {
+            "name": "start"
+          },
+          "end": {
+            "name": "einde"
+          },
+          "weekdays": {
+            "name": "weekdagen"
+          }
         }
       },
       "timer_6": {
         "name": "Timer 7",
         "state_attributes": {
-          "enabled": "ingeschakeld",
-          "start": "start",
-          "end": "einde",
-          "weekdays": "weekdagen"
+          "enabled": {
+            "name": "ingeschakeld"
+          },
+          "start": {
+            "name": "start"
+          },
+          "end": {
+            "name": "einde"
+          },
+          "weekdays": {
+            "name": "weekdagen"
+          }
         }
       },
       "timer_7": {
         "name": "Timer 8",
         "state_attributes": {
-          "enabled": "ingeschakeld",
-          "start": "start",
-          "end": "einde",
-          "weekdays": "weekdagen"
+          "enabled": {
+            "name": "ingeschakeld"
+          },
+          "start": {
+            "name": "start"
+          },
+          "end": {
+            "name": "einde"
+          },
+          "weekdays": {
+            "name": "weekdagen"
+          }
         }
       },
       "timer_8": {
         "name": "Timer 9",
         "state_attributes": {
-          "enabled": "ingeschakeld",
-          "start": "start",
-          "end": "einde",
-          "weekdays": "weekdagen"
+          "enabled": {
+            "name": "ingeschakeld"
+          },
+          "start": {
+            "name": "start"
+          },
+          "end": {
+            "name": "einde"
+          },
+          "weekdays": {
+            "name": "weekdagen"
+          }
         }
       },
       "timer_9": {
         "name": "Timer 10",
         "state_attributes": {
-          "enabled": "ingeschakeld",
-          "start": "start",
-          "end": "einde",
-          "weekdays": "weekdagen"
+          "enabled": {
+            "name": "ingeschakeld"
+          },
+          "start": {
+            "name": "start"
+          },
+          "end": {
+            "name": "einde"
+          },
+          "weekdays": {
+            "name": "weekdagen"
+          }
         }
       },
       "timer_10": {
         "name": "Timer 11",
         "state_attributes": {
-          "enabled": "ingeschakeld",
-          "start": "start",
-          "end": "einde",
-          "weekdays": "weekdagen"
+          "enabled": {
+            "name": "ingeschakeld"
+          },
+          "start": {
+            "name": "start"
+          },
+          "end": {
+            "name": "einde"
+          },
+          "weekdays": {
+            "name": "weekdagen"
+          }
         }
       },
       "timer_11": {
         "name": "Timer 12",
         "state_attributes": {
-          "enabled": "ingeschakeld",
-          "start": "start",
-          "end": "einde",
-          "weekdays": "weekdagen"
+          "enabled": {
+            "name": "ingeschakeld"
+          },
+          "start": {
+            "name": "start"
+          },
+          "end": {
+            "name": "einde"
+          },
+          "weekdays": {
+            "name": "weekdagen"
+          }
         }
       },
       "timer_12": {
         "name": "Timer 13",
         "state_attributes": {
-          "enabled": "ingeschakeld",
-          "start": "start",
-          "end": "einde",
-          "weekdays": "weekdagen"
+          "enabled": {
+            "name": "ingeschakeld"
+          },
+          "start": {
+            "name": "start"
+          },
+          "end": {
+            "name": "einde"
+          },
+          "weekdays": {
+            "name": "weekdagen"
+          }
         }
       },
       "timer_13": {
         "name": "Timer 14",
         "state_attributes": {
-          "enabled": "ingeschakeld",
-          "start": "start",
-          "end": "einde",
-          "weekdays": "weekdagen"
+          "enabled": {
+            "name": "ingeschakeld"
+          },
+          "start": {
+            "name": "start"
+          },
+          "end": {
+            "name": "einde"
+          },
+          "weekdays": {
+            "name": "weekdagen"
+          }
         }
       },
       "battery": {

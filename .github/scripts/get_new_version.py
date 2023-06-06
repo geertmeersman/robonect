@@ -11,8 +11,16 @@ import semver
 def get_last_beta_tag():
     """Get the last beta tag from GIT."""
     command = ["git", "describe", "--tags", "--abbrev=0", "--match", "*beta*"]
-    output = subprocess.check_output(command).decode().strip()
-    return output
+    try:
+        output = (
+            subprocess.check_output(command, stderr=subprocess.STDOUT).decode().strip()
+        )
+    except subprocess.CalledProcessError as e:
+        # If the command returns a non-zero exit status, you can access the output and trace
+        # output = e.output.decode().strip()
+        # trace = e.stderr.decode().strip()
+        print(e)
+        return output
 
 
 def get_version_without_prerelease(version):
