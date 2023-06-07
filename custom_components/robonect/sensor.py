@@ -321,6 +321,7 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
         if len(self.coordinator.data) and self.category in self.coordinator.data:
             attributes = {
                 "last_synced": self.last_synced,
+                "category": self.category,
             }
             if self.entity_description.rest_attrs:
                 attrs = get_json_dict_path(

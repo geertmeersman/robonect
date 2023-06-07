@@ -18,7 +18,7 @@ A Home Assistant integration to monitor Robonect
 
 **MQTT sensors** (when enabled) are enabled prior to the REST sensors, as they update faster.
 
-The **REST sensors**, are updated on a configurable scan interval. When the mower is sleeping, only the status sensors are being updated (since the others have no activity and updating them would wake up the mower, resuling in a beep every time a scan happens)
+The **REST sensors**, are updated on a configurable scan interval. When the mower is sleeping, only the status sensors are being updated (since the others have no activity and updating them would wake up the mower, resuling in a beep every time a scan happens). Example here: [Rest sensor and the REST category](#rest-sensor-and-the-rest-category)
 
 ---
 
@@ -71,6 +71,7 @@ The **REST sensors**, are updated on a configurable scan interval. When the mowe
     - [Mowing job](#mowing-job)
     - [Timer](#timer)
     - [Config flow](#config-flow)
+    - [Rest sensor and the REST category](#rest-sensor-and-the-rest-category)
 
 ## Installation
 
@@ -505,3 +506,9 @@ cards:
 ![options_5](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/options_5.png)
 ![options_6](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/options_6.png)
 ![options_7](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/options_7.png)
+
+### Rest sensor and the REST category
+
+Note: if the sensor is a REST sensor and the category does not equal 'status', the sensor will only be updated during the non-sleeping phase of the mower
+
+![rest_category](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/rest_category.png)
