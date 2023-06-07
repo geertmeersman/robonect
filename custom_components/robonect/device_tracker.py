@@ -166,6 +166,7 @@ class RobonectGPSEntity(RobonectEntity, TrackerEntity, RestoreEntity):
                 self._longitude = float(gps_state.get(ATTR_LONGITUDE))
                 self._attributes = {
                     "last_synced": self.last_synced,
+                    "category": self.category,
                     ATTR_SATELLITES: gps_state.get(ATTR_SATELLITES),
                 }
             else:
