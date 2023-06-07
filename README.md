@@ -11,10 +11,14 @@ A Home Assistant integration to monitor Robonect
 
 - MQTT listener
 - REST API client
-- All Robonect sensors (if MQTT enabled priority to MQTT sensors)
+- All Robonect sensors (if MQTT enabled priority to MQTT sensors over REST)
 - Automower vacuum entity
 - Buttons (change mode, start, stop, return home, ...)
 - Service calls to Robonect actions, like scheduling a job, modifying a timer
+
+**MQTT sensors** (when enabled) are enabled prior to the REST sensors, as they update faster.
+
+The **REST sensors**, are updated on a configurable scan interval. When the mower is sleeping, only the status sensors are being updated (since the others have no activity and updating them would wake up the mower, resuling in a beep every time a scan happens)
 
 ---
 
