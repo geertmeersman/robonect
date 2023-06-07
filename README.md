@@ -66,6 +66,7 @@ A Home Assistant integration to monitor Robonect
     - [Integration page](#integration-page)
     - [Mowing job](#mowing-job)
     - [Timer](#timer)
+    - [Config flow](#config-flow)
 
 ## Installation
 
@@ -485,3 +486,18 @@ cards:
 ### Timer
 
 ![Timer](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/timer.png)
+
+### Config flow
+
+![config_flow_1](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/config_flow_1.png)
+![config_flow_1](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/config_flow_2.png)
+
+**Options**
+
+![options_1](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/options_1.png)
+![options_2](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/options_2.png)
+![options_3](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/options_3.png)
+![options_4](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/options_4.png)
+![options_5](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/options_5.png)
+![options_6](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/options_6.png)
+![options_7](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/options_7.png)

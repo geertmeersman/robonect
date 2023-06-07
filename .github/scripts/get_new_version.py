@@ -61,7 +61,7 @@ next_version = f"v{major}.{minor}.{patch}"
 
 # Check if there are any commits since the latest release
 if commit_count > 0:
-    next_version += f".beta.{commit_count}"
+    next_version += f"-beta.{commit_count}"
 
 print(next_version)
 sys.exit(0)
