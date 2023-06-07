@@ -20,7 +20,7 @@ latest_version = latest_release["tag_name"]
 
 # Get the commit count since the latest release
 response = requests.get(
-    f"https://api.github.com/repos/{owner}/{repo}/compare/{latest_version}...HEAD",
+    f"https://api.github.com/repos/{owner}/{repo}/compare/{latest_version}...dev-current",
     timeout=10,
 )
 compare_info = response.json()
