@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.0.6](https://github.com/geertmeersman/robonect/tree/v1.0.6) (2023-06-08)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.5...v1.0.6)
+
+**Merged pull requests:**
+
+- fix: Attributes - copy as they get updated multiple times & capitals in timer attributes [\#42](https://github.com/geertmeersman/robonect/pull/42) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.0.5](https://github.com/geertmeersman/robonect/tree/v1.0.5) (2023-06-08)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.5-beta.3...v1.0.5)
