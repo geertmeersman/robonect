@@ -327,6 +327,7 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
                 attrs = get_json_dict_path(
                     self.coordinator.data, self.entity_description.rest_attrs
                 )
+                attrs = copy.copy(attrs)
                 if attrs:
                     adapt_attributes(
                         attrs, self.category, self.entry.data[CONF_ATTRS_UNITS]

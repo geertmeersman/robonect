@@ -158,18 +158,27 @@ def adapt_attributes(attr_dict, category, add_units=False):
         else:
             if category in ATTR_STATE_UNITS and key in ATTR_STATE_UNITS.get(category):
                 unit = ATTR_STATE_UNITS.get(category).get(key)
-                if isinstance(unit, dict):
-                    lambda_func = eval(unit.get("lambda"))
-                    if add_units:
-                        if isinstance(value, str):
-                            value = str_to_float(filter_out_units(value))
-                        attr_dict.update(
-                            {key: f"{lambda_func(value)} {unit.get('unit')}"}
-                        )
-                    else:
-                        attr_dict.update({key: lambda_func(value)})
-                elif add_units:
-                    attr_dict.update({key: f"{value} {unit}"})
+                if isinstance(value, str) and has_non_numeric_characters(value, "."):
+                    _LOGGER.debug(f"Ignoring attribute update for {category} - {value}")
+                else:
+                    if isinstance(unit, dict):
+                        lambda_func = eval(unit.get("lambda"))
+                        if add_units:
+                            if isinstance(value, str):
+                                value = str_to_float(filter_out_units(value))
+                            attr_dict.update(
+                                {key: f"{lambda_func(value)} {unit.get('unit')}"}
+                            )
+                        else:
+                            attr_dict.update({key: lambda_func(value)})
+                    elif add_units:
+                        attr_dict.update({key: f"{value} {unit}"})
+
+
+def has_non_numeric_characters(string, decimal_separator):
+    pattern = r"[^0-9" + re.escape(decimal_separator) + "]"
+    matches = re.search(pattern, string)
+    return bool(matches)
 
 
 def dummy_math(input):
