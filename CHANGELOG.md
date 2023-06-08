@@ -1,5 +1,26 @@
 # Changelog
 
+## [v1.0.5](https://github.com/geertmeersman/robonect/tree/v1.0.5) (2023-06-08)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.5-beta.3...v1.0.5)
+
+**Merged pull requests:**
+
+- fix: await coroutine state [\#41](https://github.com/geertmeersman/robonect/pull/41) ([geertmeersman](https://github.com/geertmeersman))
+
+## [v1.0.5-beta.3](https://github.com/geertmeersman/robonect/tree/v1.0.5-beta.3) (2023-06-07)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.4...v1.0.5-beta.3)
+
+## [v1.0.4](https://github.com/geertmeersman/robonect/tree/v1.0.4) (2023-06-07)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.3...v1.0.4)
+
+**Merged pull requests:**
+
+- feat: Add REST sensor category to attributes [\#40](https://github.com/geertmeersman/robonect/pull/40) ([geertmeersman](https://github.com/geertmeersman))
+- docs: REST/MQTT priority and update explained [\#39](https://github.com/geertmeersman/robonect/pull/39) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.0.3](https://github.com/geertmeersman/robonect/tree/v1.0.3) (2023-06-07)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.3-beta.22...v1.0.3)
