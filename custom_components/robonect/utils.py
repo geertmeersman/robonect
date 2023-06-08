@@ -176,6 +176,7 @@ def adapt_attributes(attr_dict, category, add_units=False):
 
 
 def has_non_numeric_characters(string, decimal_separator):
+    """Check for non numeric characters."""
     pattern = r"[^0-9" + re.escape(decimal_separator) + "]"
     matches = re.search(pattern, string)
     return bool(matches)
