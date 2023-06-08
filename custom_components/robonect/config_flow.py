@@ -124,8 +124,8 @@ class RobonectCommonFlow(ABC, FlowHandler):
             username=user_input[CONF_USERNAME],
             password=user_input[CONF_PASSWORD],
         )
-
-        return await client.state()
+        state = await client.state()
+        return state
 
     async def async_step_connection_methods(
         self, user_input: dict | None = None
