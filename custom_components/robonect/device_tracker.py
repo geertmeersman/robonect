@@ -206,7 +206,7 @@ class RobonectGPSEntity(RobonectEntity, TrackerEntity, RestoreEntity):
         @callback
         def satellites_received(message):
             """Handle satellites topic."""
-            self._attr_extra_state_attributes |= {"satellites": message.payload}
+            self._attributes |= {"satellites": message.payload}
             self.update_ha_state()
 
         if self.entry.data[CONF_MQTT_ENABLED] is True:
