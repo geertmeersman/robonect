@@ -136,16 +136,16 @@
         "name": "Timer 1",
         "state_attributes": {
           "enabled": {
-            "name": "aktiviert"
+            "name": "Aktiviert"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "ende"
+            "name": "Ende"
           },
           "weekdays": {
-            "name": "wochentage"
+            "name": "Wochentage"
           }
         }
       },
@@ -153,16 +153,16 @@
         "name": "Timer 2",
         "state_attributes": {
           "enabled": {
-            "name": "aktiviert"
+            "name": "Aktiviert"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "ende"
+            "name": "Ende"
           },
           "weekdays": {
-            "name": "wochentage"
+            "name": "Wochentage"
           }
         }
       },
@@ -170,16 +170,16 @@
         "name": "Timer 3",
         "state_attributes": {
           "enabled": {
-            "name": "aktiviert"
+            "name": "Aktiviert"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "ende"
+            "name": "Ende"
           },
           "weekdays": {
-            "name": "wochentage"
+            "name": "Wochentage"
           }
         }
       },
@@ -187,16 +187,16 @@
         "name": "Timer 4",
         "state_attributes": {
           "enabled": {
-            "name": "aktiviert"
+            "name": "Aktiviert"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "ende"
+            "name": "Ende"
           },
           "weekdays": {
-            "name": "wochentage"
+            "name": "Wochentage"
           }
         }
       },
@@ -204,16 +204,16 @@
         "name": "Timer 5",
         "state_attributes": {
           "enabled": {
-            "name": "aktiviert"
+            "name": "Aktiviert"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "ende"
+            "name": "Ende"
           },
           "weekdays": {
-            "name": "wochentage"
+            "name": "Wochentage"
           }
         }
       },
@@ -221,16 +221,16 @@
         "name": "Timer 6",
         "state_attributes": {
           "enabled": {
-            "name": "aktiviert"
+            "name": "Aktiviert"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "ende"
+            "name": "Ende"
           },
           "weekdays": {
-            "name": "wochentage"
+            "name": "Wochentage"
           }
         }
       },
@@ -238,16 +238,16 @@
         "name": "Timer 7",
         "state_attributes": {
           "enabled": {
-            "name": "aktiviert"
+            "name": "Aktiviert"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "ende"
+            "name": "Ende"
           },
           "weekdays": {
-            "name": "wochentage"
+            "name": "Wochentage"
           }
         }
       },
@@ -255,16 +255,16 @@
         "name": "Timer 8",
         "state_attributes": {
           "enabled": {
-            "name": "aktiviert"
+            "name": "Aktiviert"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "ende"
+            "name": "Ende"
           },
           "weekdays": {
-            "name": "wochentage"
+            "name": "Wochentage"
           }
         }
       },
@@ -272,16 +272,16 @@
         "name": "Timer 9",
         "state_attributes": {
           "enabled": {
-            "name": "aktiviert"
+            "name": "Aktiviert"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "ende"
+            "name": "Ende"
           },
           "weekdays": {
-            "name": "wochentage"
+            "name": "Wochentage"
           }
         }
       },
@@ -289,16 +289,16 @@
         "name": "Timer 10",
         "state_attributes": {
           "enabled": {
-            "name": "aktiviert"
+            "name": "Aktiviert"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "ende"
+            "name": "Ende"
           },
           "weekdays": {
-            "name": "wochentage"
+            "name": "Wochentage"
           }
         }
       },
@@ -306,16 +306,16 @@
         "name": "Timer 11",
         "state_attributes": {
           "enabled": {
-            "name": "aktiviert"
+            "name": "Aktiviert"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "ende"
+            "name": "Ende"
           },
           "weekdays": {
-            "name": "wochentage"
+            "name": "Wochentage"
           }
         }
       },
@@ -323,16 +323,16 @@
         "name": "Timer 12",
         "state_attributes": {
           "enabled": {
-            "name": "aktiviert"
+            "name": "Aktiviert"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "ende"
+            "name": "Ende"
           },
           "weekdays": {
-            "name": "wochentage"
+            "name": "Wochentage"
           }
         }
       },
@@ -340,16 +340,16 @@
         "name": "Timer 13",
         "state_attributes": {
           "enabled": {
-            "name": "aktiviert"
+            "name": "Aktiviert"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "ende"
+            "name": "Ende"
           },
           "weekdays": {
-            "name": "wochentage"
+            "name": "Wochentage"
           }
         }
       },
@@ -357,16 +357,16 @@
         "name": "Timer 14",
         "state_attributes": {
           "enabled": {
-            "name": "aktiviert"
+            "name": "Aktiviert"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "ende"
+            "name": "Ende"
           },
           "weekdays": {
-            "name": "wochentage"
+            "name": "Wochentage"
           }
         }
       },

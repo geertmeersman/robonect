@@ -136,16 +136,16 @@
         "name": "Timer 1",
         "state_attributes": {
           "enabled": {
-            "name": "ingeschakeld"
+            "name": "Ingeschakeld"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "einde"
+            "name": "Einde"
           },
           "weekdays": {
-            "name": "weekdagen"
+            "name": "Weekdagen"
           }
         }
       },
@@ -153,16 +153,16 @@
         "name": "Timer 2",
         "state_attributes": {
           "enabled": {
-            "name": "ingeschakeld"
+            "name": "Ingeschakeld"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "einde"
+            "name": "Einde"
           },
           "weekdays": {
-            "name": "weekdagen"
+            "name": "Weekdagen"
           }
         }
       },
@@ -170,16 +170,16 @@
         "name": "Timer 3",
         "state_attributes": {
           "enabled": {
-            "name": "ingeschakeld"
+            "name": "Ingeschakeld"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "einde"
+            "name": "Einde"
           },
           "weekdays": {
-            "name": "weekdagen"
+            "name": "Weekdagen"
           }
         }
       },
@@ -187,16 +187,16 @@
         "name": "Timer 4",
         "state_attributes": {
           "enabled": {
-            "name": "ingeschakeld"
+            "name": "Ingeschakeld"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "einde"
+            "name": "Einde"
           },
           "weekdays": {
-            "name": "weekdagen"
+            "name": "Weekdagen"
           }
         }
       },
@@ -204,16 +204,16 @@
         "name": "Timer 5",
         "state_attributes": {
           "enabled": {
-            "name": "ingeschakeld"
+            "name": "Ingeschakeld"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "einde"
+            "name": "Einde"
           },
           "weekdays": {
-            "name": "weekdagen"
+            "name": "Weekdagen"
           }
         }
       },
@@ -221,16 +221,16 @@
         "name": "Timer 6",
         "state_attributes": {
           "enabled": {
-            "name": "ingeschakeld"
+            "name": "Ingeschakeld"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "einde"
+            "name": "Einde"
           },
           "weekdays": {
-            "name": "weekdagen"
+            "name": "Weekdagen"
           }
         }
       },
@@ -238,16 +238,16 @@
         "name": "Timer 7",
         "state_attributes": {
           "enabled": {
-            "name": "ingeschakeld"
+            "name": "Ingeschakeld"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "einde"
+            "name": "Einde"
           },
           "weekdays": {
-            "name": "weekdagen"
+            "name": "Weekdagen"
           }
         }
       },
@@ -255,16 +255,16 @@
         "name": "Timer 8",
         "state_attributes": {
           "enabled": {
-            "name": "ingeschakeld"
+            "name": "Ingeschakeld"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "einde"
+            "name": "Einde"
           },
           "weekdays": {
-            "name": "weekdagen"
+            "name": "Weekdagen"
           }
         }
       },
@@ -272,16 +272,16 @@
         "name": "Timer 9",
         "state_attributes": {
           "enabled": {
-            "name": "ingeschakeld"
+            "name": "Ingeschakeld"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "einde"
+            "name": "Einde"
           },
           "weekdays": {
-            "name": "weekdagen"
+            "name": "Weekdagen"
           }
         }
       },
@@ -289,16 +289,16 @@
         "name": "Timer 10",
         "state_attributes": {
           "enabled": {
-            "name": "ingeschakeld"
+            "name": "Ingeschakeld"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "einde"
+            "name": "Einde"
           },
           "weekdays": {
-            "name": "weekdagen"
+            "name": "Weekdagen"
           }
         }
       },
@@ -306,16 +306,16 @@
         "name": "Timer 11",
         "state_attributes": {
           "enabled": {
-            "name": "ingeschakeld"
+            "name": "Ingeschakeld"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "einde"
+            "name": "Einde"
           },
           "weekdays": {
-            "name": "weekdagen"
+            "name": "Weekdagen"
           }
         }
       },
@@ -323,16 +323,16 @@
         "name": "Timer 12",
         "state_attributes": {
           "enabled": {
-            "name": "ingeschakeld"
+            "name": "Ingeschakeld"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "einde"
+            "name": "Einde"
           },
           "weekdays": {
-            "name": "weekdagen"
+            "name": "Weekdagen"
           }
         }
       },
@@ -340,16 +340,16 @@
         "name": "Timer 13",
         "state_attributes": {
           "enabled": {
-            "name": "ingeschakeld"
+            "name": "Ingeschakeld"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "einde"
+            "name": "Einde"
           },
           "weekdays": {
-            "name": "weekdagen"
+            "name": "Weekdagen"
           }
         }
       },
@@ -357,16 +357,16 @@
         "name": "Timer 14",
         "state_attributes": {
           "enabled": {
-            "name": "ingeschakeld"
+            "name": "Ingeschakeld"
           },
           "start": {
-            "name": "start"
+            "name": "Start"
           },
           "end": {
-            "name": "einde"
+            "name": "Einde"
           },
           "weekdays": {
-            "name": "weekdagen"
+            "name": "Weekdagen"
           }
         }
       },

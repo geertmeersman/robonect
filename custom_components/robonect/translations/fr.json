@@ -136,16 +136,16 @@
         "name": "Minuterie 1",
         "state_attributes": {
           "enabled": {
-            "name": "activé"
+            "name": "Activé"
           },
           "start": {
-            "name": "début"
+            "name": "Début"
           },
           "end": {
-            "name": "fin"
+            "name": "Fin"
           },
           "weekdays": {
-            "name": "jours de la semaine"
+            "name": "Jours de la semaine"
           }
         }
       },
@@ -153,16 +153,16 @@
         "name": "Minuterie 2",
         "state_attributes": {
           "enabled": {
-            "name": "activé"
+            "name": "Activé"
           },
           "start": {
-            "name": "début"
+            "name": "Début"
           },
           "end": {
-            "name": "fin"
+            "name": "Fin"
           },
           "weekdays": {
-            "name": "jours de la semaine"
+            "name": "Jours de la semaine"
           }
         }
       },
@@ -170,16 +170,16 @@
         "name": "Minuterie 3",
         "state_attributes": {
           "enabled": {
-            "name": "activé"
+            "name": "Activé"
           },
           "start": {
-            "name": "début"
+            "name": "Début"
           },
           "end": {
-            "name": "fin"
+            "name": "Fin"
           },
           "weekdays": {
-            "name": "jours de la semaine"
+            "name": "Jours de la semaine"
           }
         }
       },
@@ -187,16 +187,16 @@
         "name": "Minuterie 4",
         "state_attributes": {
           "enabled": {
-            "name": "activé"
+            "name": "Activé"
           },
           "start": {
-            "name": "début"
+            "name": "Début"
           },
           "end": {
-            "name": "fin"
+            "name": "Fin"
           },
           "weekdays": {
-            "name": "jours de la semaine"
+            "name": "Jours de la semaine"
           }
         }
       },
@@ -204,16 +204,16 @@
         "name": "Minuterie 5",
         "state_attributes": {
           "enabled": {
-            "name": "activé"
+            "name": "Activé"
           },
           "start": {
-            "name": "début"
+            "name": "Début"
           },
           "end": {
-            "name": "fin"
+            "name": "Fin"
           },
           "weekdays": {
-            "name": "jours de la semaine"
+            "name": "Jours de la semaine"
           }
         }
       },
@@ -221,16 +221,16 @@
         "name": "Minuterie 6",
         "state_attributes": {
           "enabled": {
-            "name": "activé"
+            "name": "Activé"
           },
           "start": {
-            "name": "début"
+            "name": "Début"
           },
           "end": {
-            "name": "fin"
+            "name": "Fin"
           },
           "weekdays": {
-            "name": "jours de la semaine"
+            "name": "Jours de la semaine"
           }
         }
       },
@@ -238,16 +238,16 @@
         "name": "Minuterie 7",
         "state_attributes": {
           "enabled": {
-            "name": "activé"
+            "name": "Activé"
           },
           "start": {
-            "name": "début"
+            "name": "Début"
           },
           "end": {
-            "name": "fin"
+            "name": "Fin"
           },
           "weekdays": {
-            "name": "jours de la semaine"
+            "name": "Jours de la semaine"
           }
         }
       },
@@ -255,16 +255,16 @@
         "name": "Minuterie 8",
         "state_attributes": {
           "enabled": {
-            "name": "activé"
+            "name": "Activé"
           },
           "start": {
-            "name": "début"
+            "name": "Début"
           },
           "end": {
-            "name": "fin"
+            "name": "Fin"
           },
           "weekdays": {
-            "name": "jours de la semaine"
+            "name": "Jours de la semaine"
           }
         }
       },
@@ -272,16 +272,16 @@
         "name": "Minuterie 9",
         "state_attributes": {
           "enabled": {
-            "name": "activé"
+            "name": "Activé"
           },
           "start": {
-            "name": "début"
+            "name": "Début"
           },
           "end": {
-            "name": "fin"
+            "name": "Fin"
           },
           "weekdays": {
-            "name": "jours de la semaine"
+            "name": "Jours de la semaine"
           }
         }
       },
@@ -289,16 +289,16 @@
         "name": "Minuterie 10",
         "state_attributes": {
           "enabled": {
-            "name": "activé"
+            "name": "Activé"
           },
           "start": {
-            "name": "début"
+            "name": "Début"
           },
           "end": {
-            "name": "fin"
+            "name": "Fin"
           },
           "weekdays": {
-            "name": "jours de la semaine"
+            "name": "Jours de la semaine"
           }
         }
       },
@@ -306,16 +306,16 @@
         "name": "Minuterie 11",
         "state_attributes": {
           "enabled": {
-            "name": "activé"
+            "name": "Activé"
           },
           "start": {
-            "name": "début"
+            "name": "Début"
           },
           "end": {
-            "name": "fin"
+            "name": "Fin"
           },
           "weekdays": {
-            "name": "jours de la semaine"
+            "name": "Jours de la semaine"
           }
         }
       },
@@ -323,16 +323,16 @@
         "name": "Minuterie 12",
         "state_attributes": {
           "enabled": {
-            "name": "activé"
+            "name": "Activé"
           },
           "start": {
-            "name": "début"
+            "name": "Début"
           },
           "end": {
-            "name": "fin"
+            "name": "Fin"
           },
           "weekdays": {
-            "name": "jours de la semaine"
+            "name": "Jours de la semaine"
           }
         }
       },
@@ -340,16 +340,16 @@
         "name": "Minuterie 13",
         "state_attributes": {
           "enabled": {
-            "name": "activé"
+            "name": "Activé"
           },
           "start": {
-            "name": "début"
+            "name": "Début"
           },
           "end": {
-            "name": "fin"
+            "name": "Fin"
           },
           "weekdays": {
-            "name": "jours de la semaine"
+            "name": "Jours de la semaine"
           }
         }
       },
@@ -357,16 +357,16 @@
         "name": "Minuterie 14",
         "state_attributes": {
           "enabled": {
-            "name": "activé"
+            "name": "Activé"
           },
           "start": {
-            "name": "début"
+            "name": "Début"
           },
           "end": {
-            "name": "fin"
+            "name": "Fin"
           },
           "weekdays": {
-            "name": "jours de la semaine"
+            "name": "Jours de la semaine"
           }
         }
       },
