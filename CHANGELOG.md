@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.0.7](https://github.com/geertmeersman/robonect/tree/v1.0.7) (2023-06-10)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.6...v1.0.7)
+
+**Merged pull requests:**
+
+- fix: RuntimeWarning: coroutine 'RobonectClient.state' was never awaited [\#43](https://github.com/geertmeersman/robonect/pull/43) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.0.6](https://github.com/geertmeersman/robonect/tree/v1.0.6) (2023-06-08)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.5...v1.0.6)
