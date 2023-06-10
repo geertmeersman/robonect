@@ -75,7 +75,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         )
 
         try:
-            await hass.async_add_executor_job(client.state)
+            await client.state()
         except ClientConnectorError as exception:
             raise RobonectServiceException(f"Bad response {exception}")
         except ClientResponseError as exception:
