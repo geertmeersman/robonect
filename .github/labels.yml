@@ -1,3 +1,6 @@
+- name: Stale
+  description: Stale
+  color: 393C41
 - name: feat
   description: A new feature
   color: a2eeef
