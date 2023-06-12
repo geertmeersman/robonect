@@ -1,4 +1,4 @@
-name: Create a BETA release
+name: Bump and BETA release
 on:
   workflow_dispatch:
 
