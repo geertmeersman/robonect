@@ -1,4 +1,4 @@
-name: Bump version and Release
+name: Bump and Release
 on: [workflow_dispatch]
 
 concurrency:

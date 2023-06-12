@@ -8,7 +8,7 @@ concurrency:
 
 jobs:
   create_beta_release:
-    name: Create a BETA release
+    name: Bump and BETA release
     runs-on: ubuntu-latest
     permissions:
       contents: write
