@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   hassfest: # https://developers.home-assistant.io/blog/2020/04/16/hassfest
-    name: "Hassfest Validation"
+    name: "Validate Hassfest"
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout the repository"
@@ -27,7 +27,7 @@ jobs:
         uses: "home-assistant/actions/hassfest@master"
 
   hacs: # https://github.com/hacs/action
-    name: "HACS Validation"
+    name: "Validate HACS"
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout the repository"
