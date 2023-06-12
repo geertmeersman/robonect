@@ -5,11 +5,11 @@ on:
   schedule:
     - cron: "0 0 * * *"
   push:
-    branches:
-      - "main"
+    paths:
+      - "custom_components/**"
   pull_request:
-    branches:
-      - "main"
+    paths:
+      - "custom_components/**"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
