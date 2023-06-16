@@ -8,6 +8,7 @@ template: |
 categories:
   - title: 🚀 Features
     labels:
+      - feat
       - feature
       - enhancement
   - title: 🐛 Bug Fixes
@@ -17,6 +18,7 @@ categories:
   - title: ⚠️ Breaking
     labels:
       - breaking
+      - breaking change
   - title: ⚠️ Changes
     labels:
       - changed
@@ -32,7 +34,21 @@ categories:
   - title: 📄 Documentation
     labels:
       - docs
+      - doc
       - documentation
+  - title: 🛠 Refactoring
+    labels:
+      - refactor
+      - style
+  - title: 🚀 Performance
+    labels:
+      - perf
+  - title: 🧪 Test
+    labels:
+      - test
+  - title: 👷 Chore
+    labels:
+      - chore
   - title: 🧩 Dependency Updates
     labels:
       - deps
