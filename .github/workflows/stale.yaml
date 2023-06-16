@@ -1,4 +1,4 @@
-name: "Close stale issues and PR"
+name: "PR & Issues - Close stale iteams"
 on:
   schedule:
     - cron: "30 1 * * *"

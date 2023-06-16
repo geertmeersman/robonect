@@ -1,4 +1,4 @@
-name: "Lint"
+name: "Analysis - Ruff"
 
 on:
   push:
