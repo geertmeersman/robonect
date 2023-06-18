@@ -9,6 +9,6 @@
   "iot_class": "local_push",
   "issue_tracker": "https://github.com/geertmeersman/robonect/issues",
   "mqtt": ["automower/mqtt"],
-  "requirements": ["aiorobonect>=0.2.2"],
+  "requirements": ["aiorobonect>=0.2.3"],
   "version": "v1.0.7"
 }
