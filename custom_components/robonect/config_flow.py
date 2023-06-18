@@ -1,7 +1,7 @@
 """Config flow to configure Robonect MQTT."""
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from abc import ABC
 from collections.abc import Awaitable
 import logging
 from typing import Any
@@ -107,10 +107,6 @@ class RobonectCommonFlow(ABC, FlowHandler):
         self.new_entry_data = RobonectConfigEntryData()
         self.new_title: str | None = None
         self._config_id = None
-
-    @abstractmethod
-    def finish_flow(self) -> FlowResult:
-        """Finish the flow."""
 
     def new_data(self):
         """Construct new data."""
