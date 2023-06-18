@@ -1,4 +1,4 @@
-name: Assign and check PR labels
+name: PR - Assign and check labels
 on:
   pull_request:
     types:

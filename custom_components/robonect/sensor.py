@@ -202,7 +202,7 @@ class RobonectSensor(RobonectEntity, SensorEntity):
                         state.as_dict().get("attributes").get("unix"), self.hass
                     )
             else:
-                if state.state is STATE_UNAVAILABLE:
+                if state.state is STATE_UNAVAILABLE or state.state is STATE_UNKNOWN:
                     self._state = None
                 else:
                     self._state = state.state
