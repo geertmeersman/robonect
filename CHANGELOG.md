@@ -1,5 +1,41 @@
 # Changelog
 
+## [v1.0.8](https://github.com/geertmeersman/robonect/tree/v1.0.8) (2023-06-18)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.8-beta.18...v1.0.8)
+
+**Merged pull requests:**
+
+- fix: bump aiorobonect version [\#51](https://github.com/geertmeersman/robonect/pull/51) ([geertmeersman](https://github.com/geertmeersman))
+
+## [v1.0.8-beta.18](https://github.com/geertmeersman/robonect/tree/v1.0.8-beta.18) (2023-06-18)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.8-beta.17...v1.0.8-beta.18)
+
+## [v1.0.8-beta.17](https://github.com/geertmeersman/robonect/tree/v1.0.8-beta.17) (2023-06-18)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.8-beta.14...v1.0.8-beta.17)
+
+**Merged pull requests:**
+
+- Create FUNDING.yml [\#49](https://github.com/geertmeersman/robonect/pull/49) ([geertmeersman](https://github.com/geertmeersman))
+- refactor: only validate custom\_component changes [\#48](https://github.com/geertmeersman/robonect/pull/48) ([geertmeersman](https://github.com/geertmeersman))
+- refactor: workflow names [\#47](https://github.com/geertmeersman/robonect/pull/47) ([geertmeersman](https://github.com/geertmeersman))
+- fix: Change bump workflow names [\#46](https://github.com/geertmeersman/robonect/pull/46) ([geertmeersman](https://github.com/geertmeersman))
+- refactor: Workflows [\#45](https://github.com/geertmeersman/robonect/pull/45) ([geertmeersman](https://github.com/geertmeersman))
+
+## [v1.0.8-beta.14](https://github.com/geertmeersman/robonect/tree/v1.0.8-beta.14) (2023-06-18)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.7...v1.0.8-beta.14)
+
+**Closed issues:**
+
+- Can't add integration \(module 'homeassistant.components.mqtt' has no attribute 'async\_wait\_for\_mqtt\_client'\) [\#50](https://github.com/geertmeersman/robonect/issues/50)
+
+**Merged pull requests:**
+
+- build\(deps\): bump ruff from 0.0.270 to 0.0.272 [\#44](https://github.com/geertmeersman/robonect/pull/44) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.0.7](https://github.com/geertmeersman/robonect/tree/v1.0.7) (2023-06-10)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.6...v1.0.7)
