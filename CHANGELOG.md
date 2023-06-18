@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.0.10](https://github.com/geertmeersman/robonect/tree/v1.0.10) (2023-06-18)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.9...v1.0.10)
+
+**Merged pull requests:**
+
+- fix: bump aiorobonect to 0.2.5 [\#53](https://github.com/geertmeersman/robonect/pull/53) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.0.9](https://github.com/geertmeersman/robonect/tree/v1.0.9) (2023-06-18)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.8...v1.0.9)
