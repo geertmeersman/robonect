@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.0.11](https://github.com/geertmeersman/robonect/tree/v1.0.11) (2023-06-21)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.10...v1.0.11)
+
+**Merged pull requests:**
+
+- fix: add jsonpath dependency [\#54](https://github.com/geertmeersman/robonect/pull/54) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.0.10](https://github.com/geertmeersman/robonect/tree/v1.0.10) (2023-06-18)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.9...v1.0.10)
