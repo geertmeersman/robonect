@@ -48,11 +48,7 @@ class RobonectEntity(RestoreEntity):
         self.entity_description = description
         self.base_topic = entry.data[CONF_MQTT_TOPIC]
         self.topic = f"{self.base_topic}/{self.entity_description.key}"
-        self.slug = (
-            slugify(self.topic.replace("/", "_"))
-            if self.entity_description.name is None
-            else slugify(self.entity_description.name)
-        )
+        self.slug = slugify(self.topic.replace("/", "_"))
         if self._attr_translation_key is None:
             if self.entity_description.translation_key:
                 self._attr_translation_key = self.entity_description.translation_key
