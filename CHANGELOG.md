@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.0.12](https://github.com/geertmeersman/robonect/tree/v1.0.12) (2023-07-07)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.11...v1.0.12)
+
+**Merged pull requests:**
+
+- fix: HA 2023.7 release fix, references \#56 [\#57](https://github.com/geertmeersman/robonect/pull/57) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.0.272 to 0.0.275 [\#55](https://github.com/geertmeersman/robonect/pull/55) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.0.11](https://github.com/geertmeersman/robonect/tree/v1.0.11) (2023-06-21)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.10...v1.0.11)
