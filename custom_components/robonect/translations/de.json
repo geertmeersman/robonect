@@ -490,8 +490,29 @@
           "25": "Folgt linkem Begrenzungsdraht"
         }
       },
+      "weather_service": {
+        "name": "Wetterdienst"
+      },
+      "control": {
+        "name": "Steuerung"
+      },
+      "control_mode": {
+        "name": "Steuerungsmodus"
+      },
+      "mqtt": {
+        "name": "MQTT"
+      },
+      "mower_status_plain": {
+        "name": "Einfacher Status"
+      },
       "mower_substatus_plain": {
         "name": "Einfacher Unterstatus"
+      },
+      "mower_timer_next_date": {
+        "name": "Nächstes Startdatum"
+      },
+      "mower_timer_next_time": {
+        "name": "Nächste Startzeit"
       },
       "mower_timer_next_unix": {
         "name": "Nächste Startzeit"
