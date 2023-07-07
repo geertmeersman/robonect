@@ -266,6 +266,32 @@ cards:
         type: custom:button-card
   - type: conditional
     conditions:
+      - entity: sensor.automower_mower_stopped
+        state: 'true'
+    card:
+      show_name: false
+      label: The mower is currently stopped.<br>Click here to start.
+      show_label: true
+      show_icon: true
+      layout: icon_label
+      type: custom:button-card
+      tap_action:
+        action: call-service
+        service: button.press
+        service_data:
+          entity_id: button.automower_start
+      entity: button.automower_start
+      styles:
+        icon:
+          - height: 30px
+        card:
+          - border: 0px solid var(--primary-background-color)
+          - background: var(--warning-color)
+          - font-size: 11px
+          - border-radius: 10px
+          - '--keep-background': 'true'
+  - type: conditional
+    conditions:
       - entity: sensor.automower_mower_timer_next_unix
         state_not: Unknown
     card:
