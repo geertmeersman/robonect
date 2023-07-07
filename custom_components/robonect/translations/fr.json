@@ -490,8 +490,29 @@
           "25": "Suit le fil de délimitation gauche"
         }
       },
+      "weather_service": {
+        "name": "Service météo"
+      },
+      "control": {
+        "name": "Contrôle"
+      },
+      "control_mode": {
+        "name": "Mode de contrôle"
+      },
+      "mqtt": {
+        "name": "MQTT"
+      },
+      "mower_status_plain": {
+        "name": "Statut simple"
+      },
       "mower_substatus_plain": {
         "name": "Sous-statut simple"
+      },
+      "mower_timer_next_date": {
+        "name": "Prochaine date de démarrage"
+      },
+      "mower_timer_next_time": {
+        "name": "Prochaine heure de démarrage"
       },
       "mower_timer_next_unix": {
         "name": "Prochaine heure de démarrage"

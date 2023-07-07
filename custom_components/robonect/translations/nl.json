@@ -490,8 +490,29 @@
           "25": "Volgt linker grensdraad"
         }
       },
+      "weather_service": {
+        "name": "Weerdienst"
+      },
+      "control": {
+        "name": "Bediening"
+      },
+      "control_mode": {
+        "name": "Bedieningsmodus"
+      },
+      "mqtt": {
+        "name": "MQTT"
+      },
+      "mower_status_plain": {
+        "name": "Status eenvoudig"
+      },
       "mower_substatus_plain": {
         "name": "Substatus eenvoudig"
+      },
+      "mower_timer_next_date": {
+        "name": "Volgende startdatum"
+      },
+      "mower_timer_next_time": {
+        "name": "Volgende starttijd"
       },
       "mower_timer_next_unix": {
         "name": "Volgende starttijd"

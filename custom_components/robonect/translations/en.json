@@ -490,8 +490,29 @@
           "25": "Following left boundary wire"
         }
       },
+      "weather_service": {
+        "name": "Weather service"
+      },
+      "control": {
+        "name": "Control"
+      },
+      "control_mode": {
+        "name": "Control mode"
+      },
+      "mqtt": {
+        "name": "MQTT"
+      },
+      "mower_status_plain": {
+        "name": "Simple status"
+      },
       "mower_substatus_plain": {
         "name": "Simple substatus"
+      },
+      "mower_timer_next_date": {
+        "name": "Next start date"
+      },
+      "mower_timer_next_time": {
+        "name": "Next start time"
       },
       "mower_timer_next_unix": {
         "name": "Next start time"
