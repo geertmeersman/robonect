@@ -1,5 +1,18 @@
 # Changelog
 
+## [v1.0.13](https://github.com/geertmeersman/robonect/tree/v1.0.13) (2023-07-07)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.12...v1.0.13)
+
+**Closed issues:**
+
+- Robonect not working with HA 2023.7 ? [\#56](https://github.com/geertmeersman/robonect/issues/56)
+
+**Merged pull requests:**
+
+- fix: added missing translations, fixing 'implicitly using device name… [\#59](https://github.com/geertmeersman/robonect/pull/59) ([geertmeersman](https://github.com/geertmeersman))
+- docs: lovelace card to start the mower again when stopped [\#58](https://github.com/geertmeersman/robonect/pull/58) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.0.12](https://github.com/geertmeersman/robonect/tree/v1.0.12) (2023-07-07)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.11...v1.0.12)
