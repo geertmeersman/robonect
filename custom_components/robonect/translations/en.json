@@ -14,7 +14,7 @@
         "data_description": {
           "rest_enabled": "Login credentials and monitored sensors for the REST API will be added in the next screen",
           "mqtt_enabled": "Automatically adds entities when discovered on MQTT\n\n",
-          "mqtt_topic": "Topic name configured in the MQTT section of your {name}.\n\nNote: This is also used in entity_id naming (including REST API monitoring)."
+          "mqtt_topic": "Topic name configured in the MQTT section of your {name}.\n\nNote: This is also used in entity_id naming (including REST API monitoring) and is case sensitive."
         }
       },
       "connection_rest": {
@@ -56,7 +56,7 @@
         },
         "data_description": {
           "mqtt_enabled": "Automatically adds entities when discovered on MQTT\n\n",
-          "mqtt_topic": "Topic name configured in the MQTT section of your {name}.\n\nNote: This is also used in entity_id naming (including REST API monitoring).",
+          "mqtt_topic": "Topic name configured in the MQTT section of your {name}.\n\nNote: This is also used in entity_id naming (including REST API monitoring) and is case sensitive.",
           "rest_enabled": "Login credentials and monitored sensors for the REST API will be added in the next screen"
         }
       },

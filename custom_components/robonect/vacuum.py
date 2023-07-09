@@ -58,11 +58,13 @@ async def async_setup_entry(
         if entry.data[CONF_MQTT_TOPIC] in hass.data[DOMAIN]["vacuum"]:
             return
 
+        _LOGGER.debug("async_mqtt_event_received | Adding MQTT Vacuum")
         hass.data[DOMAIN]["vacuum"].add(entry.data[CONF_MQTT_TOPIC])
 
         async_add_entities([RobonectMqttVacuumEntity(hass, entry)])
 
     if entry.data[CONF_MQTT_ENABLED] is True:
+        _LOGGER.debug("Creating MQTT Vacuum")
         await mqtt.async_subscribe(
             hass, f"{entry.data[CONF_MQTT_TOPIC]}/mqtt", async_mqtt_event_received, 0
         )

@@ -14,7 +14,7 @@
         "data_description": {
           "rest_enabled": "Les informations de connexion et les capteurs à suivre pour l'API Rest seront ajoutés dans l'écran suivant",
           "mqtt_enabled": "Cela ajoutera automatiquement des entités lors de la détection sur MQTT\n\n",
-          "mqtt_topic": "Nom du sujet configuré dans la section MQTT de votre {name}.\n\nNote: Il est également utilisé dans la dénomination des entity_id (pour la surveillance de l'API Rest également)."
+          "mqtt_topic": "Nom du sujet configuré dans la section MQTT de votre {name}.\n\nNote: Il est également utilisé dans la dénomination des entity_id (pour la surveillance de l'API Rest également) et est sensible à la casse."
         }
       },
       "connection_rest": {
@@ -56,7 +56,7 @@
         },
         "data_description": {
           "mqtt_enabled": "Cela ajoutera automatiquement des entités lors de la détection sur MQTT\n\n",
-          "mqtt_topic": "Nom du sujet configuré dans la section MQTT de votre {name}.\n\nNote: Il est également utilisé dans la dénomination des entity_id (pour la surveillance de l'API Rest également).",
+          "mqtt_topic": "Nom du sujet configuré dans la section MQTT de votre {name}.\n\nNote: Il est également utilisé dans la dénomination des entity_id (pour la surveillance de l'API Rest également) et est sensible à la casse.",
           "rest_enabled": "Les informations de connexion et les capteurs à suivre pour l'API Rest seront ajoutés dans l'écran suivant"
         }
       },
