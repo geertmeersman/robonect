@@ -152,11 +152,7 @@ async def async_setup_entry(
                 )
         if not added:
             topic = f"{entry.data[CONF_MQTT_TOPIC]}/{description.key}"
-            slug = (
-                slugify(topic.replace("/", "_"))
-                if description.name is None
-                else slugify(description.name)
-            )
+            slug = slugify(topic.replace("/", "_"))
             if entity_reg.async_get_entity_id(
                 "button", DOMAIN, f"{entry.entry_id}-{description.rest_category}-{slug}"
             ):

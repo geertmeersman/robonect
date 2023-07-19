@@ -159,15 +159,18 @@ class RobonectVacuumEntity(RobonectEntity, StateVacuumEntity, RestoreEntity):
 
     async def async_start(self) -> None:
         """Start."""
-        await self.async_send_command("start")
+        await self.async_send_command("start", {}, topic="control")
 
     async def async_stop(self) -> None:
         """Stop."""
-        await self.async_send_command("stop")
+        await self.async_send_command("stop", {}, topic="control")
 
     async def async_return_to_base(self) -> None:
         """Return home."""
-        await self.async_send_command("mode", {"mode": "home"})
+        if self.entry.data[CONF_MQTT_ENABLED] is True:
+            await self.async_send_command("home", {}, topic="control/mode")
+        else:
+            await self.async_send_command("mode", {"mode": "home"})
 
     # Not supported services
     def clean_spot(self, **kwargs: Any) -> None:
