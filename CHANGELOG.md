@@ -1,5 +1,28 @@
 # Changelog
 
+## [v1.1.0](https://github.com/geertmeersman/robonect/tree/v1.1.0) (2023-07-19)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.1.13-beta.13...v1.1.0)
+
+**Merged pull requests:**
+
+- fix: don't update when timeout & vacuum mqtt commands [\#66](https://github.com/geertmeersman/robonect/pull/66) ([geertmeersman](https://github.com/geertmeersman))
+
+## [v1.1.13-beta.13](https://github.com/geertmeersman/robonect/tree/v1.1.13-beta.13) (2023-07-17)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.14-beta.2...v1.1.13-beta.13)
+
+**Merged pull requests:**
+
+- build\(deps\): update pip requirement from \<23.2,\>=8.0.3 to \>=8.0.3,\<23.3 [\#64](https://github.com/geertmeersman/robonect/pull/64) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.0.275 to 0.0.278 [\#63](https://github.com/geertmeersman/robonect/pull/63) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/setup-python from 4.6.1 to 4.7.0 [\#62](https://github.com/geertmeersman/robonect/pull/62) ([dependabot[bot]](https://github.com/apps/dependabot))
+- fix: added case sensitive remark to config flow [\#60](https://github.com/geertmeersman/robonect/pull/60) ([geertmeersman](https://github.com/geertmeersman))
+
+## [v1.0.14-beta.2](https://github.com/geertmeersman/robonect/tree/v1.0.14-beta.2) (2023-07-09)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.13...v1.0.14-beta.2)
+
 ## [v1.0.13](https://github.com/geertmeersman/robonect/tree/v1.0.13) (2023-07-07)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.0.12...v1.0.13)
