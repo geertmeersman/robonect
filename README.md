@@ -522,6 +522,7 @@ cards:
 
 ![config_flow_1](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/config_flow_1.png)
 ![config_flow_1](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/config_flow_2.png)
+Note: the username and password for accessing the REST API are the same as for the web interface.
 
 **Options**
 
@@ -533,7 +534,7 @@ cards:
 ![options_6](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/options_6.png)
 ![options_7](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/options_7.png)
 
-### Rest sensor and the REST category
+### REST sensor and the REST category
 
 Note: if the sensor is a REST sensor and the category does not equal 'status', the sensor will only be updated during the non-sleeping phase of the mower
 
