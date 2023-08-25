@@ -188,7 +188,7 @@ def dummy_math(input):
 
 
 def hex2weekdays(hex_value):
-    """Convert hex value to active weekdays"""
+    """Convert hex value to active weekdays."""
     binary_value = bin(int(hex_value, 16))[
         2:
     ]  # Convert hex to binary and remove '0b' prefix
