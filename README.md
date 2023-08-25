@@ -522,6 +522,7 @@ cards:
 
 ![config_flow_1](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/config_flow_1.png)
 ![config_flow_1](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/config_flow_2.png)
+
 Note: the username and password for accessing the REST API are the same as for the web interface.
 
 **Options**
