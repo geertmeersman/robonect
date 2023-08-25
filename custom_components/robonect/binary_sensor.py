@@ -1,4 +1,4 @@
-"""Support for Robonect through MQTT."""
+"""Binary sensor platform for Robonect."""
 from __future__ import annotations
 
 import copy

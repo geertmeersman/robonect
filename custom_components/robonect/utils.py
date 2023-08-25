@@ -9,7 +9,7 @@ import re
 from jsonpath import jsonpath
 import pytz
 
-from .const import ATTR_STATE_UNITS
+from .const import ATTR_STATE_UNITS, WEEKDAYS_HEX
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -31,7 +31,7 @@ def float_minutes_to_timestring(float_time, entity=None):
 
 def float_to_timestring(float_time, unit_type="") -> str:
     """Transform float to timestring."""
-    if type(float_time) is str:
+    if isinstance(float_time, str):
         float_time = str_to_float(float_time)
     if unit_type.lower() == "seconds":
         float_time = float_time * 60 * 60
@@ -185,3 +185,17 @@ def has_non_numeric_characters(string, decimal_separator):
 def dummy_math(input):
     """Set Dummy math function."""
     return math.floor(input)
+
+
+def hex2weekdays(hex_value):
+    """Convert hex value to active weekdays"""
+    binary_value = bin(int(hex_value, 16))[
+        2:
+    ]  # Convert hex to binary and remove '0b' prefix
+    active_days = {}
+    for bit, day in WEEKDAYS_HEX.items():
+        if int(binary_value, 2) & bit:
+            active_days.update({day: True})
+        else:
+            active_days.update({day: False})
+    return active_days

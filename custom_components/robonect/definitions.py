@@ -1,4 +1,4 @@
-"""Definitions for Robonect sensors added to MQTT."""
+"""Definitions for Robonect sensors."""
 from __future__ import annotations
 
 from collections.abc import Callable
@@ -10,10 +10,20 @@ from homeassistant.components.sensor import (
     SensorEntityDescription,
     SensorStateClass,
 )
+from homeassistant.components.switch import SwitchEntityDescription
 from homeassistant.const import ELECTRIC_POTENTIAL_VOLT, PERCENTAGE, TEMP_CELSIUS
 from homeassistant.helpers.entity import EntityCategory
 
 from .utils import unix_to_datetime, wifi_signal_to_percentage
+
+
+@dataclass
+class RobonectSwitchEntityDescription(SwitchEntityDescription):
+    """Switch entity description for Robonect."""
+
+    rest: str | None = None
+    rest_category: str | None = None
+    translation_key: str | None = None
 
 
 @dataclass
@@ -48,6 +58,18 @@ BINARY_SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         device_class=BinarySensorDeviceClass.SAFETY,
         entity_category=EntityCategory.DIAGNOSTIC,
         rest_category="health",
+    ),
+)
+
+SWITCHES: tuple[RobonectSwitchEntityDescription, ...] = (
+    RobonectSensorEntityDescription(
+        key=".timer/0",
+        array=True,
+        rest="$.timer.timer.0.enabled",
+        rest_attrs="$.timer.timer.0",
+        icon="mdi:calendar-clock",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        rest_category="timer",
     ),
 )
 
@@ -376,14 +398,5 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         icon="mdi:gesture-pinch",
         entity_category=EntityCategory.DIAGNOSTIC,
         rest_category="ext",
-    ),
-    RobonectSensorEntityDescription(
-        key=".timer/0",
-        array=True,
-        rest="$.timer.timer.0.enabled",
-        rest_attrs="$.timer.timer.0",
-        icon="mdi:calendar-clock",
-        entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="timer",
     ),
 )
