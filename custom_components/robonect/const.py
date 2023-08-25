@@ -115,7 +115,7 @@ SERVICE_JOB_SCHEMA = vol.Schema(
     }
 )
 WEEKDAYS_SHORT = ["mo", "tu", "we", "th", "fr", "sa", "su"]
-SERVICE_TIMER_IDS = list(range(1, 15))
+SERVICE_TIMER_IDS = [str(id) for id in list(range(1, 15))]
 SERVICE_TIMER_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_ENTITY_ID): cv.string,
