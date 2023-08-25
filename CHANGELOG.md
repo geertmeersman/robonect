@@ -1,5 +1,33 @@
 # Changelog
 
+## [v1.2.0](https://github.com/geertmeersman/robonect/tree/v1.2.0) (2023-08-25)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.2.0-beta.5...v1.2.0)
+
+**Documentation:**
+
+- doc: Document REST API username/password [\#74](https://github.com/geertmeersman/robonect/pull/74) ([pdecat](https://github.com/pdecat))
+
+**Closed issues:**
+
+- Option to change timers without entering the whole config \(enable/disable\) [\#69](https://github.com/geertmeersman/robonect/issues/69)
+
+**Merged pull requests:**
+
+- feat: switch entity for timers. Replaces timer sensors, fixes \#69 [\#76](https://github.com/geertmeersman/robonect/pull/76) ([geertmeersman](https://github.com/geertmeersman))
+- fix: timer ID correction in services, fixes \#68 [\#75](https://github.com/geertmeersman/robonect/pull/75) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.0.278 to 0.0.285 [\#72](https://github.com/geertmeersman/robonect/pull/72) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [v1.2.0-beta.5](https://github.com/geertmeersman/robonect/tree/v1.2.0-beta.5) (2023-08-25)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.1.0...v1.2.0-beta.5)
+
+**Closed issues:**
+
+- Robonect V1.1.0 only 35 entity; vacuum missing [\#73](https://github.com/geertmeersman/robonect/issues/73)
+- Changing timer from Service Call fail [\#68](https://github.com/geertmeersman/robonect/issues/68)
+- values unavail if/when spotty wifi [\#65](https://github.com/geertmeersman/robonect/issues/65)
+
 ## [v1.1.0](https://github.com/geertmeersman/robonect/tree/v1.1.0) (2023-07-19)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.1.13-beta.13...v1.1.0)
