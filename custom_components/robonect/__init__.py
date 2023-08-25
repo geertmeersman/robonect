@@ -55,6 +55,7 @@ async def async_setup(hass: HomeAssistant, hass_config: ConfigType) -> bool:
         "binary_sensor": set(),
         "vacuum": set(),
         "sensor": set(),
+        "switch": set(),
     }
     return True
 
@@ -336,6 +337,20 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
 
         config_entry.version = 2
         hass.config_entries.async_update_entry(config_entry, data=new)
+    if config_entry.version == 2:
+        new = {**config_entry.data}
+
+        entity_reg: er.EntityRegistry = er.async_get(hass)
+        ha_entity_reg_list: list[er.RegistryEntry] = er.async_entries_for_config_entry(
+            entity_reg, config_entry.entry_id
+        )
+
+        for entry in ha_entity_reg_list:
+            entry_name = entry.name or entry.original_name
+            if "sensor.automower_timer" in entry.entity_id:
+                _LOGGER.info("Removing entity: %s", entry_name)
+                entity_reg.async_remove(entry.entity_id)
+        config_entry.version = 3
 
     _LOGGER.info("Migration to version %s successful", config_entry.version)
 

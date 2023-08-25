@@ -27,6 +27,10 @@
           "scan_interval": "Aktualisierungsintervall (Minuten)",
           "monitored_variables": "Zu überwachende Sensoren",
           "attributes_units": "Einheiten zu Sensoreigenschaften hinzufügen"
+        },
+        "data_description": {
+          "host": "Die Host-Adresse des Robonect Mähers",
+          "username": "Anmeldeinformationen sind diejenigen, die für den Zugriff auf die Robonect-Web-Oberfläche verwendet werden"
         }
       }
     },
@@ -131,8 +135,8 @@
         "name": "Gesundheitsalarm"
       }
     },
-    "sensor": {
-      "timer_0": {
+    "switch": {
+      "timer_1": {
         "name": "Timer 1",
         "state_attributes": {
           "enabled": {
@@ -149,7 +153,7 @@
           }
         }
       },
-      "timer_1": {
+      "timer_2": {
         "name": "Timer 2",
         "state_attributes": {
           "enabled": {
@@ -166,7 +170,7 @@
           }
         }
       },
-      "timer_2": {
+      "timer_3": {
         "name": "Timer 3",
         "state_attributes": {
           "enabled": {
@@ -183,7 +187,7 @@
           }
         }
       },
-      "timer_3": {
+      "timer_4": {
         "name": "Timer 4",
         "state_attributes": {
           "enabled": {
@@ -200,7 +204,7 @@
           }
         }
       },
-      "timer_4": {
+      "timer_5": {
         "name": "Timer 5",
         "state_attributes": {
           "enabled": {
@@ -217,7 +221,7 @@
           }
         }
       },
-      "timer_5": {
+      "timer_6": {
         "name": "Timer 6",
         "state_attributes": {
           "enabled": {
@@ -234,7 +238,7 @@
           }
         }
       },
-      "timer_6": {
+      "timer_7": {
         "name": "Timer 7",
         "state_attributes": {
           "enabled": {
@@ -251,7 +255,7 @@
           }
         }
       },
-      "timer_7": {
+      "timer_8": {
         "name": "Timer 8",
         "state_attributes": {
           "enabled": {
@@ -268,7 +272,7 @@
           }
         }
       },
-      "timer_8": {
+      "timer_9": {
         "name": "Timer 9",
         "state_attributes": {
           "enabled": {
@@ -285,7 +289,7 @@
           }
         }
       },
-      "timer_9": {
+      "timer_10": {
         "name": "Timer 10",
         "state_attributes": {
           "enabled": {
@@ -302,7 +306,7 @@
           }
         }
       },
-      "timer_10": {
+      "timer_11": {
         "name": "Timer 11",
         "state_attributes": {
           "enabled": {
@@ -319,7 +323,7 @@
           }
         }
       },
-      "timer_11": {
+      "timer_12": {
         "name": "Timer 12",
         "state_attributes": {
           "enabled": {
@@ -336,7 +340,7 @@
           }
         }
       },
-      "timer_12": {
+      "timer_13": {
         "name": "Timer 13",
         "state_attributes": {
           "enabled": {
@@ -353,7 +357,7 @@
           }
         }
       },
-      "timer_13": {
+      "timer_14": {
         "name": "Timer 14",
         "state_attributes": {
           "enabled": {
@@ -369,7 +373,9 @@
             "name": "Wochentage"
           }
         }
-      },
+      }
+    },
+    "sensor": {
       "battery": {
         "name": "Batterie",
         "state_attributes": {

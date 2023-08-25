@@ -29,6 +29,17 @@ class RobonectEnvironment:
 
 
 @dataclass
+class RobonectTimer:
+    """Robonect timer model."""
+
+    enable: bool | False
+    weekdays: str | None
+    weekdays_dict: dict | None
+    start: str | None
+    end: str | None
+
+
+@dataclass
 class RobonectItem:
     """Robonect item model."""
 

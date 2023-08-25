@@ -1,4 +1,4 @@
-"""Config flow to configure Robonect MQTT."""
+"""Config flow to configure Robonect."""
 from __future__ import annotations
 
 from abc import ABC
@@ -510,7 +510,7 @@ class RobonectOptionsFlow(RobonectCommonFlow, OptionsFlow):
 class RobonectConfigFlow(RobonectCommonFlow, ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Robonect."""
 
-    VERSION = 2
+    VERSION = 3
 
     def __init__(self) -> None:
         """Initialize Robonect Config Flow."""
