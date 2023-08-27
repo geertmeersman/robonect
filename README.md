@@ -61,8 +61,9 @@ The **REST sensors**, are updated on a configurable scan interval. When the mowe
     - [Manual](#manual)
   - [Contributions are welcome!](#contributions-are-welcome)
   - [Troubleshooting](#troubleshooting)
-    - [ENABLING DEBUG LOGGING](#enabling-debug-logging)
-    - [DISABLE DEBUG LOGGING AND DOWNLOAD LOGS](#disable-debug-logging-and-download-logs)
+    - [Frequently asked questions](#frequently-asked-questions)
+    - [Enable debug logging](#enable-debug-logging)
+    - [Disable debug logging and download logs](#disable-debug-logging-and-download-logs)
   - [Extra sensor for daily mowing time](#extra-sensor-for-daily-mowing-time)
   - [Lovelace examples](#lovelace-examples)
     - [Mower card with some nice buttons](#mower-card-with-some-nice-buttons)
@@ -71,32 +72,29 @@ The **REST sensors**, are updated on a configurable scan interval. When the mowe
     - [Mowing job](#mowing-job)
     - [Timer](#timer)
     - [Config flow](#config-flow)
-    - [Rest sensor and the REST category](#rest-sensor-and-the-rest-category)
+    - [REST sensor and the REST category](#rest-sensor-and-the-rest-category)
 
 ## Installation
 
-The Pull request is still pending merge for the hacs-default repository. So until that time, add my repository as a custom repository in hacs and the integration will show up.
-
-Explanation: https://hacs.xyz/docs/faq/custom_repositories/
-
-```
-Repository: geertmeersman/robonect
-Category: Integration
-```
-
 ### Using [HACS](https://hacs.xyz/) (recommended)
+
+**Click on this button:**
+
+[![Open your Home Assistant instance and open the repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg?style=flat-square)](https://my.home-assistant.io/redirect/hacs_repository/?owner=geertmeersman&repository=robonect&category=integration)
+
+**or follow these steps:**
 
 1. Simply search for `Robonect` in HACS and install it easily.
 2. Restart Home Assistant
 3. Add the 'Robonect' integration via HA Settings > 'Devices and Services' > 'Integrations'
-4. Provide your Robonect username and password
+4. Provide your Robonect configuration details
 
 ### Manual
 
 1. Copy the `custom_components/robonect` directory of this repository as `config/custom_components/robonect` in your Home Assistant instalation.
 2. Restart Home Assistant
 3. Add the 'robonect' integration via HA Settings > 'Devices and Services' > 'Integrations'
-4. Provide your robonect username and password
+4. Provide your Robonect configuration details
 
 This integration will set up the following platforms.
 
@@ -110,13 +108,17 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 
 ## Troubleshooting
 
-### ENABLING DEBUG LOGGING
+### Frequently asked questions
+
+- I am missing a lot of sensors: please check that the MQTT topic you have entered in the HA config flow equals the MQTT topic in Robonect
+
+### Enable debug logging
 
 To enable debug logging, go to Settings -> Devices & Services and then click the triple dots for the Robonect integration and click Enable Debug Logging.
 
 ![enable-debug-logging](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/enable-debug-logging.gif)
 
-### DISABLE DEBUG LOGGING AND DOWNLOAD LOGS
+### Disable debug logging and download logs
 
 Once you enable debug logging, you ideally need to make the error happen. Run your automation, change up your device or whatever was giving you an error and then come back and disable Debug Logging. Disabling debug logging is the same as enabling, but now you will see Disable Debug Logging. After you disable debug logging, it will automatically prompt you to download your log file. Please provide this logfile.
 
