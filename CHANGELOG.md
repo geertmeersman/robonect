@@ -1,5 +1,16 @@
 # Changelog
 
+## [v1.2.1](https://github.com/geertmeersman/robonect/tree/v1.2.1) (2023-08-31)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.2.0...v1.2.1)
+
+**Merged pull requests:**
+
+- fix: names added for service fields [\#80](https://github.com/geertmeersman/robonect/pull/80) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.0.285 to 0.0.286 [\#79](https://github.com/geertmeersman/robonect/pull/79) ([dependabot[bot]](https://github.com/apps/dependabot))
+- docs: finally merged into HACS default [\#78](https://github.com/geertmeersman/robonect/pull/78) ([geertmeersman](https://github.com/geertmeersman))
+- fix: hex2weekdays, D400 First line should end with a period [\#77](https://github.com/geertmeersman/robonect/pull/77) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.2.0](https://github.com/geertmeersman/robonect/tree/v1.2.0) (2023-08-25)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.2.0-beta.5...v1.2.0)
