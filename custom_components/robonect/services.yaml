@@ -23,7 +23,8 @@ operation_mode:
   description: Set the operation mode of the mower.
   fields:
     mode:
-      description: Operation mode.
+      name: Operation mode
+      description: Operation mode of the mower
       example: "eod"
       default: "auto"
       selector:
@@ -48,16 +49,19 @@ job:
           domain: vacuum
           integration: robonect
     start:
+      name: Start time
       description: Start time 'hh:mm', if omitted, then 'Immediately' applies.
       example: "10:00"
       selector:
         time:
     end:
+      name: End time
       description: End time 'hh:mm'.
       example: "13:00"
       selector:
         time:
     duration:
+      name: Duration
       description: Duration of the job in minutes. If the mower is charging, the 'clock' continues. Omitted if end is set.
       example: "145"
       selector:
@@ -67,6 +71,7 @@ job:
           mode: box
           unit_of_measurement: min
     after:
+      name: After mode
       description: Mode that will be activated after this mowing job is done.
       example: "Auto"
       default: "Auto"
@@ -77,6 +82,7 @@ job:
             - "Home"
             - "End of day"
     corridor:
+      name: Corridor width
       description: Corridor width. If omitted, it will be set to Normal
       example: "Normal"
       default: "Normal"
@@ -95,6 +101,7 @@ job:
             - "8"
             - "9"
     remotestart:
+      name: Remote start
       description: The remote mowing starting point.
       default: "Normal"
       selector:
@@ -121,6 +128,7 @@ timer:
           domain: vacuum
           integration: robonect
     timer:
+      name: Timer
       description: Timer ID
       required: true
       example: "1"
@@ -143,23 +151,27 @@ timer:
             - "13"
             - "14"
     enable:
+      name: Enable
       required: true
       description: Timer enable
       selector:
         boolean:
     start:
+      name: Start time
       required: true
       description: Start time 'hh:mm'
       example: "10:00"
       selector:
         time:
     end:
+      name: End time
       required: true
       description: End time 'hh:mm'
       example: "13:00"
       selector:
         time:
     weekdays:
+      name: Weekdays
       required: true
       description: Weekdays
       selector:
