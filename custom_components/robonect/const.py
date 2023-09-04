@@ -19,6 +19,7 @@ PLATFORMS: Final = [
     Platform.DEVICE_TRACKER,
     Platform.VACUUM,
     Platform.SWITCH,
+    Platform.LAWN_MOWER,
 ]
 
 ATTR_STATE_UNITS = {

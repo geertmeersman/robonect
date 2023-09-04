@@ -693,6 +693,83 @@
         }
       }
     },
+    "lawn_mower": {
+      "automower": {
+        "name": "Robotmaaier",
+        "state": {
+          "0": "Status detecteren",
+          "1": "Geparkeerd",
+          "2": "Maaien",
+          "3": "Laadstation zoeken",
+          "4": "Laden",
+          "5": "Zoeken",
+          "7": "Fout",
+          "8": "Kabelsignaal verloren",
+          "16": "Uit",
+          "17": "Slapen",
+          "18": "Wachten op de garagedeur",
+          "98": "Offline (onmogelijk te verbinden)",
+          "99": "Ongekend"
+        },
+        "state_attributes": {
+          "substatus": {
+            "name": "Sub-status",
+            "state": {
+              "1": "Rijdt",
+              "2": "Buiten",
+              "4": "Wielen slippen!",
+              "6": "Botsing!",
+              "7": "Opgetild!",
+              "8": "Spiraalsnede",
+              "9": "Volgt geleidingsdraad 1 naar het laadstation",
+              "10": "Volgt rechter grensdraad",
+              "11": "Koppelt aan",
+              "12": "Snelladen",
+              "14": "Laden voltooid",
+              "15": "Uitrijhoek",
+              "16": "Volgt geleidingsdraad 1 naar het startpunt",
+              "18": "Geen lussignaal!",
+              "19": "Maaimotor geblokkeerd!",
+              "21": "Volgt geleidingsdraad 2 naar het laadstation",
+              "23": "Volgt geleidingsdraad 2 naar het startpunt",
+              "25": "Volgt linker grensdraad"
+            }
+          },
+          "mode": {
+            "name": "Modus",
+            "state": {
+              "0": "Auto",
+              "1": "Manueel",
+              "2": "Home",
+              "3": "Demo",
+              "98": "Einde van de dag",
+              "99": "Maaiopdracht"
+            }
+          },
+          "status_plain": {
+            "name": "Status"
+          },
+          "distance": {
+            "name": "Afstand van basis"
+          },
+          "status_duration": {
+            "name": "Tijd in huidige status"
+          },
+          "statistic_hours": {
+            "name": "Bedrijfsuren"
+          },
+          "timer_next_unix": {
+            "name": "Volgende starttijd"
+          },
+          "last_synced": {
+            "name": "Laatste synchronisatie"
+          },
+          "blades_quality": {
+            "name": "Kwaliteit messen"
+          }
+        }
+      }
+    },
     "vacuum": {
       "automower": {
         "name": "Robotmaaier",

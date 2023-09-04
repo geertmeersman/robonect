@@ -693,6 +693,83 @@
         }
       }
     },
+    "lawn_mower": {
+      "automower": {
+        "name": "Tondeuse robot",
+        "state": {
+          "0": "Détection de l'état",
+          "1": "Garé",
+          "2": "Tonte en cours",
+          "3": "Recherche de la station de charge",
+          "4": "En charge",
+          "5": "Recherche",
+          "7": "Erreur",
+          "8": "Signal du câble perdu",
+          "16": "Éteint",
+          "17": "En veille",
+          "18": "En attente de la porte du garage",
+          "98": "Hors ligne (ne peut pas se connecter)",
+          "99": "Inconnu"
+        },
+        "state_attributes": {
+          "substatus": {
+            "name": "Sous-état",
+            "state": {
+              "1": "En mouvement",
+              "2": "A l'extérieur",
+              "4": "Les roues glissent !",
+              "6": "Collision !",
+              "7": "Soulevé !",
+              "8": "Coupe en spirale",
+              "9": "Suit le fil guide 1 vers la station de charge",
+              "10": "Suit le fil de délimitation droit",
+              "11": "S'amarrer",
+              "12": "Charge rapide",
+              "14": "Charge terminée",
+              "15": "Angle de sortie",
+              "16": "Suit le fil guide 1 vers le point de départ",
+              "18": "Aucun signal de boucle !",
+              "19": "Le moteur de la tondeuse est bloqué !",
+              "21": "Suit le fil guide 2 vers la station de charge",
+              "23": "Suit le fil guide 2 vers le point de départ",
+              "25": "Suit le fil de délimitation gauche"
+            }
+          },
+          "mode": {
+            "name": "Mode",
+            "state": {
+              "0": "Automatique",
+              "1": "Manuel",
+              "2": "Accueil",
+              "3": "Démo",
+              "98": "Fin de journée",
+              "99": "Mission de tonte"
+            }
+          },
+          "status_plain": {
+            "name": "Statut"
+          },
+          "distance": {
+            "name": "Distance depuis la base"
+          },
+          "status_duration": {
+            "name": "Durée de l'état actuel"
+          },
+          "statistic_hours": {
+            "name": "Heures de fonctionnement"
+          },
+          "timer_next_unix": {
+            "name": "Prochaine heure de démarrage"
+          },
+          "last_synced": {
+            "name": "Dernière synchronisation"
+          },
+          "blades_quality": {
+            "name": "Qualité des lames"
+          }
+        }
+      }
+    },
     "vacuum": {
       "automower": {
         "name": "Tondeuse robot",
