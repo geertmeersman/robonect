@@ -60,18 +60,18 @@ async def async_setup_entry(
         if entry.data[CONF_MQTT_TOPIC] in hass.data[DOMAIN]["lawn_mower"]:
             return
 
-        _LOGGER.debug("async_mqtt_event_received | Adding MQTT Vacuum")
+        _LOGGER.debug("async_mqtt_event_received | Adding MQTT Lawn mower")
         hass.data[DOMAIN]["lawn_mower"].add(entry.data[CONF_MQTT_TOPIC])
 
         async_add_entities([RobonectMqttLawnMowerEntity(hass, entry)])
 
     if entry.data[CONF_MQTT_ENABLED] is True:
-        _LOGGER.debug("Creating MQTT Vacuum")
+        _LOGGER.debug("Creating MQTT Lawn mower")
         await mqtt.async_subscribe(
             hass, f"{entry.data[CONF_MQTT_TOPIC]}/mqtt", async_mqtt_event_received, 0
         )
     elif entry.data[CONF_REST_ENABLED] is True:
-        _LOGGER.debug("Creating REST Vacuum")
+        _LOGGER.debug("Creating REST Lawn mower")
         coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
         if coordinator.data is not None and "status" in coordinator.data:
             async_add_entities(
@@ -87,7 +87,7 @@ async def async_setup_entry(
 
 @dataclass
 class LawnMowerEntityDescription(LawnMowerEntityEntityDescription):
-    """Vacuum entity description for Robonect."""
+    """Lawn mower entity description for Robonect."""
 
     rest_category: str | None = None
 
