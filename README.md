@@ -222,6 +222,21 @@ cards:
             - border: 0px solid var(--primary-background-color)
             - font-size: 11px
         type: custom:button-card
+      - entity: sensor.automower_mower_battery_charge
+        show_entity_picture: true
+        show_name: false
+        font-size: 11px
+        show_state: true
+        show_label: true
+        styles:
+          card:
+            - height: 40px
+            - padding: 5px
+            - margin-top: 10px
+            - border-top: 1px solid var(--state-icon-color)
+            - border: 0px solid var(--primary-background-color)
+            - font-size: 11px
+        type: custom:button-card
       - entity: sensor.automower_wlan_rssi
         show_entity_picture: true
         show_name: false
