@@ -693,6 +693,83 @@
         }
       }
     },
+    "lawn_mower": {
+      "automower": {
+        "name": "Mähroboter",
+        "state": {
+          "0": "Status erkennen",
+          "1": "Geparkt",
+          "2": "Mähen",
+          "3": "Ladestation suchen",
+          "4": "Aufladen",
+          "5": "Suchen",
+          "7": "Fehler",
+          "8": "Signal für Begrenzungskabel verloren",
+          "16": "Aus",
+          "17": "Schlafen",
+          "18": "Warten auf Garagentor",
+          "98": "Offline (kann nicht verbunden werden)",
+          "99": "Unbekannt"
+        },
+        "state_attributes": {
+          "substatus": {
+            "name": "Unterstatus",
+            "state": {
+              "1": "Fährt",
+              "2": "Draußen",
+              "4": "Räder rutschen!",
+              "6": "Kollision!",
+              "7": "Angehoben!",
+              "8": "Spiralschnitt",
+              "9": "Folgt Leitdraht 1 zur Ladestation",
+              "10": "Folgt rechtem Begrenzungsdraht",
+              "11": "Dockt an",
+              "12": "Schnellladung",
+              "14": "Ladung abgeschlossen",
+              "15": "Ausfahrtswinkel",
+              "16": "Folgt Leitdraht 1 zum Startpunkt",
+              "18": "Kein Schleifensignal!",
+              "19": "Mähmotor blockiert!",
+              "21": "Folgt Leitdraht 2 zur Ladestation",
+              "23": "Folgt Leitdraht 2 zum Startpunkt",
+              "25": "Folgt linkem Begrenzungsdraht"
+            }
+          },
+          "mode": {
+            "name": "Modus",
+            "state": {
+              "0": "Auto",
+              "1": "Manuell",
+              "2": "Home",
+              "3": "Demo",
+              "98": "Ende des Tages",
+              "99": "Mähauftrag"
+            }
+          },
+          "status_plain": {
+            "name": "Status"
+          },
+          "distance": {
+            "name": "Entfernung von der Basis"
+          },
+          "status_duration": {
+            "name": "Zeit im aktuellen Status"
+          },
+          "statistic_hours": {
+            "name": "Betriebsstunden"
+          },
+          "timer_next_unix": {
+            "name": "Nächste Startzeit"
+          },
+          "last_synced": {
+            "name": "Letzte Synchronisierung"
+          },
+          "blades_quality": {
+            "name": "Messerqualität"
+          }
+        }
+      }
+    },
     "vacuum": {
       "automower": {
         "name": "Mähroboter",

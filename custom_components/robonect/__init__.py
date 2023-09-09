@@ -56,6 +56,7 @@ async def async_setup(hass: HomeAssistant, hass_config: ConfigType) -> bool:
         "vacuum": set(),
         "sensor": set(),
         "switch": set(),
+        "lawn_mower": set(),
     }
     return True
 

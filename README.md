@@ -12,7 +12,8 @@ A Home Assistant integration to monitor Robonect
 - MQTT listener
 - REST API client
 - All Robonect sensors (if MQTT enabled priority to MQTT sensors over REST)
-- Automower vacuum entity
+- Automower lawn mower entity
+- Automower vacuum entity (remains until the lawn mower entity, introduced in 2023.9 will be fully developed)
 - Buttons (change mode, start, stop, return home, ...)
 - Service calls to Robonect actions, like scheduling a job, modifying a timer
 
@@ -207,6 +208,21 @@ cards:
             - font-size: 11px
         type: custom:button-card
       - entity: sensor.automower_mower_distance
+        show_entity_picture: true
+        show_name: false
+        font-size: 11px
+        show_state: true
+        show_label: true
+        styles:
+          card:
+            - height: 40px
+            - padding: 5px
+            - margin-top: 10px
+            - border-top: 1px solid var(--state-icon-color)
+            - border: 0px solid var(--primary-background-color)
+            - font-size: 11px
+        type: custom:button-card
+      - entity: sensor.automower_mower_battery_charge
         show_entity_picture: true
         show_name: false
         font-size: 11px
