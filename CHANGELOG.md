@@ -1,5 +1,22 @@
 # Changelog
 
+## [v1.3.0](https://github.com/geertmeersman/robonect/tree/v1.3.0) (2023-09-09)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.3.1-beta.2...v1.3.0)
+
+**Merged pull requests:**
+
+- feat: lawn\_mower platform added [\#83](https://github.com/geertmeersman/robonect/pull/83) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.0.286 to 0.0.287 [\#82](https://github.com/geertmeersman/robonect/pull/82) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [v1.3.1-beta.2](https://github.com/geertmeersman/robonect/tree/v1.3.1-beta.2) (2023-09-04)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.2.1...v1.3.1-beta.2)
+
+**Closed issues:**
+
+- New entity type lawnmower [\#81](https://github.com/geertmeersman/robonect/issues/81)
+
 ## [v1.2.1](https://github.com/geertmeersman/robonect/tree/v1.2.1) (2023-08-31)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.2.0...v1.2.1)
