@@ -3,7 +3,7 @@
   "name": "Robonect",
   "codeowners": ["@geertmeersman"],
   "config_flow": true,
-  "dependencies": ["mqtt"],
+  "dependencies": ["mqtt", "lawn_mower"],
   "documentation": "https://github.com/geertmeersman/robonect",
   "integration_type": "hub",
   "iot_class": "local_push",
