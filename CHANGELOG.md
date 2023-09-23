@@ -1,5 +1,15 @@
 # Changelog
 
+## [v1.3.1](https://github.com/geertmeersman/robonect/tree/v1.3.1) (2023-09-23)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.3.0...v1.3.1)
+
+**Merged pull requests:**
+
+- deps: bump aiorobonect [\#86](https://github.com/geertmeersman/robonect/pull/86) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.0.287 to 0.0.290 [\#85](https://github.com/geertmeersman/robonect/pull/85) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/checkout from 3 to 4 [\#84](https://github.com/geertmeersman/robonect/pull/84) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.3.0](https://github.com/geertmeersman/robonect/tree/v1.3.0) (2023-09-09)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.3.1-beta.2...v1.3.0)
