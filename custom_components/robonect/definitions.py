@@ -275,10 +275,18 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
     ),
     RobonectSensorEntityDescription(
         key="weather/data/break",
-        rest="$.none",
+        rest="$.weather.weather.break",
         icon="mdi:stop",
         entity_category=EntityCategory.DIAGNOSTIC,
         rest_category="NONE",
+    ),
+    RobonectSensorEntityDescription(
+        key=".weather/service",
+        rest="$.weather.service.enable",
+        rest_attrs="$.weather",
+        icon="mdi:weather-cloudy",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        rest_category="weather",
     ),
     RobonectSensorEntityDescription(
         key="mower/status",
