@@ -202,6 +202,7 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
             if cleanup:
                 await self.async_trigger_cleanup()
             if items:
+                _LOGGER.debug(f"Returned items: {items}")
                 return items
             return []
 
