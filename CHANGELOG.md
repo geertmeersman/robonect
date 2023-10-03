@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.4.0](https://github.com/geertmeersman/robonect/tree/v1.4.0) (2023-10-03)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.3.1...v1.4.0)
+
+**Merged pull requests:**
+
+- feat: weather service added [\#89](https://github.com/geertmeersman/robonect/pull/89) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.0.290 to 0.0.291 [\#87](https://github.com/geertmeersman/robonect/pull/87) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.3.1](https://github.com/geertmeersman/robonect/tree/v1.3.1) (2023-09-23)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.3.0...v1.3.1)
