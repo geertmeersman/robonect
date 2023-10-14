@@ -1,5 +1,19 @@
 # Changelog
 
+## [v1.4.1](https://github.com/geertmeersman/robonect/tree/v1.4.1) (2023-10-14)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.4.0...v1.4.1)
+
+**Closed issues:**
+
+- Extra info missing for mower [\#90](https://github.com/geertmeersman/robonect/issues/90)
+
+**Merged pull requests:**
+
+- fix: switch error removed when only mqtt is enabled [\#93](https://github.com/geertmeersman/robonect/pull/93) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.0.291 to 0.0.292 [\#92](https://github.com/geertmeersman/robonect/pull/92) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/setup-python from 4.7.0 to 4.7.1 [\#91](https://github.com/geertmeersman/robonect/pull/91) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.4.0](https://github.com/geertmeersman/robonect/tree/v1.4.0) (2023-10-03)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.3.1...v1.4.0)
