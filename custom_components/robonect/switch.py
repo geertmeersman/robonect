@@ -44,6 +44,7 @@ async def async_setup_entry(
 
     if entry.data[CONF_REST_ENABLED] is False:
         _LOGGER.info("Ignoring the Timer switches as REST is not enabled")
+        return
 
     coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
 
@@ -80,7 +81,6 @@ async def async_setup_entry(
         )
     elif entry.data[CONF_REST_ENABLED] is True:
         _LOGGER.debug("Creating REST sensors")
-        coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
         entities: list[RobonectRestSwitch] = []
         if coordinator.data is not None:
             for description in SWITCHES:
