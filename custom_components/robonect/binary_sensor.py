@@ -112,8 +112,8 @@ class RobonectRestBinarySensor(RobonectCoordinatorEntity, RobonectBinarySensor):
         description: RobonectSensorEntityDescription,
     ) -> None:
         """Initialize the sensor."""
-        super().__init__(coordinator, description)
         RobonectBinarySensor.__init__(self, hass, entry, description)
+        super().__init__(coordinator, description)
         self.category = self.entity_description.rest.split(".")[1]
         self.entity_description = description
 
