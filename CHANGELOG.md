@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.4.2](https://github.com/geertmeersman/robonect/tree/v1.4.2) (2023-10-17)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.4.1...v1.4.2)
+
+**Merged pull requests:**
+
+- fix: binary sensor, change init order for RobonectBinarySensor and co… [\#95](https://github.com/geertmeersman/robonect/pull/95) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): update pip requirement from \<23.3,\>=8.0.3 to \>=8.0.3,\<23.4 [\#94](https://github.com/geertmeersman/robonect/pull/94) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.4.1](https://github.com/geertmeersman/robonect/tree/v1.4.1) (2023-10-14)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.4.0...v1.4.1)
