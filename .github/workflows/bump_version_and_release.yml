@@ -44,7 +44,7 @@ jobs:
       - name: 🚀　Add and commit changes
         uses: EndBug/add-and-commit@v9
         with:
-          message: Bump version
+          message: Bump version ${{ steps.release_drafter.outputs.tag_name }}
 
       - name: 📝　Publish release
         uses: release-drafter/release-drafter@v5
@@ -68,7 +68,7 @@ jobs:
       - name: ✅　Commit release notes
         uses: EndBug/add-and-commit@v9
         with:
-          message: Commit release notes
+          message: Commit release notes ${{ steps.release_drafter.outputs.tag_name }}
       - name: Discord notification
         env:
           tag_name: ${{ steps.release_drafter.outputs.tag_name }}
