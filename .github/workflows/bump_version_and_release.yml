@@ -72,7 +72,8 @@ jobs:
 
       - name: 📦 Create zip file
         run: |
-          zip -r "${{ github.event.repository.name }}.zip" custom_components/${{ github.event.repository.name }}
+          cd custom_components/${{ github.event.repository.name }}
+          zip -r "${{ github.event.repository.name }}.zip" .
 
       - name: 📎 Upload zip file to release
         uses: actions/upload-artifact@v2
