@@ -44,7 +44,7 @@ jobs:
       - name: 🚀　Add and commit changes
         uses: EndBug/add-and-commit@v9
         with:
-          message: Bump version
+          message: Bump version ${{ steps.release_drafter.outputs.tag_name }}
 
       - name: 📝　Publish release
         uses: release-drafter/release-drafter@v5
@@ -68,8 +68,25 @@ jobs:
       - name: ✅　Commit release notes
         uses: EndBug/add-and-commit@v9
         with:
-          message: Commit release notes
-      - name: Discord notification
+          message: Commit release notes ${{ steps.release_drafter.outputs.tag_name }}
+
+      - name: 📦 Create zip file
+        run: |
+          zip -r "${{ github.event.repository.name }}.zip" custom_components/${{ github.event.repository.name }}
+
+      - name: 📎 Upload zip file to release
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-artifact
+          path: "${{ github.event.repository.name }}.zip"
+
+      - name: 📝 Update release with zip file
+        run: |
+          gh release upload ${{ steps.release_drafter.outputs.tag_name }} "${{ github.event.repository.name }}.zip"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🚀　Discord notification
         env:
           tag_name: ${{ steps.release_drafter.outputs.tag_name }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
