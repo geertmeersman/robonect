@@ -10,5 +10,5 @@
   "issue_tracker": "https://github.com/geertmeersman/robonect/issues",
   "mqtt": ["automower/mqtt"],
   "requirements": ["aiorobonect>=0.2.8", "jsonpath"],
-  "version": "v1.4.2"
+  "version": "v1.5.0"
 }
