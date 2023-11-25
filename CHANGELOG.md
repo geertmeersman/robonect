@@ -1,5 +1,23 @@
 # Changelog
 
+## [v1.5.0](https://github.com/geertmeersman/robonect/tree/v1.5.0) (2023-11-25)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.4.2...v1.5.0)
+
+**Merged pull requests:**
+
+- fix: config flow fix [\#107](https://github.com/geertmeersman/robonect/pull/107) ([geertmeersman](https://github.com/geertmeersman))
+- fix: move release zip [\#106](https://github.com/geertmeersman/robonect/pull/106) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.1.5 to 0.1.6 [\#105](https://github.com/geertmeersman/robonect/pull/105) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/upload-artifact from 2 to 3 [\#104](https://github.com/geertmeersman/robonect/pull/104) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/github-script from 6 to 7 [\#103](https://github.com/geertmeersman/robonect/pull/103) ([dependabot[bot]](https://github.com/apps/dependabot))
+- fix: Release workflow - remove path from zip [\#102](https://github.com/geertmeersman/robonect/pull/102) ([geertmeersman](https://github.com/geertmeersman))
+- fix: add version tag in commits [\#101](https://github.com/geertmeersman/robonect/pull/101) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.1.4 to 0.1.5 [\#100](https://github.com/geertmeersman/robonect/pull/100) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.1.3 to 0.1.4 [\#99](https://github.com/geertmeersman/robonect/pull/99) ([dependabot[bot]](https://github.com/apps/dependabot))
+- fix: Bump Python and HA [\#98](https://github.com/geertmeersman/robonect/pull/98) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.0.292 to 0.1.3 [\#97](https://github.com/geertmeersman/robonect/pull/97) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.4.2](https://github.com/geertmeersman/robonect/tree/v1.4.2) (2023-10-17)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.4.1...v1.4.2)
