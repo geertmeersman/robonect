@@ -495,7 +495,7 @@ class RobonectOptionsFlow(RobonectCommonFlow, OptionsFlow):
     ) -> FlowResult:
         """Manage Robonect options."""
         return self.async_show_menu(
-            step_id="options_init",
+            step_id="init",
             menu_options=[
                 "connection_options",
                 "brand_type",

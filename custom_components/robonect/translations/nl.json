@@ -48,22 +48,6 @@
   },
   "options": {
     "step": {
-      "connection_options": {
-        "title": "{name} account",
-        "description": "Connectiviteit",
-        "data": {
-          "rest_enabled": "Rest API monitoring",
-          "mqtt_enabled": "MQTT monitoring",
-          "mqtt_topic": "MQTT topic en sensor prefix",
-          "brand": "Merk robotmaaier",
-          "type": "Type robotmaaier"
-        },
-        "data_description": {
-          "mqtt_enabled": "Hiermee worden automatisch entiteiten toegevoegd bij ontdekking op MQTT\n\n",
-          "mqtt_topic": "Topic naam die geconfigureerd is in de MQTT sectie van je {name}.\n\nOpgelet: Deze wordt ook gebruikt in de entity_id naamgeving (van ook de REST API monitoring) en is hoofdlettergevoelig.",
-          "rest_enabled": "De logingegevens en te volgen sensors voor de REST API worden in het volgende scherm toegevoegd"
-        }
-      },
       "host": {
         "title": "Pas je host adres aan",
         "description": "Te doen wanneer het Robonect host adres gewijzigd is",
@@ -106,7 +90,7 @@
           "attributes_units": "Units toevoegen aan sensor attributen"
         }
       },
-      "options_init": {
+      "init": {
         "title": "Opties wijzigen",
         "menu_options": {
           "connection_options": "Connectie methodes",

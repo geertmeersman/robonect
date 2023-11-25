@@ -48,22 +48,6 @@
   },
   "options": {
     "step": {
-      "connection_options": {
-        "title": "Compte {name}",
-        "description": "Connectivité",
-        "data": {
-          "rest_enabled": "Surveillance de l'API Rest",
-          "mqtt_enabled": "Surveillance MQTT",
-          "mqtt_topic": "Sujet MQTT et préfixe du capteur",
-          "brand": "Marque de la tondeuse robot",
-          "type": "Type de tondeuse robot"
-        },
-        "data_description": {
-          "mqtt_enabled": "Cela ajoutera automatiquement des entités lors de la détection sur MQTT\n\n",
-          "mqtt_topic": "Nom du sujet configuré dans la section MQTT de votre {name}.\n\nNote: Il est également utilisé dans la dénomination des entity_id (pour la surveillance de l'API Rest également) et est sensible à la casse.",
-          "rest_enabled": "Les informations de connexion et les capteurs à suivre pour l'API Rest seront ajoutés dans l'écran suivant"
-        }
-      },
       "host": {
         "title": "Modifier votre adresse d'hôte",
         "description": "À faire lorsque l'adresse hôte Robonect a été modifiée",
@@ -106,7 +90,7 @@
           "attributes_units": "Ajouter des unités aux attributs du capteur"
         }
       },
-      "options_init": {
+      "init": {
         "title": "Modifier les options",
         "menu_options": {
           "connection_options": "Méthodes de connexion",
