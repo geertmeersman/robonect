@@ -48,22 +48,6 @@
   },
   "options": {
     "step": {
-      "connection_options": {
-        "title": "{name} account",
-        "description": "Connectivity",
-        "data": {
-          "rest_enabled": "Rest API monitoring",
-          "mqtt_enabled": "MQTT monitoring",
-          "mqtt_topic": "MQTT topic and sensor prefix",
-          "brand": "Robotic mower brand",
-          "type": "Robotic mower type"
-        },
-        "data_description": {
-          "mqtt_enabled": "Automatically adds entities when discovered on MQTT\n\n",
-          "mqtt_topic": "Topic name configured in the MQTT section of your {name}.\n\nNote: This is also used in entity_id naming (including REST API monitoring) and is case sensitive.",
-          "rest_enabled": "Login credentials and monitored sensors for the REST API will be added in the next screen"
-        }
-      },
       "host": {
         "title": "Modify your host address",
         "description": "To be done when the Robonect host address has changed",
@@ -106,7 +90,7 @@
           "attributes_units": "Add units to sensor attributes"
         }
       },
-      "options_init": {
+      "init": {
         "title": "Change options",
         "menu_options": {
           "connection_options": "Connection methods",
