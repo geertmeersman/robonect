@@ -79,7 +79,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         try:
             await client.state()
         except ClientConnectorError as exception:
-            raise RobonectServiceException(f"Bad response {exception}")
+            _LOGGER.debug(f"Client connection failed {exception}")
         except ClientResponseError as exception:
             raise RobonectServiceException(f"Bad response {exception}")
         except ClientError as exception:
@@ -219,7 +219,8 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
                 return items
             return []
         except ClientConnectorError as exception:
-            raise UpdateFailed(f"ConnectionError {exception}") from exception
+            _LOGGER.debug(f"Client connection failed {exception}")
+            return []
         except ClientError as exception:
             raise UpdateFailed(f"Request failed {exception}")
         except TimeoutError:
