@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.5.1](https://github.com/geertmeersman/robonect/tree/v1.5.1) (2023-12-10)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.5.0...v1.5.1)
+
+**Merged pull requests:**
+
+- fix: remove exceptions when mower not available through rest. referen… [\#110](https://github.com/geertmeersman/robonect/pull/110) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump colorlog from 6.7.0 to 6.8.0 [\#108](https://github.com/geertmeersman/robonect/pull/108) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.5.0](https://github.com/geertmeersman/robonect/tree/v1.5.0) (2023-11-25)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.4.2...v1.5.0)
