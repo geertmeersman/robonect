@@ -48,6 +48,14 @@
   },
   "options": {
     "step": {
+      "connection_options": {
+        "title": "Verbindungsmethoden",
+        "description": "Konnectivität",
+        "data": {
+          "rest_enabled": "Überwachung über REST-API",
+          "mqtt_enabled": "Überwachung über MQTT"
+        }
+      },
       "host": {
         "title": "Passen Sie Ihre Hostadresse an",
         "description": "Wenn sich die Robonect-Hostadresse geändert hat",
@@ -77,6 +85,13 @@
           "scan_interval": "Aktualisierungsintervall (Minuten)"
         }
       },
+      "winter_mode": {
+        "title": "Wintermodus",
+        "description": "Aktivieren, wenn der Mäher im Winter gelagert wird",
+        "data": {
+          "winter_mode": "Wintermodus"
+        }
+      },
       "monitored_variables": {
         "title": "Sensoren",
         "description": "Welche Sensoren sollen überwacht werden",
@@ -98,7 +113,8 @@
           "host": "Host",
           "username_password": "Benutzername und Passwort",
           "scan_interval": "Aktualisierungsintervall",
-          "monitored_variables": "Sensoren"
+          "monitored_variables": "Sensoren",
+          "winter_mode": "Wintermodus"
         }
       }
     },
@@ -117,6 +133,9 @@
     "binary_sensor": {
       "health_alarm": {
         "name": "Gesundheitsalarm"
+      },
+      "winter_mode": {
+        "name": "Wintermodus"
       }
     },
     "switch": {
@@ -360,6 +379,9 @@
       }
     },
     "sensor": {
+      "mower_error": {
+        "name": "Aktueller Fehler"
+      },
       "battery": {
         "name": "Batterie",
         "state_attributes": {

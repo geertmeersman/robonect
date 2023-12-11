@@ -48,6 +48,14 @@
   },
   "options": {
     "step": {
+      "connection_options": {
+        "title": "Verbindingsmethoden",
+        "description": "Connectiviteit",
+        "data": {
+          "rest_enabled": "Rest API monitoring",
+          "mqtt_enabled": "MQTT monitoring"
+        }
+      },
       "host": {
         "title": "Pas je host adres aan",
         "description": "Te doen wanneer het Robonect host adres gewijzigd is",
@@ -77,6 +85,13 @@
           "scan_interval": "Update interval (min)"
         }
       },
+      "winter_mode": {
+        "title": "Wintermodus",
+        "description": "Activeer wanneer de grasmaaier wordt opgeslagen tijdens de winter",
+        "data": {
+          "winter_mode": "Wintermodus"
+        }
+      },
       "monitored_variables": {
         "title": "Sensors",
         "description": "Welke sensoren volgen",
@@ -98,7 +113,8 @@
           "host": "Host",
           "username_password": "Gebruikersnaam en wachtwoord",
           "scan_interval": "Update interval",
-          "monitored_variables": "Sensors"
+          "monitored_variables": "Sensors",
+          "winter_mode": "Wintermodus"
         }
       }
     },
@@ -117,6 +133,9 @@
     "binary_sensor": {
       "health_alarm": {
         "name": "Gezondheidsalarm"
+      },
+      "winter_mode": {
+        "name": "Wintermodus"
       }
     },
     "switch": {
@@ -360,6 +379,9 @@
       }
     },
     "sensor": {
+      "mower_error": {
+        "name": "Huidige fout"
+      },
       "battery": {
         "name": "Batterij",
         "state_attributes": {

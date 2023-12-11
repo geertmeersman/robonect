@@ -58,7 +58,7 @@ class RobonectEntity(RestoreEntity):
                 )
         if self._attr_unique_id is None:
             self._attr_unique_id = (
-                f"{entry.entry_id}-{self.entity_description.rest_category}-{self.slug}"
+                f"{entry.entry_id}-{self.entity_description.category}-{self.slug}"
             )
         self.device_identifier = {(DOMAIN, self.base_topic)}
 

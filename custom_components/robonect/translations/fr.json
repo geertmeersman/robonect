@@ -48,6 +48,14 @@
   },
   "options": {
     "step": {
+      "connection_options": {
+        "title": "Méthodes de connexion",
+        "description": "Connectivité",
+        "data": {
+          "rest_enabled": "Surveillance via API REST",
+          "mqtt_enabled": "Surveillance via MQTT"
+        }
+      },
       "host": {
         "title": "Modifier votre adresse d'hôte",
         "description": "À faire lorsque l'adresse hôte Robonect a été modifiée",
@@ -77,6 +85,13 @@
           "scan_interval": "Intervalle de mise à jour (min)"
         }
       },
+      "winter_mode": {
+        "title": "Mode hiver",
+        "description": "Activer lorsque la tondeuse est rangée pendant l'hiver",
+        "data": {
+          "winter_mode": "Mode hiver"
+        }
+      },
       "monitored_variables": {
         "title": "Capteurs",
         "description": "Quels capteurs suivre",
@@ -98,7 +113,8 @@
           "host": "Hôte",
           "username_password": "Nom d'utilisateur et mot de passe",
           "scan_interval": "Intervalle de mise à jour",
-          "monitored_variables": "Capteurs"
+          "monitored_variables": "Capteurs",
+          "winter_mode": "Mode hiver"
         }
       }
     },
@@ -117,6 +133,9 @@
     "binary_sensor": {
       "health_alarm": {
         "name": "Alarme de santé"
+      },
+      "winter_mode": {
+        "name": "Mode hiver"
       }
     },
     "switch": {
@@ -360,6 +379,9 @@
       }
     },
     "sensor": {
+      "mower_error": {
+        "name": "Erreur actuelle"
+      },
       "battery": {
         "name": "Batterie",
         "state_attributes": {

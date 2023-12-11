@@ -1,6 +1,7 @@
 """The Robonect component."""
 from datetime import timedelta
 import logging
+from pathlib import Path
 from typing import Any
 
 from aiohttp import ClientConnectorError, ClientError, ClientResponseError
@@ -17,7 +18,7 @@ from homeassistant.const import (
 )
 from homeassistant.core import HomeAssistant, ServiceCall, callback
 from homeassistant.helpers import device_registry as dr, entity_registry as er
-from homeassistant.helpers.typing import ConfigType
+from homeassistant.helpers.storage import STORAGE_DIR, Store
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .const import (
@@ -29,6 +30,7 @@ from .const import (
     CONF_REST_ENABLED,
     CONF_SUGGESTED_BRAND,
     CONF_SUGGESTED_TYPE,
+    CONF_WINTER_MODE,
     DEFAULT_MQTT_TOPIC,
     DOMAIN,
     EVENT_ROBONECT_RESPONSE,
@@ -48,21 +50,13 @@ from .exceptions import RobonectException, RobonectServiceException
 _LOGGER = logging.getLogger(__name__)
 
 
-async def async_setup(hass: HomeAssistant, hass_config: ConfigType) -> bool:
-    """Set up the Robonect component."""
-    hass.data[DOMAIN] = {
-        "device_tracker": set(),
-        "binary_sensor": set(),
-        "vacuum": set(),
-        "sensor": set(),
-        "switch": set(),
-        "lawn_mower": set(),
-    }
-    return True
-
-
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up the Robonect integration."""
+
+    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = {}
+
+    for platform in PLATFORMS:
+        hass.data[DOMAIN][entry.entry_id].setdefault(platform, set())
 
     if entry.data[CONF_MQTT_ENABLED] is True:
         if not await mqtt.async_wait_for_mqtt_client(hass):
@@ -79,7 +73,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         try:
             await client.state()
         except ClientConnectorError as exception:
-            _LOGGER.debug(f"Client connection failed {exception}")
+            if not entry.data.get(CONF_WINTER_MODE, True):
+                _LOGGER.warning(f"Client connection failed {exception}")
         except ClientResponseError as exception:
             raise RobonectServiceException(f"Bad response {exception}")
         except ClientError as exception:
@@ -89,12 +84,24 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         except Exception as exception:
             raise exception
 
-        hass.data[DOMAIN][entry.entry_id] = coordinator = RobonectDataUpdateCoordinator(
+        storage_dir = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}")
+        if storage_dir.is_file():
+            storage_dir.unlink()
+        storage_dir.mkdir(exist_ok=True)
+        store: Store = Store(hass, 1, f"{DOMAIN}/{entry.entry_id}")
+        dev_reg = dr.async_get(hass)
+
+        hass.data[DOMAIN][entry.entry_id][
+            "coordinator"
+        ] = coordinator = RobonectDataUpdateCoordinator(
             hass,
             entry=entry,
             client=client,
+            dev_reg=dev_reg,
+            store=store,
         )
         await coordinator.async_config_entry_first_refresh()
+
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
     async def timer(service: ServiceCall) -> bool:
@@ -158,12 +165,20 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     return True
 
 
+async def async_remove_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
+    """Handle removal of pubsub subscriptions created during config flow."""
+    storage = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}/{entry.entry_id}")
+    storage.unlink(True)
+    storage_dir = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}")
+    if storage_dir.is_dir() and not any(storage_dir.iterdir()):
+        storage_dir.rmdir()
+
+
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
     unload_ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
     if unload_ok:
         hass.data[DOMAIN].pop(entry.entry_id)
-
     return unload_ok
 
 
@@ -177,11 +192,16 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
         hass: HomeAssistant,
         entry: ConfigEntry,
         client: RobonectClient,
+        dev_reg: dr.DeviceRegistry,
+        store: Store,
     ) -> None:
         """Initialize coordinator."""
         self._debug = _LOGGER.isEnabledFor(logging.DEBUG)
         self.entry = entry
         self.client = client
+        self._device_registry = dev_reg
+        self.store = store
+        self._init = True
         self.hass = hass
         super().__init__(
             hass,
@@ -190,43 +210,49 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
             update_interval=timedelta(minutes=entry.data[CONF_SCAN_INTERVAL]),
         )
 
+    async def async_config_entry_first_refresh(self) -> None:
+        """Refresh data for the first time when a config entry is setup."""
+        self.data = await self.store.async_load() or {}
+        await super().async_config_entry_first_refresh()
+
+    async def get_data(self) -> dict | None:
+        """Get the data from the Robonect client."""
+        data = await self.client.async_cmds(
+            self.entry.data[CONF_MONITORED_VARIABLES], self.data is None or self._init
+        )
+        if self._init:
+            self._init = False
+        for key, value in data.items():
+            self.data[key] = value
+        await self.store.async_save(self.data)
+
     async def _async_update_data(self) -> dict | None:
         """Update data."""
         if self._debug:
             cleanup = False
             if self.data is None:
                 cleanup = True
-            items = await self.client.async_cmds(
-                self.entry.data[CONF_MONITORED_VARIABLES], self.data is None
-            )
+            await self.get_data()
             if cleanup:
                 await self.async_trigger_cleanup()
-            if items:
-                _LOGGER.debug(f"Returned items: {items}")
-                return items
-            return []
+            if self.data:
+                _LOGGER.debug(f"Returned items: {self.data}")
 
         try:
             cleanup = False
             if self.data is None:
                 cleanup = True
-            items = await self.client.async_cmds(
-                self.entry.data[CONF_MONITORED_VARIABLES], self.data is None
-            )
+            await self.get_data()
             if cleanup:
                 await self.async_trigger_cleanup()
-            if items:
-                return items
-            return []
         except ClientConnectorError as exception:
-            _LOGGER.debug(f"Client connection failed {exception}")
-            return []
+            if not self.entry.data.get(CONF_WINTER_MODE, True):
+                _LOGGER.warning(f"Client connection failed {exception}")
         except ClientError as exception:
             raise UpdateFailed(f"Request failed {exception}")
         except TimeoutError:
             _LOGGER.warning("Request timed out")
             # raise UpdateFailed("Request timed out")
-            return []
         except ConnectionError as exception:
             raise UpdateFailed(f"ConnectionError {exception}") from exception
         except RobonectServiceException as exception:
@@ -237,6 +263,10 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
             raise UpdateFailed(f"RobonectException {exception}") from exception
         except Exception as exception:
             raise UpdateFailed(f"Exception {exception}") from exception
+
+        if len(self.data) > 0:
+            return self.data
+        return {}
 
     async def async_trigger_cleanup(self) -> None:
         """Trigger entity cleanup."""
@@ -301,7 +331,7 @@ async def async_send_command(
 ) -> None:
     """Send a command to a Robonect mower."""
 
-    coordinator = hass.data[DOMAIN][entry.entry_id]
+    coordinator = hass.data[DOMAIN][entry.entry_id]["coordinator"]
     if not coordinator:
         _LOGGER.debug("[REST async_send_command] COORDINATOR NOK")
 
@@ -340,6 +370,7 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
 
         config_entry.version = 2
         hass.config_entries.async_update_entry(config_entry, data=new)
+
     if config_entry.version == 2:
         new = {**config_entry.data}
 
@@ -354,6 +385,15 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
                 _LOGGER.info("Removing entity: %s", entry_name)
                 entity_reg.async_remove(entry.entity_id)
         config_entry.version = 3
+        hass.config_entries.async_update_entry(config_entry, data=new)
+
+    if config_entry.version == 3:
+        new = {**config_entry.data}
+
+        new[CONF_WINTER_MODE] = False
+
+        config_entry.version = 4
+        hass.config_entries.async_update_entry(config_entry, data=new)
 
     _LOGGER.info("Migration to version %s successful", config_entry.version)
 

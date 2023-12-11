@@ -13,10 +13,17 @@ from homeassistant.const import (
     STATE_UNAVAILABLE,
 )
 from homeassistant.core import HomeAssistant, State, callback
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import RobonectDataUpdateCoordinator
-from .const import ATTRIBUTION_REST, CONF_ATTRS_UNITS, CONF_REST_ENABLED, DOMAIN
+from .const import (
+    ATTRIBUTION_REST,
+    CONF_ATTRS_UNITS,
+    CONF_REST_ENABLED,
+    CONF_WINTER_MODE,
+    DOMAIN,
+)
 from .definitions import BINARY_SENSORS, RobonectSensorEntityDescription
 from .entity import RobonectCoordinatorEntity, RobonectEntity
 from .utils import adapt_attributes, get_json_dict_path
@@ -33,8 +40,16 @@ async def async_setup_entry(
 
     if entry.data[CONF_REST_ENABLED] is True:
         _LOGGER.debug("Creating REST binary sensors")
-        coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
+        coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id][
+            "coordinator"
+        ]
         entities: list[RobonectRestBinarySensor] = []
+        entities.append(
+            RobonectWinterBinarySensor(
+                hass,
+                entry,
+            )
+        )
         if coordinator.data is not None:
             for description in BINARY_SENSORS:
                 if not description.rest:
@@ -42,17 +57,18 @@ async def async_setup_entry(
                 else:
                     if description.rest == "$.none":
                         continue
-                    if (
-                        description.rest_category
-                        not in entry.data[CONF_MONITORED_VARIABLES]
-                    ):
+                    if description.category not in entry.data[CONF_MONITORED_VARIABLES]:
                         continue
                     path = description.rest
+                if description.category not in coordinator.data:
+                    continue
                 _LOGGER.debug(f"[sensor|async_setup_entry|adding] {path}")
                 if description.array:
                     array = get_json_dict_path(
                         coordinator.data, description.rest_attrs.replace(".0", "")
                     )
+                    if array is None:
+                        continue
                     for idx, item in enumerate(array):
                         _LOGGER.debug(f"Item in array: {item}")
                         desc = copy.copy(description)
@@ -94,9 +110,34 @@ class RobonectBinarySensor(RobonectEntity, BinarySensorEntity):
     ) -> None:
         """Initialize the sensor."""
         super().__init__(hass, entry, description)
-        self.entity_id = f"sensor.{self.slug}"
+        self.entity_id = f"binary_sensor.{self.slug}"
         self._state = None
         self._attributes = {}
+
+
+class RobonectWinterBinarySensor(RobonectBinarySensor):
+    """Representation of a Robonect binary winter sensor."""
+
+    def __init__(
+        self,
+        hass: HomeAssistant,
+        entry: ConfigEntry,
+    ) -> None:
+        """Initialize the sensor."""
+        entity_description = RobonectSensorEntityDescription(
+            key=".winter/mode",
+            rest="$.none",
+            icon="mdi:snowflake",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            category="NONE",
+        )
+
+        super().__init__(hass, entry, entity_description)
+
+    @property
+    def is_on(self) -> bool | None:
+        """Return true if the binary sensor is on."""
+        return self.entry.data[CONF_WINTER_MODE]
 
 
 class RobonectRestBinarySensor(RobonectCoordinatorEntity, RobonectBinarySensor):
@@ -114,7 +155,7 @@ class RobonectRestBinarySensor(RobonectCoordinatorEntity, RobonectBinarySensor):
         """Initialize the sensor."""
         RobonectBinarySensor.__init__(self, hass, entry, description)
         super().__init__(coordinator, description)
-        self.category = self.entity_description.rest.split(".")[1]
+        self.category = self.entity_description.category
         self.entity_description = description
 
     def handle_last_state(self, last_state: State | None) -> None:
@@ -151,8 +192,12 @@ class RobonectRestBinarySensor(RobonectCoordinatorEntity, RobonectBinarySensor):
                 self._attr_is_on = True
             else:
                 self._attr_is_on = False
-        self._attr_is_on = False
-        return
+
+    @property
+    def is_on(self) -> bool | None:
+        """Return true if the binary sensor is on."""
+        self.set_is_on()
+        return self._attr_is_on
 
     def set_extra_attributes(self):
         """Set the attributes for the sensor from coordinator."""

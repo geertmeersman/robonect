@@ -64,6 +64,7 @@ CONF_SUGGESTED_HOST = "10.0.0.99"
 CONF_SUGGESTED_BRAND = "Husqvarna"
 CONF_BRAND = "brand"
 CONF_ENABLE = "enable"
+CONF_WINTER_MODE = "winter_mode"
 
 ATTRIBUTION_REST: Final = "Data provided by Robonect REST"
 ATTRIBUTION_MQTT: Final = "Data provided by Robonect MQTT"
@@ -155,6 +156,7 @@ SENSOR_GROUPS = [
     "portal",
     "push",
     "remote",
+    "report",
     "status",
     "timer",
     "version",

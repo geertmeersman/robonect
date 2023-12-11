@@ -42,10 +42,15 @@ async def async_setup_entry(
     @callback
     def async_mqtt_event_received(msg: mqtt.ReceiveMessage) -> None:
         """Receive set latitude."""
-        if entry.data[CONF_MQTT_TOPIC] in hass.data[DOMAIN]["device_tracker"]:
+        if (
+            entry.data[CONF_MQTT_TOPIC]
+            in hass.data[DOMAIN][entry.entry_id]["device_tracker"]
+        ):
             return
 
-        hass.data[DOMAIN]["device_tracker"].add(entry.data[CONF_MQTT_TOPIC])
+        hass.data[DOMAIN][entry.entry_id]["device_tracker"].add(
+            entry.data[CONF_MQTT_TOPIC]
+        )
 
         async_add_entities([RobonectMqttGPSEntity(hass, entry)])
 
@@ -58,7 +63,9 @@ async def async_setup_entry(
         )
     elif entry.data[CONF_REST_ENABLED] is True:
         _LOGGER.debug("Creating REST device tracker")
-        coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
+        coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id][
+            "coordinator"
+        ]
         if (
             coordinator.data is not None
             and "gps" in coordinator.data
@@ -73,33 +80,13 @@ async def async_setup_entry(
                     )
                 ]
             )
-    """
-    if entry.data[CONF_MQTT_ENABLED] is True:
-    # Restore previously loaded devices
-    dev_reg = dr.async_get(hass)
-    dev_ids = {
-        identifier[1]
-        for device in dev_reg.devices.values()
-        for identifier in device.identifiers
-        if identifier[0] == DOMAIN
-    }
-    if not dev_ids:
-        return
-    entities = []
-    for dev_id in dev_ids:
-        hass.data[DOMAIN]["device_tracker"].add(dev_id)
-            entities.append(RobonectMqttGPSEntity(hass, entry))
-        else:
-            entities.append(RobonectRestGPSEntity(hass, entry, coordinator))
-    async_add_entities(entities)
-    """
 
 
 @dataclass
 class DeviceTrackerEntityDescription(EntityDescription):
     """Device tracker entity description for Robonect."""
 
-    rest_category: str | None = None
+    category: str | None = None
 
 
 class RobonectGPSEntity(RobonectEntity, TrackerEntity, RestoreEntity):
@@ -117,7 +104,7 @@ class RobonectGPSEntity(RobonectEntity, TrackerEntity, RestoreEntity):
         self.entity_description = DeviceTrackerEntityDescription(
             key="gps",
             icon="mdi:robot-mower",
-            rest_category="NONE",
+            category="NONE",
         )
         self.entry = entry
         super().__init__(hass, entry, self.entity_description)
