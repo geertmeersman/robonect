@@ -84,7 +84,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         native_unit_of_measurement=PERCENTAGE,
         entity_category=EntityCategory.DIAGNOSTIC,
         icon="mdi:battery",
-        category="status",
+        category="battery",
         translation_key="battery",
     ),
     RobonectSensorEntityDescription(
@@ -278,7 +278,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         rest="$.weather.weather.break",
         icon="mdi:stop",
         entity_category=EntityCategory.DIAGNOSTIC,
-        category="NONE",
+        category="weather",
     ),
     RobonectSensorEntityDescription(
         key=".weather/service",
