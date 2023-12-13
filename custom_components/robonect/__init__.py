@@ -70,19 +70,19 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             password=entry.data[CONF_PASSWORD],
         )
 
-        try:
-            await client.state()
-        except ClientConnectorError as exception:
-            if not entry.data.get(CONF_WINTER_MODE, True):
+        if not entry.data.get(CONF_WINTER_MODE, True):
+            try:
+                await client.state()
+            except ClientConnectorError as exception:
                 _LOGGER.warning(f"Client connection failed {exception}")
-        except ClientResponseError as exception:
-            raise RobonectServiceException(f"Bad response {exception}")
-        except ClientError as exception:
-            raise RobonectServiceException(f"Request failed {exception}")
-        except TimeoutError:
-            raise RobonectServiceException("Request timed out")
-        except Exception as exception:
-            raise exception
+            except ClientResponseError as exception:
+                raise RobonectServiceException(f"Bad response {exception}")
+            except ClientError as exception:
+                raise RobonectServiceException(f"Request failed {exception}")
+            except TimeoutError:
+                raise RobonectServiceException("Request timed out")
+            except Exception as exception:
+                raise exception
 
         storage_dir = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}")
         if storage_dir.is_file():
@@ -228,41 +228,43 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def _async_update_data(self) -> dict | None:
         """Update data."""
-        if self._debug:
-            cleanup = False
-            if self.data is None:
-                cleanup = True
-            await self.get_data()
-            if cleanup:
-                await self.async_trigger_cleanup()
-            if self.data:
-                _LOGGER.debug(f"Returned items: {self.data}")
+        if not self.entry.data.get(CONF_WINTER_MODE, True):
+            if self._debug:
+                cleanup = False
+                if self.data is None:
+                    cleanup = True
+                await self.get_data()
+                if cleanup:
+                    await self.async_trigger_cleanup()
+                if self.data:
+                    _LOGGER.debug(f"Returned items: {self.data}")
 
-        try:
-            cleanup = False
-            if self.data is None:
-                cleanup = True
-            await self.get_data()
-            if cleanup:
-                await self.async_trigger_cleanup()
-        except ClientConnectorError as exception:
-            if not self.entry.data.get(CONF_WINTER_MODE, True):
+            try:
+                cleanup = False
+                if self.data is None:
+                    cleanup = True
+                await self.get_data()
+                if cleanup:
+                    await self.async_trigger_cleanup()
+            except ClientConnectorError as exception:
                 _LOGGER.warning(f"Client connection failed {exception}")
-        except ClientError as exception:
-            raise UpdateFailed(f"Request failed {exception}")
-        except TimeoutError:
-            _LOGGER.warning("Request timed out")
-            # raise UpdateFailed("Request timed out")
-        except ConnectionError as exception:
-            raise UpdateFailed(f"ConnectionError {exception}") from exception
-        except RobonectServiceException as exception:
-            raise UpdateFailed(f"RobonectServiceException {exception}") from exception
-        except RobonectException as exception:
-            raise UpdateFailed(f"RobonectException {exception}") from exception
-        except ClientResponseError as exception:
-            raise UpdateFailed(f"RobonectException {exception}") from exception
-        except Exception as exception:
-            raise UpdateFailed(f"Exception {exception}") from exception
+            except ClientError as exception:
+                raise UpdateFailed(f"Request failed {exception}")
+            except TimeoutError:
+                _LOGGER.warning("Request timed out")
+                # raise UpdateFailed("Request timed out")
+            except ConnectionError as exception:
+                raise UpdateFailed(f"ConnectionError {exception}") from exception
+            except RobonectServiceException as exception:
+                raise UpdateFailed(
+                    f"RobonectServiceException {exception}"
+                ) from exception
+            except RobonectException as exception:
+                raise UpdateFailed(f"RobonectException {exception}") from exception
+            except ClientResponseError as exception:
+                raise UpdateFailed(f"RobonectException {exception}") from exception
+            except Exception as exception:
+                raise UpdateFailed(f"Exception {exception}") from exception
 
         if len(self.data) > 0:
             return self.data
