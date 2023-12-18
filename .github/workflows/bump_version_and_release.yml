@@ -77,7 +77,7 @@ jobs:
           mv "${{ github.event.repository.name }}.zip" ../..
 
       - name: 📎 Upload zip file to release
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: release-artifact
           path: "${{ github.event.repository.name }}.zip"
