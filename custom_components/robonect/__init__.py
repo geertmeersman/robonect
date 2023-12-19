@@ -4,7 +4,7 @@ import logging
 from pathlib import Path
 from typing import Any
 
-from aiohttp import ClientConnectorError, ClientError, ClientResponseError
+from aiohttp import ClientConnectorError
 from aiorobonect import RobonectClient
 from homeassistant.components import mqtt
 from homeassistant.config_entries import ConfigEntry
@@ -19,7 +19,7 @@ from homeassistant.const import (
 from homeassistant.core import HomeAssistant, ServiceCall, callback
 from homeassistant.helpers import device_registry as dr, entity_registry as er
 from homeassistant.helpers.storage import STORAGE_DIR, Store
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 from .const import (
     CONF_ATTRS_UNITS,
@@ -45,7 +45,7 @@ from .const import (
     SERVICE_TIMER_SCHEMA,
     WEEKDAYS_SHORT,
 )
-from .exceptions import RobonectException, RobonectServiceException
+from .exceptions import RobonectException
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -75,14 +75,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                 await client.state()
             except ClientConnectorError as exception:
                 _LOGGER.warning(f"Client connection failed {exception}")
-            except ClientResponseError as exception:
-                raise RobonectServiceException(f"Bad response {exception}")
-            except ClientError as exception:
-                raise RobonectServiceException(f"Request failed {exception}")
-            except TimeoutError:
-                raise RobonectServiceException("Request timed out")
             except Exception as exception:
-                raise exception
+                _LOGGER.warning(f"Exception: {exception}")
 
         storage_dir = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}")
         if storage_dir.is_file():
@@ -248,23 +242,10 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
                     await self.async_trigger_cleanup()
             except ClientConnectorError as exception:
                 _LOGGER.warning(f"Client connection failed {exception}")
-            except ClientError as exception:
-                raise UpdateFailed(f"Request failed {exception}")
             except TimeoutError:
                 _LOGGER.warning("Request timed out")
-                # raise UpdateFailed("Request timed out")
-            except ConnectionError as exception:
-                raise UpdateFailed(f"ConnectionError {exception}") from exception
-            except RobonectServiceException as exception:
-                raise UpdateFailed(
-                    f"RobonectServiceException {exception}"
-                ) from exception
-            except RobonectException as exception:
-                raise UpdateFailed(f"RobonectException {exception}") from exception
-            except ClientResponseError as exception:
-                raise UpdateFailed(f"RobonectException {exception}") from exception
             except Exception as exception:
-                raise UpdateFailed(f"Exception {exception}") from exception
+                _LOGGER.warning(f"Exception {exception}")
 
         if len(self.data) > 0:
             return self.data
