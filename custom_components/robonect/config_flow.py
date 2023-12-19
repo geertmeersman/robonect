@@ -45,6 +45,7 @@ from .const import (
     CONF_SUGGESTED_BRAND,
     CONF_SUGGESTED_HOST,
     CONF_SUGGESTED_TYPE,
+    CONF_WINTER_MODE,
     DEFAULT_MQTT_TOPIC,
     DEFAULT_SCAN_INTERVAL,
     DOMAIN,
@@ -69,6 +70,7 @@ DEFAULT_ENTRY_DATA = RobonectConfigEntryData(
     monitoried_variables=SENSOR_GROUPS,
     scan_interval=DEFAULT_SCAN_INTERVAL,
     attributes_units=True,
+    winter_mode=False,
 )
 
 
@@ -79,8 +81,6 @@ async def _async_has_devices(_: HomeAssistant) -> bool:
 
 class RobonectFlowHandler(DiscoveryFlowHandler[Awaitable[bool]], domain=DOMAIN):
     """Handle Robonect MQTT DiscoveryFlow. The MQTT step is inherited from the parent class."""
-
-    VERSION = 1
 
     def __init__(self) -> None:
         """Set up the config flow."""
@@ -351,6 +351,32 @@ class RobonectCommonFlow(ABC, FlowHandler):
             errors=errors,
         )
 
+    async def async_step_winter_mode(
+        self, user_input: dict | None = None
+    ) -> FlowResult:
+        """Configure winter mode."""
+        errors: dict = {}
+
+        if user_input is not None:
+            self.new_entry_data |= user_input
+            return self.finish_flow()
+
+        fields = {
+            vol.Required(CONF_WINTER_MODE): bool,
+        }
+
+        return self.async_show_form(
+            step_id="winter_mode",
+            data_schema=self.add_suggested_values_to_schema(
+                vol.Schema(fields),
+                self.initial_data,
+            ),
+            description_placeholders={
+                "name": NAME,
+            },
+            errors=errors,
+        )
+
     async def async_step_brand_type(self, user_input: dict | None = None) -> FlowResult:
         """Configure brand and type."""
         errors: dict = {}
@@ -503,6 +529,7 @@ class RobonectOptionsFlow(RobonectCommonFlow, OptionsFlow):
                 "username_password",
                 "scan_interval",
                 "monitored_variables",
+                "winter_mode",
             ],
         )
 
@@ -510,7 +537,7 @@ class RobonectOptionsFlow(RobonectCommonFlow, OptionsFlow):
 class RobonectConfigFlow(RobonectCommonFlow, ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Robonect."""
 
-    VERSION = 3
+    VERSION = 4
 
     def __init__(self) -> None:
         """Initialize Robonect Config Flow."""

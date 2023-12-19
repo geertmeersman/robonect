@@ -22,7 +22,7 @@ class RobonectSwitchEntityDescription(SwitchEntityDescription):
     """Switch entity description for Robonect."""
 
     rest: str | None = None
-    rest_category: str | None = None
+    category: str | None = None
     translation_key: str | None = None
 
 
@@ -33,7 +33,7 @@ class RobonectSensorEntityDescription(SensorEntityDescription):
     state: Callable | None = None
     rest: str | None = None
     rest_attrs: dict | None = None
-    rest_category: str | None = None
+    category: str | None = None
     translation_key: str | None = None
     array: bool | True = None
 
@@ -57,7 +57,7 @@ BINARY_SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         icon="mdi:medication",
         device_class=BinarySensorDeviceClass.SAFETY,
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="health",
+        category="health",
     ),
 )
 
@@ -69,7 +69,7 @@ SWITCHES: tuple[RobonectSwitchEntityDescription, ...] = (
         rest_attrs="$.timer.timer.0",
         icon="mdi:calendar-clock",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="timer",
+        category="timer",
     ),
 )
 
@@ -84,7 +84,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         native_unit_of_measurement=PERCENTAGE,
         entity_category=EntityCategory.DIAGNOSTIC,
         icon="mdi:battery",
-        rest_category="status",
+        category="battery",
         translation_key="battery",
     ),
     RobonectSensorEntityDescription(
@@ -95,7 +95,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         native_unit_of_measurement=PERCENTAGE,
         entity_category=EntityCategory.DIAGNOSTIC,
         icon="mdi:flash",
-        rest_category="motor",
+        category="motor",
     ),
     RobonectSensorEntityDescription(
         key=".motor/drive/right",
@@ -105,7 +105,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         native_unit_of_measurement=PERCENTAGE,
         entity_category=EntityCategory.DIAGNOSTIC,
         icon="mdi:flash",
-        rest_category="motor",
+        category="motor",
     ),
     RobonectSensorEntityDescription(
         key=".motor/blade",
@@ -114,7 +114,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         native_unit_of_measurement="RPM",
         entity_category=EntityCategory.DIAGNOSTIC,
         icon="mdi:fan",
-        rest_category="motor",
+        category="motor",
     ),
     RobonectSensorEntityDescription(
         key="mower/battery/charge",
@@ -124,14 +124,14 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         native_unit_of_measurement=PERCENTAGE,
         entity_category=EntityCategory.DIAGNOSTIC,
         icon="mdi:battery",
-        rest_category="status",
+        category="status",
     ),
     RobonectSensorEntityDescription(
         key="device/serial",
         rest="$.version.serial",
         entity_category=EntityCategory.DIAGNOSTIC,
         icon="mdi:tag",
-        rest_category="version",
+        category="version",
     ),
     RobonectSensorEntityDescription(
         key="mower/distance",
@@ -140,14 +140,14 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         device_class=SensorDeviceClass.DISTANCE,
         native_unit_of_measurement="m",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="status",
+        category="status",
     ),
     RobonectSensorEntityDescription(
         key="device/name",
         rest="$.status.name",
         icon="mdi:robot-mower",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="status",
+        category="status",
     ),
     RobonectSensorEntityDescription(
         key="health/climate/temperature",
@@ -157,7 +157,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=TEMP_CELSIUS,
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="status",
+        category="status",
     ),
     RobonectSensorEntityDescription(
         key="health/climate/humidity",
@@ -167,7 +167,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=PERCENTAGE,
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="status",
+        category="status",
     ),
     RobonectSensorEntityDescription(
         key="mower/blades/quality",
@@ -176,7 +176,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         native_unit_of_measurement=PERCENTAGE,
         icon="mdi:terraform",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="status",
+        category="status",
     ),
     RobonectSensorEntityDescription(
         key="mower/blades/days",
@@ -186,7 +186,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         state_class=SensorStateClass.TOTAL_INCREASING,
         native_unit_of_measurement="d",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="status",
+        category="status",
     ),
     RobonectSensorEntityDescription(
         key="mower/blades/hours",
@@ -196,14 +196,14 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         state_class=SensorStateClass.TOTAL_INCREASING,
         native_unit_of_measurement="h",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="status",
+        category="status",
     ),
     RobonectSensorEntityDescription(
         key="mower/stopped",
         rest="$.status.status.stopped",
         icon="mdi:stop",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="status",
+        category="status",
     ),
     RobonectSensorEntityDescription(
         key="wlan/rssi",
@@ -214,14 +214,14 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         native_unit_of_measurement=PERCENTAGE,
         icon="mdi:wifi",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="status",
+        category="status",
     ),
     RobonectSensorEntityDescription(
         key="mower/mode",
         rest="$.status.status.mode",
         icon="mdi:auto-mode",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="status",
+        category="status",
     ),
     RobonectSensorEntityDescription(
         key="mower/statistic/hours",
@@ -231,7 +231,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         state_class=SensorStateClass.TOTAL_INCREASING,
         native_unit_of_measurement="h",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="status",
+        category="status",
     ),
     RobonectSensorEntityDescription(
         key="mower/error/code",
@@ -239,7 +239,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         rest_attrs="$.error.errors",
         icon="mdi:alert-circle",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="error",
+        category="error",
     ),
     RobonectSensorEntityDescription(
         key="mower/error/message",
@@ -247,21 +247,21 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         rest_attrs="$.error.errors.0",
         icon="mdi:alert-circle",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="error",
+        category="error",
     ),
     RobonectSensorEntityDescription(
         key="mower/substatus",
         rest="$.none",
         icon="mdi:crosshairs-question",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="NONE",
+        category="NONE",
     ),
     RobonectSensorEntityDescription(
         key="mower/substatus/plain",
         rest="$.none",
         icon="mdi:crosshairs-question",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="NONE",
+        category="NONE",
     ),
     RobonectSensorEntityDescription(
         key="mower/timer/next/unix",
@@ -271,14 +271,14 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         device_class=SensorDeviceClass.TIMESTAMP,
         state=unix_to_datetime,
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="status",
+        category="status",
     ),
     RobonectSensorEntityDescription(
         key="weather/data/break",
         rest="$.weather.weather.break",
         icon="mdi:stop",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="NONE",
+        category="weather",
     ),
     RobonectSensorEntityDescription(
         key=".weather/service",
@@ -286,21 +286,21 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         rest_attrs="$.weather",
         icon="mdi:weather-cloudy",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="weather",
+        category="weather",
     ),
     RobonectSensorEntityDescription(
         key="mower/status",
         rest="$.status.status.status",
         icon="mdi:crosshairs-question",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="status",
+        category="status",
     ),
     RobonectSensorEntityDescription(
         key="mower/status/plain",
         rest="$.none",
         icon="mdi:crosshairs-question",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="NONE",
+        category="NONE",
     ),
     RobonectSensorEntityDescription(
         key="mower/status/duration",
@@ -310,7 +310,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         device_class=SensorDeviceClass.DURATION,
         state_class=SensorStateClass.TOTAL_INCREASING,
         native_unit_of_measurement="min",
-        rest_category="status",
+        category="status",
     ),
     RobonectSensorEntityDescription(
         key="health/voltage/int33",
@@ -320,7 +320,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=ELECTRIC_POTENTIAL_VOLT,
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="health",
+        category="health",
     ),
     RobonectSensorEntityDescription(
         key="health/voltage/ext33",
@@ -330,7 +330,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=ELECTRIC_POTENTIAL_VOLT,
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="health",
+        category="health",
     ),
     RobonectSensorEntityDescription(
         key="health/voltage/batt",
@@ -340,7 +340,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=ELECTRIC_POTENTIAL_VOLT,
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="health",
+        category="health",
     ),
     RobonectSensorEntityDescription(
         key="gps/latitude",
@@ -348,7 +348,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         rest_attrs="$.gps",
         icon="mdi:crosshairs-gps",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="gps",
+        category="gps",
     ),
     RobonectSensorEntityDescription(
         key="gps/longitude",
@@ -356,7 +356,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         rest_attrs="$.gps",
         icon="mdi:crosshairs-gps",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="gps",
+        category="gps",
     ),
     RobonectSensorEntityDescription(
         key="passage/open",
@@ -364,7 +364,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         rest_attrs="$.door",
         icon="mdi:gate-open",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="door",
+        category="door",
     ),
     RobonectSensorEntityDescription(
         key=".clock/time",
@@ -373,7 +373,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         icon="mdi:clock-time-eight-outline",
         device_class=SensorDeviceClass.TIMESTAMP,
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="status",
+        category="status",
     ),
     RobonectSensorEntityDescription(
         key=".ext/gpio1",
@@ -381,7 +381,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         rest_attrs="$.ext.ext.gpio1",
         icon="mdi:gesture-pinch",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="ext",
+        category="ext",
     ),
     RobonectSensorEntityDescription(
         key=".ext/gpio2",
@@ -389,7 +389,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         rest_attrs="$.ext.ext.gpio2",
         icon="mdi:gesture-pinch",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="ext",
+        category="ext",
     ),
     RobonectSensorEntityDescription(
         key=".ext/out1",
@@ -397,7 +397,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         rest_attrs="$.ext.ext.out1",
         icon="mdi:gesture-pinch",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="ext",
+        category="ext",
     ),
     RobonectSensorEntityDescription(
         key=".ext/out2",
@@ -405,6 +405,14 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         rest_attrs="$.ext.ext.out2",
         icon="mdi:gesture-pinch",
         entity_category=EntityCategory.DIAGNOSTIC,
-        rest_category="ext",
+        category="ext",
+    ),
+    RobonectSensorEntityDescription(
+        key=".mower/error",
+        rest="$.status.error.error_code",
+        rest_attrs="$.status.error",
+        icon="mdi:alert",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        category="status",
     ),
 )

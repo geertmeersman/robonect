@@ -46,19 +46,21 @@ async def async_setup_entry(
         _LOGGER.info("Ignoring the Timer switches as REST is not enabled")
         return
 
-    coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
+    coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id][
+        "coordinator"
+    ]
 
     @callback
     def async_mqtt_event_received(msg: mqtt.ReceiveMessage) -> None:
         """Receive set latitude."""
-        if entry.data[CONF_MQTT_TOPIC] in hass.data[DOMAIN]["switch"]:
+        if entry.data[CONF_MQTT_TOPIC] in hass.data[DOMAIN][entry.entry_id]["switch"]:
             return
         topic = msg.topic.replace(timer_topic, "").split("/")
         if topic and topic[0].startswith("ch"):
-            if isinstance(hass.data[DOMAIN]["switch"], set):
-                hass.data[DOMAIN]["switch"] = {}
-            if topic[0] not in hass.data[DOMAIN]["switch"]:
-                hass.data[DOMAIN]["switch"].update(
+            if isinstance(hass.data[DOMAIN][entry.entry_id]["switch"], set):
+                hass.data[DOMAIN][entry.entry_id]["switch"] = {}
+            if topic[0] not in hass.data[DOMAIN][entry.entry_id]["switch"]:
+                hass.data[DOMAIN][entry.entry_id]["switch"].update(
                     {topic[0]: RobonectTimer(False, "", "", "", "")}
                 )
                 async_add_entities(
@@ -68,7 +70,8 @@ async def async_setup_entry(
                         )
                     ]
                 )
-        # hass.data[DOMAIN]["device_tracker"].add(entry.data[CONF_MQTT_TOPIC])
+
+        # hass.data[DOMAIN][entry.entry_id]["device_tracker"].add(entry.data[CONF_MQTT_TOPIC])
 
         # async_add_entities([RobonectMqttGPSEntity(hass, entry)])
 
@@ -94,10 +97,7 @@ async def async_setup_entry(
                         continue
                     if description.rest == "$.none":
                         continue
-                    if (
-                        description.rest_category
-                        not in entry.data[CONF_MONITORED_VARIABLES]
-                    ):
+                    if description.category not in entry.data[CONF_MONITORED_VARIABLES]:
                         continue
                     path = description.rest
                 _LOGGER.debug(f"[async_setup_entry|REST|adding] {path}")
@@ -156,7 +156,7 @@ class RobonectTimerSwitchEntity(RobonectEntity, SwitchEntity, RestoreEntity):
         if description is None:
             self.entity_description = RobonectSwitchEntityDescription(
                 key=f"timer {int(timer_id)+1}",
-                rest_category="timer",
+                category="timer",
                 translation_key=f"timer_{int(timer_id)+1}",
                 rest="$.timer.timer.0.enabled",
                 icon="mdi:calendar-clock",
@@ -167,7 +167,7 @@ class RobonectTimerSwitchEntity(RobonectEntity, SwitchEntity, RestoreEntity):
         self.entry = entry
         self.timer_id = timer_id
         super().__init__(hass, entry, self.entity_description)
-        self.category = self.entity_description.rest.split(".")[1]
+        self.category = self.entity_description.category
         self.entity_id = f"switch.{self.slug}"
         self._attributes = None
         self._is_on = False

@@ -7,11 +7,7 @@ import logging
 from homeassistant.components import mqtt
 from homeassistant.components.sensor import SensorDeviceClass, SensorEntity
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import (
-    CONF_MONITORED_VARIABLES,
-    STATE_UNAVAILABLE,
-    STATE_UNKNOWN,
-)
+from homeassistant.const import CONF_MONITORED_VARIABLES, STATE_UNKNOWN
 from homeassistant.core import Event, HomeAssistant, callback
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -60,9 +56,9 @@ async def async_setup_entry(
         """Process events as sensors."""
         slug = slugify(msg.topic.replace("/", "_"))
         entity_id = f"sensor.{slug}"
-        if slug in hass.data[DOMAIN]["sensor"]:
+        if slug in hass.data[DOMAIN][entry.entry_id]["sensor"]:
             return
-        hass.data[DOMAIN]["sensor"].add(slug)
+        hass.data[DOMAIN][entry.entry_id]["sensor"].add(slug)
 
         if entity_id not in added_entities:
             description_key = msg.topic.replace(f"{entry.data[CONF_MQTT_TOPIC]}/", "")
@@ -81,7 +77,9 @@ async def async_setup_entry(
 
     if entry.data[CONF_REST_ENABLED] is True:
         _LOGGER.debug("Creating REST sensors")
-        coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
+        coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id][
+            "coordinator"
+        ]
         entities: list[RobonectRestSensor] = []
         entities.append(
             RobonectServiceSensor(
@@ -92,7 +90,7 @@ async def async_setup_entry(
                     rest="$.service.call.result",
                     icon="mdi:book-information-variant",
                     entity_category=EntityCategory.DIAGNOSTIC,
-                    rest_category="NONE",
+                    category="NONE",
                 ),
             )
         )
@@ -108,17 +106,18 @@ async def async_setup_entry(
                         continue
                     if description.rest == "$.none":
                         continue
-                    if (
-                        description.rest_category
-                        not in entry.data[CONF_MONITORED_VARIABLES]
-                    ):
+                    if description.category not in entry.data[CONF_MONITORED_VARIABLES]:
                         continue
                     path = description.rest
+                if description.category not in coordinator.data:
+                    continue
                 _LOGGER.debug(f"[async_setup_entry|REST|adding] {path}")
                 if description.array:
                     array = get_json_dict_path(
                         coordinator.data, description.rest_attrs.replace(".0", "")
                     )
+                    if array is None:
+                        continue
                     for idx, item in enumerate(array):
                         _LOGGER.debug(
                             f"[async_setup_entry|REST|adding] Item in array: {item}"
@@ -187,6 +186,7 @@ class RobonectSensor(RobonectEntity, SensorEntity):
                     self._state = state
             self.update_ha_state()
 
+        """
         if state := await self.async_get_last_state():
             if state.state in [STATE_UNAVAILABLE, STATE_UNKNOWN]:
                 _LOGGER.debug(f"Restoring state for: {self.entity_id} => {state.state}")
@@ -209,7 +209,7 @@ class RobonectSensor(RobonectEntity, SensorEntity):
             self._attributes = state.attributes
         else:
             _LOGGER.debug(f"Last state is none for {self._attr_unique_id}")
-
+        """
         if self.entry.data[CONF_MQTT_ENABLED] is True:
             await mqtt.async_subscribe(self.hass, self.topic, message_received, 1)
 
@@ -278,7 +278,7 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
         """Initialize the sensor."""
         super().__init__(coordinator, description)
         RobonectSensor.__init__(self, hass, entry, description)
-        self.category = self.entity_description.rest.split(".")[1]
+        self.category = self.entity_description.category
         self.entity_description = description
 
     @callback
@@ -294,11 +294,6 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
             state = get_json_dict_path(
                 self.coordinator.data, self.entity_description.rest
             )
-            if self.entity_description.rest == "$.health.health.alarm":
-                for alarm in state:
-                    if state[alarm]:
-                        return True
-                return False
             if state is not None:
                 state = copy.copy(state)
                 if isinstance(state, str):
@@ -310,17 +305,20 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
                 elif self.entity_description.rest == "$.status.status.duration":
                     state = state / 60
                 self._state = state
+            else:
+                self._state = STATE_UNKNOWN
 
     @property
     def native_value(self):
         """Return the status of the sensor."""
+        self.set_state()
         return self._state
 
     def set_extra_attributes(self):
         """Set the attributes for the sensor from coordinator."""
         if len(self.coordinator.data) and self.category in self.coordinator.data:
             attributes = {
-                "last_synced": self.last_synced,
+                "last_synced": self.coordinator.data[self.category]["sync_time"],
                 "category": self.category,
             }
             if self.entity_description.rest_attrs:

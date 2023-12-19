@@ -57,11 +57,14 @@ async def async_setup_entry(
     @callback
     def async_mqtt_event_received(msg: mqtt.ReceiveMessage) -> None:
         """Receive set latitude."""
-        if entry.data[CONF_MQTT_TOPIC] in hass.data[DOMAIN]["lawn_mower"]:
+        if (
+            entry.data[CONF_MQTT_TOPIC]
+            in hass.data[DOMAIN][entry.entry_id]["lawn_mower"]
+        ):
             return
 
         _LOGGER.debug("async_mqtt_event_received | Adding MQTT Lawn mower")
-        hass.data[DOMAIN]["lawn_mower"].add(entry.data[CONF_MQTT_TOPIC])
+        hass.data[DOMAIN][entry.entry_id]["lawn_mower"].add(entry.data[CONF_MQTT_TOPIC])
 
         async_add_entities([RobonectMqttLawnMowerEntity(hass, entry)])
 
@@ -72,7 +75,9 @@ async def async_setup_entry(
         )
     elif entry.data[CONF_REST_ENABLED] is True:
         _LOGGER.debug("Creating REST Lawn mower")
-        coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
+        coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id][
+            "coordinator"
+        ]
         if coordinator.data is not None and "status" in coordinator.data:
             async_add_entities(
                 [
@@ -89,7 +94,7 @@ async def async_setup_entry(
 class LawnMowerEntityDescription(LawnMowerEntityEntityDescription):
     """Lawn mower entity description for Robonect."""
 
-    rest_category: str | None = None
+    category: str | None = None
 
 
 class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
@@ -113,7 +118,7 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
         self.entity_description = LawnMowerEntityDescription(
             key="automower",
             icon="mdi:robot-mower",
-            rest_category="NONE",
+            category="NONE",
         )
         self.entry = entry
         super().__init__(hass, entry, self.entity_description)

@@ -30,7 +30,7 @@ _LOGGER = logging.getLogger(__name__)
 class RobonectButtonEntityDescription(ButtonEntityDescription):
     """Sensor entity description for Robonect."""
 
-    rest_category: str | None = None
+    category: str | None = None
     cmd: str | None = None
     params: dict | None = None
     topic: str | None = None
@@ -44,7 +44,7 @@ BUTTON_TYPES = (
         icon="mdi:backup-restore",
         cmd="error",
         params={"reset": 1},
-        rest_category="NONE",
+        category="NONE",
     ),
     RobonectButtonEntityDescription(
         key="home",
@@ -52,7 +52,7 @@ BUTTON_TYPES = (
         topic="control/mode",
         cmd="mode",
         params={"mode": "home"},
-        rest_category="NONE",
+        category="NONE",
     ),
     RobonectButtonEntityDescription(
         key="eod",
@@ -60,42 +60,42 @@ BUTTON_TYPES = (
         topic="control/mode",
         cmd="mode",
         params={"mode": "eod"},
-        rest_category="NONE",
+        category="NONE",
     ),
     RobonectButtonEntityDescription(
         key="stop",
         icon="mdi:stop",
         topic="control",
         cmd="stop",
-        rest_category="NONE",
+        category="NONE",
     ),
     RobonectButtonEntityDescription(
         key="reboot",
         icon="mdi:restart",
         cmd="service",
         params={"reboot": 1},
-        rest_category="NONE",
+        category="NONE",
     ),
     RobonectButtonEntityDescription(
         key="shutdown",
         icon="mdi:power",
         cmd="service",
         params={"shutdown": 1},
-        rest_category="NONE",
+        category="NONE",
     ),
     RobonectButtonEntityDescription(
         key="sleep",
         icon="mdi:sleep",
         cmd="service",
         params={"sleep": 1},
-        rest_category="NONE",
+        category="NONE",
     ),
     RobonectButtonEntityDescription(
         key="start",
         icon="mdi:play",
         topic="control",
         cmd="start",
-        rest_category="NONE",
+        category="NONE",
     ),
     RobonectButtonEntityDescription(
         key="auto",
@@ -103,7 +103,7 @@ BUTTON_TYPES = (
         topic="control/mode",
         cmd="mode",
         params={"mode": "auto"},
-        rest_category="NONE",
+        category="NONE",
     ),
     RobonectButtonEntityDescription(
         key="man",
@@ -111,7 +111,7 @@ BUTTON_TYPES = (
         topic="control/mode",
         cmd="mode",
         params={"mode": "man"},
-        rest_category="NONE",
+        category="NONE",
     ),
 )
 
@@ -133,7 +133,9 @@ async def async_setup_entry(
 
     entities = []
     if entry.data[CONF_REST_ENABLED] is True:
-        coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
+        coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id][
+            "coordinator"
+        ]
     for description in BUTTON_TYPES:
         added = False
         if entry.data[CONF_MQTT_ENABLED] is True and description.topic is not None:
@@ -142,7 +144,7 @@ async def async_setup_entry(
         if entry.data[CONF_REST_ENABLED] is True:
             coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][
                 entry.entry_id
-            ]
+            ]["coordinator"]
             if (
                 entry.data[CONF_MQTT_ENABLED] is True and description.topic is None
             ) or entry.data[CONF_MQTT_ENABLED] is False:
@@ -154,7 +156,7 @@ async def async_setup_entry(
             topic = f"{entry.data[CONF_MQTT_TOPIC]}/{description.key}"
             slug = slugify(topic.replace("/", "_"))
             if entity_reg.async_get_entity_id(
-                "button", DOMAIN, f"{entry.entry_id}-{description.rest_category}-{slug}"
+                "button", DOMAIN, f"{entry.entry_id}-{description.category}-{slug}"
             ):
                 entity_reg.async_remove(f"button.{slug}")
     async_add_entities(entities)

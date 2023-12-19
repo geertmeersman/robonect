@@ -19,6 +19,7 @@ class RobonectConfigEntryData(TypedDict):
     monitored_variables: dict | None
     scan_interval: int | None
     attributes_units: bool | True
+    winter_mode: bool | True
 
 
 @dataclass

@@ -48,6 +48,14 @@
   },
   "options": {
     "step": {
+      "connection_options": {
+        "title": "Connection methods",
+        "description": "Connectivity",
+        "data": {
+          "rest_enabled": "Rest API monitoring",
+          "mqtt_enabled": "MQTT monitoring"
+        }
+      },
       "host": {
         "title": "Modify your host address",
         "description": "To be done when the Robonect host address has changed",
@@ -77,6 +85,13 @@
           "scan_interval": "Update interval (min)"
         }
       },
+      "winter_mode": {
+        "title": "Winter mode",
+        "description": "Activate when the mower is stored during winter",
+        "data": {
+          "winter_mode": "Winter mode"
+        }
+      },
       "monitored_variables": {
         "title": "Sensors",
         "description": "Which sensors to track",
@@ -98,7 +113,8 @@
           "host": "Host",
           "username_password": "Username and password",
           "scan_interval": "Update interval",
-          "monitored_variables": "Sensors"
+          "monitored_variables": "Sensors",
+          "winter_mode": "Winter mode"
         }
       }
     },
@@ -117,6 +133,9 @@
     "binary_sensor": {
       "health_alarm": {
         "name": "Health alarm"
+      },
+      "winter_mode": {
+        "name": "Winter mode"
       }
     },
     "switch": {
@@ -360,6 +379,9 @@
       }
     },
     "sensor": {
+      "mower_error": {
+        "name": "Current error"
+      },
       "battery": {
         "name": "Battery",
         "state_attributes": {
