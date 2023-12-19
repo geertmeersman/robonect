@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.5.3](https://github.com/geertmeersman/robonect/tree/v1.5.3) (2023-12-19)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.5.2...v1.5.3)
+
+**Merged pull requests:**
+
+- fix: ignore connection issues [\#119](https://github.com/geertmeersman/robonect/pull/119) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.5.2](https://github.com/geertmeersman/robonect/tree/v1.5.2) (2023-12-19)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.5.1-beta.20...v1.5.2)
