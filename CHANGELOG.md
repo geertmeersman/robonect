@@ -1,5 +1,35 @@
 # Changelog
 
+## [v1.5.2](https://github.com/geertmeersman/robonect/tree/v1.5.2) (2023-12-19)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.5.1-beta.20...v1.5.2)
+
+**Merged pull requests:**
+
+- build\(deps\): bump ruff from 0.1.7 to 0.1.8 [\#118](https://github.com/geertmeersman/robonect/pull/118) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/upload-artifact from 3 to 4 [\#117](https://github.com/geertmeersman/robonect/pull/117) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump github/codeql-action from 2 to 3 [\#116](https://github.com/geertmeersman/robonect/pull/116) ([dependabot[bot]](https://github.com/apps/dependabot))
+- feat: Winter mode and data store, references \#88, \#109 [\#115](https://github.com/geertmeersman/robonect/pull/115) ([geertmeersman](https://github.com/geertmeersman))
+
+## [v2.5.1-beta.20](https://github.com/geertmeersman/robonect/tree/v2.5.1-beta.20) (2023-12-13)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.1-beta.7...v2.5.1-beta.20)
+
+**Merged pull requests:**
+
+- build\(deps\): bump ruff from 0.1.6 to 0.1.7 [\#114](https://github.com/geertmeersman/robonect/pull/114) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump heinrichreimer/github-changelog-generator-action from 2.3 to 2.4 [\#113](https://github.com/geertmeersman/robonect/pull/113) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/setup-python from 4.7.1 to 5.0.0 [\#112](https://github.com/geertmeersman/robonect/pull/112) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/stale from 8 to 9 [\#111](https://github.com/geertmeersman/robonect/pull/111) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [v1.6.1-beta.7](https://github.com/geertmeersman/robonect/tree/v1.6.1-beta.7) (2023-12-12)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.1-beta.4...v1.6.1-beta.7)
+
+## [v1.6.1-beta.4](https://github.com/geertmeersman/robonect/tree/v1.6.1-beta.4) (2023-12-12)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.5.1...v1.6.1-beta.4)
+
 ## [v1.5.1](https://github.com/geertmeersman/robonect/tree/v1.5.1) (2023-12-10)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.5.0...v1.5.1)
