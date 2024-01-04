@@ -1,5 +1,19 @@
 # Changelog
 
+## [v1.5.4](https://github.com/geertmeersman/robonect/tree/v1.5.4) (2024-01-04)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.5.3...v1.5.4)
+
+**Closed issues:**
+
+- Disabling while offline in winter mode [\#109](https://github.com/geertmeersman/robonect/issues/109)
+- Restore entities at restart when mower is unavailable? [\#88](https://github.com/geertmeersman/robonect/issues/88)
+
+**Merged pull requests:**
+
+- fix: Deprecated units, references \#121 [\#122](https://github.com/geertmeersman/robonect/pull/122) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.1.8 to 0.1.9 [\#120](https://github.com/geertmeersman/robonect/pull/120) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.5.3](https://github.com/geertmeersman/robonect/tree/v1.5.3) (2023-12-19)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.5.2...v1.5.3)
