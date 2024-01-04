@@ -11,7 +11,7 @@ from homeassistant.components.sensor import (
     SensorStateClass,
 )
 from homeassistant.components.switch import SwitchEntityDescription
-from homeassistant.const import ELECTRIC_POTENTIAL_VOLT, PERCENTAGE, TEMP_CELSIUS
+from homeassistant.const import PERCENTAGE, UnitOfElectricPotential, UnitOfTemperature
 from homeassistant.helpers.entity import EntityCategory
 
 from .utils import unix_to_datetime, wifi_signal_to_percentage
@@ -155,7 +155,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         icon="mdi:thermometer",
         device_class=SensorDeviceClass.TEMPERATURE,
         state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=TEMP_CELSIUS,
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         entity_category=EntityCategory.DIAGNOSTIC,
         category="status",
     ),
@@ -318,7 +318,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         icon="mdi:flash",
         device_class=SensorDeviceClass.VOLTAGE,
         state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=ELECTRIC_POTENTIAL_VOLT,
+        native_unit_of_measurement=UnitOfElectricPotential.VOLT,
         entity_category=EntityCategory.DIAGNOSTIC,
         category="health",
     ),
@@ -328,7 +328,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         icon="mdi:flash",
         device_class=SensorDeviceClass.VOLTAGE,
         state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=ELECTRIC_POTENTIAL_VOLT,
+        native_unit_of_measurement=UnitOfElectricPotential.VOLT,
         entity_category=EntityCategory.DIAGNOSTIC,
         category="health",
     ),
@@ -338,7 +338,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         icon="mdi:flash",
         device_class=SensorDeviceClass.VOLTAGE,
         state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=ELECTRIC_POTENTIAL_VOLT,
+        native_unit_of_measurement=UnitOfElectricPotential.VOLT,
         entity_category=EntityCategory.DIAGNOSTIC,
         category="health",
     ),
