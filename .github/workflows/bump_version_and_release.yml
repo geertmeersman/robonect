@@ -24,7 +24,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 📝　Draft release
-        uses: release-drafter/release-drafter@v5
+        uses: release-drafter/release-drafter@v6
         id: release_drafter
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -47,7 +47,7 @@ jobs:
           message: Bump version ${{ steps.release_drafter.outputs.tag_name }}
 
       - name: 📝　Publish release
-        uses: release-drafter/release-drafter@v5
+        uses: release-drafter/release-drafter@v6
         id: release_published
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -59,7 +59,7 @@ jobs:
           message: Bump version
 
       - name: 📝　Publish release
-        uses: release-drafter/release-drafter@v5
+        uses: release-drafter/release-drafter@v6
         id: release_published
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
