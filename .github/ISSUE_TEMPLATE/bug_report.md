@@ -26,13 +26,13 @@ If applicable, add screenshots to help explain your problem.
 **Log information**
 If possible activate debug logging on the component as mentioned below.
 
-https://www.home-assistant.io/integrations/logger/
+<https://www.home-assistant.io/integrations/logger/>
 
-```
+```yaml
 logger:
   default: warning
   logs:
-    custom_components.nexxtmove: debug
+    custom_components.robonect: debug
 ```
 
 **Additional context**
