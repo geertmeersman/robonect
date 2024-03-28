@@ -1,5 +1,36 @@
 # Changelog
 
+## [v1.6.0](https://github.com/geertmeersman/robonect/tree/v1.6.0) (2024-03-28)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.5.4...v1.6.0)
+
+**Closed issues:**
+
+- Sensors OK, Mower does not respond to commands from HASS [\#138](https://github.com/geertmeersman/robonect/issues/138)
+- Duplicate battery sensor [\#127](https://github.com/geertmeersman/robonect/issues/127)
+- TEMP\_CELSIUS used by robonect is a deprecated constant [\#121](https://github.com/geertmeersman/robonect/issues/121)
+
+**Merged pull requests:**
+
+- fix: icons.json for services/hassfest [\#142](https://github.com/geertmeersman/robonect/pull/142) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.3.3 to 0.3.4 [\#141](https://github.com/geertmeersman/robonect/pull/141) ([dependabot[bot]](https://github.com/apps/dependabot))
+- refactor: improve github workflows [\#140](https://github.com/geertmeersman/robonect/pull/140) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.3.2 to 0.3.3 [\#139](https://github.com/geertmeersman/robonect/pull/139) ([dependabot[bot]](https://github.com/apps/dependabot))
+- docs: bug\_report markdown [\#137](https://github.com/geertmeersman/robonect/pull/137) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.3.0 to 0.3.2 [\#136](https://github.com/geertmeersman/robonect/pull/136) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.2.2 to 0.3.0 [\#135](https://github.com/geertmeersman/robonect/pull/135) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.2.1 to 0.2.2 [\#134](https://github.com/geertmeersman/robonect/pull/134) ([dependabot[bot]](https://github.com/apps/dependabot))
+- refactor: lint [\#133](https://github.com/geertmeersman/robonect/pull/133) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.2.0 to 0.2.1 [\#132](https://github.com/geertmeersman/robonect/pull/132) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): update pip requirement from \<23.4,\>=8.0.3 to \>=8.0.3,\<24.1 [\#131](https://github.com/geertmeersman/robonect/pull/131) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.1.14 to 0.2.0 [\#130](https://github.com/geertmeersman/robonect/pull/130) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump release-drafter/release-drafter from 5 to 6 [\#129](https://github.com/geertmeersman/robonect/pull/129) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump colorlog from 6.8.0 to 6.8.2 [\#128](https://github.com/geertmeersman/robonect/pull/128) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.1.13 to 0.1.14 [\#126](https://github.com/geertmeersman/robonect/pull/126) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/dependency-review-action from 3 to 4 [\#125](https://github.com/geertmeersman/robonect/pull/125) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.1.11 to 0.1.13 [\#124](https://github.com/geertmeersman/robonect/pull/124) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.1.9 to 0.1.11 [\#123](https://github.com/geertmeersman/robonect/pull/123) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.5.4](https://github.com/geertmeersman/robonect/tree/v1.5.4) (2024-01-04)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.5.3...v1.5.4)
