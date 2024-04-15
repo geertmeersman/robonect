@@ -1,5 +1,18 @@
 # Changelog
 
+## [v1.6.1](https://github.com/geertmeersman/robonect/tree/v1.6.1) (2024-04-15)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.0...v1.6.1)
+
+**Closed issues:**
+
+- Wrong "status\_plain" after Winter [\#144](https://github.com/geertmeersman/robonect/issues/144)
+
+**Merged pull requests:**
+
+- fix: state check for binary sensor, references \#145 [\#147](https://github.com/geertmeersman/robonect/pull/147) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.3.4 to 0.3.7 [\#146](https://github.com/geertmeersman/robonect/pull/146) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.6.0](https://github.com/geertmeersman/robonect/tree/v1.6.0) (2024-03-28)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.5.4...v1.6.0)
