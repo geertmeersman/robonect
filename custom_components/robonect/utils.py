@@ -89,8 +89,12 @@ def wifi_signal_to_percentage(signal_strength, entity=None):
     """Convert wifi signal in dBm to percentage."""
     # Define the maximum and minimum WiFi signal strengths
     signal_strength = int(signal_strength)
-    max_signal_strength = -30  # dBm
-    min_signal_strength = -100  # dBm
+    max_signal_strength = -60  # dBm
+    min_signal_strength = -90  # dBm
+
+    # Input validation
+    if not isinstance(signal_strength, int | float):
+        return 0
 
     # Convert the input signal strength to a percentage
     percentage = (
