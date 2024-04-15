@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.6.2](https://github.com/geertmeersman/robonect/tree/v1.6.2) (2024-04-15)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.1...v1.6.2)
+
+**Merged pull requests:**
+
+- fix: improvement for wifi % calculation [\#148](https://github.com/geertmeersman/robonect/pull/148) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.6.1](https://github.com/geertmeersman/robonect/tree/v1.6.1) (2024-04-15)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.0...v1.6.1)
