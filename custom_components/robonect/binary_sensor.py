@@ -182,10 +182,11 @@ class RobonectRestBinarySensor(RobonectCoordinatorEntity, RobonectBinarySensor):
                 self.coordinator.data, self.entity_description.rest
             )
             if self.entity_description.rest == "$.health.health.alarm":
-                for alarm in state:
-                    if state[alarm]:
-                        self._attr_is_on = True
-                        return
+                if state is not None:
+                    for alarm in state:
+                        if state[alarm]:
+                            self._attr_is_on = True
+                            return
                 self._attr_is_on = False
                 return
             if state is True:
