@@ -6,7 +6,6 @@ from collections.abc import Awaitable
 import logging
 from typing import Any
 
-import aiohttp
 from aiorobonect import RobonectClient
 from homeassistant.components import mqtt
 from homeassistant.config_entries import ConfigEntry, ConfigFlow, OptionsFlow
@@ -34,6 +33,7 @@ from homeassistant.helpers.selector import (
     TextSelectorType,
 )
 from homeassistant.helpers.typing import UNDEFINED
+import httpx
 import voluptuous as vol
 
 from .const import (
@@ -268,16 +268,14 @@ class RobonectCommonFlow(ABC, FlowHandler):
             except AssertionError as exception:
                 errors["base"] = "cannot_connect"
                 _LOGGER.debug(f"[async_step_password|login] AssertionError {exception}")
-            except aiohttp.ClientConnectorError:
-                errors["base"] = "cannot_connect"
-            except ConnectionError:
+            except httpx.ConnectError:
                 errors["base"] = "cannot_connect"
             except RobonectServiceException:
                 errors["base"] = "service_error"
             except BadCredentialsException:
                 errors["base"] = "invalid_auth"
             except Exception as e:
-                if isinstance(e, aiohttp.ClientResponseError):
+                if isinstance(e, httpx.HTTPStatusError):
                     errors["base"] = "invalid_auth"
                 else:
                     errors["base"] = "unknown"
@@ -298,6 +296,7 @@ class RobonectCommonFlow(ABC, FlowHandler):
                     password=user_input[CONF_PASSWORD],
                 )
                 return self.finish_flow()
+            errors = test["errors"]
 
         fields = {
             vol.Required(CONF_USERNAME): cv.string,
@@ -423,6 +422,7 @@ class RobonectCommonFlow(ABC, FlowHandler):
                     host=user_input[CONF_HOST],
                 )
                 return self.finish_flow()
+            errors = test["errors"]
 
         fields = {
             vol.Required(CONF_HOST): cv.string,
