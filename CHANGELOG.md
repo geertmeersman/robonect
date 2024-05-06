@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.6.4](https://github.com/geertmeersman/robonect/tree/v1.6.4) (2024-05-06)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.3...v1.6.4)
+
+**Merged pull requests:**
+
+- fix: bump aiorobonect version [\#155](https://github.com/geertmeersman/robonect/pull/155) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.6.3](https://github.com/geertmeersman/robonect/tree/v1.6.3) (2024-05-06)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.2...v1.6.3)
