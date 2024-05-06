@@ -4,7 +4,6 @@ import logging
 from pathlib import Path
 from typing import Any
 
-from aiohttp import ClientConnectorError
 from aiorobonect import RobonectClient
 from homeassistant.components import mqtt
 from homeassistant.config_entries import ConfigEntry
@@ -69,12 +68,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             username=entry.data[CONF_USERNAME],
             password=entry.data[CONF_PASSWORD],
         )
-
         if not entry.data.get(CONF_WINTER_MODE, True):
             try:
                 await client.state()
-            except ClientConnectorError as exception:
-                _LOGGER.warning(f"Client connection failed {exception}")
             except Exception as exception:
                 _LOGGER.warning(f"Exception: {exception}")
 
@@ -240,10 +236,6 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
                 await self.get_data()
                 if cleanup:
                     await self.async_trigger_cleanup()
-            except ClientConnectorError as exception:
-                _LOGGER.warning(f"Client connection failed {exception}")
-            except TimeoutError:
-                _LOGGER.warning("Request timed out")
             except Exception as exception:
                 _LOGGER.warning(f"Exception {exception}")
 
