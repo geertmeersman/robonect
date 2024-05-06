@@ -1,5 +1,43 @@
 # Changelog
 
+## [v1.6.3](https://github.com/geertmeersman/robonect/tree/v1.6.3) (2024-05-06)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.2...v1.6.3)
+
+**Closed issues:**
+
+- Exception 0 warnings [\#152](https://github.com/geertmeersman/robonect/issues/152)
+- No "Reset error" button  [\#151](https://github.com/geertmeersman/robonect/issues/151)
+- Error adding entity binary\_sensor.robonect\_health\_alarm for domain binary\_sensor with platform robonect [\#145](https://github.com/geertmeersman/robonect/issues/145)
+
+**Merged pull requests:**
+
+- fix: replace aiohttp by httpx, fixes \#152 [\#154](https://github.com/geertmeersman/robonect/pull/154) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.4.2 to 0.4.3 [\#153](https://github.com/geertmeersman/robonect/pull/153) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.1 to 0.4.2 [\#150](https://github.com/geertmeersman/robonect/pull/150) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.3.7 to 0.4.1 [\#149](https://github.com/geertmeersman/robonect/pull/149) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [v1.6.2](https://github.com/geertmeersman/robonect/tree/v1.6.2) (2024-04-15)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.1...v1.6.2)
+
+**Merged pull requests:**
+
+- fix: improvement for wifi % calculation [\#148](https://github.com/geertmeersman/robonect/pull/148) ([geertmeersman](https://github.com/geertmeersman))
+
+## [v1.6.1](https://github.com/geertmeersman/robonect/tree/v1.6.1) (2024-04-15)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.0...v1.6.1)
+
+**Closed issues:**
+
+- Wrong "status\_plain" after Winter [\#144](https://github.com/geertmeersman/robonect/issues/144)
+
+**Merged pull requests:**
+
+- fix: state check for binary sensor, references \#145 [\#147](https://github.com/geertmeersman/robonect/pull/147) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.3.4 to 0.3.7 [\#146](https://github.com/geertmeersman/robonect/pull/146) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.6.0](https://github.com/geertmeersman/robonect/tree/v1.6.0) (2024-03-28)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.5.4...v1.6.0)
