@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.6.5](https://github.com/geertmeersman/robonect/tree/v1.6.5) (2024-05-23)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.4...v1.6.5)
+
+**Merged pull requests:**
+
+- fix: take https scheme into account [\#159](https://github.com/geertmeersman/robonect/pull/159) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.4.3 to 0.4.4 [\#156](https://github.com/geertmeersman/robonect/pull/156) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.6.4](https://github.com/geertmeersman/robonect/tree/v1.6.4) (2024-05-06)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.3...v1.6.4)
