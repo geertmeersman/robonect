@@ -1,4 +1,5 @@
 """Support for Robonect through MQTT."""
+
 from __future__ import annotations
 
 import copy

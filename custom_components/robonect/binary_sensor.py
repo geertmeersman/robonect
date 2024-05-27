@@ -1,4 +1,5 @@
 """Binary sensor platform for Robonect."""
+
 from __future__ import annotations
 
 import copy

@@ -1,4 +1,5 @@
 """Config flow to configure Robonect."""
+
 from __future__ import annotations
 
 from abc import ABC

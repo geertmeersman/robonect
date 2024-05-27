@@ -3,45 +3,45 @@
     "step": {
       "connection_methods": {
         "title": "Configuration du compte {name}",
-        "description": "Connectivité",
+        "description": "Connectivit\u00e9",
         "data": {
           "rest_enabled": "Surveillance de l'API Rest",
           "mqtt_enabled": "Surveillance MQTT",
-          "mqtt_topic": "Sujet MQTT et préfixe du capteur",
+          "mqtt_topic": "Sujet MQTT et pr\u00e9fixe du capteur",
           "brand": "Marque de la tondeuse robot",
           "type": "Type de tondeuse robot"
         },
         "data_description": {
-          "rest_enabled": "Les informations de connexion et les capteurs à suivre pour l'API Rest seront ajoutés dans l'écran suivant",
-          "mqtt_enabled": "Cela ajoutera automatiquement des entités lors de la détection sur MQTT\n\n",
-          "mqtt_topic": "Nom du sujet configuré dans la section MQTT de votre {name}.\n\nNote: Il est également utilisé dans la dénomination des entity_id (pour la surveillance de l'API Rest également) et est sensible à la casse."
+          "rest_enabled": "Les informations de connexion et les capteurs \u00e0 suivre pour l'API Rest seront ajout\u00e9s dans l'\u00e9cran suivant",
+          "mqtt_enabled": "Cela ajoutera automatiquement des entit\u00e9s lors de la d\u00e9tection sur MQTT\n\n",
+          "mqtt_topic": "Nom du sujet configur\u00e9 dans la section MQTT de votre {name}.\n\nNote: Il est \u00e9galement utilis\u00e9 dans la d\u00e9nomination des entity_id (pour la surveillance de l'API Rest \u00e9galement) et est sensible \u00e0 la casse."
         }
       },
       "connection_rest": {
         "title": "Configuration du compte {name} - REST",
         "description": "Configurez votre compte {name}.\n",
         "data": {
-          "host": "Hôte",
+          "host": "H\u00f4te",
           "username": "Utilisateur",
           "password": "Mot de passe",
-          "scan_interval": "Intervalle de mise à jour (min)",
-          "monitored_variables": "Capteurs à suivre",
-          "attributes_units": "Ajouter des unités aux attributs du capteur"
+          "scan_interval": "Intervalle de mise \u00e0 jour (min)",
+          "monitored_variables": "Capteurs \u00e0 suivre",
+          "attributes_units": "Ajouter des unit\u00e9s aux attributs du capteur"
         },
         "data_description": {
-          "host": "L'adresse hôte de la tondeuse Robonect",
-          "username": "Les identifiants de connexion sont ceux utilisés pour accéder à l'interface web Robonect"
+          "host": "L'adresse h\u00f4te de la tondeuse Robonect",
+          "username": "Les identifiants de connexion sont ceux utilis\u00e9s pour acc\u00e9der \u00e0 l'interface web Robonect"
         }
       }
     },
     "abort": {
-      "already_configured": "Le compte est déjà configuré"
+      "already_configured": "Le compte est d\u00e9j\u00e0 configur\u00e9"
     },
     "error": {
       "cannot_connect": "Impossible de se connecter",
-      "topic_used": "Le sujet MQTT est déjà utilisé",
+      "topic_used": "Le sujet MQTT est d\u00e9j\u00e0 utilis\u00e9",
       "invalid_auth": "Authentification invalide | {exception}",
-      "mqtt_disabled": "L'intégration MQTT n'est pas disponible.\nAjoutez-la à Home Assistant (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nVous pouvez bien sûr choisir d'utiliser uniquement la surveillance de l'API Rest.",
+      "mqtt_disabled": "L'int\u00e9gration MQTT n'est pas disponible.\nAjoutez-la \u00e0 Home Assistant (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nVous pouvez bien s\u00fbr choisir d'utiliser uniquement la surveillance de l'API Rest.",
       "unknown": "Erreur inattendue | {exception}",
       "service_error": "Service non disponible"
     }
@@ -49,18 +49,18 @@
   "options": {
     "step": {
       "connection_options": {
-        "title": "Méthodes de connexion",
-        "description": "Connectivité",
+        "title": "M\u00e9thodes de connexion",
+        "description": "Connectivit\u00e9",
         "data": {
           "rest_enabled": "Surveillance via API REST",
           "mqtt_enabled": "Surveillance via MQTT"
         }
       },
       "host": {
-        "title": "Modifier votre adresse d'hôte",
-        "description": "À faire lorsque l'adresse hôte Robonect a été modifiée",
+        "title": "Modifier votre adresse d'h\u00f4te",
+        "description": "\u00c0 faire lorsque l'adresse h\u00f4te Robonect a \u00e9t\u00e9 modifi\u00e9e",
         "data": {
-          "host": "Hôte"
+          "host": "H\u00f4te"
         }
       },
       "brand_type": {
@@ -72,22 +72,22 @@
       },
       "username_password": {
         "title": "Modifier votre nom d'utilisateur et votre mot de passe",
-        "description": "À faire lorsque vous avez modifié vos références de compte",
+        "description": "\u00c0 faire lorsque vous avez modifi\u00e9 vos r\u00e9f\u00e9rences de compte",
         "data": {
           "username": "Utilisateur",
           "password": "Mot de passe"
         }
       },
       "scan_interval": {
-        "title": "Intervalle de mise à jour",
-        "description": "Modifier l'intervalle de mise à jour pour actualiser les capteurs",
+        "title": "Intervalle de mise \u00e0 jour",
+        "description": "Modifier l'intervalle de mise \u00e0 jour pour actualiser les capteurs",
         "data": {
-          "scan_interval": "Intervalle de mise à jour (min)"
+          "scan_interval": "Intervalle de mise \u00e0 jour (min)"
         }
       },
       "winter_mode": {
         "title": "Mode hiver",
-        "description": "Activer lorsque la tondeuse est rangée pendant l'hiver",
+        "description": "Activer lorsque la tondeuse est rang\u00e9e pendant l'hiver",
         "data": {
           "winter_mode": "Mode hiver"
         }
@@ -102,29 +102,29 @@
           "track_timer": "Minuterie",
           "track_hour": "Heure",
           "track_error": "Erreurs",
-          "attributes_units": "Ajouter des unités aux attributs du capteur"
+          "attributes_units": "Ajouter des unit\u00e9s aux attributs du capteur"
         }
       },
       "init": {
         "title": "Modifier les options",
         "menu_options": {
-          "connection_options": "Méthodes de connexion",
+          "connection_options": "M\u00e9thodes de connexion",
           "brand_type": "Marque et type",
-          "host": "Hôte",
+          "host": "H\u00f4te",
           "username_password": "Nom d'utilisateur et mot de passe",
-          "scan_interval": "Intervalle de mise à jour",
+          "scan_interval": "Intervalle de mise \u00e0 jour",
           "monitored_variables": "Capteurs",
           "winter_mode": "Mode hiver"
         }
       }
     },
     "abort": {
-      "already_configured": "Le compte est déjà configuré"
+      "already_configured": "Le compte est d\u00e9j\u00e0 configur\u00e9"
     },
     "error": {
       "cannot_connect": "Impossible de se connecter",
       "invalid_auth": "Authentification invalide",
-      "mqtt_disabled": "Intégration MQTT indisponible.\nAjoutez-la à Home Assistant (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nVous pouvez bien sûr choisir d'utiliser uniquement la surveillance de l'API REST.",
+      "mqtt_disabled": "Int\u00e9gration MQTT indisponible.\nAjoutez-la \u00e0 Home Assistant (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nVous pouvez bien s\u00fbr choisir d'utiliser uniquement la surveillance de l'API REST.",
       "unknown": "Erreur inattendue",
       "service_error": "Service indisponible"
     }
@@ -132,7 +132,7 @@
   "entity": {
     "binary_sensor": {
       "health_alarm": {
-        "name": "Alarme de santé"
+        "name": "Alarme de sant\u00e9"
       },
       "winter_mode": {
         "name": "Mode hiver"
@@ -143,10 +143,10 @@
         "name": "Minuterie 1",
         "state_attributes": {
           "enabled": {
-            "name": "Activé"
+            "name": "Activ\u00e9"
           },
           "start": {
-            "name": "Début"
+            "name": "D\u00e9but"
           },
           "end": {
             "name": "Fin"
@@ -160,10 +160,10 @@
         "name": "Minuterie 2",
         "state_attributes": {
           "enabled": {
-            "name": "Activé"
+            "name": "Activ\u00e9"
           },
           "start": {
-            "name": "Début"
+            "name": "D\u00e9but"
           },
           "end": {
             "name": "Fin"
@@ -177,10 +177,10 @@
         "name": "Minuterie 3",
         "state_attributes": {
           "enabled": {
-            "name": "Activé"
+            "name": "Activ\u00e9"
           },
           "start": {
-            "name": "Début"
+            "name": "D\u00e9but"
           },
           "end": {
             "name": "Fin"
@@ -194,10 +194,10 @@
         "name": "Minuterie 4",
         "state_attributes": {
           "enabled": {
-            "name": "Activé"
+            "name": "Activ\u00e9"
           },
           "start": {
-            "name": "Début"
+            "name": "D\u00e9but"
           },
           "end": {
             "name": "Fin"
@@ -211,10 +211,10 @@
         "name": "Minuterie 5",
         "state_attributes": {
           "enabled": {
-            "name": "Activé"
+            "name": "Activ\u00e9"
           },
           "start": {
-            "name": "Début"
+            "name": "D\u00e9but"
           },
           "end": {
             "name": "Fin"
@@ -228,10 +228,10 @@
         "name": "Minuterie 6",
         "state_attributes": {
           "enabled": {
-            "name": "Activé"
+            "name": "Activ\u00e9"
           },
           "start": {
-            "name": "Début"
+            "name": "D\u00e9but"
           },
           "end": {
             "name": "Fin"
@@ -245,10 +245,10 @@
         "name": "Minuterie 7",
         "state_attributes": {
           "enabled": {
-            "name": "Activé"
+            "name": "Activ\u00e9"
           },
           "start": {
-            "name": "Début"
+            "name": "D\u00e9but"
           },
           "end": {
             "name": "Fin"
@@ -262,10 +262,10 @@
         "name": "Minuterie 8",
         "state_attributes": {
           "enabled": {
-            "name": "Activé"
+            "name": "Activ\u00e9"
           },
           "start": {
-            "name": "Début"
+            "name": "D\u00e9but"
           },
           "end": {
             "name": "Fin"
@@ -279,10 +279,10 @@
         "name": "Minuterie 9",
         "state_attributes": {
           "enabled": {
-            "name": "Activé"
+            "name": "Activ\u00e9"
           },
           "start": {
-            "name": "Début"
+            "name": "D\u00e9but"
           },
           "end": {
             "name": "Fin"
@@ -296,10 +296,10 @@
         "name": "Minuterie 10",
         "state_attributes": {
           "enabled": {
-            "name": "Activé"
+            "name": "Activ\u00e9"
           },
           "start": {
-            "name": "Début"
+            "name": "D\u00e9but"
           },
           "end": {
             "name": "Fin"
@@ -313,10 +313,10 @@
         "name": "Minuterie 11",
         "state_attributes": {
           "enabled": {
-            "name": "Activé"
+            "name": "Activ\u00e9"
           },
           "start": {
-            "name": "Début"
+            "name": "D\u00e9but"
           },
           "end": {
             "name": "Fin"
@@ -330,10 +330,10 @@
         "name": "Minuterie 12",
         "state_attributes": {
           "enabled": {
-            "name": "Activé"
+            "name": "Activ\u00e9"
           },
           "start": {
-            "name": "Début"
+            "name": "D\u00e9but"
           },
           "end": {
             "name": "Fin"
@@ -347,10 +347,10 @@
         "name": "Minuterie 13",
         "state_attributes": {
           "enabled": {
-            "name": "Activé"
+            "name": "Activ\u00e9"
           },
           "start": {
-            "name": "Début"
+            "name": "D\u00e9but"
           },
           "end": {
             "name": "Fin"
@@ -364,10 +364,10 @@
         "name": "Minuterie 14",
         "state_attributes": {
           "enabled": {
-            "name": "Activé"
+            "name": "Activ\u00e9"
           },
           "start": {
-            "name": "Début"
+            "name": "D\u00e9but"
           },
           "end": {
             "name": "Fin"
@@ -395,25 +395,25 @@
             "name": "Courant"
           },
           "temperature": {
-            "name": "Température"
+            "name": "Temp\u00e9rature"
           },
           "capacity": {
-            "name": "Capacité"
+            "name": "Capacit\u00e9"
           }
         }
       },
       "mower_status": {
         "name": "Statut",
         "state": {
-          "0": "Détection du statut",
-          "1": "Stationné",
+          "0": "D\u00e9tection du statut",
+          "1": "Stationn\u00e9",
           "2": "En train de tondre",
-          "3": "À la recherche de la station de charge",
+          "3": "\u00c0 la recherche de la station de charge",
           "4": "En charge",
           "5": "Recherche",
           "7": "Erreur",
-          "8": "Perte du signal de câble",
-          "16": "Éteint",
+          "8": "Perte du signal de c\u00e2ble",
+          "16": "\u00c9teint",
           "17": "En veille",
           "18": "En attente de la porte du garage",
           "98": "Hors ligne (impossible de se connecter)",
@@ -424,10 +424,10 @@
         "name": "Batterie"
       },
       "mower_status_duration": {
-        "name": "Durée dans l'état actuel"
+        "name": "Dur\u00e9e dans l'\u00e9tat actuel"
       },
       "device_serial": {
-        "name": "Numéro de série"
+        "name": "Num\u00e9ro de s\u00e9rie"
       },
       "mower_distance": {
         "name": "Distance"
@@ -436,22 +436,22 @@
         "name": "Nom"
       },
       "health_climate_temperature": {
-        "name": "Température interne du robot tondeuse"
+        "name": "Temp\u00e9rature interne du robot tondeuse"
       },
       "health_climate_humidity": {
-        "name": "Humidité de l'air interne"
+        "name": "Humidit\u00e9 de l'air interne"
       },
       "mower_blades_quality": {
-        "name": "Qualité des lames"
+        "name": "Qualit\u00e9 des lames"
       },
       "mower_blades_days": {
-        "name": "Âge des lames"
+        "name": "\u00c2ge des lames"
       },
       "mower_blades_hours": {
         "name": "Heures de fonctionnement des lames"
       },
       "mower_stopped": {
-        "name": "Arrêté"
+        "name": "Arr\u00eat\u00e9"
       },
       "wlan_rssi": {
         "name": "Force du signal Wi-Fi"
@@ -462,8 +462,8 @@
           "0": "Automatique",
           "1": "Manuel",
           "2": "Accueil",
-          "3": "Démo",
-          "98": "Fin de journée",
+          "3": "D\u00e9mo",
+          "98": "Fin de journ\u00e9e",
           "99": "Mission de tonte"
         }
       },
@@ -477,39 +477,39 @@
         "name": "Dernier message d'erreur"
       },
       "weather_data_break": {
-        "name": "Arrêt en raison des conditions météorologiques"
+        "name": "Arr\u00eat en raison des conditions m\u00e9t\u00e9orologiques"
       },
       "mower_substatus": {
         "name": "Sous-statut",
         "state": {
           "1": "En mouvement",
-          "2": "A l'extérieur",
+          "2": "A l'ext\u00e9rieur",
           "4": "Les roues glissent !",
           "6": "Collision !",
-          "7": "Soulevé !",
+          "7": "Soulev\u00e9 !",
           "8": "Coupe en spirale",
           "9": "Suit le fil guide 1 vers la station de charge",
-          "10": "Suit le fil de délimitation droit",
+          "10": "Suit le fil de d\u00e9limitation droit",
           "11": "S'amarrer",
           "12": "Charge rapide",
-          "14": "Charge terminée",
+          "14": "Charge termin\u00e9e",
           "15": "Angle de sortie",
-          "16": "Suit le fil guide 1 vers le point de départ",
+          "16": "Suit le fil guide 1 vers le point de d\u00e9part",
           "18": "Aucun signal de boucle !",
-          "19": "Le moteur de la tondeuse est bloqué !",
+          "19": "Le moteur de la tondeuse est bloqu\u00e9 !",
           "21": "Suit le fil guide 2 vers la station de charge",
-          "23": "Suit le fil guide 2 vers le point de départ",
-          "25": "Suit le fil de délimitation gauche"
+          "23": "Suit le fil guide 2 vers le point de d\u00e9part",
+          "25": "Suit le fil de d\u00e9limitation gauche"
         }
       },
       "weather_service": {
-        "name": "Service météo"
+        "name": "Service m\u00e9t\u00e9o"
       },
       "control": {
-        "name": "Contrôle"
+        "name": "Contr\u00f4le"
       },
       "control_mode": {
-        "name": "Mode de contrôle"
+        "name": "Mode de contr\u00f4le"
       },
       "mqtt": {
         "name": "MQTT"
@@ -521,13 +521,13 @@
         "name": "Sous-statut simple"
       },
       "mower_timer_next_date": {
-        "name": "Prochaine date de démarrage"
+        "name": "Prochaine date de d\u00e9marrage"
       },
       "mower_timer_next_time": {
-        "name": "Prochaine heure de démarrage"
+        "name": "Prochaine heure de d\u00e9marrage"
       },
       "mower_timer_next_unix": {
-        "name": "Prochaine heure de démarrage"
+        "name": "Prochaine heure de d\u00e9marrage"
       },
       "health_voltage_int33": {
         "name": "Tension de fonctionnement Robonect"
@@ -551,15 +551,15 @@
         "name": "Latitude GPS"
       },
       "service_call_result": {
-        "name": "Résultat de l'appel de service",
+        "name": "R\u00e9sultat de l'appel de service",
         "state_attributes": {
           "timestamp": {
-            "name": "Heure d'exécution"
+            "name": "Heure d'ex\u00e9cution"
           }
         }
       },
       "motor_drive_left": {
-        "name": "Entraînement du moteur gauche",
+        "name": "Entra\u00eenement du moteur gauche",
         "state_attributes": {
           "power": {
             "name": "Puissance"
@@ -573,7 +573,7 @@
         }
       },
       "motor_drive_right": {
-        "name": "Entraînement du moteur droit",
+        "name": "Entra\u00eenement du moteur droit",
         "state_attributes": {
           "power": {
             "name": "Puissance"
@@ -607,7 +607,7 @@
             "name": "Flash en cas d'erreur"
           },
           "inverted": {
-            "name": "Inversé"
+            "name": "Invers\u00e9"
           },
           "status": {
             "name": "Statut"
@@ -621,7 +621,7 @@
             "name": "Flash en cas d'erreur"
           },
           "inverted": {
-            "name": "Inversé"
+            "name": "Invers\u00e9"
           },
           "status": {
             "name": "Statut"
@@ -635,7 +635,7 @@
             "name": "Flash en cas d'erreur"
           },
           "inverted": {
-            "name": "Inversé"
+            "name": "Invers\u00e9"
           },
           "status": {
             "name": "Statut"
@@ -649,7 +649,7 @@
             "name": "Flash en cas d'erreur"
           },
           "inverted": {
-            "name": "Inversé"
+            "name": "Invers\u00e9"
           },
           "status": {
             "name": "Statut"
@@ -659,28 +659,28 @@
     },
     "button": {
       "error_reset": {
-        "name": "Réinitialiser l'erreur"
+        "name": "R\u00e9initialiser l'erreur"
       },
       "start": {
-        "name": "Démarrer"
+        "name": "D\u00e9marrer"
       },
       "stop": {
-        "name": "Arrêter"
+        "name": "Arr\u00eater"
       },
       "reboot": {
-        "name": "Redémarrer"
+        "name": "Red\u00e9marrer"
       },
       "shutdown": {
-        "name": "Éteindre"
+        "name": "\u00c9teindre"
       },
       "sleep": {
         "name": "Dormir"
       },
       "home": {
-        "name": "Retour à la maison"
+        "name": "Retour \u00e0 la maison"
       },
       "eod": {
-        "name": "Fin de journée"
+        "name": "Fin de journ\u00e9e"
       },
       "auto": {
         "name": "Automatique"
@@ -694,7 +694,7 @@
         "name": "Tracker GPS",
         "state_attributes": {
           "last_synced": {
-            "name": "Dernière synchronisation"
+            "name": "Derni\u00e8re synchronisation"
           }
         }
       }
@@ -703,15 +703,15 @@
       "automower": {
         "name": "Tondeuse robot",
         "state": {
-          "0": "Détection de l'état",
-          "1": "Garé",
+          "0": "D\u00e9tection de l'\u00e9tat",
+          "1": "Gar\u00e9",
           "2": "Tonte en cours",
           "3": "Recherche de la station de charge",
           "4": "En charge",
           "5": "Recherche",
           "7": "Erreur",
-          "8": "Signal du câble perdu",
-          "16": "Éteint",
+          "8": "Signal du c\u00e2ble perdu",
+          "16": "\u00c9teint",
           "17": "En veille",
           "18": "En attente de la porte du garage",
           "98": "Hors ligne (ne peut pas se connecter)",
@@ -719,26 +719,26 @@
         },
         "state_attributes": {
           "substatus": {
-            "name": "Sous-état",
+            "name": "Sous-\u00e9tat",
             "state": {
               "1": "En mouvement",
-              "2": "A l'extérieur",
+              "2": "A l'ext\u00e9rieur",
               "4": "Les roues glissent !",
               "6": "Collision !",
-              "7": "Soulevé !",
+              "7": "Soulev\u00e9 !",
               "8": "Coupe en spirale",
               "9": "Suit le fil guide 1 vers la station de charge",
-              "10": "Suit le fil de délimitation droit",
+              "10": "Suit le fil de d\u00e9limitation droit",
               "11": "S'amarrer",
               "12": "Charge rapide",
-              "14": "Charge terminée",
+              "14": "Charge termin\u00e9e",
               "15": "Angle de sortie",
-              "16": "Suit le fil guide 1 vers le point de départ",
+              "16": "Suit le fil guide 1 vers le point de d\u00e9part",
               "18": "Aucun signal de boucle !",
-              "19": "Le moteur de la tondeuse est bloqué !",
+              "19": "Le moteur de la tondeuse est bloqu\u00e9 !",
               "21": "Suit le fil guide 2 vers la station de charge",
-              "23": "Suit le fil guide 2 vers le point de départ",
-              "25": "Suit le fil de délimitation gauche"
+              "23": "Suit le fil guide 2 vers le point de d\u00e9part",
+              "25": "Suit le fil de d\u00e9limitation gauche"
             }
           },
           "mode": {
@@ -747,8 +747,8 @@
               "0": "Automatique",
               "1": "Manuel",
               "2": "Accueil",
-              "3": "Démo",
-              "98": "Fin de journée",
+              "3": "D\u00e9mo",
+              "98": "Fin de journ\u00e9e",
               "99": "Mission de tonte"
             }
           },
@@ -759,19 +759,19 @@
             "name": "Distance depuis la base"
           },
           "status_duration": {
-            "name": "Durée de l'état actuel"
+            "name": "Dur\u00e9e de l'\u00e9tat actuel"
           },
           "statistic_hours": {
             "name": "Heures de fonctionnement"
           },
           "timer_next_unix": {
-            "name": "Prochaine heure de démarrage"
+            "name": "Prochaine heure de d\u00e9marrage"
           },
           "last_synced": {
-            "name": "Dernière synchronisation"
+            "name": "Derni\u00e8re synchronisation"
           },
           "blades_quality": {
-            "name": "Qualité des lames"
+            "name": "Qualit\u00e9 des lames"
           }
         }
       }
@@ -780,15 +780,15 @@
       "automower": {
         "name": "Tondeuse robot",
         "state": {
-          "0": "Détection de l'état",
-          "1": "Garé",
+          "0": "D\u00e9tection de l'\u00e9tat",
+          "1": "Gar\u00e9",
           "2": "Tonte en cours",
           "3": "Recherche de la station de charge",
           "4": "En charge",
           "5": "Recherche",
           "7": "Erreur",
-          "8": "Signal du câble perdu",
-          "16": "Éteint",
+          "8": "Signal du c\u00e2ble perdu",
+          "16": "\u00c9teint",
           "17": "En veille",
           "18": "En attente de la porte du garage",
           "98": "Hors ligne (ne peut pas se connecter)",
@@ -796,26 +796,26 @@
         },
         "state_attributes": {
           "substatus": {
-            "name": "Sous-état",
+            "name": "Sous-\u00e9tat",
             "state": {
               "1": "En mouvement",
-              "2": "A l'extérieur",
+              "2": "A l'ext\u00e9rieur",
               "4": "Les roues glissent !",
               "6": "Collision !",
-              "7": "Soulevé !",
+              "7": "Soulev\u00e9 !",
               "8": "Coupe en spirale",
               "9": "Suit le fil guide 1 vers la station de charge",
-              "10": "Suit le fil de délimitation droit",
+              "10": "Suit le fil de d\u00e9limitation droit",
               "11": "S'amarrer",
               "12": "Charge rapide",
-              "14": "Charge terminée",
+              "14": "Charge termin\u00e9e",
               "15": "Angle de sortie",
-              "16": "Suit le fil guide 1 vers le point de départ",
+              "16": "Suit le fil guide 1 vers le point de d\u00e9part",
               "18": "Aucun signal de boucle !",
-              "19": "Le moteur de la tondeuse est bloqué !",
+              "19": "Le moteur de la tondeuse est bloqu\u00e9 !",
               "21": "Suit le fil guide 2 vers la station de charge",
-              "23": "Suit le fil guide 2 vers le point de départ",
-              "25": "Suit le fil de délimitation gauche"
+              "23": "Suit le fil guide 2 vers le point de d\u00e9part",
+              "25": "Suit le fil de d\u00e9limitation gauche"
             }
           },
           "mode": {
@@ -824,8 +824,8 @@
               "0": "Automatique",
               "1": "Manuel",
               "2": "Accueil",
-              "3": "Démo",
-              "98": "Fin de journée",
+              "3": "D\u00e9mo",
+              "98": "Fin de journ\u00e9e",
               "99": "Mission de tonte"
             }
           },
@@ -836,19 +836,19 @@
             "name": "Distance depuis la base"
           },
           "status_duration": {
-            "name": "Durée de l'état actuel"
+            "name": "Dur\u00e9e de l'\u00e9tat actuel"
           },
           "statistic_hours": {
             "name": "Heures de fonctionnement"
           },
           "timer_next_unix": {
-            "name": "Prochaine heure de démarrage"
+            "name": "Prochaine heure de d\u00e9marrage"
           },
           "last_synced": {
-            "name": "Dernière synchronisation"
+            "name": "Derni\u00e8re synchronisation"
           },
           "blades_quality": {
-            "name": "Qualité des lames"
+            "name": "Qualit\u00e9 des lames"
           }
         }
       }

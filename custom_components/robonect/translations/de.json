@@ -3,18 +3,18 @@
     "step": {
       "connection_methods": {
         "title": "{name} Kontoeinrichtung",
-        "description": "Konnectivität",
+        "description": "Konnectivit\u00e4t",
         "data": {
-          "rest_enabled": "REST API Überwachung",
-          "mqtt_enabled": "MQTT Überwachung",
-          "mqtt_topic": "MQTT Thema und Sensor-Präfix",
-          "brand": "Roboter-Rasenmäher Marke",
-          "type": "Roboter-Rasenmäher Typ"
+          "rest_enabled": "REST API \u00dcberwachung",
+          "mqtt_enabled": "MQTT \u00dcberwachung",
+          "mqtt_topic": "MQTT Thema und Sensor-Pr\u00e4fix",
+          "brand": "Roboter-Rasenm\u00e4her Marke",
+          "type": "Roboter-Rasenm\u00e4her Typ"
         },
         "data_description": {
-          "rest_enabled": "Die Anmeldeinformationen und die zu überwachenden Sensoren für die REST API werden im nächsten Bildschirm hinzugefügt.",
-          "mqtt_enabled": "Hiermit werden automatisch Entitäten hinzugefügt, wenn sie in MQTT entdeckt werden.\n\n",
-          "mqtt_topic": "Thema, das in der MQTT-Sektion Ihrer {name} konfiguriert ist.\n\nAchtung: Dies wird auch für die Namensgebung der entity_id verwendet (auch für die REST API Überwachung) und unterscheidet zwischen Groß- und Kleinschreibung."
+          "rest_enabled": "Die Anmeldeinformationen und die zu \u00fcberwachenden Sensoren f\u00fcr die REST API werden im n\u00e4chsten Bildschirm hinzugef\u00fcgt.",
+          "mqtt_enabled": "Hiermit werden automatisch Entit\u00e4ten hinzugef\u00fcgt, wenn sie in MQTT entdeckt werden.\n\n",
+          "mqtt_topic": "Thema, das in der MQTT-Sektion Ihrer {name} konfiguriert ist.\n\nAchtung: Dies wird auch f\u00fcr die Namensgebung der entity_id verwendet (auch f\u00fcr die REST API \u00dcberwachung) und unterscheidet zwischen Gro\u00df- und Kleinschreibung."
         }
       },
       "connection_rest": {
@@ -25,12 +25,12 @@
           "username": "Benutzername",
           "password": "Passwort",
           "scan_interval": "Aktualisierungsintervall (Minuten)",
-          "monitored_variables": "Zu überwachende Sensoren",
-          "attributes_units": "Einheiten zu Sensoreigenschaften hinzufügen"
+          "monitored_variables": "Zu \u00fcberwachende Sensoren",
+          "attributes_units": "Einheiten zu Sensoreigenschaften hinzuf\u00fcgen"
         },
         "data_description": {
-          "host": "Die Host-Adresse des Robonect Mähers",
-          "username": "Anmeldeinformationen sind diejenigen, die für den Zugriff auf die Robonect-Web-Oberfläche verwendet werden"
+          "host": "Die Host-Adresse des Robonect M\u00e4hers",
+          "username": "Anmeldeinformationen sind diejenigen, die f\u00fcr den Zugriff auf die Robonect-Web-Oberfl\u00e4che verwendet werden"
         }
       }
     },
@@ -40,39 +40,39 @@
     "error": {
       "cannot_connect": "Verbindung konnte nicht hergestellt werden",
       "topic_used": "MQTT Thema wird bereits verwendet",
-      "invalid_auth": "Ungültige Authentifizierung | {exception}",
-      "mqtt_disabled": "MQTT-Integration ist nicht verfügbar.\nFügen Sie sie zu Home Assistant hinzu (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nSie können natürlich auch nur die REST API Überwachung verwenden.",
+      "invalid_auth": "Ung\u00fcltige Authentifizierung | {exception}",
+      "mqtt_disabled": "MQTT-Integration ist nicht verf\u00fcgbar.\nF\u00fcgen Sie sie zu Home Assistant hinzu (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nSie k\u00f6nnen nat\u00fcrlich auch nur die REST API \u00dcberwachung verwenden.",
       "unknown": "Unerwarteter Fehler | {exception}",
-      "service_error": "Dienst ist nicht verfügbar"
+      "service_error": "Dienst ist nicht verf\u00fcgbar"
     }
   },
   "options": {
     "step": {
       "connection_options": {
         "title": "Verbindungsmethoden",
-        "description": "Konnectivität",
+        "description": "Konnectivit\u00e4t",
         "data": {
-          "rest_enabled": "Überwachung über REST-API",
-          "mqtt_enabled": "Überwachung über MQTT"
+          "rest_enabled": "\u00dcberwachung \u00fcber REST-API",
+          "mqtt_enabled": "\u00dcberwachung \u00fcber MQTT"
         }
       },
       "host": {
         "title": "Passen Sie Ihre Hostadresse an",
-        "description": "Wenn sich die Robonect-Hostadresse geändert hat",
+        "description": "Wenn sich die Robonect-Hostadresse ge\u00e4ndert hat",
         "data": {
           "host": "Host"
         }
       },
       "brand_type": {
-        "title": "Passen Sie Ihre Roboter-Rasenmäher Marke und Typ an",
+        "title": "Passen Sie Ihre Roboter-Rasenm\u00e4her Marke und Typ an",
         "data": {
-          "brand": "Roboter-Rasenmäher Marke",
-          "type": "Roboter-Rasenmäher Typ"
+          "brand": "Roboter-Rasenm\u00e4her Marke",
+          "type": "Roboter-Rasenm\u00e4her Typ"
         }
       },
       "username_password": {
         "title": "Benutzername und Passwort anpassen",
-        "description": "Wenn Sie Ihre Kontoinformationen geändert haben",
+        "description": "Wenn Sie Ihre Kontoinformationen ge\u00e4ndert haben",
         "data": {
           "username": "Benutzer",
           "password": "Passwort"
@@ -80,21 +80,21 @@
       },
       "scan_interval": {
         "title": "Aktualisierungsintervall",
-        "description": "Ändern Sie das Aktualisierungsintervall für die Sensoren",
+        "description": "\u00c4ndern Sie das Aktualisierungsintervall f\u00fcr die Sensoren",
         "data": {
           "scan_interval": "Aktualisierungsintervall (Minuten)"
         }
       },
       "winter_mode": {
         "title": "Wintermodus",
-        "description": "Aktivieren, wenn der Mäher im Winter gelagert wird",
+        "description": "Aktivieren, wenn der M\u00e4her im Winter gelagert wird",
         "data": {
           "winter_mode": "Wintermodus"
         }
       },
       "monitored_variables": {
         "title": "Sensoren",
-        "description": "Welche Sensoren sollen überwacht werden",
+        "description": "Welche Sensoren sollen \u00fcberwacht werden",
         "data": {
           "track_battery": "Batterie",
           "track_wlan": "WLAN",
@@ -102,11 +102,11 @@
           "track_timer": "Timer",
           "track_hour": "Zeit",
           "track_error": "Fehler",
-          "attributes_units": "Einheiten zu Sensoreigenschaften hinzufügen"
+          "attributes_units": "Einheiten zu Sensoreigenschaften hinzuf\u00fcgen"
         }
       },
       "init": {
-        "title": "Optionen ändern",
+        "title": "Optionen \u00e4ndern",
         "menu_options": {
           "connection_options": "Verbindungsmethoden",
           "brand_type": "Marke und Typ",
@@ -123,10 +123,10 @@
     },
     "error": {
       "cannot_connect": "Verbindung kann nicht hergestellt werden",
-      "invalid_auth": "Ungültige Authentifizierung",
-      "mqtt_disabled": "Die MQTT-Integration ist nicht verfügbar.\nFügen Sie sie zu Home Assistant hinzu (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nSie können natürlich auch nur die REST API-Überwachung verwenden.",
+      "invalid_auth": "Ung\u00fcltige Authentifizierung",
+      "mqtt_disabled": "Die MQTT-Integration ist nicht verf\u00fcgbar.\nF\u00fcgen Sie sie zu Home Assistant hinzu (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nSie k\u00f6nnen nat\u00fcrlich auch nur die REST API-\u00dcberwachung verwenden.",
       "unknown": "Unerwarteter Fehler",
-      "service_error": "Dienst nicht verfügbar"
+      "service_error": "Dienst nicht verf\u00fcgbar"
     }
   },
   "entity": {
@@ -398,7 +398,7 @@
             "name": "Temperatur"
           },
           "capacity": {
-            "name": "Kapazität"
+            "name": "Kapazit\u00e4t"
           }
         }
       },
@@ -407,7 +407,7 @@
         "state": {
           "0": "Status erkennen",
           "1": "Geparkt",
-          "2": "Mähen",
+          "2": "M\u00e4hen",
           "3": "Ladebasis suchen",
           "4": "Aufladen",
           "5": "Suchen",
@@ -416,7 +416,7 @@
           "16": "Aus",
           "17": "Schlafen",
           "18": "Warten auf Garagentor",
-          "98": "Offline (keine Verbindung möglich)",
+          "98": "Offline (keine Verbindung m\u00f6glich)",
           "99": "Unbekannt"
         }
       },
@@ -436,13 +436,13 @@
         "name": "Name"
       },
       "health_climate_temperature": {
-        "name": "Interne Temperatur des Mähroboters"
+        "name": "Interne Temperatur des M\u00e4hroboters"
       },
       "health_climate_humidity": {
         "name": "Interne Luftfeuchtigkeit"
       },
       "mower_blades_quality": {
-        "name": "Messerqualität"
+        "name": "Messerqualit\u00e4t"
       },
       "mower_blades_days": {
         "name": "Messeralter"
@@ -454,7 +454,7 @@
         "name": "Gestoppt"
       },
       "wlan_rssi": {
-        "name": "Wi-Fi-Signalstärke"
+        "name": "Wi-Fi-Signalst\u00e4rke"
       },
       "mower_mode": {
         "name": "Modus",
@@ -464,7 +464,7 @@
           "2": "Home",
           "3": "Demo",
           "98": "Ende des Tages",
-          "99": "Mähauftrag"
+          "99": "M\u00e4hauftrag"
         }
       },
       "mower_statistic_hours": {
@@ -482,9 +482,9 @@
       "mower_substatus": {
         "name": "Unterstatus",
         "state": {
-          "1": "Fährt",
-          "2": "Draußen",
-          "4": "Räder rutschen!",
+          "1": "F\u00e4hrt",
+          "2": "Drau\u00dfen",
+          "4": "R\u00e4der rutschen!",
           "6": "Kollision!",
           "7": "Angehoben!",
           "8": "Spiralschnitt",
@@ -496,7 +496,7 @@
           "15": "Ausfahrtswinkel",
           "16": "Folgt Leitdraht 1 zum Startpunkt",
           "18": "Kein Schleifensignal!",
-          "19": "Mähmotor blockiert!",
+          "19": "M\u00e4hmotor blockiert!",
           "21": "Folgt Leitdraht 2 zur Ladestation",
           "23": "Folgt Leitdraht 2 zum Startpunkt",
           "25": "Folgt linkem Begrenzungsdraht"
@@ -521,19 +521,19 @@
         "name": "Einfacher Unterstatus"
       },
       "mower_timer_next_date": {
-        "name": "Nächstes Startdatum"
+        "name": "N\u00e4chstes Startdatum"
       },
       "mower_timer_next_time": {
-        "name": "Nächste Startzeit"
+        "name": "N\u00e4chste Startzeit"
       },
       "mower_timer_next_unix": {
-        "name": "Nächste Startzeit"
+        "name": "N\u00e4chste Startzeit"
       },
       "health_voltage_int33": {
         "name": "Betriebsspannung Robonect"
       },
       "health_voltage_ext33": {
-        "name": "Betriebsspannung Mäher"
+        "name": "Betriebsspannung M\u00e4her"
       },
       "health_voltage_batt": {
         "name": "Batteriespannung"
@@ -542,10 +542,10 @@
         "name": "Uhrzeit"
       },
       "passage_open": {
-        "name": "Passage geöffnet"
+        "name": "Passage ge\u00f6ffnet"
       },
       "gps_longitude": {
-        "name": "GPS-Längengrad"
+        "name": "GPS-L\u00e4ngengrad"
       },
       "gps_latitude": {
         "name": "GPS-Breitengrad"
@@ -554,7 +554,7 @@
         "name": "Antwort des Serviceaufrufs",
         "state_attributes": {
           "timestamp": {
-            "name": "Ausführungszeitpunkt"
+            "name": "Ausf\u00fchrungszeitpunkt"
           }
         }
       },
@@ -659,7 +659,7 @@
     },
     "button": {
       "error_reset": {
-        "name": "Fehler zurücksetzen"
+        "name": "Fehler zur\u00fccksetzen"
       },
       "start": {
         "name": "Start"
@@ -677,7 +677,7 @@
         "name": "Schlafen"
       },
       "home": {
-        "name": "Zurück nach Hause"
+        "name": "Zur\u00fcck nach Hause"
       },
       "eod": {
         "name": "Ende des Tages"
@@ -701,16 +701,16 @@
     },
     "lawn_mower": {
       "automower": {
-        "name": "Mähroboter",
+        "name": "M\u00e4hroboter",
         "state": {
           "0": "Status erkennen",
           "1": "Geparkt",
-          "2": "Mähen",
+          "2": "M\u00e4hen",
           "3": "Ladestation suchen",
           "4": "Aufladen",
           "5": "Suchen",
           "7": "Fehler",
-          "8": "Signal für Begrenzungskabel verloren",
+          "8": "Signal f\u00fcr Begrenzungskabel verloren",
           "16": "Aus",
           "17": "Schlafen",
           "18": "Warten auf Garagentor",
@@ -721,9 +721,9 @@
           "substatus": {
             "name": "Unterstatus",
             "state": {
-              "1": "Fährt",
-              "2": "Draußen",
-              "4": "Räder rutschen!",
+              "1": "F\u00e4hrt",
+              "2": "Drau\u00dfen",
+              "4": "R\u00e4der rutschen!",
               "6": "Kollision!",
               "7": "Angehoben!",
               "8": "Spiralschnitt",
@@ -735,7 +735,7 @@
               "15": "Ausfahrtswinkel",
               "16": "Folgt Leitdraht 1 zum Startpunkt",
               "18": "Kein Schleifensignal!",
-              "19": "Mähmotor blockiert!",
+              "19": "M\u00e4hmotor blockiert!",
               "21": "Folgt Leitdraht 2 zur Ladestation",
               "23": "Folgt Leitdraht 2 zum Startpunkt",
               "25": "Folgt linkem Begrenzungsdraht"
@@ -749,7 +749,7 @@
               "2": "Home",
               "3": "Demo",
               "98": "Ende des Tages",
-              "99": "Mähauftrag"
+              "99": "M\u00e4hauftrag"
             }
           },
           "status_plain": {
@@ -765,29 +765,29 @@
             "name": "Betriebsstunden"
           },
           "timer_next_unix": {
-            "name": "Nächste Startzeit"
+            "name": "N\u00e4chste Startzeit"
           },
           "last_synced": {
             "name": "Letzte Synchronisierung"
           },
           "blades_quality": {
-            "name": "Messerqualität"
+            "name": "Messerqualit\u00e4t"
           }
         }
       }
     },
     "vacuum": {
       "automower": {
-        "name": "Mähroboter",
+        "name": "M\u00e4hroboter",
         "state": {
           "0": "Status erkennen",
           "1": "Geparkt",
-          "2": "Mähen",
+          "2": "M\u00e4hen",
           "3": "Ladestation suchen",
           "4": "Aufladen",
           "5": "Suchen",
           "7": "Fehler",
-          "8": "Signal für Begrenzungskabel verloren",
+          "8": "Signal f\u00fcr Begrenzungskabel verloren",
           "16": "Aus",
           "17": "Schlafen",
           "18": "Warten auf Garagentor",
@@ -798,9 +798,9 @@
           "substatus": {
             "name": "Unterstatus",
             "state": {
-              "1": "Fährt",
-              "2": "Draußen",
-              "4": "Räder rutschen!",
+              "1": "F\u00e4hrt",
+              "2": "Drau\u00dfen",
+              "4": "R\u00e4der rutschen!",
               "6": "Kollision!",
               "7": "Angehoben!",
               "8": "Spiralschnitt",
@@ -812,7 +812,7 @@
               "15": "Ausfahrtswinkel",
               "16": "Folgt Leitdraht 1 zum Startpunkt",
               "18": "Kein Schleifensignal!",
-              "19": "Mähmotor blockiert!",
+              "19": "M\u00e4hmotor blockiert!",
               "21": "Folgt Leitdraht 2 zur Ladestation",
               "23": "Folgt Leitdraht 2 zum Startpunkt",
               "25": "Folgt linkem Begrenzungsdraht"
@@ -826,7 +826,7 @@
               "2": "Home",
               "3": "Demo",
               "98": "Ende des Tages",
-              "99": "Mähauftrag"
+              "99": "M\u00e4hauftrag"
             }
           },
           "status_plain": {
@@ -842,13 +842,13 @@
             "name": "Betriebsstunden"
           },
           "timer_next_unix": {
-            "name": "Nächste Startzeit"
+            "name": "N\u00e4chste Startzeit"
           },
           "last_synced": {
             "name": "Letzte Synchronisierung"
           },
           "blades_quality": {
-            "name": "Messerqualität"
+            "name": "Messerqualit\u00e4t"
           }
         }
       }

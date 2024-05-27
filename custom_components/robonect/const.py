@@ -1,4 +1,5 @@
 """Constants used by Robonect."""
+
 import json
 from pathlib import Path
 from typing import Final
