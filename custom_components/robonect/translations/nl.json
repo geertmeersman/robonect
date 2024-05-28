@@ -536,7 +536,7 @@
         "name": "Bedrijfsspanning maaier"
       },
       "health_voltage_batt": {
-        "name": "Batterijspanning"
+        "name": "Robonect voedingsspanning"
       },
       "clock_time": {
         "name": "Klok"

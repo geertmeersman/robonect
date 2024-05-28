@@ -536,7 +536,7 @@
         "name": "Mower operating voltage"
       },
       "health_voltage_batt": {
-        "name": "Battery voltage"
+        "name": "Robonect supply voltage"
       },
       "clock_time": {
         "name": "Clock"

@@ -536,7 +536,7 @@
         "name": "Betriebsspannung M\u00e4her"
       },
       "health_voltage_batt": {
-        "name": "Batteriespannung"
+        "name": "Robonect Versorgungsspannung"
       },
       "clock_time": {
         "name": "Uhrzeit"

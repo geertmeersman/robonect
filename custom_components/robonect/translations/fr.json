@@ -536,7 +536,7 @@
         "name": "Tension de fonctionnement de la tondeuse"
       },
       "health_voltage_batt": {
-        "name": "Tension de la batterie"
+        "name": "Tension d'alimentation Robonect"
       },
       "clock_time": {
         "name": "Horloge"
