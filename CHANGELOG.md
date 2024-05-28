@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.6.8](https://github.com/geertmeersman/robonect/tree/v1.6.8) (2024-05-28)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.7...v1.6.8)
+
+**Merged pull requests:**
+
+- fix: throw requesterror when response is none, bump aiorobonect [\#164](https://github.com/geertmeersman/robonect/pull/164) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.6.7](https://github.com/geertmeersman/robonect/tree/v1.6.7) (2024-05-28)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.6...v1.6.7)
