@@ -20,5 +20,5 @@
     "aiorobonect>=1.0.6",
     "jsonpath"
   ],
-  "version": "v1.6.7"
+  "version": "v1.6.8"
 }
