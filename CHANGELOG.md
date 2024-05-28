@@ -1,5 +1,18 @@
 # Changelog
 
+## [v1.6.7](https://github.com/geertmeersman/robonect/tree/v1.6.7) (2024-05-28)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.6...v1.6.7)
+
+**Closed issues:**
+
+- Status entity general error [\#157](https://github.com/geertmeersman/robonect/issues/157)
+
+**Merged pull requests:**
+
+- Refactor: Rename translation of health\_voltage\_batt to Robonect supply voltage [\#163](https://github.com/geertmeersman/robonect/pull/163) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.4.4 to 0.4.5 [\#161](https://github.com/geertmeersman/robonect/pull/161) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.6.6](https://github.com/geertmeersman/robonect/tree/v1.6.6) (2024-05-24)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.5...v1.6.6)
