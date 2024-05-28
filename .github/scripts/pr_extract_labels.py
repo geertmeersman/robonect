@@ -1,4 +1,5 @@
 """Script to extract the labels for a PR."""
+
 import os
 import re
 import sys

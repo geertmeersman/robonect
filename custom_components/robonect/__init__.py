@@ -1,4 +1,5 @@
 """The Robonect component."""
+
 from datetime import timedelta
 import logging
 from pathlib import Path
@@ -81,14 +82,14 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         store: Store = Store(hass, 1, f"{DOMAIN}/{entry.entry_id}")
         dev_reg = dr.async_get(hass)
 
-        hass.data[DOMAIN][entry.entry_id][
-            "coordinator"
-        ] = coordinator = RobonectDataUpdateCoordinator(
-            hass,
-            entry=entry,
-            client=client,
-            dev_reg=dev_reg,
-            store=store,
+        hass.data[DOMAIN][entry.entry_id]["coordinator"] = coordinator = (
+            RobonectDataUpdateCoordinator(
+                hass,
+                entry=entry,
+                client=client,
+                dev_reg=dev_reg,
+                store=store,
+            )
         )
         await coordinator.async_config_entry_first_refresh()
 

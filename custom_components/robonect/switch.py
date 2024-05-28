@@ -1,4 +1,5 @@
 """Switch platform for Robonect."""
+
 import copy
 import logging
 from typing import Any
