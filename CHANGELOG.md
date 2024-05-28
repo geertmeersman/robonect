@@ -1,5 +1,17 @@
 # Changelog
 
+## [v1.6.6](https://github.com/geertmeersman/robonect/tree/v1.6.6) (2024-05-24)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.5...v1.6.6)
+
+**Closed issues:**
+
+- Unable to connect to mower/cloud [\#158](https://github.com/geertmeersman/robonect/issues/158)
+
+**Merged pull requests:**
+
+- fix: only switch to https scheme on a redirect \(3xx\) or connection error [\#160](https://github.com/geertmeersman/robonect/pull/160) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.6.5](https://github.com/geertmeersman/robonect/tree/v1.6.5) (2024-05-23)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.4...v1.6.5)
