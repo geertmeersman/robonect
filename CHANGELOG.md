@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.6.9](https://github.com/geertmeersman/robonect/tree/v1.6.9) (2024-05-29)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.8...v1.6.9)
+
+**Merged pull requests:**
+
+- fix: move warnings on requesterrors to debug, bump aiorobonect [\#165](https://github.com/geertmeersman/robonect/pull/165) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.6.8](https://github.com/geertmeersman/robonect/tree/v1.6.8) (2024-05-28)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.7...v1.6.8)
