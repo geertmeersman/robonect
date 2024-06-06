@@ -550,6 +550,9 @@
       "gps_latitude": {
         "name": "GPS-Breitengrad"
       },
+      "version_application": {
+        "name": "Anwendungsversion"
+      },
       "service_call_result": {
         "name": "Antwort des Serviceaufrufs",
         "state_attributes": {
