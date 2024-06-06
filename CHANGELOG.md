@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.7.0](https://github.com/geertmeersman/robonect/tree/v1.7.0) (2024-06-06)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.10...v1.7.0)
+
+**Merged pull requests:**
+
+- feat: sensor application version [\#168](https://github.com/geertmeersman/robonect/pull/168) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.6.10](https://github.com/geertmeersman/robonect/tree/v1.6.10) (2024-06-06)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.9...v1.6.10)
