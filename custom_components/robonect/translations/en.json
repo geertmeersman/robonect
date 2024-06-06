@@ -550,6 +550,9 @@
       "gps_latitude": {
         "name": "GPS Latitude"
       },
+      "version_application": {
+        "name": "Application version"
+      },
       "service_call_result": {
         "name": "Service call response",
         "state_attributes": {

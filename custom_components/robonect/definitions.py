@@ -135,6 +135,14 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         category="version",
     ),
     RobonectSensorEntityDescription(
+        key=".version/application",
+        rest="$.version.application.comment",
+        rest_attrs="$.version",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        icon="mdi:tag",
+        category="version",
+    ),
+    RobonectSensorEntityDescription(
         key="mower/distance",
         rest="$.status.status.distance",
         icon="mdi:map-marker-distance",

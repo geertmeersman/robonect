@@ -550,6 +550,9 @@
       "gps_latitude": {
         "name": "GPS Breedtegraad"
       },
+      "version_application": {
+        "name": "Applicatie versie"
+      },
       "service_call_result": {
         "name": "Service call antwoord",
         "state_attributes": {
