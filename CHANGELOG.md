@@ -1,5 +1,18 @@
 # Changelog
 
+## [v1.6.10](https://github.com/geertmeersman/robonect/tree/v1.6.10) (2024-06-06)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.9...v1.6.10)
+
+**Closed issues:**
+
+- Exception 'NoneType' object has no attribute 'items' [\#162](https://github.com/geertmeersman/robonect/issues/162)
+
+**Merged pull requests:**
+
+- fix: bump aiorobonect to catch incorrect robonect json [\#167](https://github.com/geertmeersman/robonect/pull/167) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.4.5 to 0.4.7 [\#166](https://github.com/geertmeersman/robonect/pull/166) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.6.9](https://github.com/geertmeersman/robonect/tree/v1.6.9) (2024-05-29)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.8...v1.6.9)
