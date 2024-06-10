@@ -129,15 +129,15 @@ Once you enable debug logging, you ideally need to make the error happen. Run yo
 
 Define a daily mowing time sensor by adding the followinng lines to your configuration.yaml:
 
-```
+```yaml
 sensor:
-     - platform: history_stats
-       name: Daily mowing time
-       entity_id: sensor.automower_mower_status
-       state: 2
-       type: time
-       start: '{{ now().replace(hour=0, minute=0, second=0) }}'
-       end: '{{ now() }}'
+  - platform: history_stats
+    name: Daily mowing time
+    entity_id: sensor.automower_mower_status
+    state: 2
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
 ```
 
 ## Lovelace examples
