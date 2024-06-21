@@ -20,6 +20,7 @@ from homeassistant.core import HomeAssistant, ServiceCall, callback
 from homeassistant.helpers import device_registry as dr, entity_registry as er
 from homeassistant.helpers.storage import STORAGE_DIR, Store
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+import pytz
 
 from .const import (
     CONF_ATTRS_UNITS,
@@ -57,6 +58,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     for platform in PLATFORMS:
         hass.data[DOMAIN][entry.entry_id].setdefault(platform, set())
+
+    # Cache the timezone during setup
+    timezone = await hass.async_add_executor_job(pytz.timezone, hass.config.time_zone)
+    hass.data[DOMAIN]["timezone"] = timezone
 
     if entry.data[CONF_MQTT_ENABLED] is True:
         if not await mqtt.async_wait_for_mqtt_client(hass):

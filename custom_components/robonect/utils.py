@@ -10,9 +10,19 @@ import re
 from jsonpath import jsonpath
 import pytz
 
-from .const import ATTR_STATE_UNITS, WEEKDAYS_HEX
+from .const import ATTR_STATE_UNITS, DOMAIN, WEEKDAYS_HEX
 
 _LOGGER = logging.getLogger(__name__)
+
+_cached_timezone = None
+
+
+def get_cached_timezone(hass):
+    """Get the cached timezone."""
+    global _cached_timezone
+    if _cached_timezone is None:
+        _cached_timezone = pytz.timezone(hass.config.time_zone)
+    return _cached_timezone
 
 
 def str_to_float(input, entity=None) -> float:
@@ -120,7 +130,10 @@ def unix_to_datetime(epoch_timestamp, hass=None):
     datetime_utc = datetime.datetime.fromtimestamp(int(epoch_timestamp), pytz.UTC)
 
     # Convert UTC datetime to the desired timezone
-    timezone = pytz.timezone(hass.config.time_zone)
+    timezone = hass.data[DOMAIN].get("timezone")
+    if timezone is None:
+        timezone = pytz.UTC  # Fallback in case timezone isn't cached properly
+
     datetime_with_timezone = datetime_utc.astimezone(timezone)
 
     # Subtract 2 hours from the timestamp
