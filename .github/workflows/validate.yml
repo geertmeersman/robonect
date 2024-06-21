@@ -12,7 +12,7 @@ on:
       - "custom_components/**"
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.event.pull_request.head.ref }}
   cancel-in-progress: true
 
 jobs:
