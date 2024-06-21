@@ -1,5 +1,17 @@
 # Changelog
 
+## [v1.7.1](https://github.com/geertmeersman/robonect/tree/v1.7.1) (2024-06-21)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.7.0...v1.7.1)
+
+**Merged pull requests:**
+
+- fix: concurrency for validat workflow [\#174](https://github.com/geertmeersman/robonect/pull/174) ([geertmeersman](https://github.com/geertmeersman))
+- fix: blocking call for timezone fetching, references \#171 [\#173](https://github.com/geertmeersman/robonect/pull/173) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.4.8 to 0.4.9 [\#172](https://github.com/geertmeersman/robonect/pull/172) ([dependabot[bot]](https://github.com/apps/dependabot))
+- docs: yaml markdown [\#170](https://github.com/geertmeersman/robonect/pull/170) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.4.7 to 0.4.8 [\#169](https://github.com/geertmeersman/robonect/pull/169) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.7.0](https://github.com/geertmeersman/robonect/tree/v1.7.0) (2024-06-06)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.10...v1.7.0)
