@@ -66,7 +66,7 @@ The **REST sensors**, are updated on a configurable scan interval. When the mowe
     - [Enable debug logging](#enable-debug-logging)
     - [Disable debug logging and download logs](#disable-debug-logging-and-download-logs)
   - [Extra sensor for daily mowing time](#extra-sensor-for-daily-mowing-time)
-  - [Extra template sensors, used for lovelace](#extra-template-sensors-used-for-lovelace)
+  - [Extra sensors templates, used for lovelace card](#extra-sensors-templates-used-for-lovelace-card)
   - [Lovelace examples](#lovelace-examples)
     - [Mower card with some nice buttons](#mower-card-with-some-nice-buttons)
   - [Screenshots](#screenshots)
@@ -141,7 +141,7 @@ sensor:
     end: "{{ now() }}"
 ```
 
-## Extra template sensors, used for lovelace
+## Extra sensors templates, used for lovelace card
 
 In template.yaml, add the following:
 
