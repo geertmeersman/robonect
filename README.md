@@ -66,6 +66,7 @@ The **REST sensors**, are updated on a configurable scan interval. When the mowe
     - [Enable debug logging](#enable-debug-logging)
     - [Disable debug logging and download logs](#disable-debug-logging-and-download-logs)
   - [Extra sensor for daily mowing time](#extra-sensor-for-daily-mowing-time)
+  - [Extra template sensors, used for lovelace](#extra-template-sensors-used-for-lovelace)
   - [Lovelace examples](#lovelace-examples)
     - [Mower card with some nice buttons](#mower-card-with-some-nice-buttons)
   - [Screenshots](#screenshots)
@@ -138,6 +139,34 @@ sensor:
     type: time
     start: "{{ now().replace(hour=0, minute=0, second=0) }}"
     end: "{{ now() }}"
+```
+
+## Extra template sensors, used for lovelace
+
+In template.yaml, add the following:
+
+```yaml
+- sensor:
+    - name: "Automower Battery Current"
+      unique_id: "sensor.automower_battery_current"
+      unit_of_measurement: "mA"
+      state: "{{ state_attr('sensor.automower_battery_0', 'current') | replace(' mA', '') | int(0) }}"
+      icon: "mdi:current-dc"
+    - name: "Automower Battery Voltage"
+      unique_id: "sensor.automower_battery_voltage"
+      unit_of_measurement: "V"
+      state: "{{ state_attr('sensor.automower_battery_0', 'voltage') | replace(' V', '') | float(0) }}"
+      icon: "mdi:sine-wave"
+    - name: "Automower Battery Temperature"
+      unique_id: "sensor.automower_battery_temperature"
+      unit_of_measurement: "°C"
+      state: "{{ state_attr('sensor.automower_battery_0', 'temperature') | replace(' °C', '') | float(0) }}"
+      icon: "mdi:temperature-celsius"
+    - name: "Automower Battery Capacity"
+      unique_id: "sensor.automower_battery_capacity"
+      unit_of_measurement: "mAh"
+      state: "{{ state_attr('sensor.automower_battery_0', 'capacity').remaining | replace(' mAh', '') | int(0) }}"
+      icon: "mdi:battery-charging-medium"
 ```
 
 ## Lovelace examples
