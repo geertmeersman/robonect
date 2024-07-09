@@ -280,7 +280,7 @@ class RobonectCommonFlow(ABC, FlowHandler):
                     errors["base"] = "invalid_auth"
                 else:
                     errors["base"] = "unknown"
-                exception = e.message
+                exception = str(e)
         return {"status": status, "errors": errors, "exception": exception}
 
     async def async_step_username_password(
