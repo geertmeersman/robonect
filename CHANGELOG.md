@@ -1,5 +1,23 @@
 # Changelog
 
+## [v1.7.2](https://github.com/geertmeersman/robonect/tree/v1.7.2) (2024-07-09)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.7.1...v1.7.2)
+
+**Closed issues:**
+
+- Blocking call [\#171](https://github.com/geertmeersman/robonect/issues/171)
+
+**Merged pull requests:**
+
+- fix: httpx error message, references \#180 [\#182](https://github.com/geertmeersman/robonect/pull/182) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.5.0 to 0.5.1 [\#181](https://github.com/geertmeersman/robonect/pull/181) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.4.10 to 0.5.0 [\#179](https://github.com/geertmeersman/robonect/pull/179) ([dependabot[bot]](https://github.com/apps/dependabot))
+- docs: Sensor templates for lovelace [\#178](https://github.com/geertmeersman/robonect/pull/178) ([geertmeersman](https://github.com/geertmeersman))
+- docs: Lovelace card yaml  updated + screenshot [\#177](https://github.com/geertmeersman/robonect/pull/177) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.4.9 to 0.4.10 [\#176](https://github.com/geertmeersman/robonect/pull/176) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): update pip requirement from \<24.1,\>=8.0.3 to \>=8.0.3,\<24.2 [\#175](https://github.com/geertmeersman/robonect/pull/175) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.7.1](https://github.com/geertmeersman/robonect/tree/v1.7.1) (2024-06-21)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.7.0...v1.7.1)
