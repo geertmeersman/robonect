@@ -60,7 +60,7 @@ The **REST sensors**, are updated on a configurable scan interval. When the mowe
   - [Installation](#installation)
     - [Using HACS (recommended)](#using-hacs-recommended)
     - [Manual](#manual)
-  - [Contributions are welcome!](#contributions-are-welcome)
+  - [Contributions are welcome](#contributions-are-welcome)
   - [Troubleshooting](#troubleshooting)
     - [Frequently asked questions](#frequently-asked-questions)
     - [Enable debug logging](#enable-debug-logging)
@@ -104,7 +104,7 @@ This integration will set up the following platforms.
 | ---------- | ------------------------------------- |
 | `robonect` | Home Assistant component for Robonect |
 
-## Contributions are welcome!
+## Contributions are welcome
 
 If you want to contribute to this please read the [Contribution guidelines](CONTRIBUTING.md)
 
@@ -179,8 +179,8 @@ In template.yaml, add the following:
 
 The example uses the following custom lovelace cards:
 
-- custom:button-card: https://github.com/custom-cards/button-card
-- custom:mini-graph-card: https://github.com/kalkih/mini-graph-card
+- custom:button-card: <https://github.com/custom-cards/button-card>
+- custom:mini-graph-card: <https://github.com/kalkih/mini-graph-card>
 
 ```yaml
 type: vertical-stack
