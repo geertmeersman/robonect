@@ -124,7 +124,7 @@ class RobonectEntity(RestoreEntity):
     def update_ha_state(self):
         """Update HA state."""
         self.last_synced = datetime.now()
-        self.async_write_ha_state()
+        self.schedule_update_ha_state()
 
 
 class RobonectCoordinatorEntity(
