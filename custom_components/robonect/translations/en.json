@@ -664,6 +664,9 @@
       "error_reset": {
         "name": "Reset error"
       },
+      "blades_reset": {
+        "name": "Reset blades"
+      },
       "start": {
         "name": "Start"
       },

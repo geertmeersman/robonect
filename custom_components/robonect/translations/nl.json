@@ -664,6 +664,9 @@
       "error_reset": {
         "name": "Fout resetten"
       },
+      "blades_reset": {
+        "name": "Messen resetten"
+      },
       "start": {
         "name": "Start"
       },

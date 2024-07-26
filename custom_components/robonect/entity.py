@@ -105,9 +105,10 @@ class RobonectEntity(RestoreEntity):
             try:
                 response = await self.coordinator.client.async_cmd(command, params)
             except Exception as exception:
-                response = {"successful": False, "exception": f"{exception}"}
+                _LOGGER.error(f"Exception during async command execution: {exception}")
+                response = {"successful": False, "exception": str(exception)}
             await self.async_fire_event(
-                response | {"command": command, "params": params}
+                {**response, "command": command, "params": params}
             )
         elif self.entry.data[CONF_MQTT_ENABLED] is True and "topic" in kwargs:
             _LOGGER.debug(

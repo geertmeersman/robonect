@@ -48,6 +48,12 @@ BUTTON_TYPES = (
         category="NONE",
     ),
     RobonectButtonEntityDescription(
+        key="blades_reset",
+        icon="mdi:backup-restore",
+        cmd="reset_blades",
+        category="NONE",
+    ),
+    RobonectButtonEntityDescription(
         key="home",
         icon="mdi:home-import-outline",
         topic="control/mode",
