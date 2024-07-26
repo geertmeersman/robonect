@@ -1,5 +1,18 @@
 # Changelog
 
+## [v1.7.3](https://github.com/geertmeersman/robonect/tree/v1.7.3) (2024-07-26)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.7.2...v1.7.3)
+
+**Closed issues:**
+
+- Unable to place mowing job [\#180](https://github.com/geertmeersman/robonect/issues/180)
+
+**Merged pull requests:**
+
+- fix: threadsafe update\_ha\_state, references \#184 [\#186](https://github.com/geertmeersman/robonect/pull/186) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.5.1 to 0.5.4 [\#185](https://github.com/geertmeersman/robonect/pull/185) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.7.2](https://github.com/geertmeersman/robonect/tree/v1.7.2) (2024-07-09)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.7.1...v1.7.2)
