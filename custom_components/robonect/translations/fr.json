@@ -664,6 +664,9 @@
       "error_reset": {
         "name": "R\u00e9initialiser l'erreur"
       },
+      "blades_reset": {
+        "name": "R\u00e9initialiser les lames"
+      },
       "start": {
         "name": "D\u00e9marrer"
       },

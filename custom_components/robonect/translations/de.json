@@ -664,6 +664,9 @@
       "error_reset": {
         "name": "Fehler zur\u00fccksetzen"
       },
+      "blades_reset": {
+        "name": "Messer zur\u00fccksetzen"
+      },
       "start": {
         "name": "Start"
       },
