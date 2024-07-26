@@ -1,5 +1,17 @@
 # Changelog
 
+## [v1.8.0](https://github.com/geertmeersman/robonect/tree/v1.8.0) (2024-07-26)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.7.3...v1.8.0)
+
+**Closed issues:**
+
+-  Error message during integration, Error doing job: Future exception was never retrieved \(None\) [\#184](https://github.com/geertmeersman/robonect/issues/184)
+
+**Merged pull requests:**
+
+- feat: add reset mower blades button [\#187](https://github.com/geertmeersman/robonect/pull/187) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v1.7.3](https://github.com/geertmeersman/robonect/tree/v1.7.3) (2024-07-26)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.7.2...v1.7.3)
