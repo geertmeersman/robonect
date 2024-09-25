@@ -16,6 +16,7 @@ import voluptuous as vol
 
 # Custom validator for degrees (allowing positive and negative integers)
 def validate_degrees(value):
+    """Validate degree value."""
     return vol.Coerce(int)(value)
 
 
