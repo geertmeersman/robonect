@@ -37,6 +37,8 @@ from .const import (
     EVENT_ROBONECT_RESPONSE,
     PLATFORMS,
     SENSOR_GROUPS,
+    SERVICE_DIRECT,
+    SERVICE_DIRECT_SCHEMA,
     SERVICE_JOB,
     SERVICE_JOB_AFTER_VALUES,
     SERVICE_JOB_CORRIDOR_VALUES,
@@ -120,6 +122,21 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     hass.services.async_register(
         DOMAIN, SERVICE_TIMER, timer, schema=SERVICE_TIMER_SCHEMA
+    )
+
+    async def direct(service: ServiceCall) -> bool:
+        """Modify a direction."""
+        params = {}
+        try:
+            params |= {"left": service.data["left"]}
+            params |= {"right": service.data["right"]}
+            params |= {"timeout": service.data["timeout"]}
+        except ValueError as error:
+            raise RobonectException(error)
+        await async_send_command(hass, entry, "direct", params)
+
+    hass.services.async_register(
+        DOMAIN, SERVICE_DIRECT, direct, schema=SERVICE_DIRECT_SCHEMA
     )
 
     async def job(service: ServiceCall) -> bool:

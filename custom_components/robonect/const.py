@@ -13,6 +13,13 @@ from homeassistant.helpers.selector import (
 )
 import voluptuous as vol
 
+
+# Custom validator for degrees (allowing positive and negative integers)
+def validate_degrees(value):
+    """Validate degree value."""
+    return vol.Coerce(int)(value)
+
+
 PLATFORMS: Final = [
     Platform.BINARY_SENSOR,
     Platform.SENSOR,
@@ -77,6 +84,7 @@ SERVICE_SHUTDOWN = "shutdown"
 SERVICE_SLEEP = "sleep"
 SERVICE_TIMER = "timer"
 SERVICE_JOB = "job"
+SERVICE_DIRECT = "direct"
 
 CONF_ENTRY_ID = "entry_id"
 
@@ -136,6 +144,21 @@ SERVICE_TIMER_SCHEMA = vol.Schema(
                 translation_key="weekdays",
             )
         ),
+    }
+)
+
+SERVICE_DIRECT_SCHEMA = vol.Schema(
+    {
+        vol.Required(CONF_ENTITY_ID): cv.entity_id,  # Validate entity ID
+        vol.Required(
+            "left"
+        ): validate_degrees,  # Validate left as an integer (positive or negative)
+        vol.Required(
+            "right"
+        ): validate_degrees,  # Validate right as an integer (positive or negative)
+        vol.Required("timeout"): vol.All(
+            cv.positive_int, vol.Range(max=5000)
+        ),  # Validate timeout as a positive integer with a max of 5000
     }
 )
 
