@@ -194,3 +194,45 @@ timer:
               value: sa
             - label: Sunday
               value: su
+
+direct:
+  name: Direct the mower
+  description: Direct a Robonect mower by setting the speed percentage for each wheel and a duration
+  fields:
+    entity_id:
+      name: Entity ID
+      description: Entity ID of the Robonect Vacuum
+      required: true
+      example: vacuum.automower_robonect
+      selector:
+        entity:
+          domain: vacuum
+          integration: robonect
+    left:
+      name: Left
+      description: "The percentage of speed on the left wheel. Can be positive or negative."
+      required: true
+      example: 50
+      selector:
+        number:
+          mode: box
+          unit_of_measurement: "%"
+    right:
+      name: Right
+      description: "The percentage of speed on the right wheel. Can be positive or negative."
+      required: true
+      example: 50
+      selector:
+        number:
+          mode: box
+          unit_of_measurement: "%"
+    timeout:
+      name: Timeout
+      description: "The timeout/duration in milliseconds."
+      required: true
+      example: 3000
+      selector:
+        number:
+          min: 1
+          mode: box
+          unit_of_measurement: ms
