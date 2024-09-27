@@ -13,13 +13,13 @@
         },
         "data_description": {
           "rest_enabled": "De logingegevens en te volgen sensors voor de REST API worden in het volgende scherm toegevoegd",
-          "mqtt_enabled": "Hiermee worden automatisch entiteiten toegevoegd bij ontdekking op MQTT\n\n",
+          "mqtt_enabled": "Hiermee worden automatisch entiteiten toegevoegd bij ontdekking op MQTT",
           "mqtt_topic": "Topic naam die geconfigureerd is in de MQTT sectie van je {name}.\n\nOpgelet: Deze wordt ook gebruikt in de entity_id naamgeving (van ook de REST API monitoring) en is hoofdlettergevoelig."
         }
       },
       "connection_rest": {
         "title": "{name} account setup - REST",
-        "description": "Configureer je {name} account.\n",
+        "description": "Configureer je {name} account.",
         "data": {
           "host": "Host",
           "username": "Gebruiker",

@@ -13,13 +13,13 @@
         },
         "data_description": {
           "rest_enabled": "Die Anmeldeinformationen und die zu \u00fcberwachenden Sensoren f\u00fcr die REST API werden im n\u00e4chsten Bildschirm hinzugef\u00fcgt.",
-          "mqtt_enabled": "Hiermit werden automatisch Entit\u00e4ten hinzugef\u00fcgt, wenn sie in MQTT entdeckt werden.\n\n",
+          "mqtt_enabled": "Hiermit werden automatisch Entit\u00e4ten hinzugef\u00fcgt, wenn sie in MQTT entdeckt werden.",
           "mqtt_topic": "Thema, das in der MQTT-Sektion Ihrer {name} konfiguriert ist.\n\nAchtung: Dies wird auch f\u00fcr die Namensgebung der entity_id verwendet (auch f\u00fcr die REST API \u00dcberwachung) und unterscheidet zwischen Gro\u00df- und Kleinschreibung."
         }
       },
       "connection_rest": {
         "title": "{name} Kontoeinrichtung - REST",
-        "description": "Konfigurieren Sie Ihr {name} Konto.\n",
+        "description": "Konfigurieren Sie Ihr {name} Konto.",
         "data": {
           "host": "Host",
           "username": "Benutzername",
