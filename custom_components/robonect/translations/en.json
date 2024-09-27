@@ -13,13 +13,13 @@
         },
         "data_description": {
           "rest_enabled": "Login credentials and monitored sensors for the REST API will be added in the next screen",
-          "mqtt_enabled": "Automatically adds entities when discovered on MQTT\n\n",
+          "mqtt_enabled": "Automatically adds entities when discovered on MQTT",
           "mqtt_topic": "Topic name configured in the MQTT section of your {name}.\n\nNote: This is also used in entity_id naming (including REST API monitoring) and is case sensitive."
         }
       },
       "connection_rest": {
         "title": "{name} account setup - REST",
-        "description": "Configure your {name} account.\n",
+        "description": "Configure your {name} account.",
         "data": {
           "host": "Host",
           "username": "Username",

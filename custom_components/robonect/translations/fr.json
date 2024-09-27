@@ -13,13 +13,13 @@
         },
         "data_description": {
           "rest_enabled": "Les informations de connexion et les capteurs \u00e0 suivre pour l'API Rest seront ajout\u00e9s dans l'\u00e9cran suivant",
-          "mqtt_enabled": "Cela ajoutera automatiquement des entit\u00e9s lors de la d\u00e9tection sur MQTT\n\n",
+          "mqtt_enabled": "Cela ajoutera automatiquement des entit\u00e9s lors de la d\u00e9tection sur MQTT",
           "mqtt_topic": "Nom du sujet configur\u00e9 dans la section MQTT de votre {name}.\n\nNote: Il est \u00e9galement utilis\u00e9 dans la d\u00e9nomination des entity_id (pour la surveillance de l'API Rest \u00e9galement) et est sensible \u00e0 la casse."
         }
       },
       "connection_rest": {
         "title": "Configuration du compte {name} - REST",
-        "description": "Configurez votre compte {name}.\n",
+        "description": "Configurez votre compte {name}.",
         "data": {
           "host": "H\u00f4te",
           "username": "Utilisateur",
