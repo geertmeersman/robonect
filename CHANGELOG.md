@@ -1,5 +1,19 @@
 # Changelog
 
+## [v1.9.0](https://github.com/geertmeersman/robonect/tree/v1.9.0) (2024-09-27)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.8.0...v1.9.0)
+
+**Merged pull requests:**
+
+- fix: removed new lines from translations [\#203](https://github.com/geertmeersman/robonect/pull/203) ([geertmeersman](https://github.com/geertmeersman))
+- feat: direct command service, refers to \#197 and \#194 [\#202](https://github.com/geertmeersman/robonect/pull/202) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.6.5 to 0.6.7 [\#201](https://github.com/geertmeersman/robonect/pull/201) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.6.4 to 0.6.5 [\#200](https://github.com/geertmeersman/robonect/pull/200) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.6.2 to 0.6.4 [\#199](https://github.com/geertmeersman/robonect/pull/199) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.5.4 to 0.6.2 [\#196](https://github.com/geertmeersman/robonect/pull/196) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): update pip requirement from \<24.2,\>=8.0.3 to \>=8.0.3,\<24.3 [\#189](https://github.com/geertmeersman/robonect/pull/189) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.8.0](https://github.com/geertmeersman/robonect/tree/v1.8.0) (2024-07-26)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.7.3...v1.8.0)
