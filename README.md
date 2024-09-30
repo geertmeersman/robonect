@@ -69,6 +69,17 @@ The **REST sensors**, are updated on a configurable scan interval. When the mowe
   - [Extra sensors templates, used for lovelace card](#extra-sensors-templates-used-for-lovelace-card)
   - [Lovelace examples](#lovelace-examples)
     - [Mower card with some nice buttons](#mower-card-with-some-nice-buttons)
+  - [Available Services](#available-services)
+    - [Start the Mower](#start-the-mower)
+    - [Stop the Mower](#stop-the-mower)
+    - [Reboot the Mower](#reboot-the-mower)
+    - [Shutdown the Mower](#shutdown-the-mower)
+    - [Sleep Mode](#sleep-mode)
+    - [Set Operation Mode](#set-operation-mode)
+    - [Place a Mowing Job](#place-a-mowing-job)
+    - [Modify a Timer](#modify-a-timer)
+    - [Control Equipment](#control-equipment)
+    - [Direct the Mower](#direct-the-mower)
   - [Screenshots](#screenshots)
     - [Integration page](#integration-page)
     - [Mowing job](#mowing-job)
@@ -603,6 +614,134 @@ cards:
 ```
 
 </details>
+
+## Available Services
+
+### Start the Mower
+
+- **Name**: `start`
+- **Description**: Starts the Robonect mower.
+
+### Stop the Mower
+
+- **Name**: `stop`
+- **Description**: Stops the Robonect mower.
+
+### Reboot the Mower
+
+- **Name**: `reboot`
+- **Description**: Reboots the Robonect mower.
+
+### Shutdown the Mower
+
+- **Name**: `shutdown`
+- **Description**: Shuts the Robonect mower down.
+
+### Sleep Mode
+
+- **Name**: `sleep`
+- **Description**: Sets the Robonect mower to sleep mode.
+
+### Set Operation Mode
+
+- **Name**: `operation_mode`
+- **Description**: Sets the operation mode of the Robonect mower.
+  - **Fields**:
+    - `mode`: Operation mode of the mower.
+      - **Example**: `"eod"`
+      - **Default**: `"auto"`
+      - **Options**:
+        - `"man"`
+        - `"auto"`
+        - `"eod"`
+        - `"home"`
+
+### Place a Mowing Job
+
+- **Name**: `job`
+- **Description**: The mower performs a mowing job.
+  - **Fields**:
+    - `entity_id`: The entity ID of the Robonect vacuum.
+      - **Example**: `vacuum.automower_robonect`
+    - `start`: Start time in 'hh:mm'. If omitted, the job starts immediately.
+      - **Example**: `"10:00"`
+    - `end`: End time in 'hh:mm'.
+      - **Example**: `"13:00"`
+    - `duration`: Duration of the job in minutes. Omitted if the end is set.
+      - **Example**: `145`
+      - **Min**: `1`
+      - **Max**: `10080`
+    - `after`: Mode activated after the job is done.
+      - **Example**: `"Auto"`
+      - **Default**: `"Auto"`
+      - **Options**:
+        - `"Auto"`
+        - `"Home"`
+        - `"End of day"`
+    - `corridor`: Corridor width. Defaults to "Normal" if omitted.
+      - **Example**: `"Normal"`
+      - **Options**:
+        - `"Normal"`
+        - `"0"` to `"9"`
+    - `remotestart`: Remote mowing starting point.
+      - **Default**: `"Normal"`
+      - **Options**:
+        - `"Normal"`
+        - `"From charging station"`
+        - `"Remote start 1"` to `"Remote start 5"`
+
+### Modify a Timer
+
+- **Name**: `timer`
+- **Description**: Modify a Robonect timer.
+  - **Fields**:
+    - `entity_id`: The entity ID of the Robonect vacuum.
+      - **Example**: `vacuum.automower_robonect`
+    - `timer`: Timer ID.
+      - **Example**: `"1"`
+      - **Default**: `"1"`
+      - **Options**: `"1"` to `"14"`
+    - `enable`: Enable or disable the timer.
+    - `start`: Start time in 'hh:mm'.
+      - **Example**: `"10:00"`
+    - `end`: End time in 'hh:mm'.
+      - **Example**: `"13:00"`
+    - `weekdays`: Select the weekdays for the timer.
+      - **Options**:
+        - `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`, `Sunday`
+
+### Control Equipment
+
+- **Name**: `ext`
+- **Description**: Control GPIO or OUT channels, set modes, handle errors, and signal inversion.
+  - **Fields**:
+    - `entity_id`: The entity ID of the Robonect mower.
+      - **Example**: `vacuum.automower_robonect`
+    - `ext`: External equipment selection.
+      - **Options**:
+        - `GPIO1`, `GPIO2`, `OUT1`, `OUT2`
+    - `gpioout`: Select the GPIO channel mode.
+      - **Options**:
+        - `[IN] Analog`, `[IN] Floating`, `[IN] PullDown`, `[IN] PullUp`, `[OUT] OpenDrain`, `[OUT] PushPull`
+    - `gpiomode`: Select the mode for GPIO/OUT operation.
+      - **Options**:
+        - `Off`, `On`, `Night (19-7 o'clock)`, `Drive`, `Night drive (19-7 o'clock)`, `Searching/Way home`, `Park position`, `Brake light`, `Left Turn Signal`, `Right Turn Signal`, `API`
+    - `gpioerr`: Checkbox to flash on fault.
+    - `gpioinv`: Checkbox to set Low-activ signal.
+
+### Direct the Mower
+
+- **Name**: `direct`
+- **Description**: Direct a Robonect mower by setting the speed percentage for each wheel and duration.
+  - **Fields**:
+    - `entity_id`: The entity ID of the Robonect mower.
+      - **Example**: `vacuum.automower_robonect`
+    - `left`: The speed percentage of the left wheel. Positive or negative.
+      - **Example**: `50%`
+    - `right`: The speed percentage of the right wheel. Positive or negative.
+      - **Example**: `50%`
+    - `timeout`: The timeout/duration in milliseconds.
+      - **Example**: `3000 ms`
 
 ## Screenshots
 

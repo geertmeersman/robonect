@@ -234,5 +234,6 @@ direct:
       selector:
         number:
           min: 1
+          max: 5000
           mode: box
           unit_of_measurement: ms
