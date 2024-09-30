@@ -1,5 +1,19 @@
 # Changelog
 
+## [v1.9.1](https://github.com/geertmeersman/robonect/tree/v1.9.1) (2024-09-30)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.9.0...v1.9.1)
+
+**Closed issues:**
+
+- Timeout check on 'Direct the mower' -service. [\#205](https://github.com/geertmeersman/robonect/issues/205)
+- Send 'Joystick'-commands to robonnect [\#197](https://github.com/geertmeersman/robonect/issues/197)
+
+**Merged pull requests:**
+
+- fix: limit direct service timeout to 5000ms, fixes \#205 [\#206](https://github.com/geertmeersman/robonect/pull/206) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.6.7 to 0.6.8 [\#204](https://github.com/geertmeersman/robonect/pull/204) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.9.0](https://github.com/geertmeersman/robonect/tree/v1.9.0) (2024-09-27)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.8.0...v1.9.0)
