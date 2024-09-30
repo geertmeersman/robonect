@@ -130,7 +130,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         try:
             params |= {"left": service.data["left"]}
             params |= {"right": service.data["right"]}
-            params |= {"timeout": service.data["timeout"]}
+            timeout = service.data.get("timeout", 5000)
+            if not isinstance(timeout, int):
+                raise TypeError("Timeout must be an integer.")
+            params |= {"timeout": min(timeout, 5000)}
         except ValueError as error:
             raise RobonectException(error)
         await async_send_command(hass, entry, "direct", params)
