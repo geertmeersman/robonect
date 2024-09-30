@@ -213,6 +213,7 @@ direct:
       description: "The percentage of speed on the left wheel. Can be positive or negative."
       required: true
       example: 50
+      default: 50
       selector:
         number:
           mode: box
@@ -222,6 +223,7 @@ direct:
       description: "The percentage of speed on the right wheel. Can be positive or negative."
       required: true
       example: 50
+      default: 50
       selector:
         number:
           mode: box
@@ -231,6 +233,7 @@ direct:
       description: "The timeout/duration in milliseconds."
       required: true
       example: 3000
+      default: 3000
       selector:
         number:
           min: 1
