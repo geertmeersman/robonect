@@ -1,5 +1,19 @@
 # Changelog
 
+## [v2.0.0](https://github.com/geertmeersman/robonect/tree/v2.0.0) (2024-10-07)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.9.1...v2.0.0)
+
+**Closed issues:**
+
+- Feature request [\#194](https://github.com/geertmeersman/robonect/issues/194)
+- Home Assistant Color for status \(sleepling - mowing\) [\#190](https://github.com/geertmeersman/robonect/issues/190)
+
+**Merged pull requests:**
+
+- feat: switches for equipment, vacuum removed, states changed for lawn… [\#210](https://github.com/geertmeersman/robonect/pull/210) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.6.8 to 0.6.9 [\#209](https://github.com/geertmeersman/robonect/pull/209) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v1.9.1](https://github.com/geertmeersman/robonect/tree/v1.9.1) (2024-09-30)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.9.0...v1.9.1)
