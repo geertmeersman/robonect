@@ -136,9 +136,130 @@
       },
       "winter_mode": {
         "name": "Winter mode"
+      },
+      "ext_gpio1": {
+        "name": "GPIO 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash on error"
+          },
+          "inverted": {
+            "name": "Inverted"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_gpio2": {
+        "name": "GPIO 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash on error"
+          },
+          "inverted": {
+            "name": "Inverted"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out1": {
+        "name": "OUT 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash on error"
+          },
+          "inverted": {
+            "name": "Inverted"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out2": {
+        "name": "OUT 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash on error"
+          },
+          "inverted": {
+            "name": "Inverted"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "weather_data_break": {
+        "name": "Stopped due to weather"
+      },
+      "weather_service": {
+        "name": "Weather service"
+      },
+      "mower_stopped": {
+        "name": "Stopped"
       }
     },
     "switch": {
+      "ext_gpio1": {
+        "name": "GPIO 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flashs when fault"
+          },
+          "inverted": {
+            "name": "Signal is Low-activ"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_gpio2": {
+        "name": "GPIO 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flashs when fault"
+          },
+          "inverted": {
+            "name": "Signal is Low-activ"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out1": {
+        "name": "OUT 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flashs when fault"
+          },
+          "inverted": {
+            "name": "Signal is Low-activ"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out2": {
+        "name": "OUT 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flashs when fault"
+          },
+          "inverted": {
+            "name": "Signal is Low-activ"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
       "timer_1": {
         "name": "Timer 1",
         "state_attributes": {
@@ -450,9 +571,6 @@
       "mower_blades_hours": {
         "name": "Blade operating hours"
       },
-      "mower_stopped": {
-        "name": "Stopped"
-      },
       "wlan_rssi": {
         "name": "Wi-Fi signal strength"
       },
@@ -476,9 +594,6 @@
       "mower_error_message": {
         "name": "Last error message"
       },
-      "weather_data_break": {
-        "name": "Stopped due to weather"
-      },
       "mower_substatus": {
         "name": "Substatus",
         "state": {
@@ -501,9 +616,6 @@
           "23": "Following guide wire 2 to starting point",
           "25": "Following left boundary wire"
         }
-      },
-      "weather_service": {
-        "name": "Weather service"
       },
       "control": {
         "name": "Control"
@@ -602,62 +714,6 @@
             "name": "Current"
           }
         }
-      },
-      "ext_gpio1": {
-        "name": "GPIO 1",
-        "state_attributes": {
-          "flashonerror": {
-            "name": "Flash on error"
-          },
-          "inverted": {
-            "name": "Inverted"
-          },
-          "status": {
-            "name": "Status"
-          }
-        }
-      },
-      "ext_gpio2": {
-        "name": "GPIO 2",
-        "state_attributes": {
-          "flashonerror": {
-            "name": "Flash on error"
-          },
-          "inverted": {
-            "name": "Inverted"
-          },
-          "status": {
-            "name": "Status"
-          }
-        }
-      },
-      "ext_out1": {
-        "name": "OUT 1",
-        "state_attributes": {
-          "flashonerror": {
-            "name": "Flash on error"
-          },
-          "inverted": {
-            "name": "Inverted"
-          },
-          "status": {
-            "name": "Status"
-          }
-        }
-      },
-      "ext_out2": {
-        "name": "OUT 2",
-        "state_attributes": {
-          "flashonerror": {
-            "name": "Flash on error"
-          },
-          "inverted": {
-            "name": "Inverted"
-          },
-          "status": {
-            "name": "Status"
-          }
-        }
       }
     },
     "button": {
@@ -709,19 +765,18 @@
       "automower": {
         "name": "Robotic Lawn Mower",
         "state": {
-          "0": "Detecting status",
-          "1": "Parked",
-          "2": "Mowing",
-          "3": "Searching for charging station",
-          "4": "Charging",
-          "5": "Searching",
-          "7": "Error",
-          "8": "Lost cable signal",
-          "16": "Off",
-          "17": "Sleeping",
-          "18": "Waiting for garage door",
-          "98": "Offline (unable to connect)",
-          "99": "Unknown"
+          "detecting_status": "Detecting status",
+          "paused": "Parked",
+          "mowing": "Mowing",
+          "returning": "Searching",
+          "charging": "Charging",
+          "error": "Error",
+          "lost_cable_signal": "Lost cable signal",
+          "off": "Off",
+          "docked": "Sleeping",
+          "waiting_for_garage_door": "Waiting for garage door",
+          "offline_cannot_bind": "Offline (unable to connect)",
+          "unknown": "Unknown"
         },
         "state_attributes": {
           "substatus": {

@@ -136,9 +136,130 @@
       },
       "winter_mode": {
         "name": "Wintermodus"
+      },
+      "ext_gpio1": {
+        "name": "GPIO 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flits bij fout"
+          },
+          "inverted": {
+            "name": "Omgekeerd"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_gpio2": {
+        "name": "GPIO 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flits bij fout"
+          },
+          "inverted": {
+            "name": "Omgekeerd"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out1": {
+        "name": "OUT 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flits bij fout"
+          },
+          "inverted": {
+            "name": "Omgekeerd"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out2": {
+        "name": "OUT 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flits bij fout"
+          },
+          "inverted": {
+            "name": "Omgekeerd"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "weather_data_break": {
+        "name": "Gestopt vanwege weer"
+      },
+      "weather_service": {
+        "name": "Weerdienst"
+      },
+      "mower_stopped": {
+        "name": "Gestopt"
       }
     },
     "switch": {
+      "ext_gpio1": {
+        "name": "GPIO 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Knippert bij fout"
+          },
+          "inverted": {
+            "name": "Signaal is laag-actief"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_gpio2": {
+        "name": "GPIO 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Knippert bij fout"
+          },
+          "inverted": {
+            "name": "Signaal is laag-actief"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out1": {
+        "name": "OUT 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Knippert bij fout"
+          },
+          "inverted": {
+            "name": "Signaal is laag-actief"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out2": {
+        "name": "OUT 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Knippert bij fout"
+          },
+          "inverted": {
+            "name": "Signaal is laag-actief"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
       "timer_1": {
         "name": "Timer 1",
         "state_attributes": {
@@ -450,9 +571,6 @@
       "mower_blades_hours": {
         "name": "Bedrijfsuren messen"
       },
-      "mower_stopped": {
-        "name": "Gestopt"
-      },
       "wlan_rssi": {
         "name": "Wi-Fi signaalsterkte"
       },
@@ -476,9 +594,6 @@
       "mower_error_message": {
         "name": "Laatste foutmelding"
       },
-      "weather_data_break": {
-        "name": "Gestopt vanwege weer"
-      },
       "mower_substatus": {
         "name": "Substatus",
         "state": {
@@ -501,9 +616,6 @@
           "23": "Volgt geleidingsdraad 2 naar het startpunt",
           "25": "Volgt linker grensdraad"
         }
-      },
-      "weather_service": {
-        "name": "Weerdienst"
       },
       "control": {
         "name": "Bediening"
@@ -602,62 +714,6 @@
             "name": "Stroom"
           }
         }
-      },
-      "ext_gpio1": {
-        "name": "GPIO 1",
-        "state_attributes": {
-          "flashonerror": {
-            "name": "Flits bij fout"
-          },
-          "inverted": {
-            "name": "Omgekeerd"
-          },
-          "status": {
-            "name": "Status"
-          }
-        }
-      },
-      "ext_gpio2": {
-        "name": "GPIO 2",
-        "state_attributes": {
-          "flashonerror": {
-            "name": "Flits bij fout"
-          },
-          "inverted": {
-            "name": "Omgekeerd"
-          },
-          "status": {
-            "name": "Status"
-          }
-        }
-      },
-      "ext_out1": {
-        "name": "OUT 1",
-        "state_attributes": {
-          "flashonerror": {
-            "name": "Flits bij fout"
-          },
-          "inverted": {
-            "name": "Omgekeerd"
-          },
-          "status": {
-            "name": "Status"
-          }
-        }
-      },
-      "ext_out2": {
-        "name": "OUT 2",
-        "state_attributes": {
-          "flashonerror": {
-            "name": "Flits bij fout"
-          },
-          "inverted": {
-            "name": "Omgekeerd"
-          },
-          "status": {
-            "name": "Status"
-          }
-        }
       }
     },
     "button": {
@@ -709,19 +765,18 @@
       "automower": {
         "name": "Robotmaaier",
         "state": {
-          "0": "Status detecteren",
-          "1": "Geparkeerd",
-          "2": "Maaien",
-          "3": "Laadstation zoeken",
-          "4": "Laden",
-          "5": "Zoeken",
-          "7": "Fout",
-          "8": "Kabelsignaal verloren",
-          "16": "Uit",
-          "17": "Slapen",
-          "18": "Wachten op de garagedeur",
-          "98": "Offline (onmogelijk te verbinden)",
-          "99": "Ongekend"
+          "detecting_status": "Status detecteren",
+          "paused": "Geparkeerd",
+          "mowing": "Maaien",
+          "returning": "Zoeken",
+          "charging": "Laden",
+          "error": "Fout",
+          "lost_cable_signal": "Kabelsignaal verloren",
+          "off": "Uit",
+          "docked": "Slapen",
+          "waiting_for_garage_door": "Wachten op de garagedeur",
+          "offline_cannot_bind": "Offline (onmogelijk te verbinden)",
+          "unknown": "Ongekend"
         },
         "state_attributes": {
           "substatus": {

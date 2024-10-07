@@ -27,6 +27,7 @@ from .const import (
     CONF_MQTT_TOPIC,
     CONF_REST_ENABLED,
     DOMAIN,
+    STATUS_MAPPING_LAWN_MOWER,
 )
 from .entity import RobonectCoordinatorEntity, RobonectEntity
 from .utils import filter_out_units, get_json_dict_path, unix_to_datetime
@@ -150,7 +151,7 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
     @property
     def battery_icon(self) -> str:
         """Return the battery icon for the Robonect mower."""
-        charging = bool(self.state == "Charging")
+        charging = bool(self.state == "charging")
 
         return icon_for_battery_level(
             battery_level=self.battery_level, charging=charging
@@ -177,7 +178,9 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
             return False
         if len(self.coordinator.data) and "status" in self.coordinator.data:
             status = self.coordinator.data.get("status")
-            self._attr_activity = status.get("status").get("status")
+            self._attr_activity = STATUS_MAPPING_LAWN_MOWER.get(
+                int(status.get("status").get("status")), "unknown"
+            )
             self._battery = int(status.get("status").get("battery"))
             attr_states = {
                 "status_duration": "$.status.status.duration",
@@ -212,7 +215,9 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
         @callback
         def state_received(message):
             """Handle state topic."""
-            self._attr_activity = message.payload
+            self._attr_activity = STATUS_MAPPING_LAWN_MOWER.get(
+                int(message.payload), "unknown"
+            )
             self.update_ha_state()
 
         @callback

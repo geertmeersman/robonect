@@ -25,6 +25,7 @@ from .const import (
 )
 from .definitions import SWITCHES, RobonectSwitchEntityDescription
 from .entity import RobonectCoordinatorEntity, RobonectEntity
+from .exceptions import RobonectException
 from .models import RobonectTimer
 from .utils import adapt_attributes, get_json_dict_path, hex2weekdays
 
@@ -44,7 +45,7 @@ async def async_setup_entry(
             return
 
     if entry.data[CONF_REST_ENABLED] is False:
-        _LOGGER.info("Ignoring the Timer switches as REST is not enabled")
+        _LOGGER.info("Ignoring the switches as REST is not enabled")
         return
 
     coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id][
@@ -72,10 +73,6 @@ async def async_setup_entry(
                     ]
                 )
 
-        # hass.data[DOMAIN][entry.entry_id]["device_tracker"].add(entry.data[CONF_MQTT_TOPIC])
-
-        # async_add_entities([RobonectMqttGPSEntity(hass, entry)])
-
     if entry.data[CONF_MQTT_ENABLED] is True:
         await mqtt.async_subscribe(
             hass,
@@ -83,11 +80,16 @@ async def async_setup_entry(
             async_mqtt_event_received,
             0,
         )
-    elif entry.data[CONF_REST_ENABLED] is True:
+    if entry.data[CONF_REST_ENABLED] is True:
         _LOGGER.debug("Creating REST sensors")
         entities: list[RobonectRestSwitch] = []
         if coordinator.data is not None:
             for description in SWITCHES:
+                if (
+                    description.category == "timer"
+                    and entry.data[CONF_MQTT_ENABLED] is True
+                ):
+                    continue
                 if not description.rest:
                     path = description.key
                 else:
@@ -214,17 +216,28 @@ class RobonectTimerSwitchEntity(RobonectEntity, SwitchEntity, RestoreEntity):
         }
 
     async def async_added_to_hass(self) -> None:
-        """Subscribe to MQTT events."""
+        """Subscribe to MQTT events and restore the previous state if available."""
         await super().async_added_to_hass()
+
+        # Define the MQTT topic for the timer
         timer_topic = (
             f"{self.entry.data[CONF_MQTT_TOPIC]}/mower/timer/ch{self.timer_id}"
         )
 
+        # Try to restore the previous state
         if state := await self.async_get_last_state():
-            self._state = state.state
-            self._attributes = state.attributes
+            # Set the state based on the previous state
+            self._is_on = state.state == "on"
+
+            # Restore attributes, handle cases where there are no attributes
+            self._attributes = state.attributes or {}
+            _LOGGER.debug(
+                f"Restored state for {self.entity_id}: state.state:{state.state}, is_on:{self._is_on}"
+            )
         else:
-            _LOGGER.debug(f"Last state is none for {self._attr_unique_id}")
+            _LOGGER.debug(
+                f"No previous state found for {self.entity_id}. Initializing with default values."
+            )
 
         @callback
         def timer_received(msg):
@@ -241,7 +254,7 @@ class RobonectTimerSwitchEntity(RobonectEntity, SwitchEntity, RestoreEntity):
                 self._end = msg.payload
             self.update_ha_state()
 
-        if self.entry.data[CONF_MQTT_ENABLED] is True:
+        if self.entry.data[CONF_MQTT_ENABLED] is True and self.category == "timer":
             await mqtt.async_subscribe(
                 self.hass,
                 f"{self.entry.data[CONF_MQTT_TOPIC]}/mower/timer/ch{self.timer_id}/#",
@@ -269,7 +282,7 @@ class RobonectRestSwitch(RobonectCoordinatorEntity, RobonectTimerSwitchEntity):
         RobonectTimerSwitchEntity.__init__(
             self, hass, entry, coordinator, description, timer_id
         )
-        self.set_state()
+        self._handle_coordinator_update()
 
     @callback
     def _handle_coordinator_update(self) -> None:
@@ -285,6 +298,7 @@ class RobonectRestSwitch(RobonectCoordinatorEntity, RobonectTimerSwitchEntity):
                 self.coordinator.data, self.entity_description.rest
             )
             self._is_on = state
+            self.update_ha_state()
 
     def set_extra_attributes(self):
         """Set the attributes for the sensor from coordinator."""
@@ -311,3 +325,49 @@ class RobonectRestSwitch(RobonectCoordinatorEntity, RobonectTimerSwitchEntity):
         """Return attributes for sensor."""
         self.set_extra_attributes()
         return self._attr_extra_state_attributes
+
+    async def async_turn_on(self, **kwargs: Any) -> None:
+        """Turn the switch on."""
+        if self.category == "timer":
+            await super().async_turn_on()
+            return
+        elif not self.is_on:
+            attributes = self._attr_extra_state_attributes
+            params = {}
+            try:
+                params |= {"ext": self.entity_description.ext}
+                params |= {"gpioout": 16}
+                params |= {"gpiomode": 1}
+                if attributes["flashonerror"]:
+                    params |= {"gpioerr": "on"}
+                if attributes["inverted"]:
+                    params |= {"gpioinv": "on"}
+
+            except ValueError as error:
+                raise RobonectException(error)
+
+            await self.async_send_command("equipment", params)
+        await self.coordinator.async_refresh()
+
+    async def async_turn_off(self, **kwargs: Any) -> None:
+        """Turn the switch off."""
+        if self.category == "timer":
+            await super().async_turn_off()
+            return
+        elif self.is_on:
+            attributes = self._attr_extra_state_attributes
+            params = {}
+            try:
+                params |= {"ext": self.entity_description.ext}
+                params |= {"gpioout": 16}
+                params |= {"gpiomode": 0}
+                if attributes["flashonerror"]:
+                    params |= {"gpioerr": "on"}
+                if attributes["inverted"]:
+                    params |= {"gpioinv": "on"}
+
+            except ValueError as error:
+                raise RobonectException(error)
+
+            await self.async_send_command("equipment", params)
+        await self.coordinator.async_refresh()

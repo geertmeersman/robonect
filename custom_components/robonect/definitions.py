@@ -37,6 +37,7 @@ class RobonectSensorEntityDescription(SensorEntityDescription):
     category: str | None = None
     translation_key: str | None = None
     array: bool | True = None
+    ext: str | None = None
 
 
 BUTTONS: tuple[RobonectSensorEntityDescription, ...] = (
@@ -60,6 +61,60 @@ BINARY_SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         entity_category=EntityCategory.DIAGNOSTIC,
         category="health",
     ),
+    RobonectSensorEntityDescription(
+        key=".ext/gpio1",
+        rest="$.ext.ext.gpio1.status",
+        rest_attrs="$.ext.ext.gpio1",
+        icon="mdi:gesture-pinch",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        category="ext",
+    ),
+    RobonectSensorEntityDescription(
+        key=".ext/gpio2",
+        rest="$.ext.ext.gpio2.status",
+        rest_attrs="$.ext.ext.gpio2",
+        icon="mdi:gesture-pinch",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        category="ext",
+    ),
+    RobonectSensorEntityDescription(
+        key=".ext/out1",
+        rest="$.ext.ext.out1.status",
+        rest_attrs="$.ext.ext.out1",
+        icon="mdi:gesture-pinch",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        category="ext",
+    ),
+    RobonectSensorEntityDescription(
+        key=".ext/out2",
+        rest="$.ext.ext.out2.status",
+        rest_attrs="$.ext.ext.out2",
+        icon="mdi:gesture-pinch",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        category="ext",
+    ),
+    RobonectSensorEntityDescription(
+        key="weather/data/break",
+        rest="$.weather.weather.break",
+        icon="mdi:stop",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        category="weather",
+    ),
+    RobonectSensorEntityDescription(
+        key=".weather/service",
+        rest="$.weather.service.enable",
+        rest_attrs="$.weather",
+        icon="mdi:weather-cloudy",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        category="weather",
+    ),
+    RobonectSensorEntityDescription(
+        key="mower/stopped",
+        rest="$.status.status.stopped",
+        icon="mdi:stop",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        category="status",
+    ),
 )
 
 SWITCHES: tuple[RobonectSwitchEntityDescription, ...] = (
@@ -71,6 +126,42 @@ SWITCHES: tuple[RobonectSwitchEntityDescription, ...] = (
         icon="mdi:calendar-clock",
         entity_category=EntityCategory.DIAGNOSTIC,
         category="timer",
+    ),
+    RobonectSensorEntityDescription(
+        key=".ext/gpio1",
+        rest="$.ext.ext.gpio1.status",
+        rest_attrs="$.ext.ext.gpio1",
+        icon="mdi:gesture-pinch",
+        ext="ext0",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        category="ext",
+    ),
+    RobonectSensorEntityDescription(
+        key=".ext/gpio2",
+        rest="$.ext.ext.gpio2.status",
+        rest_attrs="$.ext.ext.gpio2",
+        icon="mdi:gesture-pinch",
+        ext="ext1",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        category="ext",
+    ),
+    RobonectSensorEntityDescription(
+        key=".ext/out1",
+        rest="$.ext.ext.out1.status",
+        rest_attrs="$.ext.ext.out1",
+        icon="mdi:gesture-pinch",
+        ext="ext2",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        category="ext",
+    ),
+    RobonectSensorEntityDescription(
+        key=".ext/out2",
+        rest="$.ext.ext.out2.status",
+        rest_attrs="$.ext.ext.out2",
+        icon="mdi:gesture-pinch",
+        ext="ext3",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        category="ext",
     ),
 )
 
@@ -208,13 +299,6 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         category="status",
     ),
     RobonectSensorEntityDescription(
-        key="mower/stopped",
-        rest="$.status.status.stopped",
-        icon="mdi:stop",
-        entity_category=EntityCategory.DIAGNOSTIC,
-        category="status",
-    ),
-    RobonectSensorEntityDescription(
         key="wlan/rssi",
         rest="$.status.wlan.signal",
         rest_attrs="$.status.wlan",
@@ -281,21 +365,6 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         state=unix_to_datetime,
         entity_category=EntityCategory.DIAGNOSTIC,
         category="status",
-    ),
-    RobonectSensorEntityDescription(
-        key="weather/data/break",
-        rest="$.weather.weather.break",
-        icon="mdi:stop",
-        entity_category=EntityCategory.DIAGNOSTIC,
-        category="weather",
-    ),
-    RobonectSensorEntityDescription(
-        key=".weather/service",
-        rest="$.weather.service.enable",
-        rest_attrs="$.weather",
-        icon="mdi:weather-cloudy",
-        entity_category=EntityCategory.DIAGNOSTIC,
-        category="weather",
     ),
     RobonectSensorEntityDescription(
         key="mower/status",
@@ -383,38 +452,6 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         device_class=SensorDeviceClass.TIMESTAMP,
         entity_category=EntityCategory.DIAGNOSTIC,
         category="status",
-    ),
-    RobonectSensorEntityDescription(
-        key=".ext/gpio1",
-        rest="$.ext.ext.gpio1.status",
-        rest_attrs="$.ext.ext.gpio1",
-        icon="mdi:gesture-pinch",
-        entity_category=EntityCategory.DIAGNOSTIC,
-        category="ext",
-    ),
-    RobonectSensorEntityDescription(
-        key=".ext/gpio2",
-        rest="$.ext.ext.gpio2.status",
-        rest_attrs="$.ext.ext.gpio2",
-        icon="mdi:gesture-pinch",
-        entity_category=EntityCategory.DIAGNOSTIC,
-        category="ext",
-    ),
-    RobonectSensorEntityDescription(
-        key=".ext/out1",
-        rest="$.ext.ext.out1.status",
-        rest_attrs="$.ext.ext.out1",
-        icon="mdi:gesture-pinch",
-        entity_category=EntityCategory.DIAGNOSTIC,
-        category="ext",
-    ),
-    RobonectSensorEntityDescription(
-        key=".ext/out2",
-        rest="$.ext.ext.out2.status",
-        rest_attrs="$.ext.ext.out2",
-        icon="mdi:gesture-pinch",
-        entity_category=EntityCategory.DIAGNOSTIC,
-        category="ext",
     ),
     RobonectSensorEntityDescription(
         key=".mower/error",

@@ -39,6 +39,8 @@ from .const import (
     SENSOR_GROUPS,
     SERVICE_DIRECT,
     SERVICE_DIRECT_SCHEMA,
+    SERVICE_EQUIPMENT,
+    SERVICE_EQUIPMENT_SCHEMA,
     SERVICE_JOB,
     SERVICE_JOB_AFTER_VALUES,
     SERVICE_JOB_CORRIDOR_VALUES,
@@ -130,16 +132,33 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         try:
             params |= {"left": service.data["left"]}
             params |= {"right": service.data["right"]}
-            timeout = service.data.get("timeout", 5000)
-            if not isinstance(timeout, int):
-                raise TypeError("Timeout must be an integer.")
-            params |= {"timeout": min(timeout, 5000)}
+            params |= {"timeout": service.data["timeout"]}
         except ValueError as error:
             raise RobonectException(error)
         await async_send_command(hass, entry, "direct", params)
 
     hass.services.async_register(
         DOMAIN, SERVICE_DIRECT, direct, schema=SERVICE_DIRECT_SCHEMA
+    )
+
+    async def equipment(service: ServiceCall) -> bool:
+        """Modify an equipment."""
+        params = {}
+        try:
+            params |= {"ext": service.data["ext"]}
+            params |= {"gpioout": service.data["gpioout"]}
+            params |= {"gpiomode": service.data["gpiomode"]}
+            if service.data["gpioerr"]:
+                params |= {"gpioerr": "on"}
+            if service.data["gpioinv"]:
+                params |= {"gpioinv": "on"}
+
+        except ValueError as error:
+            raise RobonectException(error)
+        await async_send_command(hass, entry, "equipment", params)
+
+    hass.services.async_register(
+        DOMAIN, SERVICE_EQUIPMENT, equipment, schema=SERVICE_EQUIPMENT_SCHEMA
     )
 
     async def job(service: ServiceCall) -> bool:
@@ -351,9 +370,10 @@ async def async_send_command(
 
 async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Migrate old entry."""
-    _LOGGER.info("Migrating from version %s", config_entry.version)
+    current_version = config_entry.version
+    _LOGGER.info("Migrating from version %s", current_version)
 
-    if config_entry.version == 1:
+    if current_version == 2:
         new = {**config_entry.data}
         # TODO: modify Config Entry data
         if CONF_MONITORED_VARIABLES not in new:
@@ -369,10 +389,9 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
 
         new[CONF_ATTRS_UNITS] = True
 
-        config_entry.version = 2
-        hass.config_entries.async_update_entry(config_entry, data=new)
+        hass.config_entries.async_update_entry(config_entry, data=new, version=2)
 
-    if config_entry.version == 2:
+    if current_version < 3:
         new = {**config_entry.data}
 
         entity_reg: er.EntityRegistry = er.async_get(hass)
@@ -385,17 +404,66 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
             if "sensor.automower_timer" in entry.entity_id:
                 _LOGGER.info("Removing entity: %s", entry_name)
                 entity_reg.async_remove(entry.entity_id)
-        config_entry.version = 3
-        hass.config_entries.async_update_entry(config_entry, data=new)
+        hass.config_entries.async_update_entry(config_entry, data=new, version=3)
 
-    if config_entry.version == 3:
+    if current_version < 4:
         new = {**config_entry.data}
 
         new[CONF_WINTER_MODE] = False
 
-        config_entry.version = 4
-        hass.config_entries.async_update_entry(config_entry, data=new)
+        hass.config_entries.async_update_entry(config_entry, data=new, version=4)
 
-    _LOGGER.info("Migration to version %s successful", config_entry.version)
+    if current_version < 5:
+        entity_reg: er.EntityRegistry = er.async_get(hass)
+        ha_entity_reg_list: list[er.RegistryEntry] = er.async_entries_for_config_entry(
+            entity_reg, config_entry.entry_id
+        )
+
+        for entry in ha_entity_reg_list:
+            entry_name = entry.name or entry.original_name
+            if "vacuum.automower" in entry.entity_id:
+                _LOGGER.info("Removing entity: %s", entry_name)
+                entity_reg.async_remove(entry.entity_id)
+        hass.config_entries.async_update_entry(config_entry, version=5)
+
+    if current_version < 6:
+        # Perform entity cleanup for old platforms (e.g., sensor -> binary_sensor)
+        entity_reg = er.EntityRegistry = er.async_get(hass)
+        ha_entity_reg_list: list[er.RegistryEntry] = er.async_entries_for_config_entry(
+            entity_reg, config_entry.entry_id
+        )
+
+        _LOGGER.critical("REMOVING V6")
+        # Define the base entity IDs to match, allowing for renamed versions (e.g., "_2")
+        base_entity_ids = [
+            "sensor.automower_ext_gpio1",
+            "sensor.automower_ext_gpio2",
+            "sensor.automower_ext_out1",
+            "sensor.automower_ext_out2",
+            "sensor.automower_mower_stopped",
+            "sensor.automower_weather_data_break",
+            "sensor.automower_weather_service",
+        ]
+
+        # Iterate over the registered entities and remove matching or restored entities
+        for entry in ha_entity_reg_list:
+            entry_name = entry.name or entry.original_name
+
+            # Check if the entity starts with any base entity ID or if it's restored
+            entity_state = hass.states.get(entry.entity_id)
+
+            # Remove entity if it matches old base IDs or is restored
+            if any(
+                entry.entity_id.startswith(base_id) for base_id in base_entity_ids
+            ) or (entity_state and entity_state.attributes.get("restored", False)):
+                _LOGGER.critical(
+                    f"Removing entity: {entry.entity_id} (Restored: {entity_state is not None and entity_state.attributes.get('restored', False)})"
+                )
+                entity_reg.async_remove(entry.entity_id)
+
+        # After migration, update the version
+        hass.config_entries.async_update_entry(config_entry, version=6)
+
+    _LOGGER.info("Migration to version %s successful", current_version)
 
     return True

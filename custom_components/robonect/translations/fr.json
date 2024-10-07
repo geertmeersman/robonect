@@ -136,9 +136,130 @@
       },
       "winter_mode": {
         "name": "Mode hiver"
+      },
+      "ext_gpio1": {
+        "name": "GPIO 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash en cas d'erreur"
+          },
+          "inverted": {
+            "name": "Invers\u00e9"
+          },
+          "status": {
+            "name": "Statut"
+          }
+        }
+      },
+      "ext_gpio2": {
+        "name": "GPIO 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash en cas d'erreur"
+          },
+          "inverted": {
+            "name": "Invers\u00e9"
+          },
+          "status": {
+            "name": "Statut"
+          }
+        }
+      },
+      "ext_out1": {
+        "name": "OUT 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash en cas d'erreur"
+          },
+          "inverted": {
+            "name": "Invers\u00e9"
+          },
+          "status": {
+            "name": "Statut"
+          }
+        }
+      },
+      "ext_out2": {
+        "name": "OUT 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash en cas d'erreur"
+          },
+          "inverted": {
+            "name": "Invers\u00e9"
+          },
+          "status": {
+            "name": "Statut"
+          }
+        }
+      },
+      "weather_data_break": {
+        "name": "Arr\u00eat en raison des conditions m\u00e9t\u00e9orologiques"
+      },
+      "weather_service": {
+        "name": "Service m\u00e9t\u00e9o"
+      },
+      "mower_stopped": {
+        "name": "Arr\u00eat\u00e9"
       }
     },
     "switch": {
+      "ext_gpio1": {
+        "name": "GPIO 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Clignote en cas de d\u00e9faut"
+          },
+          "inverted": {
+            "name": "Signal actif-bas"
+          },
+          "status": {
+            "name": "Statut"
+          }
+        }
+      },
+      "ext_gpio2": {
+        "name": "GPIO 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Clignote en cas de d\u00e9faut"
+          },
+          "inverted": {
+            "name": "Signal actif-bas"
+          },
+          "status": {
+            "name": "Statut"
+          }
+        }
+      },
+      "ext_out1": {
+        "name": "OUT 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Clignote en cas de d\u00e9faut"
+          },
+          "inverted": {
+            "name": "Signal actif-bas"
+          },
+          "status": {
+            "name": "Statut"
+          }
+        }
+      },
+      "ext_out2": {
+        "name": "OUT 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Clignote en cas de d\u00e9faut"
+          },
+          "inverted": {
+            "name": "Signal actif-bas"
+          },
+          "status": {
+            "name": "Statut"
+          }
+        }
+      },
       "timer_1": {
         "name": "Minuterie 1",
         "state_attributes": {
@@ -450,9 +571,6 @@
       "mower_blades_hours": {
         "name": "Heures de fonctionnement des lames"
       },
-      "mower_stopped": {
-        "name": "Arr\u00eat\u00e9"
-      },
       "wlan_rssi": {
         "name": "Force du signal Wi-Fi"
       },
@@ -476,9 +594,6 @@
       "mower_error_message": {
         "name": "Dernier message d'erreur"
       },
-      "weather_data_break": {
-        "name": "Arr\u00eat en raison des conditions m\u00e9t\u00e9orologiques"
-      },
       "mower_substatus": {
         "name": "Sous-statut",
         "state": {
@@ -501,9 +616,6 @@
           "23": "Suit le fil guide 2 vers le point de d\u00e9part",
           "25": "Suit le fil de d\u00e9limitation gauche"
         }
-      },
-      "weather_service": {
-        "name": "Service m\u00e9t\u00e9o"
       },
       "control": {
         "name": "Contr\u00f4le"
@@ -602,62 +714,6 @@
             "name": "Courant"
           }
         }
-      },
-      "ext_gpio1": {
-        "name": "GPIO 1",
-        "state_attributes": {
-          "flashonerror": {
-            "name": "Flash en cas d'erreur"
-          },
-          "inverted": {
-            "name": "Invers\u00e9"
-          },
-          "status": {
-            "name": "Statut"
-          }
-        }
-      },
-      "ext_gpio2": {
-        "name": "GPIO 2",
-        "state_attributes": {
-          "flashonerror": {
-            "name": "Flash en cas d'erreur"
-          },
-          "inverted": {
-            "name": "Invers\u00e9"
-          },
-          "status": {
-            "name": "Statut"
-          }
-        }
-      },
-      "ext_out1": {
-        "name": "OUT 1",
-        "state_attributes": {
-          "flashonerror": {
-            "name": "Flash en cas d'erreur"
-          },
-          "inverted": {
-            "name": "Invers\u00e9"
-          },
-          "status": {
-            "name": "Statut"
-          }
-        }
-      },
-      "ext_out2": {
-        "name": "OUT 2",
-        "state_attributes": {
-          "flashonerror": {
-            "name": "Flash en cas d'erreur"
-          },
-          "inverted": {
-            "name": "Invers\u00e9"
-          },
-          "status": {
-            "name": "Statut"
-          }
-        }
       }
     },
     "button": {
@@ -709,19 +765,18 @@
       "automower": {
         "name": "Tondeuse robot",
         "state": {
-          "0": "D\u00e9tection de l'\u00e9tat",
-          "1": "Gar\u00e9",
-          "2": "Tonte en cours",
-          "3": "Recherche de la station de charge",
-          "4": "En charge",
-          "5": "Recherche",
-          "7": "Erreur",
-          "8": "Signal du c\u00e2ble perdu",
-          "16": "\u00c9teint",
-          "17": "En veille",
-          "18": "En attente de la porte du garage",
-          "98": "Hors ligne (ne peut pas se connecter)",
-          "99": "Inconnu"
+          "detecting_status": "D\u00e9tection de l'\u00e9tat",
+          "paused": "Gar\u00e9",
+          "mowing": "Tonte en cours",
+          "returning": "Recherche",
+          "charging": "En charge",
+          "error": "Erreur",
+          "lost_cable_signal": "Signal du c\u00e2ble perdu",
+          "off": "\u00c9teint",
+          "docked": "En veille",
+          "waiting_for_garage_door": "En attente de la porte du garage",
+          "offline_cannot_bind": "Hors ligne (ne peut pas se connecter)",
+          "unknown": "Inconnu"
         },
         "state_attributes": {
           "substatus": {

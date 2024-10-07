@@ -538,7 +538,7 @@ class RobonectOptionsFlow(RobonectCommonFlow, OptionsFlow):
 class RobonectConfigFlow(RobonectCommonFlow, ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Robonect."""
 
-    VERSION = 4
+    VERSION = 6
 
     def __init__(self) -> None:
         """Initialize Robonect Config Flow."""

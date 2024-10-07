@@ -136,9 +136,130 @@
       },
       "winter_mode": {
         "name": "Wintermodus"
+      },
+      "ext_gpio1": {
+        "name": "GPIO 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash bei Fehler"
+          },
+          "inverted": {
+            "name": "Umgekehrt"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_gpio2": {
+        "name": "GPIO 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash bei Fehler"
+          },
+          "inverted": {
+            "name": "Umgekehrt"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out1": {
+        "name": "OUT 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash bei Fehler"
+          },
+          "inverted": {
+            "name": "Umgekehrt"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out2": {
+        "name": "OUT 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Flash bei Fehler"
+          },
+          "inverted": {
+            "name": "Umgekehrt"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "weather_data_break": {
+        "name": "Aufgrund des Wetters gestoppt"
+      },
+      "weather_service": {
+        "name": "Wetterdienst"
+      },
+      "mower_stopped": {
+        "name": "Gestoppt"
       }
     },
     "switch": {
+      "ext_gpio1": {
+        "name": "GPIO 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Blitzt bei Fehler"
+          },
+          "inverted": {
+            "name": "Signal ist Low-aktiv"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_gpio2": {
+        "name": "GPIO 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Blitzt bei Fehler"
+          },
+          "inverted": {
+            "name": "Signal ist Low-aktiv"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out1": {
+        "name": "OUT 1",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Blitzt bei Fehler"
+          },
+          "inverted": {
+            "name": "Signal ist Low-aktiv"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
+      "ext_out2": {
+        "name": "OUT 2",
+        "state_attributes": {
+          "flashonerror": {
+            "name": "Blitzt bei Fehler"
+          },
+          "inverted": {
+            "name": "Signal ist Low-aktiv"
+          },
+          "status": {
+            "name": "Status"
+          }
+        }
+      },
       "timer_1": {
         "name": "Timer 1",
         "state_attributes": {
@@ -450,9 +571,6 @@
       "mower_blades_hours": {
         "name": "Betriebsstunden der Messer"
       },
-      "mower_stopped": {
-        "name": "Gestoppt"
-      },
       "wlan_rssi": {
         "name": "Wi-Fi-Signalst\u00e4rke"
       },
@@ -476,9 +594,6 @@
       "mower_error_message": {
         "name": "Letzte Fehlermeldung"
       },
-      "weather_data_break": {
-        "name": "Aufgrund des Wetters gestoppt"
-      },
       "mower_substatus": {
         "name": "Unterstatus",
         "state": {
@@ -501,9 +616,6 @@
           "23": "Folgt Leitdraht 2 zum Startpunkt",
           "25": "Folgt linkem Begrenzungsdraht"
         }
-      },
-      "weather_service": {
-        "name": "Wetterdienst"
       },
       "control": {
         "name": "Steuerung"
@@ -602,62 +714,6 @@
             "name": "Strom"
           }
         }
-      },
-      "ext_gpio1": {
-        "name": "GPIO 1",
-        "state_attributes": {
-          "flashonerror": {
-            "name": "Flash bei Fehler"
-          },
-          "inverted": {
-            "name": "Umgekehrt"
-          },
-          "status": {
-            "name": "Status"
-          }
-        }
-      },
-      "ext_gpio2": {
-        "name": "GPIO 2",
-        "state_attributes": {
-          "flashonerror": {
-            "name": "Flash bei Fehler"
-          },
-          "inverted": {
-            "name": "Umgekehrt"
-          },
-          "status": {
-            "name": "Status"
-          }
-        }
-      },
-      "ext_out1": {
-        "name": "OUT 1",
-        "state_attributes": {
-          "flashonerror": {
-            "name": "Flash bei Fehler"
-          },
-          "inverted": {
-            "name": "Umgekehrt"
-          },
-          "status": {
-            "name": "Status"
-          }
-        }
-      },
-      "ext_out2": {
-        "name": "OUT 2",
-        "state_attributes": {
-          "flashonerror": {
-            "name": "Flash bei Fehler"
-          },
-          "inverted": {
-            "name": "Umgekehrt"
-          },
-          "status": {
-            "name": "Status"
-          }
-        }
       }
     },
     "button": {
@@ -709,19 +765,18 @@
       "automower": {
         "name": "M\u00e4hroboter",
         "state": {
-          "0": "Status erkennen",
-          "1": "Geparkt",
-          "2": "M\u00e4hen",
-          "3": "Ladestation suchen",
-          "4": "Aufladen",
-          "5": "Suchen",
-          "7": "Fehler",
-          "8": "Signal f\u00fcr Begrenzungskabel verloren",
-          "16": "Aus",
-          "17": "Schlafen",
-          "18": "Warten auf Garagentor",
-          "98": "Offline (kann nicht verbunden werden)",
-          "99": "Unbekannt"
+          "detecting_status": "Status erkennen",
+          "paused": "Geparkt",
+          "mowing": "M\u00e4hen",
+          "returning": "Suchen",
+          "charging": "Aufladen",
+          "error": "Fehler",
+          "lost_cable_signal": "Signal f\u00fcr Begrenzungskabel verloren",
+          "off": "Aus",
+          "docked": "Schlafen",
+          "waiting_for_garage_door": "Warten auf Garagentor",
+          "offline_cannot_bind": "Offline (kann nicht verbunden werden)",
+          "unknown": "Unbekannt"
         },
         "state_attributes": {
           "substatus": {
