@@ -41,12 +41,12 @@ job:
   fields:
     entity_id:
       name: Entity ID
-      description: Entity ID of the Robonect Vacuum
+      description: Entity ID of the Robonect Lawn Mower
       required: true
-      example: vacuum.automower_robonect
+      example: lawn_mower.automower_robonect
       selector:
         entity:
-          domain: vacuum
+          domain: lawn_mower
           integration: robonect
     start:
       name: Start time
@@ -120,12 +120,12 @@ timer:
   fields:
     entity_id:
       name: Entity ID
-      description: Entity ID of the Robonect Vacuum
+      description: Entity ID of the Robonect Lawn Mower
       required: true
-      example: vacuum.automower_robonect
+      example: lawn_mower.automower_robonect
       selector:
         entity:
-          domain: vacuum
+          domain: lawn_mower
           integration: robonect
     timer:
       name: Timer
@@ -195,25 +195,113 @@ timer:
             - label: Sunday
               value: su
 
+ext:
+  name: Control Equipment
+  description: Control the GPIO or OUT channels, set modes, handle errors and inversion.
+  fields:
+    entity_id:
+      name: Entity ID
+      description: Entity ID of the Robonect Mower
+      required: true
+      example: lawn_mower.automower_robonect
+      selector:
+        entity:
+          domain: lawn_mower
+          integration: robonect
+    ext:
+      name: External Equipment
+      description: Select the external equipment (e.g., GPIO1, GPIO2, OUT1, OUT2).
+      required: true
+      selector:
+        select:
+          options:
+            - value: "ext0"
+              label: "GPIO1"
+            - value: "ext1"
+              label: "GPIO2"
+            - value: "ext2"
+              label: "OUT1"
+            - value: "ext3"
+              label: "OUT2"
+    gpioout:
+      name: GPIO Channel
+      description: Select the GPIO channel mode. Only taken into account for GPIO.
+      required: true
+      selector:
+        select:
+          options:
+            - value: "0"
+              label: "[IN] Analog"
+            - value: "4"
+              label: "[IN] Floating"
+            - value: "40"
+              label: "[IN] PullDown"
+            - value: "72"
+              label: "[IN] PullUp"
+            - value: "20"
+              label: "[OUT] OpenDrain"
+            - value: "16"
+              label: "[OUT] PushPull"
+    gpiomode:
+      name: GPIO/OUT Mode
+      description: Select the mode for GPIO/OUT operation.
+      required: true
+      selector:
+        select:
+          options:
+            - value: "0"
+              label: "Off"
+            - value: "1"
+              label: "On"
+            - value: "2"
+              label: "Night (19-7 o'clock)"
+            - value: "3"
+              label: "Drive"
+            - value: "4"
+              label: "Night drive (19-7 o'clock)"
+            - value: "5"
+              label: "Searching/Way home"
+            - value: "6"
+              label: "Park position"
+            - value: "7"
+              label: "Brake light"
+            - value: "8"
+              label: "Left Turn Signal"
+            - value: "9"
+              label: "Right Turn Signal"
+            - value: "10"
+              label: "API"
+    gpioerr:
+      name: Flashs when fault
+      description: Check this if you want to flash when fault.
+      required: true
+      selector:
+        boolean: {}
+    gpioinv:
+      name: Signal is Low-activ
+      description: Check this to set the signal Low-activ.
+      required: true
+      selector:
+        boolean: {}
+
 direct:
   name: Direct the mower
   description: Direct a Robonect mower by setting the speed percentage for each wheel and a duration
   fields:
     entity_id:
       name: Entity ID
-      description: Entity ID of the Robonect Vacuum
+      description: Entity ID of the Robonect Mower
       required: true
-      example: vacuum.automower_robonect
+      example: lawn_mower.automower_robonect
       selector:
         entity:
-          domain: vacuum
+          domain: lawn_mower
           integration: robonect
     left:
       name: Left
       description: "The percentage of speed on the left wheel. Can be positive or negative."
       required: true
       example: 50
-      default: 50
       selector:
         number:
           mode: box
@@ -223,7 +311,6 @@ direct:
       description: "The percentage of speed on the right wheel. Can be positive or negative."
       required: true
       example: 50
-      default: 50
       selector:
         number:
           mode: box
@@ -233,10 +320,8 @@ direct:
       description: "The timeout/duration in milliseconds."
       required: true
       example: 3000
-      default: 3000
       selector:
         number:
           min: 1
-          max: 5000
           mode: box
           unit_of_measurement: ms

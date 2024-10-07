@@ -7,6 +7,7 @@ from typing import Final
 from homeassistant.const import CONF_ENTITY_ID, Platform
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.selector import (
+    BooleanSelector,
     SelectSelector,
     SelectSelectorConfig,
     SelectSelectorMode,
@@ -25,7 +26,6 @@ PLATFORMS: Final = [
     Platform.SENSOR,
     Platform.BUTTON,
     Platform.DEVICE_TRACKER,
-    Platform.VACUUM,
     Platform.SWITCH,
     Platform.LAWN_MOWER,
 ]
@@ -85,7 +85,7 @@ SERVICE_SLEEP = "sleep"
 SERVICE_TIMER = "timer"
 SERVICE_JOB = "job"
 SERVICE_DIRECT = "direct"
-
+SERVICE_EQUIPMENT = "ext"
 CONF_ENTRY_ID = "entry_id"
 
 ROBONECT_BRANDS = ["Husqvarna", "Gardena", "Flymo", "McCulloch"]
@@ -147,6 +147,65 @@ SERVICE_TIMER_SCHEMA = vol.Schema(
     }
 )
 
+EQUIPMENT_SHORT = ["ext0", "ext1", "ext2", "ext3"]
+EQUIPMENT_CHANNEL = [
+    {"value": "0", "label": "[IN] Analog"},
+    {"value": "4", "label": "[IN] Floating"},
+    {"value": "40", "label": "[IN] PullDown"},
+    {"value": "72", "label": "[IN] PullUp"},
+    {"value": "20", "label": "[OUT] OpenDrain"},
+    {"value": "16", "label": "[OUT] PushPull"},
+]
+
+EQUIPMENT_MODE = [
+    {"value": "0", "label": "Off"},
+    {"value": "1", "label": "On"},
+    {"value": "2", "label": "Night (19-7 o'clock)"},
+    {"value": "3", "label": "Drive"},
+    {"value": "4", "label": "Night drive (19-7 o'clock)"},
+    {"value": "5", "label": "Searching/Way home"},
+    {"value": "6", "label": "Park position"},
+    {"value": "7", "label": "Brake light"},
+    {"value": "8", "label": "Left Turn Signal"},
+    {"value": "9", "label": "Right Turn Signal"},
+    {"value": "10", "label": "API"},
+]
+
+SERVICE_EQUIPMENT_SCHEMA = vol.Schema(
+    {
+        vol.Required(CONF_ENTITY_ID): cv.entity_id,  # Validate entity ID
+        vol.Required("ext"): SelectSelector(
+            SelectSelectorConfig(
+                options=EQUIPMENT_SHORT,
+                multiple=False,
+                custom_value=False,
+                mode=SelectSelectorMode.LIST,
+                translation_key="equipment",
+            )
+        ),
+        vol.Required("gpioout"): SelectSelector(
+            SelectSelectorConfig(
+                options=EQUIPMENT_CHANNEL,
+                multiple=False,
+                custom_value=False,
+                mode=SelectSelectorMode.LIST,
+                translation_key="equipment_channel",
+            )
+        ),
+        vol.Required("gpiomode"): SelectSelector(
+            SelectSelectorConfig(
+                options=EQUIPMENT_MODE,
+                multiple=False,
+                custom_value=False,
+                mode=SelectSelectorMode.LIST,
+                translation_key="equipment_mode",
+            )
+        ),
+        vol.Required("gpioerr"): BooleanSelector(),  # Checkbox for gpioerr
+        vol.Required("gpioinv"): BooleanSelector(),  # Checkbox for gpioinv
+    }
+)
+
 SERVICE_DIRECT_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_ENTITY_ID): cv.entity_id,  # Validate entity ID
@@ -188,6 +247,22 @@ SENSOR_GROUPS = [
     "wlan",
     "wire",
 ]
+
+STATUS_MAPPING_LAWN_MOWER = {
+    0: "detecting_status",
+    1: "paused",  # "stopped",
+    2: "mowing",
+    3: "returning",  # "searching for charging station",
+    4: "charging",
+    5: "returning",  # "searching",
+    7: "error",
+    8: "lost_cable_signal",
+    16: "off",
+    17: "docked",
+    18: "waiting_for_garage_door",
+    98: "offline_cannot_bind",
+    99: "unknown",
+}
 
 DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S%z"
 DEFAULT_SCAN_INTERVAL = 2

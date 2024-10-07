@@ -17,7 +17,6 @@
     "automower/mqtt"
   ],
   "requirements": [
-    "aiorobonect>=1.3.1",
     "jsonpath"
   ],
   "version": "v1.9.1"
