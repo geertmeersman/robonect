@@ -432,7 +432,7 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
 
     if current_version < 6:
         # Perform entity cleanup for old platforms (e.g., sensor -> binary_sensor)
-        entity_reg = er.EntityRegistry = er.async_get(hass)
+        entity_reg: er.EntityRegistry = er.async_get(hass)
         ha_entity_reg_list: list[er.RegistryEntry] = er.async_entries_for_config_entry(
             entity_reg, config_entry.entry_id
         )
