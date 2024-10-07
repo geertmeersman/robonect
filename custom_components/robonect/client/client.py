@@ -139,7 +139,7 @@ class RobonectClient:
                 continue  # Continue to the next scheme on connection error
 
         if response is None:
-            raise last_exception or httpx.RequestError(
+            raise last_exception or Exception(
                 "Failed to get a response from the mower."
             )
         if response and response.status_code == 200:
