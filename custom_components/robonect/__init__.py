@@ -5,7 +5,6 @@ import logging
 from pathlib import Path
 from typing import Any
 
-from aiorobonect import RobonectClient
 from homeassistant.components import mqtt
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
@@ -22,6 +21,7 @@ from homeassistant.helpers.storage import STORAGE_DIR, Store
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 import pytz
 
+from .client.client import RobonectClient
 from .const import (
     CONF_ATTRS_UNITS,
     CONF_BRAND,
@@ -74,6 +74,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     if entry.data[CONF_REST_ENABLED] is True:
         client = RobonectClient(
+            hass=hass,
             host=entry.data[CONF_HOST],
             username=entry.data[CONF_USERNAME],
             password=entry.data[CONF_PASSWORD],
@@ -464,6 +465,6 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
         # After migration, update the version
         hass.config_entries.async_update_entry(config_entry, version=6)
 
-    _LOGGER.info("Migration to version %s successful", current_version)
+    _LOGGER.info("Migration to version %s successful", config_entry.version)
 
     return True

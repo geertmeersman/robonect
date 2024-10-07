@@ -215,9 +215,12 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
         @callback
         def state_received(message):
             """Handle state topic."""
-            self._attr_activity = STATUS_MAPPING_LAWN_MOWER.get(
-                int(message.payload), "unknown"
-            )
+            try:
+                status_code = int(message.payload)
+            except ValueError:
+                _LOGGER.error("Invalid status code received: %s", message.payload)
+                status_code = None
+            self._attr_activity = STATUS_MAPPING_LAWN_MOWER.get(status_code, "unknown")
             self.update_ha_state()
 
         @callback

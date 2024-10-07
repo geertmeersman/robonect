@@ -7,7 +7,6 @@ from collections.abc import Awaitable
 import logging
 from typing import Any
 
-from aiorobonect import RobonectClient
 from homeassistant.components import mqtt
 from homeassistant.config_entries import ConfigEntry, ConfigFlow, OptionsFlow
 from homeassistant.const import (
@@ -37,6 +36,7 @@ from homeassistant.helpers.typing import UNDEFINED
 import httpx
 import voluptuous as vol
 
+from .client.client import RobonectClient
 from .const import (
     CONF_ATTRS_UNITS,
     CONF_BRAND,
@@ -117,6 +117,7 @@ class RobonectCommonFlow(ABC, FlowHandler):
         """Validate user credentials."""
 
         client = RobonectClient(
+            hass=self.hass,
             host=user_input[CONF_HOST],
             username=user_input[CONF_USERNAME],
             password=user_input[CONF_PASSWORD],

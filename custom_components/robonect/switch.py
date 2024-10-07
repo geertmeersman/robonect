@@ -338,9 +338,9 @@ class RobonectRestSwitch(RobonectCoordinatorEntity, RobonectTimerSwitchEntity):
                 params |= {"ext": self.entity_description.ext}
                 params |= {"gpioout": 16}
                 params |= {"gpiomode": 1}
-                if attributes["flashonerror"]:
+                if attributes.get("flashonerror", False):
                     params |= {"gpioerr": "on"}
-                if attributes["inverted"]:
+                if attributes.get("inverted", False):
                     params |= {"gpioinv": "on"}
 
             except ValueError as error:
@@ -361,9 +361,9 @@ class RobonectRestSwitch(RobonectCoordinatorEntity, RobonectTimerSwitchEntity):
                 params |= {"ext": self.entity_description.ext}
                 params |= {"gpioout": 16}
                 params |= {"gpiomode": 0}
-                if attributes["flashonerror"]:
+                if attributes.get("flashonerror", False):
                     params |= {"gpioerr": "on"}
-                if attributes["inverted"]:
+                if attributes.get("inverted", False):
                     params |= {"gpioinv": "on"}
 
             except ValueError as error:
