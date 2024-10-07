@@ -23,8 +23,11 @@ class RobonectSwitchEntityDescription(SwitchEntityDescription):
     """Switch entity description for Robonect."""
 
     rest: str | None = None
+    rest_attrs: dict | None = None
     category: str | None = None
     translation_key: str | None = None
+    array: bool | True = None
+    ext: str | None = None
 
 
 @dataclass
@@ -37,7 +40,6 @@ class RobonectSensorEntityDescription(SensorEntityDescription):
     category: str | None = None
     translation_key: str | None = None
     array: bool | True = None
-    ext: str | None = None
 
 
 BUTTONS: tuple[RobonectSensorEntityDescription, ...] = (
@@ -118,7 +120,7 @@ BINARY_SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
 )
 
 SWITCHES: tuple[RobonectSwitchEntityDescription, ...] = (
-    RobonectSensorEntityDescription(
+    RobonectSwitchEntityDescription(
         key=".timer/0",
         array=True,
         rest="$.timer.timer.0.enabled",
@@ -127,7 +129,7 @@ SWITCHES: tuple[RobonectSwitchEntityDescription, ...] = (
         entity_category=EntityCategory.DIAGNOSTIC,
         category="timer",
     ),
-    RobonectSensorEntityDescription(
+    RobonectSwitchEntityDescription(
         key=".ext/gpio1",
         rest="$.ext.ext.gpio1.status",
         rest_attrs="$.ext.ext.gpio1",
@@ -136,7 +138,7 @@ SWITCHES: tuple[RobonectSwitchEntityDescription, ...] = (
         entity_category=EntityCategory.DIAGNOSTIC,
         category="ext",
     ),
-    RobonectSensorEntityDescription(
+    RobonectSwitchEntityDescription(
         key=".ext/gpio2",
         rest="$.ext.ext.gpio2.status",
         rest_attrs="$.ext.ext.gpio2",
@@ -145,7 +147,7 @@ SWITCHES: tuple[RobonectSwitchEntityDescription, ...] = (
         entity_category=EntityCategory.DIAGNOSTIC,
         category="ext",
     ),
-    RobonectSensorEntityDescription(
+    RobonectSwitchEntityDescription(
         key=".ext/out1",
         rest="$.ext.ext.out1.status",
         rest_attrs="$.ext.ext.out1",
@@ -154,7 +156,7 @@ SWITCHES: tuple[RobonectSwitchEntityDescription, ...] = (
         entity_category=EntityCategory.DIAGNOSTIC,
         category="ext",
     ),
-    RobonectSensorEntityDescription(
+    RobonectSwitchEntityDescription(
         key=".ext/out2",
         rest="$.ext.ext.out2.status",
         rest_attrs="$.ext.ext.out2",

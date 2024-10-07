@@ -335,14 +335,13 @@ class RobonectRestSwitch(RobonectCoordinatorEntity, RobonectTimerSwitchEntity):
             attributes = self._attr_extra_state_attributes
             params = {}
             try:
-                params |= {"ext": self.entity_description.ext}
-                params |= {"gpioout": 16}
-                params |= {"gpiomode": 1}
+                params.update({"ext": self.entity_description.ext})
+                params.update({"gpioout": 16})
+                params.update({"gpiomode": 1})
                 if attributes.get("flashonerror", False):
-                    params |= {"gpioerr": "on"}
+                    params.update({"gpioerr": "on"})
                 if attributes.get("inverted", False):
-                    params |= {"gpioinv": "on"}
-
+                    params.update({"gpioinv": "on"})
             except ValueError as error:
                 raise RobonectException(error)
 
