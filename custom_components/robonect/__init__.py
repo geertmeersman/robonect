@@ -1,6 +1,5 @@
 """The Robonect component."""
 
-import asyncio
 from datetime import timedelta
 import logging
 from pathlib import Path
@@ -219,7 +218,7 @@ async def async_remove_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
             storage_dir.rmdir()
 
     # Offload the file system operations to a thread
-    await asyncio.to_thread(remove_storage_files)
+    await hass.async_add_executor_job(remove_storage_files)
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
@@ -240,7 +239,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                 storage_dir.rmdir()
 
         # Offload the file system operations to a thread
-        await asyncio.to_thread(remove_storage_files)
+        await hass.async_add_executor_job(remove_storage_files)
 
     return unload_ok
 
