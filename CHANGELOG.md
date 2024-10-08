@@ -1,5 +1,19 @@
 # Changelog
 
+## [v2.0.1](https://github.com/geertmeersman/robonect/tree/v2.0.1) (2024-10-08)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.0.0...v2.0.1)
+
+**Closed issues:**
+
+- The Lovelace example uses vacuum entity, which does not exist after 2.0.0 [\#211](https://github.com/geertmeersman/robonect/issues/211)
+- Detected blocking call to load\_verify\_locations [\#208](https://github.com/geertmeersman/robonect/issues/208)
+
+**Merged pull requests:**
+
+- fix: async for blocking file system operations [\#213](https://github.com/geertmeersman/robonect/pull/213) ([geertmeersman](https://github.com/geertmeersman))
+- docs: lovelace card change vacuum to lawn\_mower [\#212](https://github.com/geertmeersman/robonect/pull/212) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v2.0.0](https://github.com/geertmeersman/robonect/tree/v2.0.0) (2024-10-07)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.9.1...v2.0.0)
