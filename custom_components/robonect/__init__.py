@@ -1,5 +1,6 @@
 """The Robonect component."""
 
+import asyncio
 from datetime import timedelta
 import logging
 from pathlib import Path
@@ -206,18 +207,41 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 async def async_remove_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
     """Handle removal of pubsub subscriptions created during config flow."""
-    storage = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}/{entry.entry_id}")
-    storage.unlink(True)
-    storage_dir = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}")
-    if storage_dir.is_dir() and not any(storage_dir.iterdir()):
-        storage_dir.rmdir()
+
+    # Define blocking file operations
+    def remove_storage_files():
+        storage = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}/{entry.entry_id}")
+        storage.unlink(True)  # Unlink (delete) the storage file
+
+        storage_dir = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}")
+        # If the directory exists and is empty, remove it
+        if storage_dir.is_dir() and not any(storage_dir.iterdir()):
+            storage_dir.rmdir()
+
+    # Offload the file system operations to a thread
+    await asyncio.to_thread(remove_storage_files)
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
-    unload_ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
-    if unload_ok:
+
+    # Unload the platforms first
+    if unload_ok := await hass.config_entries.async_unload_platforms(entry, PLATFORMS):
         hass.data[DOMAIN].pop(entry.entry_id)
+
+        # Define blocking file operations
+        def remove_storage_files():
+            storage = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}/{entry.entry_id}")
+            storage.unlink(True)  # Unlink (delete) the storage file
+
+            storage_dir = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}")
+            # If the directory exists and is empty, remove it
+            if storage_dir.is_dir() and not any(storage_dir.iterdir()):
+                storage_dir.rmdir()
+
+        # Offload the file system operations to a thread
+        await asyncio.to_thread(remove_storage_files)
+
     return unload_ok
 
 
