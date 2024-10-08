@@ -210,7 +210,7 @@ async def async_remove_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
     # Define blocking file operations
     def remove_storage_files():
         storage = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}/{entry.entry_id}")
-        storage.unlink(True)  # Unlink (delete) the storage file
+        storage.unlink(missing_ok=True)  # Unlink (delete) the storage file
 
         storage_dir = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}")
         # If the directory exists and is empty, remove it
@@ -231,7 +231,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         # Define blocking file operations
         def remove_storage_files():
             storage = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}/{entry.entry_id}")
-            storage.unlink(True)  # Unlink (delete) the storage file
+            storage.unlink(missing_ok=True)  # Unlink (delete) the storage file
 
             storage_dir = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}")
             # If the directory exists and is empty, remove it
