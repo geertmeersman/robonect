@@ -416,15 +416,14 @@ cards:
                   text-align: center;
                 }
         - type: tile
-          entity: vacuum.automower_robonect
+          entity: lawn_mower.automower_robonect
           show_entity_picture: true
           vertical: true
           features:
-            - type: vacuum-commands
+            - type: lawn-mower-commands
               commands:
                 - start_pause
-                - stop
-                - return_home
+                - dock
           card_mod:
             style: |
               ha-card {
