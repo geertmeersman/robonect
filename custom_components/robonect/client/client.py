@@ -7,12 +7,31 @@ import json
 import logging
 import urllib.parse
 
-from homeassistant.helpers.httpx_client import get_async_client
+from homeassistant.core import HomeAssistant, callback
+from homeassistant.helpers.httpx_client import create_async_httpx_client
+from homeassistant.loader import bind_hass
+from homeassistant.util.hass_dict import HassKey
 import httpx
 
 from .utils import transform_json_to_single_depth
 
 _LOGGER = logging.getLogger(__name__)
+DATA_ASYNC_CLIENT: HassKey[httpx.AsyncClient] = HassKey("httpx_async_client_robonect")
+
+
+@callback
+@bind_hass
+def get_async_client(hass: HomeAssistant) -> httpx.AsyncClient:
+    """Return default httpx AsyncClient.
+
+    This method must be run in the event loop.
+    """
+    if (client := hass.data.get(DATA_ASYNC_CLIENT)) is None:
+        client = hass.data[DATA_ASYNC_CLIENT] = create_async_httpx_client(
+            hass, timeout=httpx.Timeout(20.0, read=10.0)
+        )
+
+    return client
 
 
 def encode_dict_values_to_utf8(dictionary):
@@ -131,9 +150,15 @@ class RobonectClient:
                         f"Received redirect status code {response.status_code}, continuing to next scheme"
                     )
                     continue  # Continue loop on redirect (3xx)
+            except httpx.ReadTimeout as e:
+                _LOGGER.error(
+                    f"Read timeout while connecting to {scheme}://{self.host}. Error: {str(e)}"
+                )
+                last_exception = e
+                continue  # Continue to the next scheme
             except httpx.RequestError as e:
                 _LOGGER.debug(
-                    f"Failed to connect using {scheme}://{self.host}, error: {e}"
+                    f"Failed to connect using {scheme}://{self.host}, error: {str(e)}"
                 )
                 last_exception = e
                 continue  # Continue to the next scheme on connection error
