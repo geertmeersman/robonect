@@ -1,5 +1,21 @@
 # Changelog
 
+## [v2.0.2](https://github.com/geertmeersman/robonect/tree/v2.0.2) (2024-10-09)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.0.2-beta.2...v2.0.2)
+
+**Merged pull requests:**
+
+- fix: add timeout of 20 seconds to httpx client, refers to \#214 [\#215](https://github.com/geertmeersman/robonect/pull/215) ([geertmeersman](https://github.com/geertmeersman))
+
+## [v2.0.2-beta.2](https://github.com/geertmeersman/robonect/tree/v2.0.2-beta.2) (2024-10-09)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.0.1...v2.0.2-beta.2)
+
+**Closed issues:**
+
+- Entity State in Condition not working [\#207](https://github.com/geertmeersman/robonect/issues/207)
+
 ## [v2.0.1](https://github.com/geertmeersman/robonect/tree/v2.0.1) (2024-10-08)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.0.0...v2.0.1)
