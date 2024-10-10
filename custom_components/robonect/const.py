@@ -227,25 +227,25 @@ SERVICE_MODE_SCHEMA = vol.Schema(
     }
 )
 SENSOR_GROUPS = [
-    "battery",
-    "clock",
-    "door",
-    "error",
-    "ext",
-    "gps",
-    "health",
-    "hour",
-    "motor",
-    "portal",
-    "push",
-    "remote",
-    "report",
-    "status",
-    "timer",
-    "version",
-    "weather",
-    "wlan",
-    "wire",
+    "battery",  # wakes up robonect
+    "clock",  # ok when sleeping
+    "door",  # ok when sleeping
+    "error",  # wakes up robonect
+    "ext",  # ok when sleeping
+    "gps",  # ok when sleeping
+    "health",  # ok when sleeping
+    "hour",  # wakes up robonect
+    "motor",  # wakes up robonect
+    "portal",  # ok when sleeping
+    "push",  # ok when sleeping
+    "remote",  # wakes up robonect
+    "report",  # wakes up robonect
+    "status",  # ok when sleeping
+    "timer",  # ok when sleeping
+    "version",  # wakes up robonect
+    "weather",  # ok when sleeping
+    "wlan",  # ok when sleeping
+    "wire",  # wakes up robonect
 ]
 
 STATUS_MAPPING_LAWN_MOWER = {
