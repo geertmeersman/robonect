@@ -1,5 +1,18 @@
 # Changelog
 
+## [v2.0.3](https://github.com/geertmeersman/robonect/tree/v2.0.3) (2024-10-10)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.0.2...v2.0.3)
+
+**Closed issues:**
+
+- error: exception [\#214](https://github.com/geertmeersman/robonect/issues/214)
+- ON/OFF switches for OUT 1 & OUT 2 [\#195](https://github.com/geertmeersman/robonect/issues/195)
+
+**Merged pull requests:**
+
+- fix: read safe json commands while mower is sleeping [\#216](https://github.com/geertmeersman/robonect/pull/216) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v2.0.2](https://github.com/geertmeersman/robonect/tree/v2.0.2) (2024-10-09)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.0.2-beta.2...v2.0.2)
