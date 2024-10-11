@@ -347,8 +347,8 @@ cards:
               type: custom:button-card
         - type: conditional
           conditions:
-            - entity: sensor.automower_mower_stopped
-              state: "true"
+            - entity: binary_sensor.automower_mower_stopped
+              state: "on"
           card:
             show_name: false
             label: Automower is currently stopped.<br> Click here to start.
@@ -397,8 +397,8 @@ cards:
                 }
         - type: conditional
           conditions:
-            - entity: sensor.automower_weather_data_break
-              state: "true"
+            - entity: binary_sensor.automower_weather_data_break
+              state: "on"
           card:
             type: markdown
             content: >
@@ -406,7 +406,7 @@ cards:
               'toowarm': 'te warm', 'toodry': 'te droog', 'toowet': 'te nat',
               'day': 'overdag', 'night': '\'s nachts'} -%} Botje is gestopt
               omwille van het weer: {% for condition,value in
-              state_attr('sensor.automower_weather_service',
+              state_attr('binary_sensor.automower_weather_service',
               'weather').condition.items() -%} {% if value -%}
               {{data[condition]}} {% endif -%} {% endfor -%}
             card_mod:
