@@ -26,7 +26,6 @@ SAFE_COMMANDS = [
     "clock",  # ok when sleeping
     "door",  # ok when sleeping
     "ext",  # ok when sleeping
-    "gps",  # ok when sleeping
     "health",  # ok when sleeping
     "portal",  # ok when sleeping
     "push",  # ok when sleeping
