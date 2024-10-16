@@ -1,5 +1,14 @@
 # Changelog
 
+## [v2.0.4](https://github.com/geertmeersman/robonect/tree/v2.0.4) (2024-10-16)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.0.3...v2.0.4)
+
+**Merged pull requests:**
+
+- fix: don't call gps command when sleeping [\#219](https://github.com/geertmeersman/robonect/pull/219) ([geertmeersman](https://github.com/geertmeersman))
+- docs: lovelace template corrections for binary\_sensors [\#217](https://github.com/geertmeersman/robonect/pull/217) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v2.0.3](https://github.com/geertmeersman/robonect/tree/v2.0.3) (2024-10-10)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.0.2...v2.0.3)
