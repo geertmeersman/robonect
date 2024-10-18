@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.0.5](https://github.com/geertmeersman/robonect/tree/v2.0.5) (2024-10-18)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.0.4...v2.0.5)
+
+**Closed issues:**
+
+- Mower keeps waking up and getting back to sleep [\#218](https://github.com/geertmeersman/robonect/issues/218)
+
+**Merged pull requests:**
+
+- fix: read timeout errors in the logs moved to debug [\#220](https://github.com/geertmeersman/robonect/pull/220) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v2.0.4](https://github.com/geertmeersman/robonect/tree/v2.0.4) (2024-10-16)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.0.3...v2.0.4)
