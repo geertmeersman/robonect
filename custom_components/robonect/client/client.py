@@ -152,7 +152,7 @@ class RobonectClient:
                     )
                     continue  # Continue loop on redirect (3xx)
             except httpx.ReadTimeout as e:
-                _LOGGER.error(
+                _LOGGER.debug(
                     f"Read timeout while connecting to {scheme}://{self.host}. Error: {str(e)}"
                 )
                 last_exception = e
@@ -165,8 +165,8 @@ class RobonectClient:
                 continue  # Continue to the next scheme on connection error
 
         if response is None:
-            raise last_exception or Exception(
-                "Failed to get a response from the mower."
+            raise Exception(
+                f"Failed to get a response from the mower. {str(last_exception)}"
             )
         if response and response.status_code == 200:
             if command == "reset_blades":
