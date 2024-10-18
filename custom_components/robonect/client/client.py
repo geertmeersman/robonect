@@ -166,8 +166,9 @@ class RobonectClient:
 
         if response is None:
             raise Exception(
-                f"Failed to get a response from the mower. {str(last_exception)}"
+                f"Failed to get a response from the mower. `{str(last_exception)}`"
             )
+
         if response and response.status_code == 200:
             if command == "reset_blades":
                 await self.client_close()
@@ -245,7 +246,7 @@ class RobonectClient:
         result = await self.async_cmd("service", {"service": "sleep"})
         return result
 
-    def is_sleeping(self) -> int:
+    def is_sleeping(self) -> bool:
         """Return if the mower is sleeping."""
         return self.is_sleeping
 
