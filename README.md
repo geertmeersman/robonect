@@ -30,6 +30,8 @@ The **REST sensors**, are updated on a configurable scan interval. When the mowe
 [![buyme_coffee](https://img.shields.io/badge/Buy%20me%20an%20Omer-donate-yellow?style=for-the-badge&logo=buymeacoffee)](https://www.buymeacoffee.com/geertmeersman)
 [![discord](https://img.shields.io/discord/1104706338111627385?style=for-the-badge&logo=discord)](https://discord.gg/wZHsA4aGvS)
 
+[![discord](http://invidget.switchblade.xyz/wZHsA4aGvS)](https://discord.gg/wZHsA4aGvS)
+
 [![MIT License](https://img.shields.io/github/license/geertmeersman/robonect?style=flat-square)](https://github.com/geertmeersman/robonect/blob/master/LICENSE)
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=flat-square)](https://github.com/hacs/integration)
 
@@ -120,6 +122,8 @@ This integration will set up the following platforms.
 If you want to contribute to this please read the [Contribution guidelines](CONTRIBUTING.md)
 
 ## Troubleshooting
+
+[![discord](http://invidget.switchblade.xyz/wZHsA4aGvS)](https://discord.gg/wZHsA4aGvS)
 
 ### Frequently asked questions
 
