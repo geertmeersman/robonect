@@ -1,6 +1,9 @@
 name-template: "Release v$RESOLVED_VERSION"
 tag-template: "v$RESOLVED_VERSION"
 template: |
+  [![maintainer](https://img.shields.io/badge/maintainer-Geert%20Meersman-green?style=for-the-badge&logo=github)](https://github.com/geertmeersman)
+  [![buyme_coffee](https://img.shields.io/badge/Buy%20me%20an%20Omer-donate-yellow?style=for-the-badge&logo=buymeacoffee)](https://www.buymeacoffee.com/geertmeersman)
+
   ## What Changed 👀
 
   $CHANGES
