@@ -72,6 +72,24 @@ jobs:
           name: Prerelease ${{ steps.next-version.outputs.NEW_VERSION }}
           footer: "${{ steps.next-version.outputs.CHANGELOG }}"
 
+      - name: 📦 Create zip file
+        run: |
+          cd custom_components/${{ github.event.repository.name }}
+          zip -r "${{ github.event.repository.name }}.zip" .
+          mv "${{ github.event.repository.name }}.zip" ../..
+
+      - name: 📎 Upload zip file to release
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-artifact
+          path: "${{ github.event.repository.name }}.zip"
+
+      - name: 📝 Update release with zip file
+        run: |
+          gh release upload ${{ steps.release_published.outputs.tag_name }} "${{ github.event.repository.name }}.zip"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_BETA }}
