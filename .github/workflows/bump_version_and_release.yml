@@ -88,6 +88,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: 🚮 Remove pre-releases
+        run: |
+          gh release list --json tagName,isPrerelease -q '.[] | select(.isPrerelease == true) | .tagName' | while read -r tag_name; do
+            echo "Deleting pre-release with tag: $tag_name"
+            # Delete the release
+            gh release delete "$tag_name" --yes
+            # Delete the Git tag
+            echo "Deleting Git tag: $tag_name"
+            git push origin --delete "$tag_name" || echo "Failed to delete tag $tag_name from remote"
+            git tag -d "$tag_name" || echo "Failed to delete tag $tag_name locally"
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: 🚀　Discord notification
         env:
           tag_name: ${{ steps.release_drafter.outputs.tag_name }}
