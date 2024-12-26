@@ -1,142 +1,53 @@
 {
   "config": {
-    "step": {
-      "connection_methods": {
-        "title": "{name} Kontoeinrichtung",
-        "description": "Konnectivit\u00e4t",
-        "data": {
-          "rest_enabled": "REST API \u00dcberwachung",
-          "mqtt_enabled": "MQTT \u00dcberwachung",
-          "mqtt_topic": "MQTT Thema und Sensor-Pr\u00e4fix",
-          "brand": "Roboter-Rasenm\u00e4her Marke",
-          "type": "Roboter-Rasenm\u00e4her Typ"
-        },
-        "data_description": {
-          "rest_enabled": "Die Anmeldeinformationen und die zu \u00fcberwachenden Sensoren f\u00fcr die REST API werden im n\u00e4chsten Bildschirm hinzugef\u00fcgt.",
-          "mqtt_enabled": "Hiermit werden automatisch Entit\u00e4ten hinzugef\u00fcgt, wenn sie in MQTT entdeckt werden.",
-          "mqtt_topic": "Thema, das in der MQTT-Sektion Ihrer {name} konfiguriert ist.\n\nAchtung: Dies wird auch f\u00fcr die Namensgebung der entity_id verwendet (auch f\u00fcr die REST API \u00dcberwachung) und unterscheidet zwischen Gro\u00df- und Kleinschreibung."
-        }
-      },
-      "connection_rest": {
-        "title": "{name} Kontoeinrichtung - REST",
-        "description": "Konfigurieren Sie Ihr {name} Konto.",
-        "data": {
-          "host": "Host",
-          "username": "Benutzername",
-          "password": "Passwort",
-          "scan_interval": "Aktualisierungsintervall (Minuten)",
-          "monitored_variables": "Zu \u00fcberwachende Sensoren",
-          "attributes_units": "Einheiten zu Sensoreigenschaften hinzuf\u00fcgen"
-        },
-        "data_description": {
-          "host": "Die Host-Adresse des Robonect M\u00e4hers",
-          "username": "Anmeldeinformationen sind diejenigen, die f\u00fcr den Zugriff auf die Robonect-Web-Oberfl\u00e4che verwendet werden"
-        }
-      }
-    },
     "abort": {
       "already_configured": "Konto ist bereits konfiguriert"
     },
     "error": {
       "cannot_connect": "Verbindung konnte nicht hergestellt werden",
-      "topic_used": "MQTT Thema wird bereits verwendet",
       "invalid_auth": "Ung\u00fcltige Authentifizierung | {exception}",
       "mqtt_disabled": "MQTT-Integration ist nicht verf\u00fcgbar.\nF\u00fcgen Sie sie zu Home Assistant hinzu (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nSie k\u00f6nnen nat\u00fcrlich auch nur die REST API \u00dcberwachung verwenden.",
-      "unknown": "Unerwarteter Fehler | {exception}",
-      "service_error": "Dienst ist nicht verf\u00fcgbar"
-    }
-  },
-  "options": {
+      "service_error": "Dienst ist nicht verf\u00fcgbar",
+      "topic_used": "MQTT Thema wird bereits verwendet",
+      "unknown": "Unerwarteter Fehler | {exception}"
+    },
     "step": {
-      "connection_options": {
-        "title": "Verbindungsmethoden",
-        "description": "Konnectivit\u00e4t",
-        "data": {
-          "rest_enabled": "\u00dcberwachung \u00fcber REST-API",
-          "mqtt_enabled": "\u00dcberwachung \u00fcber MQTT"
-        }
-      },
-      "host": {
-        "title": "Passen Sie Ihre Hostadresse an",
-        "description": "Wenn sich die Robonect-Hostadresse ge\u00e4ndert hat",
-        "data": {
-          "host": "Host"
-        }
-      },
-      "brand_type": {
-        "title": "Passen Sie Ihre Roboter-Rasenm\u00e4her Marke und Typ an",
+      "connection_methods": {
         "data": {
           "brand": "Roboter-Rasenm\u00e4her Marke",
+          "mqtt_enabled": "MQTT \u00dcberwachung",
+          "mqtt_topic": "MQTT Thema und Sensor-Pr\u00e4fix",
+          "rest_enabled": "REST API \u00dcberwachung",
           "type": "Roboter-Rasenm\u00e4her Typ"
-        }
+        },
+        "data_description": {
+          "mqtt_enabled": "Hiermit werden automatisch Entit\u00e4ten hinzugef\u00fcgt, wenn sie in MQTT entdeckt werden.",
+          "mqtt_topic": "Thema, das in der MQTT-Sektion Ihrer {name} konfiguriert ist.\n\nAchtung: Dies wird auch f\u00fcr die Namensgebung der entity_id verwendet (auch f\u00fcr die REST API \u00dcberwachung) und unterscheidet zwischen Gro\u00df- und Kleinschreibung.",
+          "rest_enabled": "Die Anmeldeinformationen und die zu \u00fcberwachenden Sensoren f\u00fcr die REST API werden im n\u00e4chsten Bildschirm hinzugef\u00fcgt."
+        },
+        "description": "Konnectivit\u00e4t",
+        "title": "{name} Kontoeinrichtung"
       },
-      "username_password": {
-        "title": "Benutzername und Passwort anpassen",
-        "description": "Wenn Sie Ihre Kontoinformationen ge\u00e4ndert haben",
+      "connection_rest": {
         "data": {
-          "username": "Benutzer",
-          "password": "Passwort"
-        }
-      },
-      "scan_interval": {
-        "title": "Aktualisierungsintervall",
-        "description": "\u00c4ndern Sie das Aktualisierungsintervall f\u00fcr die Sensoren",
-        "data": {
-          "scan_interval": "Aktualisierungsintervall (Minuten)"
-        }
-      },
-      "winter_mode": {
-        "title": "Wintermodus",
-        "description": "Aktivieren, wenn der M\u00e4her im Winter gelagert wird",
-        "data": {
-          "winter_mode": "Wintermodus"
-        }
-      },
-      "monitored_variables": {
-        "title": "Sensoren",
-        "description": "Welche Sensoren sollen \u00fcberwacht werden",
-        "data": {
-          "track_battery": "Batterie",
-          "track_wlan": "WLAN",
-          "track_version": "Version",
-          "track_timer": "Timer",
-          "track_hour": "Zeit",
-          "track_error": "Fehler",
-          "attributes_units": "Einheiten zu Sensoreigenschaften hinzuf\u00fcgen"
-        }
-      },
-      "init": {
-        "title": "Optionen \u00e4ndern",
-        "menu_options": {
-          "connection_options": "Verbindungsmethoden",
-          "brand_type": "Marke und Typ",
+          "attributes_units": "Einheiten zu Sensoreigenschaften hinzuf\u00fcgen",
           "host": "Host",
-          "username_password": "Benutzername und Passwort",
-          "scan_interval": "Aktualisierungsintervall",
-          "monitored_variables": "Sensoren",
-          "winter_mode": "Wintermodus"
-        }
+          "monitored_variables": "Zu \u00fcberwachende Sensoren",
+          "password": "Passwort",
+          "scan_interval": "Aktualisierungsintervall (Minuten)",
+          "username": "Benutzername"
+        },
+        "data_description": {
+          "host": "Die Host-Adresse des Robonect M\u00e4hers",
+          "username": "Anmeldeinformationen sind diejenigen, die f\u00fcr den Zugriff auf die Robonect-Web-Oberfl\u00e4che verwendet werden"
+        },
+        "description": "Konfigurieren Sie Ihr {name} Konto.",
+        "title": "{name} Kontoeinrichtung - REST"
       }
-    },
-    "abort": {
-      "already_configured": "Konto ist bereits konfiguriert"
-    },
-    "error": {
-      "cannot_connect": "Verbindung kann nicht hergestellt werden",
-      "invalid_auth": "Ung\u00fcltige Authentifizierung",
-      "mqtt_disabled": "Die MQTT-Integration ist nicht verf\u00fcgbar.\nF\u00fcgen Sie sie zu Home Assistant hinzu (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nSie k\u00f6nnen nat\u00fcrlich auch nur die REST API-\u00dcberwachung verwenden.",
-      "unknown": "Unerwarteter Fehler",
-      "service_error": "Dienst nicht verf\u00fcgbar"
     }
   },
   "entity": {
     "binary_sensor": {
-      "health_alarm": {
-        "name": "Gesundheitsalarm"
-      },
-      "winter_mode": {
-        "name": "Wintermodus"
-      },
       "ext_gpio1": {
         "name": "GPIO 1",
         "state_attributes": {
@@ -193,14 +104,358 @@
           }
         }
       },
+      "health_alarm": {
+        "name": "Gesundheitsalarm"
+      },
+      "mower_stopped": {
+        "name": "Gestoppt"
+      },
       "weather_data_break": {
         "name": "Aufgrund des Wetters gestoppt"
       },
       "weather_service": {
         "name": "Wetterdienst"
       },
-      "mower_stopped": {
-        "name": "Gestoppt"
+      "winter_mode": {
+        "name": "Wintermodus"
+      }
+    },
+    "button": {
+      "auto": {
+        "name": "Automatisch"
+      },
+      "blades_reset": {
+        "name": "Messer zur\u00fccksetzen"
+      },
+      "eod": {
+        "name": "Ende des Tages"
+      },
+      "error_reset": {
+        "name": "Fehler zur\u00fccksetzen"
+      },
+      "home": {
+        "name": "Zur\u00fcck nach Hause"
+      },
+      "man": {
+        "name": "Manuell"
+      },
+      "reboot": {
+        "name": "Neustarten"
+      },
+      "shutdown": {
+        "name": "Herunterfahren"
+      },
+      "sleep": {
+        "name": "Schlafen"
+      },
+      "start": {
+        "name": "Start"
+      },
+      "stop": {
+        "name": "Stop"
+      }
+    },
+    "device_tracker": {
+      "gps": {
+        "name": "GPS-Tracker",
+        "state_attributes": {
+          "last_synced": {
+            "name": "Letzte Synchronisierung"
+          }
+        }
+      }
+    },
+    "lawn_mower": {
+      "automower": {
+        "name": "M\u00e4hroboter",
+        "state": {
+          "charging": "Aufladen",
+          "detecting_status": "Status erkennen",
+          "docked": "Schlafen",
+          "error": "Fehler",
+          "lost_cable_signal": "Signal f\u00fcr Begrenzungskabel verloren",
+          "mowing": "M\u00e4hen",
+          "off": "Aus",
+          "offline_cannot_bind": "Offline (kann nicht verbunden werden)",
+          "paused": "Geparkt",
+          "returning": "Suchen",
+          "unknown": "Unbekannt",
+          "waiting_for_garage_door": "Warten auf Garagentor"
+        },
+        "state_attributes": {
+          "blades_quality": {
+            "name": "Messerqualit\u00e4t"
+          },
+          "distance": {
+            "name": "Entfernung von der Basis"
+          },
+          "last_synced": {
+            "name": "Letzte Synchronisierung"
+          },
+          "mode": {
+            "name": "Modus",
+            "state": {
+              "0": "Auto",
+              "1": "Manuell",
+              "2": "Home",
+              "3": "Demo",
+              "98": "Ende des Tages",
+              "99": "M\u00e4hauftrag"
+            }
+          },
+          "statistic_hours": {
+            "name": "Betriebsstunden"
+          },
+          "status_duration": {
+            "name": "Zeit im aktuellen Status"
+          },
+          "status_plain": {
+            "name": "Status"
+          },
+          "substatus": {
+            "name": "Unterstatus",
+            "state": {
+              "1": "F\u00e4hrt",
+              "10": "Folgt rechtem Begrenzungsdraht",
+              "11": "Dockt an",
+              "12": "Schnellladung",
+              "14": "Ladung abgeschlossen",
+              "15": "Ausfahrtswinkel",
+              "16": "Folgt Leitdraht 1 zum Startpunkt",
+              "18": "Kein Schleifensignal!",
+              "19": "M\u00e4hmotor blockiert!",
+              "2": "Drau\u00dfen",
+              "21": "Folgt Leitdraht 2 zur Ladestation",
+              "23": "Folgt Leitdraht 2 zum Startpunkt",
+              "25": "Folgt linkem Begrenzungsdraht",
+              "4": "R\u00e4der rutschen!",
+              "6": "Kollision!",
+              "7": "Angehoben!",
+              "8": "Spiralschnitt",
+              "9": "Folgt Leitdraht 1 zur Ladestation"
+            }
+          },
+          "timer_next_unix": {
+            "name": "N\u00e4chste Startzeit"
+          }
+        }
+      }
+    },
+    "sensor": {
+      "battery": {
+        "name": "Batterie",
+        "state_attributes": {
+          "capacity": {
+            "name": "Kapazit\u00e4t"
+          },
+          "charge": {
+            "name": "Ladung"
+          },
+          "current": {
+            "name": "Strom"
+          },
+          "temperature": {
+            "name": "Temperatur"
+          },
+          "voltage": {
+            "name": "Spannung"
+          }
+        }
+      },
+      "clock_time": {
+        "name": "Uhrzeit"
+      },
+      "control": {
+        "name": "Steuerung"
+      },
+      "control_mode": {
+        "name": "Steuerungsmodus"
+      },
+      "device_name": {
+        "name": "Name"
+      },
+      "device_serial": {
+        "name": "Seriennummer"
+      },
+      "gps_latitude": {
+        "name": "GPS-Breitengrad"
+      },
+      "gps_longitude": {
+        "name": "GPS-L\u00e4ngengrad"
+      },
+      "health_climate_humidity": {
+        "name": "Interne Luftfeuchtigkeit"
+      },
+      "health_climate_temperature": {
+        "name": "Interne Temperatur des M\u00e4hroboters"
+      },
+      "health_voltage_batt": {
+        "name": "Robonect Versorgungsspannung"
+      },
+      "health_voltage_ext33": {
+        "name": "Betriebsspannung M\u00e4her"
+      },
+      "health_voltage_int33": {
+        "name": "Betriebsspannung Robonect"
+      },
+      "motor_blade": {
+        "name": "Motor messen",
+        "state_attributes": {
+          "average": {
+            "name": "Durchschnitt"
+          },
+          "current": {
+            "name": "Strom"
+          },
+          "speed": {
+            "name": "Geschwindigkeit"
+          }
+        }
+      },
+      "motor_drive_left": {
+        "name": "Antrieb linker Motor",
+        "state_attributes": {
+          "current": {
+            "name": "Strom"
+          },
+          "power": {
+            "name": "Leistung"
+          },
+          "speed": {
+            "name": "Geschwindigkeit"
+          }
+        }
+      },
+      "motor_drive_right": {
+        "name": "Antrieb Motor rechts",
+        "state_attributes": {
+          "current": {
+            "name": "Strom"
+          },
+          "power": {
+            "name": "Leistung"
+          },
+          "speed": {
+            "name": "Geschwindigkeit"
+          }
+        }
+      },
+      "mower_battery_charge": {
+        "name": "Batterie"
+      },
+      "mower_blades_days": {
+        "name": "Messeralter"
+      },
+      "mower_blades_hours": {
+        "name": "Betriebsstunden der Messer"
+      },
+      "mower_blades_quality": {
+        "name": "Messerqualit\u00e4t"
+      },
+      "mower_distance": {
+        "name": "Entfernung"
+      },
+      "mower_error": {
+        "name": "Aktueller Fehler"
+      },
+      "mower_error_code": {
+        "name": "Letzter Fehlercode"
+      },
+      "mower_error_message": {
+        "name": "Letzte Fehlermeldung"
+      },
+      "mower_mode": {
+        "name": "Modus",
+        "state": {
+          "0": "Auto",
+          "1": "Manuell",
+          "2": "Home",
+          "3": "Demo",
+          "98": "Ende des Tages",
+          "99": "M\u00e4hauftrag"
+        }
+      },
+      "mower_statistic_hours": {
+        "name": "Betriebsstunden"
+      },
+      "mower_status": {
+        "name": "Status",
+        "state": {
+          "0": "Status erkennen",
+          "1": "Geparkt",
+          "16": "Aus",
+          "17": "Schlafen",
+          "18": "Warten auf Garagentor",
+          "2": "M\u00e4hen",
+          "3": "Ladebasis suchen",
+          "4": "Aufladen",
+          "5": "Suchen",
+          "7": "Fehler",
+          "8": "Kabelsignal verloren",
+          "98": "Offline (keine Verbindung m\u00f6glich)",
+          "99": "Unbekannt"
+        }
+      },
+      "mower_status_duration": {
+        "name": "Zeit im aktuellen Status"
+      },
+      "mower_status_plain": {
+        "name": "Einfacher Status"
+      },
+      "mower_substatus": {
+        "name": "Unterstatus",
+        "state": {
+          "1": "F\u00e4hrt",
+          "10": "Folgt rechtem Begrenzungsdraht",
+          "11": "Dockt an",
+          "12": "Schnellladung",
+          "14": "Ladung abgeschlossen",
+          "15": "Ausfahrtswinkel",
+          "16": "Folgt Leitdraht 1 zum Startpunkt",
+          "18": "Kein Schleifensignal!",
+          "19": "M\u00e4hmotor blockiert!",
+          "2": "Drau\u00dfen",
+          "21": "Folgt Leitdraht 2 zur Ladestation",
+          "23": "Folgt Leitdraht 2 zum Startpunkt",
+          "25": "Folgt linkem Begrenzungsdraht",
+          "4": "R\u00e4der rutschen!",
+          "6": "Kollision!",
+          "7": "Angehoben!",
+          "8": "Spiralschnitt",
+          "9": "Folgt Leitdraht 1 zur Ladestation"
+        }
+      },
+      "mower_substatus_plain": {
+        "name": "Einfacher Unterstatus"
+      },
+      "mower_timer_next_date": {
+        "name": "N\u00e4chstes Startdatum"
+      },
+      "mower_timer_next_time": {
+        "name": "N\u00e4chste Startzeit"
+      },
+      "mower_timer_next_unix": {
+        "name": "N\u00e4chste Startzeit"
+      },
+      "mqtt": {
+        "name": "MQTT"
+      },
+      "passage_open": {
+        "name": "Passage ge\u00f6ffnet"
+      },
+      "service_call_result": {
+        "name": "Antwort des Serviceaufrufs",
+        "state_attributes": {
+          "timestamp": {
+            "name": "Ausf\u00fchrungszeitpunkt"
+          }
+        }
+      },
+      "version_application": {
+        "name": "Anwendungsversion"
+      },
+      "wlan_rssi": {
+        "name": "Wi-Fi-Signalst\u00e4rke"
       }
     },
     "switch": {
@@ -266,147 +521,11 @@
           "enabled": {
             "name": "Aktiviert"
           },
-          "start": {
-            "name": "Start"
-          },
           "end": {
             "name": "Ende"
           },
-          "weekdays": {
-            "name": "Wochentage"
-          }
-        }
-      },
-      "timer_2": {
-        "name": "Timer 2",
-        "state_attributes": {
-          "enabled": {
-            "name": "Aktiviert"
-          },
           "start": {
             "name": "Start"
-          },
-          "end": {
-            "name": "Ende"
-          },
-          "weekdays": {
-            "name": "Wochentage"
-          }
-        }
-      },
-      "timer_3": {
-        "name": "Timer 3",
-        "state_attributes": {
-          "enabled": {
-            "name": "Aktiviert"
-          },
-          "start": {
-            "name": "Start"
-          },
-          "end": {
-            "name": "Ende"
-          },
-          "weekdays": {
-            "name": "Wochentage"
-          }
-        }
-      },
-      "timer_4": {
-        "name": "Timer 4",
-        "state_attributes": {
-          "enabled": {
-            "name": "Aktiviert"
-          },
-          "start": {
-            "name": "Start"
-          },
-          "end": {
-            "name": "Ende"
-          },
-          "weekdays": {
-            "name": "Wochentage"
-          }
-        }
-      },
-      "timer_5": {
-        "name": "Timer 5",
-        "state_attributes": {
-          "enabled": {
-            "name": "Aktiviert"
-          },
-          "start": {
-            "name": "Start"
-          },
-          "end": {
-            "name": "Ende"
-          },
-          "weekdays": {
-            "name": "Wochentage"
-          }
-        }
-      },
-      "timer_6": {
-        "name": "Timer 6",
-        "state_attributes": {
-          "enabled": {
-            "name": "Aktiviert"
-          },
-          "start": {
-            "name": "Start"
-          },
-          "end": {
-            "name": "Ende"
-          },
-          "weekdays": {
-            "name": "Wochentage"
-          }
-        }
-      },
-      "timer_7": {
-        "name": "Timer 7",
-        "state_attributes": {
-          "enabled": {
-            "name": "Aktiviert"
-          },
-          "start": {
-            "name": "Start"
-          },
-          "end": {
-            "name": "Ende"
-          },
-          "weekdays": {
-            "name": "Wochentage"
-          }
-        }
-      },
-      "timer_8": {
-        "name": "Timer 8",
-        "state_attributes": {
-          "enabled": {
-            "name": "Aktiviert"
-          },
-          "start": {
-            "name": "Start"
-          },
-          "end": {
-            "name": "Ende"
-          },
-          "weekdays": {
-            "name": "Wochentage"
-          }
-        }
-      },
-      "timer_9": {
-        "name": "Timer 9",
-        "state_attributes": {
-          "enabled": {
-            "name": "Aktiviert"
-          },
-          "start": {
-            "name": "Start"
-          },
-          "end": {
-            "name": "Ende"
           },
           "weekdays": {
             "name": "Wochentage"
@@ -419,11 +538,11 @@
           "enabled": {
             "name": "Aktiviert"
           },
-          "start": {
-            "name": "Start"
-          },
           "end": {
             "name": "Ende"
+          },
+          "start": {
+            "name": "Start"
           },
           "weekdays": {
             "name": "Wochentage"
@@ -436,11 +555,11 @@
           "enabled": {
             "name": "Aktiviert"
           },
-          "start": {
-            "name": "Start"
-          },
           "end": {
             "name": "Ende"
+          },
+          "start": {
+            "name": "Start"
           },
           "weekdays": {
             "name": "Wochentage"
@@ -453,11 +572,11 @@
           "enabled": {
             "name": "Aktiviert"
           },
-          "start": {
-            "name": "Start"
-          },
           "end": {
             "name": "Ende"
+          },
+          "start": {
+            "name": "Start"
           },
           "weekdays": {
             "name": "Wochentage"
@@ -470,11 +589,11 @@
           "enabled": {
             "name": "Aktiviert"
           },
-          "start": {
-            "name": "Start"
-          },
           "end": {
             "name": "Ende"
+          },
+          "start": {
+            "name": "Start"
           },
           "weekdays": {
             "name": "Wochentage"
@@ -487,352 +606,150 @@
           "enabled": {
             "name": "Aktiviert"
           },
-          "start": {
-            "name": "Start"
-          },
           "end": {
             "name": "Ende"
+          },
+          "start": {
+            "name": "Start"
           },
           "weekdays": {
             "name": "Wochentage"
           }
         }
-      }
-    },
-    "sensor": {
-      "mower_error": {
-        "name": "Aktueller Fehler"
       },
-      "battery": {
-        "name": "Batterie",
+      "timer_2": {
+        "name": "Timer 2",
         "state_attributes": {
-          "charge": {
-            "name": "Ladung"
+          "enabled": {
+            "name": "Aktiviert"
           },
-          "voltage": {
-            "name": "Spannung"
+          "end": {
+            "name": "Ende"
           },
-          "current": {
-            "name": "Strom"
+          "start": {
+            "name": "Start"
           },
-          "temperature": {
-            "name": "Temperatur"
-          },
-          "capacity": {
-            "name": "Kapazit\u00e4t"
+          "weekdays": {
+            "name": "Wochentage"
           }
         }
       },
-      "mower_status": {
-        "name": "Status",
-        "state": {
-          "0": "Status erkennen",
-          "1": "Geparkt",
-          "2": "M\u00e4hen",
-          "3": "Ladebasis suchen",
-          "4": "Aufladen",
-          "5": "Suchen",
-          "7": "Fehler",
-          "8": "Kabelsignal verloren",
-          "16": "Aus",
-          "17": "Schlafen",
-          "18": "Warten auf Garagentor",
-          "98": "Offline (keine Verbindung m\u00f6glich)",
-          "99": "Unbekannt"
-        }
-      },
-      "mower_battery_charge": {
-        "name": "Batterie"
-      },
-      "mower_status_duration": {
-        "name": "Zeit im aktuellen Status"
-      },
-      "device_serial": {
-        "name": "Seriennummer"
-      },
-      "mower_distance": {
-        "name": "Entfernung"
-      },
-      "device_name": {
-        "name": "Name"
-      },
-      "health_climate_temperature": {
-        "name": "Interne Temperatur des M\u00e4hroboters"
-      },
-      "health_climate_humidity": {
-        "name": "Interne Luftfeuchtigkeit"
-      },
-      "mower_blades_quality": {
-        "name": "Messerqualit\u00e4t"
-      },
-      "mower_blades_days": {
-        "name": "Messeralter"
-      },
-      "mower_blades_hours": {
-        "name": "Betriebsstunden der Messer"
-      },
-      "wlan_rssi": {
-        "name": "Wi-Fi-Signalst\u00e4rke"
-      },
-      "mower_mode": {
-        "name": "Modus",
-        "state": {
-          "0": "Auto",
-          "1": "Manuell",
-          "2": "Home",
-          "3": "Demo",
-          "98": "Ende des Tages",
-          "99": "M\u00e4hauftrag"
-        }
-      },
-      "mower_statistic_hours": {
-        "name": "Betriebsstunden"
-      },
-      "mower_error_code": {
-        "name": "Letzter Fehlercode"
-      },
-      "mower_error_message": {
-        "name": "Letzte Fehlermeldung"
-      },
-      "mower_substatus": {
-        "name": "Unterstatus",
-        "state": {
-          "1": "F\u00e4hrt",
-          "2": "Drau\u00dfen",
-          "4": "R\u00e4der rutschen!",
-          "6": "Kollision!",
-          "7": "Angehoben!",
-          "8": "Spiralschnitt",
-          "9": "Folgt Leitdraht 1 zur Ladestation",
-          "10": "Folgt rechtem Begrenzungsdraht",
-          "11": "Dockt an",
-          "12": "Schnellladung",
-          "14": "Ladung abgeschlossen",
-          "15": "Ausfahrtswinkel",
-          "16": "Folgt Leitdraht 1 zum Startpunkt",
-          "18": "Kein Schleifensignal!",
-          "19": "M\u00e4hmotor blockiert!",
-          "21": "Folgt Leitdraht 2 zur Ladestation",
-          "23": "Folgt Leitdraht 2 zum Startpunkt",
-          "25": "Folgt linkem Begrenzungsdraht"
-        }
-      },
-      "control": {
-        "name": "Steuerung"
-      },
-      "control_mode": {
-        "name": "Steuerungsmodus"
-      },
-      "mqtt": {
-        "name": "MQTT"
-      },
-      "mower_status_plain": {
-        "name": "Einfacher Status"
-      },
-      "mower_substatus_plain": {
-        "name": "Einfacher Unterstatus"
-      },
-      "mower_timer_next_date": {
-        "name": "N\u00e4chstes Startdatum"
-      },
-      "mower_timer_next_time": {
-        "name": "N\u00e4chste Startzeit"
-      },
-      "mower_timer_next_unix": {
-        "name": "N\u00e4chste Startzeit"
-      },
-      "health_voltage_int33": {
-        "name": "Betriebsspannung Robonect"
-      },
-      "health_voltage_ext33": {
-        "name": "Betriebsspannung M\u00e4her"
-      },
-      "health_voltage_batt": {
-        "name": "Robonect Versorgungsspannung"
-      },
-      "clock_time": {
-        "name": "Uhrzeit"
-      },
-      "passage_open": {
-        "name": "Passage ge\u00f6ffnet"
-      },
-      "gps_longitude": {
-        "name": "GPS-L\u00e4ngengrad"
-      },
-      "gps_latitude": {
-        "name": "GPS-Breitengrad"
-      },
-      "version_application": {
-        "name": "Anwendungsversion"
-      },
-      "service_call_result": {
-        "name": "Antwort des Serviceaufrufs",
+      "timer_3": {
+        "name": "Timer 3",
         "state_attributes": {
-          "timestamp": {
-            "name": "Ausf\u00fchrungszeitpunkt"
+          "enabled": {
+            "name": "Aktiviert"
+          },
+          "end": {
+            "name": "Ende"
+          },
+          "start": {
+            "name": "Start"
+          },
+          "weekdays": {
+            "name": "Wochentage"
           }
         }
       },
-      "motor_drive_left": {
-        "name": "Antrieb linker Motor",
+      "timer_4": {
+        "name": "Timer 4",
         "state_attributes": {
-          "power": {
-            "name": "Leistung"
+          "enabled": {
+            "name": "Aktiviert"
           },
-          "speed": {
-            "name": "Geschwindigkeit"
+          "end": {
+            "name": "Ende"
           },
-          "current": {
-            "name": "Strom"
+          "start": {
+            "name": "Start"
+          },
+          "weekdays": {
+            "name": "Wochentage"
           }
         }
       },
-      "motor_drive_right": {
-        "name": "Antrieb Motor rechts",
+      "timer_5": {
+        "name": "Timer 5",
         "state_attributes": {
-          "power": {
-            "name": "Leistung"
+          "enabled": {
+            "name": "Aktiviert"
           },
-          "speed": {
-            "name": "Geschwindigkeit"
+          "end": {
+            "name": "Ende"
           },
-          "current": {
-            "name": "Strom"
+          "start": {
+            "name": "Start"
+          },
+          "weekdays": {
+            "name": "Wochentage"
           }
         }
       },
-      "motor_blade": {
-        "name": "Motor messen",
+      "timer_6": {
+        "name": "Timer 6",
         "state_attributes": {
-          "speed": {
-            "name": "Geschwindigkeit"
+          "enabled": {
+            "name": "Aktiviert"
           },
-          "average": {
-            "name": "Durchschnitt"
+          "end": {
+            "name": "Ende"
           },
-          "current": {
-            "name": "Strom"
+          "start": {
+            "name": "Start"
+          },
+          "weekdays": {
+            "name": "Wochentage"
           }
         }
-      }
-    },
-    "button": {
-      "error_reset": {
-        "name": "Fehler zur\u00fccksetzen"
       },
-      "blades_reset": {
-        "name": "Messer zur\u00fccksetzen"
-      },
-      "start": {
-        "name": "Start"
-      },
-      "stop": {
-        "name": "Stop"
-      },
-      "reboot": {
-        "name": "Neustarten"
-      },
-      "shutdown": {
-        "name": "Herunterfahren"
-      },
-      "sleep": {
-        "name": "Schlafen"
-      },
-      "home": {
-        "name": "Zur\u00fcck nach Hause"
-      },
-      "eod": {
-        "name": "Ende des Tages"
-      },
-      "auto": {
-        "name": "Automatisch"
-      },
-      "man": {
-        "name": "Manuell"
-      }
-    },
-    "device_tracker": {
-      "gps": {
-        "name": "GPS-Tracker",
+      "timer_7": {
+        "name": "Timer 7",
         "state_attributes": {
-          "last_synced": {
-            "name": "Letzte Synchronisierung"
+          "enabled": {
+            "name": "Aktiviert"
+          },
+          "end": {
+            "name": "Ende"
+          },
+          "start": {
+            "name": "Start"
+          },
+          "weekdays": {
+            "name": "Wochentage"
           }
         }
-      }
-    },
-    "lawn_mower": {
-      "automower": {
-        "name": "M\u00e4hroboter",
-        "state": {
-          "detecting_status": "Status erkennen",
-          "paused": "Geparkt",
-          "mowing": "M\u00e4hen",
-          "returning": "Suchen",
-          "charging": "Aufladen",
-          "error": "Fehler",
-          "lost_cable_signal": "Signal f\u00fcr Begrenzungskabel verloren",
-          "off": "Aus",
-          "docked": "Schlafen",
-          "waiting_for_garage_door": "Warten auf Garagentor",
-          "offline_cannot_bind": "Offline (kann nicht verbunden werden)",
-          "unknown": "Unbekannt"
-        },
+      },
+      "timer_8": {
+        "name": "Timer 8",
         "state_attributes": {
-          "substatus": {
-            "name": "Unterstatus",
-            "state": {
-              "1": "F\u00e4hrt",
-              "2": "Drau\u00dfen",
-              "4": "R\u00e4der rutschen!",
-              "6": "Kollision!",
-              "7": "Angehoben!",
-              "8": "Spiralschnitt",
-              "9": "Folgt Leitdraht 1 zur Ladestation",
-              "10": "Folgt rechtem Begrenzungsdraht",
-              "11": "Dockt an",
-              "12": "Schnellladung",
-              "14": "Ladung abgeschlossen",
-              "15": "Ausfahrtswinkel",
-              "16": "Folgt Leitdraht 1 zum Startpunkt",
-              "18": "Kein Schleifensignal!",
-              "19": "M\u00e4hmotor blockiert!",
-              "21": "Folgt Leitdraht 2 zur Ladestation",
-              "23": "Folgt Leitdraht 2 zum Startpunkt",
-              "25": "Folgt linkem Begrenzungsdraht"
-            }
+          "enabled": {
+            "name": "Aktiviert"
           },
-          "mode": {
-            "name": "Modus",
-            "state": {
-              "0": "Auto",
-              "1": "Manuell",
-              "2": "Home",
-              "3": "Demo",
-              "98": "Ende des Tages",
-              "99": "M\u00e4hauftrag"
-            }
+          "end": {
+            "name": "Ende"
           },
-          "status_plain": {
-            "name": "Status"
+          "start": {
+            "name": "Start"
           },
-          "distance": {
-            "name": "Entfernung von der Basis"
+          "weekdays": {
+            "name": "Wochentage"
+          }
+        }
+      },
+      "timer_9": {
+        "name": "Timer 9",
+        "state_attributes": {
+          "enabled": {
+            "name": "Aktiviert"
           },
-          "status_duration": {
-            "name": "Zeit im aktuellen Status"
+          "end": {
+            "name": "Ende"
           },
-          "statistic_hours": {
-            "name": "Betriebsstunden"
+          "start": {
+            "name": "Start"
           },
-          "timer_next_unix": {
-            "name": "N\u00e4chste Startzeit"
-          },
-          "last_synced": {
-            "name": "Letzte Synchronisierung"
-          },
-          "blades_quality": {
-            "name": "Messerqualit\u00e4t"
+          "weekdays": {
+            "name": "Wochentage"
           }
         }
       }
@@ -843,41 +760,27 @@
         "state": {
           "0": "Status erkennen",
           "1": "Geparkt",
+          "16": "Aus",
+          "17": "Schlafen",
+          "18": "Warten auf Garagentor",
           "2": "M\u00e4hen",
           "3": "Ladestation suchen",
           "4": "Aufladen",
           "5": "Suchen",
           "7": "Fehler",
           "8": "Signal f\u00fcr Begrenzungskabel verloren",
-          "16": "Aus",
-          "17": "Schlafen",
-          "18": "Warten auf Garagentor",
           "98": "Offline (kann nicht verbunden werden)",
           "99": "Unbekannt"
         },
         "state_attributes": {
-          "substatus": {
-            "name": "Unterstatus",
-            "state": {
-              "1": "F\u00e4hrt",
-              "2": "Drau\u00dfen",
-              "4": "R\u00e4der rutschen!",
-              "6": "Kollision!",
-              "7": "Angehoben!",
-              "8": "Spiralschnitt",
-              "9": "Folgt Leitdraht 1 zur Ladestation",
-              "10": "Folgt rechtem Begrenzungsdraht",
-              "11": "Dockt an",
-              "12": "Schnellladung",
-              "14": "Ladung abgeschlossen",
-              "15": "Ausfahrtswinkel",
-              "16": "Folgt Leitdraht 1 zum Startpunkt",
-              "18": "Kein Schleifensignal!",
-              "19": "M\u00e4hmotor blockiert!",
-              "21": "Folgt Leitdraht 2 zur Ladestation",
-              "23": "Folgt Leitdraht 2 zum Startpunkt",
-              "25": "Folgt linkem Begrenzungsdraht"
-            }
+          "blades_quality": {
+            "name": "Messerqualit\u00e4t"
+          },
+          "distance": {
+            "name": "Entfernung von der Basis"
+          },
+          "last_synced": {
+            "name": "Letzte Synchronisierung"
           },
           "mode": {
             "name": "Modus",
@@ -890,41 +793,138 @@
               "99": "M\u00e4hauftrag"
             }
           },
-          "status_plain": {
-            "name": "Status"
-          },
-          "distance": {
-            "name": "Entfernung von der Basis"
+          "statistic_hours": {
+            "name": "Betriebsstunden"
           },
           "status_duration": {
             "name": "Zeit im aktuellen Status"
           },
-          "statistic_hours": {
-            "name": "Betriebsstunden"
+          "status_plain": {
+            "name": "Status"
+          },
+          "substatus": {
+            "name": "Unterstatus",
+            "state": {
+              "1": "F\u00e4hrt",
+              "10": "Folgt rechtem Begrenzungsdraht",
+              "11": "Dockt an",
+              "12": "Schnellladung",
+              "14": "Ladung abgeschlossen",
+              "15": "Ausfahrtswinkel",
+              "16": "Folgt Leitdraht 1 zum Startpunkt",
+              "18": "Kein Schleifensignal!",
+              "19": "M\u00e4hmotor blockiert!",
+              "2": "Drau\u00dfen",
+              "21": "Folgt Leitdraht 2 zur Ladestation",
+              "23": "Folgt Leitdraht 2 zum Startpunkt",
+              "25": "Folgt linkem Begrenzungsdraht",
+              "4": "R\u00e4der rutschen!",
+              "6": "Kollision!",
+              "7": "Angehoben!",
+              "8": "Spiralschnitt",
+              "9": "Folgt Leitdraht 1 zur Ladestation"
+            }
           },
           "timer_next_unix": {
             "name": "N\u00e4chste Startzeit"
-          },
-          "last_synced": {
-            "name": "Letzte Synchronisierung"
-          },
-          "blades_quality": {
-            "name": "Messerqualit\u00e4t"
           }
         }
+      }
+    }
+  },
+  "options": {
+    "abort": {
+      "already_configured": "Konto ist bereits konfiguriert"
+    },
+    "error": {
+      "cannot_connect": "Verbindung kann nicht hergestellt werden",
+      "invalid_auth": "Ung\u00fcltige Authentifizierung",
+      "mqtt_disabled": "Die MQTT-Integration ist nicht verf\u00fcgbar.\nF\u00fcgen Sie sie zu Home Assistant hinzu (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nSie k\u00f6nnen nat\u00fcrlich auch nur die REST API-\u00dcberwachung verwenden.",
+      "service_error": "Dienst nicht verf\u00fcgbar",
+      "unknown": "Unerwarteter Fehler"
+    },
+    "step": {
+      "brand_type": {
+        "data": {
+          "brand": "Roboter-Rasenm\u00e4her Marke",
+          "type": "Roboter-Rasenm\u00e4her Typ"
+        },
+        "title": "Passen Sie Ihre Roboter-Rasenm\u00e4her Marke und Typ an"
+      },
+      "connection_options": {
+        "data": {
+          "mqtt_enabled": "\u00dcberwachung \u00fcber MQTT",
+          "rest_enabled": "\u00dcberwachung \u00fcber REST-API"
+        },
+        "description": "Konnectivit\u00e4t",
+        "title": "Verbindungsmethoden"
+      },
+      "host": {
+        "data": {
+          "host": "Host"
+        },
+        "description": "Wenn sich die Robonect-Hostadresse ge\u00e4ndert hat",
+        "title": "Passen Sie Ihre Hostadresse an"
+      },
+      "init": {
+        "menu_options": {
+          "brand_type": "Marke und Typ",
+          "connection_options": "Verbindungsmethoden",
+          "host": "Host",
+          "monitored_variables": "Sensoren",
+          "scan_interval": "Aktualisierungsintervall",
+          "username_password": "Benutzername und Passwort",
+          "winter_mode": "Wintermodus"
+        },
+        "title": "Optionen \u00e4ndern"
+      },
+      "monitored_variables": {
+        "data": {
+          "attributes_units": "Einheiten zu Sensoreigenschaften hinzuf\u00fcgen",
+          "track_battery": "Batterie",
+          "track_error": "Fehler",
+          "track_hour": "Zeit",
+          "track_timer": "Timer",
+          "track_version": "Version",
+          "track_wlan": "WLAN"
+        },
+        "description": "Welche Sensoren sollen \u00fcberwacht werden",
+        "title": "Sensoren"
+      },
+      "scan_interval": {
+        "data": {
+          "scan_interval": "Aktualisierungsintervall (Minuten)"
+        },
+        "description": "\u00c4ndern Sie das Aktualisierungsintervall f\u00fcr die Sensoren",
+        "title": "Aktualisierungsintervall"
+      },
+      "username_password": {
+        "data": {
+          "password": "Passwort",
+          "username": "Benutzer"
+        },
+        "description": "Wenn Sie Ihre Kontoinformationen ge\u00e4ndert haben",
+        "title": "Benutzername und Passwort anpassen"
+      },
+      "winter_mode": {
+        "data": {
+          "winter_mode": "Wintermodus"
+        },
+        "description": "Aktivieren, wenn der M\u00e4her im Winter gelagert wird",
+        "title": "Wintermodus"
       }
     }
   },
   "selector": {
     "weekdays": {
       "options": {
-        "mo": "Montag",
-        "tu": "Dienstag",
-        "we": "Mittwoch",
-        "th": "Donnerstag",
         "fr": "Freitag",
+        "mo": "Montag",
         "sa": "Samstag",
-        "su": "Sonntag"
+        "su": "Sonntag",
+        "th": "Donnerstag",
+        "tu": "Dienstag",
+        "we": "Mittwoch"
       }
     }
   }
