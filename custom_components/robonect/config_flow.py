@@ -498,7 +498,6 @@ class RobonectOptionsFlow(RobonectCommonFlow, OptionsFlow):
     """Handle Robonect options."""
 
     general_settings: dict
-    config_entry_id: str
 
     def __init__(self, config_entry: ConfigEntry) -> None:
         """Initialize Robonect options flow."""
