@@ -1,5 +1,35 @@
 # Changelog
 
+## [v2.1.0](https://github.com/geertmeersman/robonect/tree/v2.1.0) (2025-01-06)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.0.5...v2.1.0)
+
+**Closed issues:**
+
+- mower\_mode? [\#230](https://github.com/geertmeersman/robonect/issues/230)
+- Winter mode [\#224](https://github.com/geertmeersman/robonect/issues/224)
+
+**Merged pull requests:**
+
+- fix: RobonectRestSwitch AttributeError when mower was disconnected [\#242](https://github.com/geertmeersman/robonect/pull/242) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.8.4 to 0.8.6 [\#241](https://github.com/geertmeersman/robonect/pull/241) ([dependabot[bot]](https://github.com/apps/dependabot))
+- fix: pretty-format-json [\#239](https://github.com/geertmeersman/robonect/pull/239) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.8.3 to 0.8.4 [\#238](https://github.com/geertmeersman/robonect/pull/238) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.8.2 to 0.8.3 [\#237](https://github.com/geertmeersman/robonect/pull/237) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.8.0 to 0.8.2 [\#236](https://github.com/geertmeersman/robonect/pull/236) ([dependabot[bot]](https://github.com/apps/dependabot))
+- fix: github workflow delete pre-releases on release [\#234](https://github.com/geertmeersman/robonect/pull/234) ([geertmeersman](https://github.com/geertmeersman))
+- fix: beta release zip file [\#233](https://github.com/geertmeersman/robonect/pull/233) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.7.4 to 0.8.0 [\#232](https://github.com/geertmeersman/robonect/pull/232) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.7.3 to 0.7.4 [\#231](https://github.com/geertmeersman/robonect/pull/231) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.7.2 to 0.7.3 [\#229](https://github.com/geertmeersman/robonect/pull/229) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore: zip\_release for hacs [\#228](https://github.com/geertmeersman/robonect/pull/228) ([geertmeersman](https://github.com/geertmeersman))
+- docs: release template [\#227](https://github.com/geertmeersman/robonect/pull/227) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.7.1 to 0.7.2 [\#226](https://github.com/geertmeersman/robonect/pull/226) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump colorlog from 6.8.2 to 6.9.0 [\#225](https://github.com/geertmeersman/robonect/pull/225) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): update pip requirement from \<24.3,\>=8.0.3 to \>=8.0.3,\<24.4 [\#223](https://github.com/geertmeersman/robonect/pull/223) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.7.0 to 0.7.1 [\#222](https://github.com/geertmeersman/robonect/pull/222) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.6.9 to 0.7.0 [\#221](https://github.com/geertmeersman/robonect/pull/221) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v2.0.5](https://github.com/geertmeersman/robonect/tree/v2.0.5) (2024-10-18)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.0.4...v2.0.5)
@@ -36,19 +66,15 @@
 
 ## [v2.0.2](https://github.com/geertmeersman/robonect/tree/v2.0.2) (2024-10-09)
 
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.0.2-beta.2...v2.0.2)
-
-**Merged pull requests:**
-
-- fix: add timeout of 20 seconds to httpx client, refers to \#214 [\#215](https://github.com/geertmeersman/robonect/pull/215) ([geertmeersman](https://github.com/geertmeersman))
-
-## [v2.0.2-beta.2](https://github.com/geertmeersman/robonect/tree/v2.0.2-beta.2) (2024-10-09)
-
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.0.1...v2.0.2-beta.2)
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.0.1...v2.0.2)
 
 **Closed issues:**
 
 - Entity State in Condition not working [\#207](https://github.com/geertmeersman/robonect/issues/207)
+
+**Merged pull requests:**
+
+- fix: add timeout of 20 seconds to httpx client, refers to \#214 [\#215](https://github.com/geertmeersman/robonect/pull/215) ([geertmeersman](https://github.com/geertmeersman))
 
 ## [v2.0.1](https://github.com/geertmeersman/robonect/tree/v2.0.1) (2024-10-08)
 
@@ -333,7 +359,7 @@
 
 ## [v1.5.2](https://github.com/geertmeersman/robonect/tree/v1.5.2) (2023-12-19)
 
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.5.1-beta.20...v1.5.2)
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.5.1...v1.5.2)
 
 **Merged pull requests:**
 
@@ -341,25 +367,10 @@
 - build\(deps\): bump actions/upload-artifact from 3 to 4 [\#117](https://github.com/geertmeersman/robonect/pull/117) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump github/codeql-action from 2 to 3 [\#116](https://github.com/geertmeersman/robonect/pull/116) ([dependabot[bot]](https://github.com/apps/dependabot))
 - feat: Winter mode and data store, references \#88, \#109 [\#115](https://github.com/geertmeersman/robonect/pull/115) ([geertmeersman](https://github.com/geertmeersman))
-
-## [v2.5.1-beta.20](https://github.com/geertmeersman/robonect/tree/v2.5.1-beta.20) (2023-12-13)
-
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.1-beta.7...v2.5.1-beta.20)
-
-**Merged pull requests:**
-
 - build\(deps\): bump ruff from 0.1.6 to 0.1.7 [\#114](https://github.com/geertmeersman/robonect/pull/114) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump heinrichreimer/github-changelog-generator-action from 2.3 to 2.4 [\#113](https://github.com/geertmeersman/robonect/pull/113) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump actions/setup-python from 4.7.1 to 5.0.0 [\#112](https://github.com/geertmeersman/robonect/pull/112) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump actions/stale from 8 to 9 [\#111](https://github.com/geertmeersman/robonect/pull/111) ([dependabot[bot]](https://github.com/apps/dependabot))
-
-## [v1.6.1-beta.7](https://github.com/geertmeersman/robonect/tree/v1.6.1-beta.7) (2023-12-12)
-
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.6.1-beta.4...v1.6.1-beta.7)
-
-## [v1.6.1-beta.4](https://github.com/geertmeersman/robonect/tree/v1.6.1-beta.4) (2023-12-12)
-
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v1.5.1...v1.6.1-beta.4)
 
 ## [v1.5.1](https://github.com/geertmeersman/robonect/tree/v1.5.1) (2023-12-10)
 
