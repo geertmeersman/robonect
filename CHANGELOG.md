@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.1.1](https://github.com/geertmeersman/robonect/tree/v2.1.1) (2025-01-06)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.1.0...v2.1.1)
+
+**Merged pull requests:**
+
+- fix: New options flow properties [\#243](https://github.com/geertmeersman/robonect/pull/243) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v2.1.0](https://github.com/geertmeersman/robonect/tree/v2.1.0) (2025-01-06)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.0.5...v2.1.0)
