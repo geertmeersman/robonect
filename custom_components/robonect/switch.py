@@ -287,12 +287,15 @@ class RobonectRestSwitch(RobonectCoordinatorEntity, RobonectTimerSwitchEntity):
     @callback
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
-        self.set_extra_attributes()
-        self.set_state()
         super()._handle_coordinator_update()
+        self.set_state()
+        self.set_extra_attributes()
 
     def set_state(self):
         """Set the status of the sensor from the coordinatorsensor."""
+        if not self.coordinator.data:
+            self._is_on = False
+            return
         if len(self.coordinator.data) and self.category in self.coordinator.data:
             state = get_json_dict_path(
                 self.coordinator.data, self.entity_description.rest
@@ -302,6 +305,10 @@ class RobonectRestSwitch(RobonectCoordinatorEntity, RobonectTimerSwitchEntity):
 
     def set_extra_attributes(self):
         """Set the attributes for the sensor from coordinator."""
+        if not self.coordinator.data:
+            self._attr_extra_state_attributes = {}
+            return
+
         if len(self.coordinator.data) and self.category in self.coordinator.data:
             attributes = {
                 "last_synced": self.last_synced,
@@ -324,7 +331,7 @@ class RobonectRestSwitch(RobonectCoordinatorEntity, RobonectTimerSwitchEntity):
     def extra_state_attributes(self):
         """Return attributes for sensor."""
         self.set_extra_attributes()
-        return self._attr_extra_state_attributes
+        return self._attr_extra_state_attributes or {}
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Turn the switch on."""
