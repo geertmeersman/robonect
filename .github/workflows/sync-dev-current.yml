@@ -1,0 +1,109 @@
+name: Sync dev-current with main
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allow manual triggering
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync-dev-current:
+    name: Synchronise dev-current
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+
+    - name: Set up Git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Sync dev-current with main
+      run: |
+        #!/bin/bash
+        set -euo pipefail
+
+        handle_error() {
+          echo "ERROR: Command failed: $1"
+          exit 1
+        }
+        cleanup() {
+          echo "INFO: Cleaning up..."
+          # Return to original branch if possible
+          git switch - 2>/dev/null || true
+        }
+
+        trap cleanup EXIT INT TERM
+
+        # Fetch the latest updates
+        echo "INFO: Pulling the latest changes..."
+        git pull || handle_error "git pull failed"
+
+        # Ensure we are on the main branch and update it
+        echo "INFO: Switching to the main branch..."
+        git switch main || handle_error "Failed to switch to main branch"
+        git pull || handle_error "Failed to update main branch"
+
+
+        # Ensure dev-current branch is up-to-date
+        echo "INFO: Switching to the dev-current branch..."
+        if git show-ref --verify --quiet refs/heads/dev-current; then
+          git switch dev-current
+          git pull
+        else
+          echo "INFO: dev-current branch does not exist."
+        fi
+
+        # Check if dev-current is ahead of main
+        echo "INFO: Checking if dev-current has unmerged commits..."
+        ahead=$(git rev-list --count main..dev-current 2>/dev/null || echo 0)
+
+        if [[ $ahead -gt 0 ]]; then
+            echo "----------------------------------------------------"
+            echo "INFO: dev-current is ahead of main by $ahead commits"
+            echo "INFO: No sync will occur."
+            echo "Commit list:"
+            git log --pretty=format:"  %h %s" main..dev-current
+            exit 0
+        fi
+
+        # Sync dev-current with main
+        echo "INFO: Syncing dev-current with main..."
+        git switch main
+
+        # Verify we're on main branch before proceeding
+        current_branch=$(git rev-parse --abbrev-ref HEAD)
+        if [[ "$current_branch" != "main" ]]; then
+          echo "ERROR: Failed to switch to main branch"
+          exit 1
+        fi
+
+        if git show-ref --verify --quiet refs/heads/dev-current; then
+          git branch -D dev-current
+        fi
+        git branch dev-current
+        git switch dev-current
+
+        # Verify branch creation and switch succeeded
+        current_branch=$(git rev-parse --abbrev-ref HEAD)
+        if [[ "$current_branch" != "dev-current" ]]; then
+          echo "ERROR: Failed to create and switch to dev-current branch"
+          exit 1
+        fi
+
+        # Verify the branch points to the same commit as main
+        dev_current_sha=$(git rev-parse HEAD)
+        main_sha=$(git rev-parse main)
+        if [[ "$dev_current_sha" != "$main_sha" ]]; then
+          echo "ERROR: Branch creation failed, dev-current does not match main"
+          exit 1
+        fi
+
+        git push --force-with-lease --set-upstream origin dev-current
+        echo "INFO: dev-current successfully synced with main."
