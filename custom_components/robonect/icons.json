@@ -1,12 +1,12 @@
 {
   "services": {
-    "start": "mdi:play",
-    "stop": "mdi:stop",
+    "job": "mdi:briefcase",
+    "operation_mode": "mdi:auto-mode",
     "reboot": "mdi:restart",
     "shutdown": "mdi:power",
     "sleep": "mdi:sleep",
-    "operation_mode": "mdi:auto-mode",
-    "job": "mdi:briefcase",
+    "start": "mdi:play",
+    "stop": "mdi:stop",
     "timer": "mdi:timer"
   }
 }
