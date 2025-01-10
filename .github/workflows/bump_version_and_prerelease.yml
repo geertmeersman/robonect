@@ -29,7 +29,7 @@ jobs:
           last_tag=$(git describe --tags --abbrev=0 origin/main)
           echo Last tag: $last_tag
           changelog=$(echo -e "## Commits\n";git log --pretty=format:%s $last_tag..refs/heads/dev-current|while read i; do echo "- $i";done)
-          echo "Calculated next verion: $next_version"
+          echo "Calculated next version: $next_version"
           echo "Changelog: $changelog"
           echo "NEW_VERSION=$next_version" >> "$GITHUB_OUTPUT"
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)

@@ -1,6 +1,6 @@
 {
+  "filename": "robonect.zip",
   "name": "Robonect",
   "render_readme": true,
-  "zip_release": true,
-  "filename": "robonect.zip"
+  "zip_release": true
 }

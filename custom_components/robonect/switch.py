@@ -117,7 +117,7 @@ async def async_setup_entry(
                         desc.rest_attrs = description.rest_attrs.replace(
                             ".0", f".{idx}"
                         )
-                        desc.key = description.key.replace("/0", f"/{idx+1}")
+                        desc.key = description.key.replace("/0", f"/{idx + 1}")
                         entities.append(
                             RobonectRestSwitch(
                                 hass,
@@ -158,9 +158,9 @@ class RobonectTimerSwitchEntity(RobonectEntity, SwitchEntity, RestoreEntity):
         self.coordinator = coordinator
         if description is None:
             self.entity_description = RobonectSwitchEntityDescription(
-                key=f"timer {int(timer_id)+1}",
+                key=f"timer {int(timer_id) + 1}",
                 category="timer",
-                translation_key=f"timer_{int(timer_id)+1}",
+                translation_key=f"timer_{int(timer_id) + 1}",
                 rest="$.timer.timer.0.enabled",
                 icon="mdi:calendar-clock",
                 entity_category=EntityCategory.DIAGNOSTIC,

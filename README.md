@@ -19,7 +19,7 @@ A Home Assistant integration to monitor Robonect
 
 **MQTT sensors** (when enabled) are enabled prior to the REST sensors, as they update faster.
 
-The **REST sensors**, are updated on a configurable scan interval. When the mower is sleeping, only the status sensors are being updated (since the others have no activity and updating them would wake up the mower, resuling in a beep every time a scan happens). Example here: [Rest sensor and the REST category](#rest-sensor-and-the-rest-category)
+The **REST sensors**, are updated on a configurable scan interval. When the mower is sleeping, only the status sensors are being updated (since the others have no activity and updating them would wake up the mower, resulting in a beep every time a scan happens). Example here: [Rest sensor and the REST category](#rest-sensor-and-the-rest-category)
 
 ---
 
@@ -106,7 +106,7 @@ The **REST sensors**, are updated on a configurable scan interval. When the mowe
 
 ### Manual
 
-1. Copy the `custom_components/robonect` directory of this repository as `config/custom_components/robonect` in your Home Assistant instalation.
+1. Copy the `custom_components/robonect` directory of this repository as `config/custom_components/robonect` in your Home Assistant installation.
 2. Restart Home Assistant
 3. Add the 'robonect' integration via HA Settings > 'Devices and Services' > 'Integrations'
 4. Provide your Robonect configuration details
