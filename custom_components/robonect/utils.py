@@ -128,18 +128,17 @@ def unix_to_datetime(epoch_timestamp, hass=None):
         return None
     # Convert epoch timestamp to datetime object in UTC
     datetime_utc = datetime.datetime.fromtimestamp(int(epoch_timestamp), pytz.UTC)
-
+    _LOGGER.debug(f"unix_to_date: UTC {datetime_utc}")
+    # remove timezone info, das Robonect doesn't have any
+    datetime_none = datetime_utc.replace(tzinfo=None)
     # Convert UTC datetime to the desired timezone
     timezone = hass.data[DOMAIN].get("timezone")
     if timezone is None:
         timezone = pytz.UTC  # Fallback in case timezone isn't cached properly
 
-    datetime_with_timezone = datetime_utc.astimezone(timezone)
-
-    # Subtract 2 hours from the timestamp
-    new_datetime = datetime_with_timezone - datetime.timedelta(hours=2)
-
-    return new_datetime
+    datetime_with_timezone = timezone.localize(datetime_none, is_dst=None)
+    _LOGGER.debug(f"unix_to_date: LOCAL {datetime_with_timezone}")
+    return datetime_with_timezone
 
 
 def filter_out_units(string):
