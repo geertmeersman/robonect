@@ -1,5 +1,26 @@
 # Changelog
 
+## [v2.2.0](https://github.com/geertmeersman/robonect/tree/v2.2.0) (2025-03-06)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.1.1...v2.2.0)
+
+**Closed issues:**
+
+- Time shift of one hours [\#256](https://github.com/geertmeersman/robonect/issues/256)
+- Question about the MQTT topic [\#253](https://github.com/geertmeersman/robonect/issues/253)
+- Log error "object has no attribute '\_\_attr\_extra\_state\_attributes'." [\#240](https://github.com/geertmeersman/robonect/issues/240)
+
+**Merged pull requests:**
+
+- fix: ensure accurate local time displays [\#258](https://github.com/geertmeersman/robonect/pull/258) ([geertmeersman](https://github.com/geertmeersman))
+- fix: unix\_to\_datetime shift [\#257](https://github.com/geertmeersman/robonect/pull/257) ([poggenpower](https://github.com/poggenpower))
+- build\(deps\): bump ruff from 0.9.7 to 0.9.9 [\#255](https://github.com/geertmeersman/robonect/pull/255) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.9.3 to 0.9.7 [\#254](https://github.com/geertmeersman/robonect/pull/254) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): update pip requirement from \<24.4,\>=8.0.3 to \>=8.0.3,\<25.1 [\#249](https://github.com/geertmeersman/robonect/pull/249) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.8.6 to 0.9.3 [\#248](https://github.com/geertmeersman/robonect/pull/248) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore: github sync dev-current workflow [\#245](https://github.com/geertmeersman/robonect/pull/245) ([geertmeersman](https://github.com/geertmeersman))
+- chore: spellcheck [\#244](https://github.com/geertmeersman/robonect/pull/244) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v2.1.1](https://github.com/geertmeersman/robonect/tree/v2.1.1) (2025-01-06)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.1.0...v2.1.1)
