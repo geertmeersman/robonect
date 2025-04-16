@@ -380,9 +380,11 @@ async def async_send_command(
 
     coordinator = hass.data[DOMAIN][entry.entry_id]["coordinator"]
     if not coordinator:
-        _LOGGER.debug("[REST async_send_command] COORDINATOR NOK")
+        _LOGGER.debug(f"[REST async_send_command] mower: {entry.title} COORDINATOR NOK")
 
-    _LOGGER.debug(f"[REST async_send_command] command: {command}, params: {params}")
+    _LOGGER.debug(
+        f"[REST async_send_command] mower: {entry.title} command: {command}, params: {params}"
+    )
 
     try:
         response = await coordinator.client.async_cmd(command, params)
