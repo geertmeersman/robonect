@@ -19,5 +19,5 @@
   "requirements": [
     "jsonpath"
   ],
-  "version": "v2.3.0-beta.5"
+  "version": "v2.3.0"
 }
