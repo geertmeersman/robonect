@@ -7,32 +7,13 @@ import json
 import logging
 import urllib.parse
 
-from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.httpx_client import create_async_httpx_client
-from homeassistant.loader import bind_hass
-from homeassistant.util.hass_dict import HassKey
 import httpx
 
 from .const import SAFE_COMMANDS
 from .utils import transform_json_to_single_depth
 
 _LOGGER = logging.getLogger(__name__)
-DATA_ASYNC_CLIENT: HassKey[httpx.AsyncClient] = HassKey("httpx_async_client_robonect")
-
-
-@callback
-@bind_hass
-def get_async_client(hass: HomeAssistant) -> httpx.AsyncClient:
-    """Return default httpx AsyncClient.
-
-    This method must be run in the event loop.
-    """
-    if (client := hass.data.get(DATA_ASYNC_CLIENT)) is None:
-        client = hass.data[DATA_ASYNC_CLIENT] = create_async_httpx_client(
-            hass, timeout=httpx.Timeout(20.0, read=10.0)
-        )
-
-    return client
 
 
 def encode_dict_values_to_utf8(dictionary):
@@ -86,15 +67,18 @@ class RobonectClient:
             self.auth = (username, password)
 
     async def client_start(self):
-        """Start the httpx client."""
+        """Start a new, isolated httpx client."""
         if not self.client:
-            self.client = get_async_client(self.hass)
-            self.client.auth = self.auth
+            self.client = create_async_httpx_client(
+                self.hass, timeout=httpx.Timeout(20.0, read=10.0)
+            )
+            if self.auth:
+                self.client.auth = self.auth
 
     async def client_close(self):
-        """Close the httpx client."""
+        """Properly close and cleanup the httpx client."""
         if self.client:
-            # await self.client.aclose()
+            await self.client.aclose()
             self.client = None
 
     async def async_cmd(self, command=None, params={}) -> list[dict]:
