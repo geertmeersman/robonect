@@ -1,20 +1,25 @@
 # Changelog
 
+## [v2.3.1](https://github.com/geertmeersman/robonect/tree/v2.3.1) (2025-04-18)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.3.1-beta.1...v2.3.1)
+
+**Merged pull requests:**
+
+- fix: retrieve config entry based on entity\_id so service calls go to the right hub client, refs \#268 [\#270](https://github.com/geertmeersman/robonect/pull/270) ([geertmeersman](https://github.com/geertmeersman))
+
+## [v2.3.1-beta.1](https://github.com/geertmeersman/robonect/tree/v2.3.1-beta.1) (2025-04-18)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.3.0...v2.3.1-beta.1)
+
 ## [v2.3.0](https://github.com/geertmeersman/robonect/tree/v2.3.0) (2025-04-17)
 
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.3.0-beta.5...v2.3.0)
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.2.0...v2.3.0)
 
 **Merged pull requests:**
 
 - fix: client connection handling to improve reliability by managing HTTP client instances individually for each mower, refs \#268 [\#269](https://github.com/geertmeersman/robonect/pull/269) ([geertmeersman](https://github.com/geertmeersman))
 - build\(deps\): bump ruff from 0.11.2 to 0.11.5 [\#267](https://github.com/geertmeersman/robonect/pull/267) ([dependabot[bot]](https://github.com/apps/dependabot))
-
-## [v2.3.0-beta.5](https://github.com/geertmeersman/robonect/tree/v2.3.0-beta.5) (2025-04-16)
-
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.2.0...v2.3.0-beta.5)
-
-**Merged pull requests:**
-
 - fix: remove general\_settings [\#262](https://github.com/geertmeersman/robonect/pull/262) ([geertmeersman](https://github.com/geertmeersman))
 - build\(deps\): bump ruff from 0.9.9 to 0.11.2 [\#261](https://github.com/geertmeersman/robonect/pull/261) ([dependabot[bot]](https://github.com/apps/dependabot))
 
