@@ -198,7 +198,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             except ValueError as error:
                 raise RobonectException(error)
             params |= {"corridor": index}
-        entry = get_entry_from_service(hass, service)
+        try:
+            entry = get_entry_from_service(hass, service)
+        except ValueError as error:
+            raise RobonectException(error)
 
         await async_send_command(hass, entry, "mode", params)
 
@@ -509,6 +512,8 @@ def get_entry_from_service(hass: HomeAssistant, service: ServiceCall) -> ConfigE
         device = device_reg.async_get(device_id)
         if device is None:
             raise ValueError(f"No device found for device_id {device_id}")
+        if not device.config_entries:
+            raise ValueError(f"Device {device_id} has no associated config entries")
         return hass.config_entries.async_get_entry(device.config_entries[0])
     elif "entity_id" in service.data:
         entity_id = service.data["entity_id"]
