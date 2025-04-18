@@ -119,6 +119,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                     params |= {weekday: 1}
                 else:
                     params |= {weekday: 0}
+            entry = get_entry_from_service(hass, service)
         except ValueError as error:
             raise RobonectException(error)
         await async_send_command(hass, entry, "timer", params)
@@ -137,6 +138,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             if not isinstance(timeout, int):
                 raise TypeError("Timeout must be an integer.")
             params |= {"timeout": min(timeout, 5000)}
+            entry = get_entry_from_service(hass, service)
         except ValueError as error:
             raise RobonectException(error)
         await async_send_command(hass, entry, "direct", params)
@@ -156,7 +158,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                 params |= {"gpioerr": "on"}
             if service.data["gpioinv"]:
                 params |= {"gpioinv": "on"}
-
+            entry = get_entry_from_service(hass, service)
         except ValueError as error:
             raise RobonectException(error)
         await async_send_command(hass, entry, "equipment", params)
@@ -196,6 +198,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             except ValueError as error:
                 raise RobonectException(error)
             params |= {"corridor": index}
+        entry = get_entry_from_service(hass, service)
 
         await async_send_command(hass, entry, "mode", params)
 
@@ -496,3 +499,22 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
     _LOGGER.info("Migration to version %s successful", config_entry.version)
 
     return True
+
+
+def get_entry_from_service(hass: HomeAssistant, service: ServiceCall) -> ConfigEntry:
+    """Resolve the ConfigEntry based on device_id or entity_id."""
+    if "device_id" in service.data:
+        device_id = service.data["device_id"]
+        device_reg = dr.async_get(hass)
+        device = device_reg.async_get(device_id)
+        if device is None:
+            raise ValueError(f"No device found for device_id {device_id}")
+        return hass.config_entries.async_get_entry(device.config_entries[0])
+    elif "entity_id" in service.data:
+        entity_id = service.data["entity_id"]
+        entity_reg = er.async_get(hass)
+        entity = entity_reg.async_get(entity_id)
+        if entity is None:
+            raise ValueError(f"No entity found for entity_id {entity_id}")
+        return hass.config_entries.async_get_entry(entity.config_entry_id)
+    raise ValueError("No device_id or entity_id provided in service data.")
