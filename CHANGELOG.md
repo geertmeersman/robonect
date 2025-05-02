@@ -1,16 +1,27 @@
 # Changelog
 
+## [v2.3.2](https://github.com/geertmeersman/robonect/tree/v2.3.2) (2025-05-02)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.3.1...v2.3.2)
+
+**Closed issues:**
+
+- Two Robonect Mowers: Service Call "Direct the Mower" controls only one correctly [\#268](https://github.com/geertmeersman/robonect/issues/268)
+- Add action for "blades replaced" [\#266](https://github.com/geertmeersman/robonect/issues/266)
+
+**Merged pull requests:**
+
+- fix: don't close the Home Assistant httpx client, refs \#274 [\#275](https://github.com/geertmeersman/robonect/pull/275) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.11.5 to 0.11.7 [\#273](https://github.com/geertmeersman/robonect/pull/273) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): update pip requirement from \<25.1,\>=8.0.3 to \>=8.0.3,\<25.2 [\#272](https://github.com/geertmeersman/robonect/pull/272) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v2.3.1](https://github.com/geertmeersman/robonect/tree/v2.3.1) (2025-04-18)
 
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.3.1-beta.1...v2.3.1)
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.3.0...v2.3.1)
 
 **Merged pull requests:**
 
 - fix: retrieve config entry based on entity\_id so service calls go to the right hub client, refs \#268 [\#270](https://github.com/geertmeersman/robonect/pull/270) ([geertmeersman](https://github.com/geertmeersman))
-
-## [v2.3.1-beta.1](https://github.com/geertmeersman/robonect/tree/v2.3.1-beta.1) (2025-04-18)
-
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.3.0...v2.3.1-beta.1)
 
 ## [v2.3.0](https://github.com/geertmeersman/robonect/tree/v2.3.0) (2025-04-17)
 
