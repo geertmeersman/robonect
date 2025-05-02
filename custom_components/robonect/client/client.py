@@ -78,7 +78,7 @@ class RobonectClient:
     async def client_close(self):
         """Properly close and cleanup the httpx client."""
         if self.client:
-            await self.client.aclose()
+            # await self.client.aclose() commented as this closes the HA httpx client
             self.client = None
 
     async def async_cmd(self, command=None, params={}) -> list[dict]:
