@@ -76,13 +76,32 @@ class RobonectClient:
                 self.client.auth = self.auth
 
     async def client_close(self):
-        """Properly close and cleanup the httpx client."""
+        """
+        Cleans up the HTTP client instance by setting it to None.
+        
+        This method does not explicitly close the client to avoid shutting down the shared Home Assistant HTTPX client.
+        """
         if self.client:
             # await self.client.aclose() commented as this closes the HA httpx client
             self.client = None
 
     async def async_cmd(self, command=None, params={}) -> list[dict]:
-        """Send command to mower."""
+        """
+        Sends an asynchronous command to the Robonect mower and returns the parsed response.
+        
+        Args:
+            command: The command string to send to the mower. If None, returns False.
+            params: Optional dictionary of parameters to include in the request.
+        
+        Returns:
+            The parsed JSON response from the mower as a dictionary, or a transformed
+            single-depth dictionary if enabled. For certain commands, returns a success
+            dictionary. Returns False if the response is not valid JSON.
+        
+        Raises:
+            Exception: If no response is received from the mower.
+            httpx.HTTPStatusError: If the mower returns an HTTP error status code.
+        """
         ext = None
         if command is None:
             return False
