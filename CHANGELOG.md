@@ -1,14 +1,20 @@
 # Changelog
 
+## [v2.4.0](https://github.com/geertmeersman/robonect/tree/v2.4.0) (2025-05-12)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.3.3...v2.4.0)
+
+**Merged pull requests:**
+
+- feat: binary\_sensor for error status [\#282](https://github.com/geertmeersman/robonect/pull/282) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v2.3.3](https://github.com/geertmeersman/robonect/tree/v2.3.3) (2025-05-12)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.3.2...v2.3.3)
 
 **Closed issues:**
 
-- Error "Actie lawn\_mower/dock kan niet worden uitgevoerd. coroutines could not be used with run\_in\_executor\(\)" [\#279](https://github.com/geertmeersman/robonect/issues/279)
 - Closing of HA HTTPx client [\#274](https://github.com/geertmeersman/robonect/issues/274)
-- battery extension automover 315X [\#263](https://github.com/geertmeersman/robonect/issues/263)
 
 **Merged pull requests:**
 
