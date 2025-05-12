@@ -190,6 +190,12 @@ class RobonectRestBinarySensor(RobonectCoordinatorEntity, RobonectBinarySensor):
                             return
                 self._attr_is_on = False
                 return
+            if self.entity_description.rest == "$.status.status.status":
+                if state is not None and state == 7:
+                    self._attr_is_on = True
+                    return
+                self._attr_is_on = False
+                return
             if state is True:
                 self._attr_is_on = True
             else:
