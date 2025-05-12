@@ -1,5 +1,21 @@
 # Changelog
 
+## [v2.3.3](https://github.com/geertmeersman/robonect/tree/v2.3.3) (2025-05-12)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.3.2...v2.3.3)
+
+**Closed issues:**
+
+- Error "Actie lawn\_mower/dock kan niet worden uitgevoerd. coroutines could not be used with run\_in\_executor\(\)" [\#279](https://github.com/geertmeersman/robonect/issues/279)
+- Closing of HA HTTPx client [\#274](https://github.com/geertmeersman/robonect/issues/274)
+- battery extension automover 315X [\#263](https://github.com/geertmeersman/robonect/issues/263)
+
+**Merged pull requests:**
+
+- fix: async lawn\_mower commands, fixes \#279 [\#281](https://github.com/geertmeersman/robonect/pull/281) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.11.8 to 0.11.9 [\#280](https://github.com/geertmeersman/robonect/pull/280) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.11.7 to 0.11.8 [\#277](https://github.com/geertmeersman/robonect/pull/277) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v2.3.2](https://github.com/geertmeersman/robonect/tree/v2.3.2) (2025-05-02)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.3.1...v2.3.2)
