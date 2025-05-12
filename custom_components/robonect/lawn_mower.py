@@ -157,15 +157,15 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
             battery_level=self.battery_level, charging=charging
         )
 
-    async def start_mowing(self) -> None:
+    async def async_start_mowing(self) -> None:
         """Start mowing."""
         await self.async_send_command("start", {}, topic="control")
 
-    async def pause(self) -> None:
+    async def async_pause(self) -> None:
         """Pause."""
         await self.async_send_command("stop", {}, topic="control")
 
-    async def dock(self) -> None:
+    async def async_dock(self) -> None:
         """Dock."""
         if self.entry.data[CONF_MQTT_ENABLED] is True:
             await self.async_send_command("home", {}, topic="control/mode")
