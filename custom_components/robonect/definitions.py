@@ -117,6 +117,13 @@ BINARY_SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
         entity_category=EntityCategory.DIAGNOSTIC,
         category="status",
     ),
+    RobonectSensorEntityDescription(
+        key="mower/error",
+        rest="$.status.status.status",
+        rest_attrs="$.error.errors.0",
+        icon="mdi:alert-octagon",
+        category="status",
+    ),
 )
 
 SWITCHES: tuple[RobonectSwitchEntityDescription, ...] = (

@@ -107,6 +107,9 @@
       "health_alarm": {
         "name": "Health alarm"
       },
+      "mower_error": {
+        "name": "Error"
+      },
       "mower_stopped": {
         "name": "Stopped"
       },
