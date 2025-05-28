@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.4.2](https://github.com/geertmeersman/robonect/tree/v2.4.2) (2025-05-28)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.4.1...v2.4.2)
+
+**Merged pull requests:**
+
+- fix: Improved the method for extracting numeric values from strings, enhancing accuracy while maintaining the same user-facing behavior [\#289](https://github.com/geertmeersman/robonect/pull/289) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v2.4.1](https://github.com/geertmeersman/robonect/tree/v2.4.1) (2025-05-28)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.4.0...v2.4.1)
