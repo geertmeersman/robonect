@@ -142,15 +142,15 @@ def unix_to_datetime(epoch_timestamp, hass=None):
 
 
 def filter_out_units(s):
-    """Filter out measurement units (like 'mAh', 'V') from the end of the string, keeping the leading value.
+    """Filter out measurement units (like 'mAh', 'V') from the end of the string, If there's a space, return only the first part before the space.
+
+    Otherwise, return the string as is.
 
     Returns the cleaned value or the original if no units are found.
     """
 
-    match = re.match(r"^([A-Za-z0-9.]+)\s*[a-zA-Z%°Ωμµ]*$", s.strip())
-    if match:
-        return match.group(1)
-    return s
+    parts = s.strip().split()
+    return parts[0] if parts else s
 
 
 def convert_coordinate_degree_to_float(coordinate_str):
