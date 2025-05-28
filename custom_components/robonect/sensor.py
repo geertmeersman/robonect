@@ -8,7 +8,7 @@ import logging
 from homeassistant.components import mqtt
 from homeassistant.components.sensor import SensorDeviceClass, SensorEntity
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_MONITORED_VARIABLES, STATE_UNKNOWN
+from homeassistant.const import CONF_MONITORED_VARIABLES
 from homeassistant.core import Event, HomeAssistant, callback
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -307,7 +307,7 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
                     state = state / 60
                 self._state = state
             else:
-                self._state = STATE_UNKNOWN
+                self._state = None
 
     @property
     def native_value(self):
