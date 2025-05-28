@@ -142,11 +142,11 @@ def unix_to_datetime(epoch_timestamp, hass=None):
 
 
 def filter_out_units(s):
-    """Filter out measurement units (like 'mAh', 'V') from the end of the string, If the first part of the string is numeric, return it.
+    """Split string by whitespace and return the first part.
 
-    Otherwise, return the string as is.
+    If the string contains whitespace, returns only the first part before the space if it is numeric.
 
-    Returns the cleaned value or the original if no units are found.
+    Otherwise, returns the string as is.
     """
 
     parts = s.strip().split()
