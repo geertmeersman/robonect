@@ -1,5 +1,19 @@
 # Changelog
 
+## [v2.4.1](https://github.com/geertmeersman/robonect/tree/v2.4.1) (2025-05-28)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.4.0...v2.4.1)
+
+**Closed issues:**
+
+- Position as a sensor [\#284](https://github.com/geertmeersman/robonect/issues/284)
+- Error "Actie lawn\_mower/dock kan niet worden uitgevoerd. coroutines could not be used with run\_in\_executor\(\)" [\#279](https://github.com/geertmeersman/robonect/issues/279)
+- charginbg current gets negative as soon as robonect integration is active [\#265](https://github.com/geertmeersman/robonect/issues/265)
+
+**Merged pull requests:**
+
+- fix: Improved handling of unknown sensor states, ensuring unavailable sensor values are now shown as empty or unavailable [\#288](https://github.com/geertmeersman/robonect/pull/288) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v2.4.0](https://github.com/geertmeersman/robonect/tree/v2.4.0) (2025-05-12)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.3.3...v2.4.0)
