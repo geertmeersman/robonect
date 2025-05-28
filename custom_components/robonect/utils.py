@@ -142,7 +142,7 @@ def unix_to_datetime(epoch_timestamp, hass=None):
 
 
 def filter_out_units(s):
-    """Filter out measurement units (like 'mAh', 'V') from the end of the string, If there's a space, return only the first part before the space.
+    """Filter out measurement units (like 'mAh', 'V') from the end of the string, If the first part of the string is numeric, return it.
 
     Otherwise, return the string as is.
 
@@ -150,7 +150,9 @@ def filter_out_units(s):
     """
 
     parts = s.strip().split()
-    return parts[0] if parts else s
+    if parts and parts[0].replace(".", "", 1).replace("-", "", 1).isdigit():
+        return parts[0]
+    return s
 
 
 def convert_coordinate_degree_to_float(coordinate_str):
