@@ -198,7 +198,13 @@
           "last_synced": {
             "name": "Last synchronization"
           },
-          "mode": {
+          "statistic_hours": {
+            "name": "Operating hours"
+          },
+          "status_duration": {
+            "name": "Time in current status"
+          },
+          "status_mode": {
             "name": "Mode",
             "state": {
               "s_0": "Auto",
@@ -208,12 +214,6 @@
               "s_98": "End of day",
               "s_99": "Mowing task"
             }
-          },
-          "statistic_hours": {
-            "name": "Operating hours"
-          },
-          "status_duration": {
-            "name": "Time in current status"
           },
           "status_plain": {
             "name": "Status"
