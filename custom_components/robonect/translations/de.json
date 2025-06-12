@@ -186,6 +186,9 @@
           "waiting_for_garage_door": "Warten auf Garagentor"
         },
         "state_attributes": {
+          "battery": {
+            "name": "Batterie"
+          },
           "blades_quality": {
             "name": "Messerqualit\u00e4t"
           },
@@ -198,12 +201,12 @@
           "mode": {
             "name": "Modus",
             "state": {
-              "0": "Auto",
-              "1": "Manuell",
-              "2": "Home",
-              "3": "Demo",
-              "98": "Ende des Tages",
-              "99": "M\u00e4hauftrag"
+              "s_0": "Auto",
+              "s_1": "Manuell",
+              "s_2": "Home",
+              "s_3": "Demo",
+              "s_98": "Ende des Tages",
+              "s_99": "M\u00e4hauftrag"
             }
           },
           "statistic_hours": {
@@ -218,24 +221,24 @@
           "substatus": {
             "name": "Unterstatus",
             "state": {
-              "1": "F\u00e4hrt",
-              "10": "Folgt rechtem Begrenzungsdraht",
-              "11": "Dockt an",
-              "12": "Schnellladung",
-              "14": "Ladung abgeschlossen",
-              "15": "Ausfahrtswinkel",
-              "16": "Folgt Leitdraht 1 zum Startpunkt",
-              "18": "Kein Schleifensignal!",
-              "19": "M\u00e4hmotor blockiert!",
-              "2": "Drau\u00dfen",
-              "21": "Folgt Leitdraht 2 zur Ladestation",
-              "23": "Folgt Leitdraht 2 zum Startpunkt",
-              "25": "Folgt linkem Begrenzungsdraht",
-              "4": "R\u00e4der rutschen!",
-              "6": "Kollision!",
-              "7": "Angehoben!",
-              "8": "Spiralschnitt",
-              "9": "Folgt Leitdraht 1 zur Ladestation"
+              "s_1": "F\u00e4hrt",
+              "s_10": "Folgt rechtem Begrenzungsdraht",
+              "s_11": "Dockt an",
+              "s_12": "Schnellladung",
+              "s_14": "Ladung abgeschlossen",
+              "s_15": "Ausfahrtswinkel",
+              "s_16": "Folgt Leitdraht 1 zum Startpunkt",
+              "s_18": "Kein Schleifensignal!",
+              "s_19": "M\u00e4hmotor blockiert!",
+              "s_2": "Drau\u00dfen",
+              "s_21": "Folgt Leitdraht 2 zur Ladestation",
+              "s_23": "Folgt Leitdraht 2 zum Startpunkt",
+              "s_25": "Folgt linkem Begrenzungsdraht",
+              "s_4": "R\u00e4der rutschen!",
+              "s_6": "Kollision!",
+              "s_7": "Angehoben!",
+              "s_8": "Spiralschnitt",
+              "s_9": "Folgt Leitdraht 1 zur Ladestation"
             }
           },
           "timer_next_unix": {
