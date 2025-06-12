@@ -186,6 +186,9 @@
           "waiting_for_garage_door": "Waiting for garage door"
         },
         "state_attributes": {
+          "battery": {
+            "name": "Battery"
+          },
           "blades_quality": {
             "name": "Blades quality"
           },
@@ -198,12 +201,12 @@
           "mode": {
             "name": "Mode",
             "state": {
-              "0": "Auto",
-              "1": "Manual",
-              "2": "Home",
-              "3": "Demo",
-              "98": "End of day",
-              "99": "Mowing task"
+              "s_0": "Auto",
+              "s_1": "Manual",
+              "s_2": "Home",
+              "s_3": "Demo",
+              "s_98": "End of day",
+              "s_99": "Mowing task"
             }
           },
           "statistic_hours": {
@@ -218,24 +221,24 @@
           "substatus": {
             "name": "Sub-status",
             "state": {
-              "1": "Driving",
-              "10": "Following right boundary wire",
-              "11": "Docked",
-              "12": "Fast charging",
-              "14": "Charging complete",
-              "15": "Exit angle",
-              "16": "Following guide wire 1 to starting point",
-              "18": "No loop signal!",
-              "19": "Mowing motor blocked!",
-              "2": "Outside",
-              "21": "Following guide wire 2 to charging station",
-              "23": "Following guide wire 2 to starting point",
-              "25": "Following left boundary wire",
-              "4": "Wheels slipping!",
-              "6": "Collision!",
-              "7": "Lifted!",
-              "8": "Spiral cut",
-              "9": "Following guide wire 1 to charging station"
+              "s_1": "Driving",
+              "s_10": "Following right boundary wire",
+              "s_11": "Docked",
+              "s_12": "Fast charging",
+              "s_14": "Charging complete",
+              "s_15": "Exit angle",
+              "s_16": "Following guide wire 1 to starting point",
+              "s_18": "No loop signal!",
+              "s_19": "Mowing motor blocked!",
+              "s_2": "Outside",
+              "s_21": "Following guide wire 2 to charging station",
+              "s_23": "Following guide wire 2 to starting point",
+              "s_25": "Following left boundary wire",
+              "s_4": "Wheels slipping!",
+              "s_6": "Collision!",
+              "s_7": "Lifted!",
+              "s_8": "Spiral cut",
+              "s_9": "Following guide wire 1 to charging station"
             }
           },
           "timer_next_unix": {

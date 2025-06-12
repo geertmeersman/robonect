@@ -186,6 +186,9 @@
           "waiting_for_garage_door": "Wachten op de garagedeur"
         },
         "state_attributes": {
+          "battery": {
+            "name": "Batterij"
+          },
           "blades_quality": {
             "name": "Kwaliteit messen"
           },
@@ -195,22 +198,22 @@
           "last_synced": {
             "name": "Laatste synchronisatie"
           },
-          "mode": {
-            "name": "Modus",
-            "state": {
-              "0": "Auto",
-              "1": "Manueel",
-              "2": "Home",
-              "3": "Demo",
-              "98": "Einde van de dag",
-              "99": "Maaiopdracht"
-            }
-          },
           "statistic_hours": {
             "name": "Bedrijfsuren"
           },
           "status_duration": {
             "name": "Tijd in huidige status"
+          },
+          "status_mode": {
+            "name": "Modus",
+            "state": {
+              "s_0": "Auto",
+              "s_1": "Manueel",
+              "s_2": "Home",
+              "s_3": "Demo",
+              "s_98": "Einde van de dag",
+              "s_99": "Maaiopdracht"
+            }
           },
           "status_plain": {
             "name": "Status"
@@ -218,24 +221,24 @@
           "substatus": {
             "name": "Sub-status",
             "state": {
-              "1": "Rijdt",
-              "10": "Volgt rechter grensdraad",
-              "11": "Koppelt aan",
-              "12": "Snelladen",
-              "14": "Laden voltooid",
-              "15": "Uitrijhoek",
-              "16": "Volgt geleidingsdraad 1 naar het startpunt",
-              "18": "Geen lussignaal!",
-              "19": "Maaimotor geblokkeerd!",
-              "2": "Buiten",
-              "21": "Volgt geleidingsdraad 2 naar het laadstation",
-              "23": "Volgt geleidingsdraad 2 naar het startpunt",
-              "25": "Volgt linker grensdraad",
-              "4": "Wielen slippen!",
-              "6": "Botsing!",
-              "7": "Opgetild!",
-              "8": "Spiraalsnede",
-              "9": "Volgt geleidingsdraad 1 naar het laadstation"
+              "s_1": "Rijdt",
+              "s_10": "Volgt rechter grensdraad",
+              "s_11": "Koppelt aan",
+              "s_12": "Snelladen",
+              "s_14": "Laden voltooid",
+              "s_15": "Uitrijhoek",
+              "s_16": "Volgt geleidingsdraad 1 naar het startpunt",
+              "s_18": "Geen lussignaal!",
+              "s_19": "Maaimotor geblokkeerd!",
+              "s_2": "Buiten",
+              "s_21": "Volgt geleidingsdraad 2 naar het laadstation",
+              "s_23": "Volgt geleidingsdraad 2 naar het startpunt",
+              "s_25": "Volgt linker grensdraad",
+              "s_4": "Wielen slippen!",
+              "s_6": "Botsing!",
+              "s_7": "Opgetild!",
+              "s_8": "Spiraalsnede",
+              "s_9": "Volgt geleidingsdraad 1 naar het laadstation"
             }
           },
           "timer_next_unix": {

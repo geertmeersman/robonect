@@ -5,6 +5,12 @@ on:
     branches:
       - main
   workflow_dispatch: # Allow manual triggering
+  release:
+    types: [created]
+  workflow_run:
+    workflows: ["Release - Bump and Release"]
+    types:
+      - completed
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

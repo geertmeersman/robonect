@@ -136,7 +136,7 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
         """Return the specific state attributes of this mower."""
         if self._attr_status:
             return {
-                "substatus": self._attr_status,
+                "substatus": f"s_{self._attr_status}",
             } | self._attributes
         return self._attributes | {"last_synced": self.last_synced}
 
@@ -188,7 +188,8 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
                 "statistic_hours": "$.status.status.hours",
                 "timer_next_unix": "$.status.timer.next.unix",
                 "blades_quality": "$.status.blades.quality",
-                "mode": "$.status.status.mode",
+                "status_mode": "$.status.status.mode",
+                "battery": "$.status.status.battery",
             }
             self._attributes = {}
             for key, value in attr_states.items():
@@ -197,7 +198,17 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
                     if key == "timer_next_unix":
                         state = unix_to_datetime(state, self.coordinator.hass)
                     elif key == "status_duration":
-                        state = round(state / 60)
+                        state = f"{round(state / 60)} min"
+                    elif key == "statistic_hours":
+                        state = f"{state} h"
+                    elif key == "distance":
+                        state = f"{state} m"
+                    elif key == "status_mode":
+                        state = f"s_{state}"
+                    elif key == "blades_quality":
+                        state = f"{state} %"
+                    elif key == "battery":
+                        state = f"{state} %"
                     self._attributes |= {key: state}
             self.update_ha_state()
             return True
@@ -210,6 +221,7 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
         def battery_received(message):
             """Handle battery topic."""
             self._battery = int(filter_out_units(message.payload))
+            self._attributes |= {"battery": message.payload}
             self.update_ha_state()
 
         @callback
@@ -227,6 +239,7 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
         def substatus_received(message):
             """Handle substatus topic."""
             self._attr_status = message.payload
+
             self.update_ha_state()
 
         @callback
@@ -241,6 +254,17 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
                 payload = message.payload
                 if slug == "timer_next_unix":
                     payload = unix_to_datetime(message.payload, self.hass)
+                elif slug == "mode":
+                    slug = "status_mode"
+                    payload = f"s_{payload}"
+                elif slug == "status_duration":
+                    payload = f"{round(payload / 60)} min"
+                elif slug == "statistic_hours":
+                    payload = f"{payload} h"
+                elif slug == "distance":
+                    payload = f"{payload} m"
+                elif slug == "blades_quality":
+                    payload = f"{payload} %"
                 self._attributes |= {slug: payload}
 
         if self.entry.data[CONF_MQTT_ENABLED] is True:

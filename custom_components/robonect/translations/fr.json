@@ -186,6 +186,9 @@
           "waiting_for_garage_door": "En attente de la porte du garage"
         },
         "state_attributes": {
+          "battery": {
+            "name": "Batterie"
+          },
           "blades_quality": {
             "name": "Qualit\u00e9 des lames"
           },
@@ -198,12 +201,12 @@
           "mode": {
             "name": "Mode",
             "state": {
-              "0": "Automatique",
-              "1": "Manuel",
-              "2": "Accueil",
-              "3": "D\u00e9mo",
-              "98": "Fin de journ\u00e9e",
-              "99": "Mission de tonte"
+              "s_0": "Automatique",
+              "s_1": "Manuel",
+              "s_2": "Accueil",
+              "s_3": "D\u00e9mo",
+              "s_98": "Fin de journ\u00e9e",
+              "s_99": "Mission de tonte"
             }
           },
           "statistic_hours": {
@@ -218,24 +221,24 @@
           "substatus": {
             "name": "Sous-\u00e9tat",
             "state": {
-              "1": "En mouvement",
-              "10": "Suit le fil de d\u00e9limitation droit",
-              "11": "S'amarrer",
-              "12": "Charge rapide",
-              "14": "Charge termin\u00e9e",
-              "15": "Angle de sortie",
-              "16": "Suit le fil guide 1 vers le point de d\u00e9part",
-              "18": "Aucun signal de boucle !",
-              "19": "Le moteur de la tondeuse est bloqu\u00e9 !",
-              "2": "A l'ext\u00e9rieur",
-              "21": "Suit le fil guide 2 vers la station de charge",
-              "23": "Suit le fil guide 2 vers le point de d\u00e9part",
-              "25": "Suit le fil de d\u00e9limitation gauche",
-              "4": "Les roues glissent !",
-              "6": "Collision !",
-              "7": "Soulev\u00e9 !",
-              "8": "Coupe en spirale",
-              "9": "Suit le fil guide 1 vers la station de charge"
+              "s_1": "En mouvement",
+              "s_10": "Suit le fil de d\u00e9limitation droit",
+              "s_11": "S'amarrer",
+              "s_12": "Charge rapide",
+              "s_14": "Charge termin\u00e9e",
+              "s_15": "Angle de sortie",
+              "s_16": "Suit le fil guide 1 vers le point de d\u00e9part",
+              "s_18": "Aucun signal de boucle !",
+              "s_19": "Le moteur de la tondeuse est bloqu\u00e9 !",
+              "s_2": "A l'ext\u00e9rieur",
+              "s_21": "Suit le fil guide 2 vers la station de charge",
+              "s_23": "Suit le fil guide 2 vers le point de d\u00e9part",
+              "s_25": "Suit le fil de d\u00e9limitation gauche",
+              "s_4": "Les roues glissent !",
+              "s_6": "Collision !",
+              "s_7": "Soulev\u00e9 !",
+              "s_8": "Coupe en spirale",
+              "s_9": "Suit le fil guide 1 vers la station de charge"
             }
           },
           "timer_next_unix": {
