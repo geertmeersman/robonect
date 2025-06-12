@@ -198,7 +198,7 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
                     if key == "timer_next_unix":
                         state = unix_to_datetime(state, self.coordinator.hass)
                     elif key == "status_duration":
-                        state = f"{round(state / 60)} m"
+                        state = f"{round(state / 60)} min"
                     elif key == "statistic_hours":
                         state = f"{state} h"
                     elif key == "distance":
@@ -258,7 +258,7 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
                     slug = "status_mode"
                     payload = f"s_{payload}"
                 elif slug == "status_duration":
-                    payload = f"{round(payload / 60)} m"
+                    payload = f"{round(payload / 60)} min"
                 elif slug == "statistic_hours":
                     payload = f"{payload} h"
                 elif slug == "distance":
