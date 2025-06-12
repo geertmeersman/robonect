@@ -198,7 +198,13 @@
           "last_synced": {
             "name": "Derni\u00e8re synchronisation"
           },
-          "mode": {
+          "statistic_hours": {
+            "name": "Heures de fonctionnement"
+          },
+          "status_duration": {
+            "name": "Dur\u00e9e de l'\u00e9tat actuel"
+          },
+          "status_mode": {
             "name": "Mode",
             "state": {
               "s_0": "Automatique",
@@ -208,12 +214,6 @@
               "s_98": "Fin de journ\u00e9e",
               "s_99": "Mission de tonte"
             }
-          },
-          "statistic_hours": {
-            "name": "Heures de fonctionnement"
-          },
-          "status_duration": {
-            "name": "Dur\u00e9e de l'\u00e9tat actuel"
           },
           "status_plain": {
             "name": "Statut"
