@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.4.4](https://github.com/geertmeersman/robonect/tree/v2.4.4) (2025-06-12)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.4.3...v2.4.4)
+
+**Merged pull requests:**
+
+- fix: translation for lawn mower mode was changed to status\_mode [\#298](https://github.com/geertmeersman/robonect/pull/298) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v2.4.3](https://github.com/geertmeersman/robonect/tree/v2.4.3) (2025-06-12)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.4.2...v2.4.3)
