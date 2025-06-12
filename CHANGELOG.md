@@ -1,5 +1,26 @@
 # Changelog
 
+## [v2.4.3](https://github.com/geertmeersman/robonect/tree/v2.4.3) (2025-06-12)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.4.2...v2.4.3)
+
+**Closed issues:**
+
+- cannot initialize [\#294](https://github.com/geertmeersman/robonect/issues/294)
+- Cannot add Robonect integration via HACS \(dead link\) [\#293](https://github.com/geertmeersman/robonect/issues/293)
+- lawn mower entity card - add more commands [\#292](https://github.com/geertmeersman/robonect/issues/292)
+- ERROR: numeric value; however, it has the non-numeric value: 'unknown' [\#287](https://github.com/geertmeersman/robonect/issues/287)
+- ERROR: Object has no attribute "tzinfo" [\#286](https://github.com/geertmeersman/robonect/issues/286)
+- Position as a sensor [\#284](https://github.com/geertmeersman/robonect/issues/284)
+- battery extension automover 315X [\#263](https://github.com/geertmeersman/robonect/issues/263)
+
+**Merged pull requests:**
+
+- fix: lawn\_mower entity attributes improvements, refs \#291 [\#297](https://github.com/geertmeersman/robonect/pull/297) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.11.12 to 0.11.13 [\#295](https://github.com/geertmeersman/robonect/pull/295) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.11.11 to 0.11.12 [\#290](https://github.com/geertmeersman/robonect/pull/290) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.11.9 to 0.11.11 [\#285](https://github.com/geertmeersman/robonect/pull/285) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v2.4.2](https://github.com/geertmeersman/robonect/tree/v2.4.2) (2025-05-28)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.4.1...v2.4.2)
@@ -14,7 +35,6 @@
 
 **Closed issues:**
 
-- Position as a sensor [\#284](https://github.com/geertmeersman/robonect/issues/284)
 - Error "Actie lawn\_mower/dock kan niet worden uitgevoerd. coroutines could not be used with run\_in\_executor\(\)" [\#279](https://github.com/geertmeersman/robonect/issues/279)
 - charginbg current gets negative as soon as robonect integration is active [\#265](https://github.com/geertmeersman/robonect/issues/265)
 
