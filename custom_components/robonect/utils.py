@@ -17,16 +17,21 @@ _LOGGER = logging.getLogger(__name__)
 _cached_timezone = None
 
 
-def parse_duration_seconds_to_minutes(payload: str) -> str:
+def parse_duration_seconds_to_minutes(payload: str | int) -> str:
     """Parse a duration in seconds to minutes appending it with min."""
 
-    match = re.search(r"(\d+)", payload)
-    if match:
-        seconds = int(match.group(1))
-        minutes = round(seconds / 60)
-        return f"{minutes} min"
+    if isinstance(payload, int):
+        seconds = payload
     else:
-        return "unknown duration"
+        # assume string, extract number with regex
+        match = re.search(r"(\d+)", payload)
+        if match:
+            seconds = int(match.group(1))
+        else:
+            return "unknown duration"
+
+    minutes = round(seconds / 60)
+    return f"{minutes} min"
 
 
 def get_cached_timezone(hass):
