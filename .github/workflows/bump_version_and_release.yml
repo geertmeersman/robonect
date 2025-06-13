@@ -41,11 +41,6 @@ jobs:
           cat custom_components/$GITHUB_REPO/manifest.json
           echo $tag_name > VERSION
 
-      - name: 🚀　Add and commit changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: Bump version ${{ steps.release_drafter.outputs.tag_name }}
-
       - name: 📝　Publish release
         uses: release-drafter/release-drafter@v6
         id: release_published
@@ -65,10 +60,10 @@ jobs:
           unreleased: false
           addSections: '{"documentation":{"prefix":"**Documentation:**","labels":["documentation"]}}'
 
-      - name: ✅　Commit release notes
+      - name: ✅　Commit release notes and bump version
         uses: EndBug/add-and-commit@v9
         with:
-          message: Commit release notes ${{ steps.release_drafter.outputs.tag_name }}
+          message: Commit release notes and Bump version ${{ steps.release_drafter.outputs.tag_name }}
 
       - name: 📦 Create zip file
         run: |
