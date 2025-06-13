@@ -1,5 +1,18 @@
 # Changelog
 
+## [v2.4.6](https://github.com/geertmeersman/robonect/tree/v2.4.6) (2025-06-13)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.4.5...v2.4.6)
+
+**Closed issues:**
+
+- Exception in topic\_received when handling msg [\#299](https://github.com/geertmeersman/robonect/issues/299)
+
+**Merged pull requests:**
+
+- chore: simplify commit in build workflow [\#302](https://github.com/geertmeersman/robonect/pull/302) ([geertmeersman](https://github.com/geertmeersman))
+- fix: parse\_duration\_seconds\_to\_minutes takes both string as int as payload now [\#301](https://github.com/geertmeersman/robonect/pull/301) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v2.4.5](https://github.com/geertmeersman/robonect/tree/v2.4.5) (2025-06-13)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.4.4...v2.4.5)
