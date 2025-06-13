@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.4.5](https://github.com/geertmeersman/robonect/tree/v2.4.5) (2025-06-13)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.4.4...v2.4.5)
+
+**Merged pull requests:**
+
+- fix: parse\_duration\_seconds\_to\_minutes retaining only the digits refs \#299 [\#300](https://github.com/geertmeersman/robonect/pull/300) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v2.4.4](https://github.com/geertmeersman/robonect/tree/v2.4.4) (2025-06-12)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.4.3...v2.4.4)
