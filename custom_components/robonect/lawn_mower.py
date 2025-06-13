@@ -30,7 +30,12 @@ from .const import (
     STATUS_MAPPING_LAWN_MOWER,
 )
 from .entity import RobonectCoordinatorEntity, RobonectEntity
-from .utils import filter_out_units, get_json_dict_path, unix_to_datetime
+from .utils import (
+    filter_out_units,
+    get_json_dict_path,
+    parse_duration_seconds_to_minutes,
+    unix_to_datetime,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -198,7 +203,7 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
                     if key == "timer_next_unix":
                         state = unix_to_datetime(state, self.coordinator.hass)
                     elif key == "status_duration":
-                        state = f"{round(state / 60)} min"
+                        state = parse_duration_seconds_to_minutes(state)
                     elif key == "statistic_hours":
                         state = f"{state} h"
                     elif key == "distance":
@@ -258,7 +263,7 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
                     slug = "status_mode"
                     payload = f"s_{payload}"
                 elif slug == "status_duration":
-                    payload = f"{round(payload / 60)} min"
+                    payload = parse_duration_seconds_to_minutes(payload)
                 elif slug == "statistic_hours":
                     payload = f"{payload} h"
                 elif slug == "distance":
