@@ -128,6 +128,7 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 ### Frequently asked questions
 
 - I am missing a lot of sensors: please check that the MQTT topic you have entered in the HA config flow equals the MQTT topic in Robonect
+- If you would be expecting specific sensors and you don't see them, make sure your Robonect firmware is up to date.
 
 ### Enable debug logging
 
