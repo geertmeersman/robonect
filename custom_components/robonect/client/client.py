@@ -70,7 +70,7 @@ class RobonectClient:
         """Start a new, isolated httpx client."""
         if not self.client:
             self.client = create_async_httpx_client(
-                self.hass, timeout=httpx.Timeout(20.0, read=10.0)
+                self.hass, timeout=httpx.Timeout(20.0, read=20.0)
             )
             if self.auth:
                 self.client.auth = self.auth
@@ -121,41 +121,43 @@ class RobonectClient:
 
         response = None
         last_exception = None
+        last_url = None  # Track the last attempted URL
 
         await self.client_start()
 
         for scheme in self.scheme:
             url = create_url(scheme)
-            _LOGGER.debug(f"Calling {url}")
+            _LOGGER.debug(f"Attempting to call {url}")
             try:
                 response = await self.client.get(url)
+                _LOGGER.debug(f"Received status code {response.status_code} from {url}")
                 if response.status_code == 200 or response.status_code >= 400:
                     self.scheme = [scheme]  # Set scheme for future calls
-                    break  # Exit the loop on successful or error response
+                    break  # Exit the loop on usable response
                 elif 300 <= response.status_code < 400:
                     _LOGGER.debug(
-                        f"Received redirect status code {response.status_code}, continuing to next scheme"
+                        f"Redirect ({response.status_code}) from {url}, trying next scheme"
                     )
-                    continue  # Continue loop on redirect (3xx)
-            except httpx.ReadTimeout as e:
-                _LOGGER.debug(
-                    f"Read timeout while connecting to {scheme}://{self.host}. Error: {str(e)}"
-                )
+                    continue
+            except httpx.TimeoutException as e:
+                _LOGGER.warning(f"Timeout while connecting to {url}")
                 last_exception = e
-                continue  # Continue to the next scheme
+                last_url = url
+                continue
             except httpx.RequestError as e:
-                _LOGGER.debug(
-                    f"Failed to connect using {scheme}://{self.host}, error: {str(e)}"
-                )
+                _LOGGER.warning(f"Request error from {url}")
+                last_url = url
                 last_exception = e
-                continue  # Continue to the next scheme on connection error
+                continue
 
         if response is None:
             raise Exception(
-                f"Failed to get a response from the mower. `{str(last_exception)}`"
+                f"Failed to get a response from the mower at {last_url}. "
+                f"Last error: `{str(last_exception) or type(last_exception).__name__}`"
             )
 
         if response and response.status_code == 200:
+            _LOGGER.debug(f"Successful response from {url}")
             if command == "reset_blades":
                 await self.client_close()
                 return {"successful": True}
@@ -169,10 +171,8 @@ class RobonectClient:
             _LOGGER.debug(f"Rest API call result for {command}: {result_text}")
             try:
                 result_json = json.loads(result_text)
-            except json.JSONDecodeError as e:
-                _LOGGER.debug(
-                    f"The returned JSON for {command} is invalid ({e}): {result_text}"
-                )
+            except (json.JSONDecodeError, ValueError) as e:
+                _LOGGER.debug(f"Invalid JSON for {command} ({e}): {result_text}")
                 return False
             result_json["sync_time"] = datetime.now()
         elif response and response.status_code >= 400:
@@ -232,7 +232,7 @@ class RobonectClient:
         result = await self.async_cmd("service", {"service": "sleep"})
         return result
 
-    def is_sleeping(self) -> bool:
+    def is_asleep(self) -> bool:
         """Return if the mower is sleeping."""
         return self.is_sleeping
 
