@@ -276,6 +276,7 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
             _LOGGER,
             name=DOMAIN,
             update_interval=timedelta(minutes=entry.data[CONF_SCAN_INTERVAL]),
+            config_entry=entry,
         )
 
     async def async_config_entry_first_refresh(self) -> None:
