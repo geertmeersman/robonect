@@ -1,5 +1,32 @@
 # Changelog
 
+## [v3.0.0](https://github.com/geertmeersman/robonect/tree/v3.0.0) (2025-08-06)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.4.6...v3.0.0)
+
+**Closed issues:**
+
+- Sensor automower\_mower\_blades\_quality is missing [\#307](https://github.com/geertmeersman/robonect/issues/307)
+- Reconnection issue after WiFi loss [\#305](https://github.com/geertmeersman/robonect/issues/305)
+- Show battery percentag on Dashboard [\#296](https://github.com/geertmeersman/robonect/issues/296)
+- lawn mower entity card with 'mode' state [\#291](https://github.com/geertmeersman/robonect/issues/291)
+
+**Merged pull requests:**
+
+- chore: improved error/debug logging [\#320](https://github.com/geertmeersman/robonect/pull/320) ([geertmeersman](https://github.com/geertmeersman))
+- fix: Pass config\_entry explicitly to DataUpdateCoordinator to avoid C… [\#319](https://github.com/geertmeersman/robonect/pull/319) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.12.5 to 0.12.7 [\#316](https://github.com/geertmeersman/robonect/pull/316) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): update pip requirement from \<25.2,\>=8.0.3 to \>=8.0.3,\<25.3 [\#315](https://github.com/geertmeersman/robonect/pull/315) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump hugo19941994/delete-draft-releases from 1.0.1 to 2.0.0 [\#314](https://github.com/geertmeersman/robonect/pull/314) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.4 to 0.12.5 [\#313](https://github.com/geertmeersman/robonect/pull/313) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.3 to 0.12.4 [\#312](https://github.com/geertmeersman/robonect/pull/312) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.2 to 0.12.3 [\#311](https://github.com/geertmeersman/robonect/pull/311) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.1 to 0.12.2 [\#310](https://github.com/geertmeersman/robonect/pull/310) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.0 to 0.12.1 [\#309](https://github.com/geertmeersman/robonect/pull/309) ([dependabot[bot]](https://github.com/apps/dependabot))
+- docs: note on firmware update refs \#307 [\#308](https://github.com/geertmeersman/robonect/pull/308) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.11.13 to 0.12.0 [\#304](https://github.com/geertmeersman/robonect/pull/304) ([dependabot[bot]](https://github.com/apps/dependabot))
+- fix: reduce to 1 commit when releasing [\#303](https://github.com/geertmeersman/robonect/pull/303) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v2.4.6](https://github.com/geertmeersman/robonect/tree/v2.4.6) (2025-06-13)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.4.5...v2.4.6)
