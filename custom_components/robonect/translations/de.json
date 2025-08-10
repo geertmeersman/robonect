@@ -460,6 +460,14 @@
       "version_application": {
         "name": "Anwendungsversion"
       },
+      "wire": {
+        "name": "Drahtqualit\u00e4t",
+        "state_attributes": {
+          "sensors": {
+            "name": "Sensoren"
+          }
+        }
+      },
       "wlan_rssi": {
         "name": "Wi-Fi-Signalst\u00e4rke"
       }

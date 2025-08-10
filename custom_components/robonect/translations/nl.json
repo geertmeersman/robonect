@@ -460,6 +460,14 @@
       "version_application": {
         "name": "Applicatie versie"
       },
+      "wire": {
+        "name": "Draad kwaliteit",
+        "state_attributes": {
+          "sensors": {
+            "name": "Sensors"
+          }
+        }
+      },
       "wlan_rssi": {
         "name": "Wi-Fi signaalsterkte"
       }

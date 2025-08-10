@@ -176,6 +176,17 @@ SWITCHES: tuple[RobonectSwitchEntityDescription, ...] = (
 
 SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
     RobonectSensorEntityDescription(
+        key=".wire",
+        rest="$.wire.lowest_quality",
+        rest_attrs="$.wire.sensors",
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement=PERCENTAGE,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        icon="mdi:check-network",
+        category="wire",
+        translation_key="wire",
+    ),
+    RobonectSensorEntityDescription(
         key=".battery/0",
         rest="$.battery.batteries.0.charge",
         rest_attrs="$.battery.batteries.0",

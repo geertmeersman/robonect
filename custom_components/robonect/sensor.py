@@ -333,6 +333,10 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
                     )
                     if not isinstance(attrs, list):
                         attributes.update(attrs)
+                    else:
+                        # Get last segment after dot
+                        key_name = self.entity_description.rest_attrs.split(".")[-1]
+                        attributes[key_name] = attrs
             self._attr_extra_state_attributes = attributes
 
     @property
