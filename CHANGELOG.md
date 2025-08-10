@@ -1,5 +1,13 @@
 # Changelog
 
+## [v3.1.0](https://github.com/geertmeersman/robonect/tree/v3.1.0) (2025-08-10)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v3.0.0...v3.1.0)
+
+**Merged pull requests:**
+
+- feat: new sensor displaying wire quality and related sensor details, available in diagnostics [\#321](https://github.com/geertmeersman/robonect/pull/321) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v3.0.0](https://github.com/geertmeersman/robonect/tree/v3.0.0) (2025-08-06)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v2.4.6...v3.0.0)
