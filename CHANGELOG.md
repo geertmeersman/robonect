@@ -1,5 +1,27 @@
 # Changelog
 
+## [v4.0.0](https://github.com/geertmeersman/robonect/tree/v4.0.0) (2025-09-10)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v3.1.0...v4.0.0)
+
+**Closed issues:**
+
+- make wintermode an editable entity [\#331](https://github.com/geertmeersman/robonect/issues/331)
+- Home Assistant 2025.8.0b3 issue [\#318](https://github.com/geertmeersman/robonect/issues/318)
+
+**Merged pull requests:**
+
+- feat: add wintermode switch entity \(fixes \#331\) [\#332](https://github.com/geertmeersman/robonect/pull/332) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump actions/setup-python from 5 to 6 [\#330](https://github.com/geertmeersman/robonect/pull/330) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/github-script from 7 to 8 [\#329](https://github.com/geertmeersman/robonect/pull/329) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/stale from 9 to 10 [\#328](https://github.com/geertmeersman/robonect/pull/328) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.11 to 0.12.12 [\#327](https://github.com/geertmeersman/robonect/pull/327) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.10 to 0.12.11 [\#326](https://github.com/geertmeersman/robonect/pull/326) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.9 to 0.12.10 [\#325](https://github.com/geertmeersman/robonect/pull/325) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.8 to 0.12.9 [\#324](https://github.com/geertmeersman/robonect/pull/324) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/checkout from 4 to 5 [\#323](https://github.com/geertmeersman/robonect/pull/323) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.12.7 to 0.12.8 [\#322](https://github.com/geertmeersman/robonect/pull/322) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v3.1.0](https://github.com/geertmeersman/robonect/tree/v3.1.0) (2025-08-10)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v3.0.0...v3.1.0)
