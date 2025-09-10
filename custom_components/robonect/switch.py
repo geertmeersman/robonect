@@ -21,6 +21,7 @@ from .const import (
     CONF_MQTT_ENABLED,
     CONF_MQTT_TOPIC,
     CONF_REST_ENABLED,
+    CONF_WINTER_MODE,
     DOMAIN,
 )
 from .definitions import SWITCHES, RobonectSwitchEntityDescription
@@ -81,8 +82,22 @@ async def async_setup_entry(
             0,
         )
     if entry.data[CONF_REST_ENABLED] is True:
-        _LOGGER.debug("Creating REST sensors")
         entities: list[RobonectRestSwitch] = []
+        entities.append(
+            RobonectConfigSwitch(
+                hass,
+                entry,
+                RobonectSwitchEntityDescription(
+                    key=f".{CONF_WINTER_MODE}",
+                    rest="$.none",
+                    icon="mdi:snowflake",
+                    entity_category=EntityCategory.CONFIG,
+                    category="config",
+                ),
+            )
+        )
+
+        _LOGGER.debug("Creating REST switches")
         if coordinator.data is not None:
             for description in SWITCHES:
                 if (
@@ -376,3 +391,58 @@ class RobonectRestSwitch(RobonectCoordinatorEntity, RobonectTimerSwitchEntity):
 
             await self.async_send_command("equipment", params)
         await self.coordinator.async_refresh()
+
+
+class RobonectConfigSwitch(RobonectEntity, SwitchEntity):
+    """Represent a config switch."""
+
+    _attr_has_entity_name = True
+    _attr_attribution = "CONFIG"
+
+    def __init__(
+        self,
+        hass: HomeAssistant,
+        entry: ConfigEntry,
+        description: RobonectSwitchEntityDescription,
+    ):
+        """Set up Switch entity."""
+        self.entity_description = description
+        self.entry = entry
+        super().__init__(hass, entry, self.entity_description)
+        self.category = self.entity_description.category
+        self.entity_id = f"switch.{self.slug}"
+        self._attributes = None
+        self._is_on = False
+
+    @property
+    def is_on(self) -> bool:
+        """Return true if switch is on."""
+        if self.entity_description.key == f".{CONF_WINTER_MODE}":
+            return bool(self.entry.data.get(CONF_WINTER_MODE, False))
+        return self._is_on
+
+    async def async_turn_on(self, **kwargs: Any) -> None:
+        """Turn the switch on."""
+        if self.is_on is True:
+            return
+        if self.entity_description.key == f".{CONF_WINTER_MODE}":
+            new_data = {**self.entry.data, CONF_WINTER_MODE: True}
+            self.hass.config_entries.async_update_entry(self.entry, data=new_data)
+            self.update_ha_state()
+
+    async def async_turn_off(self, **kwargs: Any) -> None:
+        """Turn the switch off."""
+        if self.is_on is False:
+            return
+        if self.entity_description.key == f".{CONF_WINTER_MODE}":
+            new_data = {**self.entry.data, CONF_WINTER_MODE: False}
+            self.hass.config_entries.async_update_entry(self.entry, data=new_data)
+            self.update_ha_state()
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any]:
+        """Return the state attributes of the device."""
+        return {
+            "last_synced": self.last_synced,
+            "category": self.category,
+        }

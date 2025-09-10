@@ -766,6 +766,9 @@
             "name": "Weekdays"
           }
         }
+      },
+      "winter_mode": {
+        "name": "Winter mode"
       }
     },
     "vacuum": {

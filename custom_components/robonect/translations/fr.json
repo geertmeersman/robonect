@@ -766,6 +766,9 @@
             "name": "Jours de la semaine"
           }
         }
+      },
+      "winter_mode": {
+        "name": "Mode hiver"
       }
     },
     "vacuum": {
