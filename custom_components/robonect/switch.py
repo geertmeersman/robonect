@@ -92,12 +92,12 @@ async def async_setup_entry(
                     rest="$.none",
                     icon="mdi:snowflake",
                     entity_category=EntityCategory.CONFIG,
-                    category="NONE",
+                    category="config",
                 ),
             )
         )
 
-        _LOGGER.debug("Creating REST sensors")
+        _LOGGER.debug("Creating REST switches")
         if coordinator.data is not None:
             for description in SWITCHES:
                 if (
@@ -393,7 +393,7 @@ class RobonectRestSwitch(RobonectCoordinatorEntity, RobonectTimerSwitchEntity):
         await self.coordinator.async_refresh()
 
 
-class RobonectConfigSwitch(RobonectEntity, SwitchEntity, RestoreEntity):
+class RobonectConfigSwitch(RobonectEntity, SwitchEntity):
     """Represent a config switch."""
 
     _attr_has_entity_name = True
@@ -418,7 +418,7 @@ class RobonectConfigSwitch(RobonectEntity, SwitchEntity, RestoreEntity):
     def is_on(self) -> bool:
         """Return true if switch is on."""
         if self.entity_description.key == f".{CONF_WINTER_MODE}":
-            return self.entry.data[CONF_WINTER_MODE]
+            return bool(self.entry.data.get(CONF_WINTER_MODE, False))
         return self._is_on
 
     async def async_turn_on(self, **kwargs: Any) -> None:
@@ -428,6 +428,7 @@ class RobonectConfigSwitch(RobonectEntity, SwitchEntity, RestoreEntity):
         if self.entity_description.key == f".{CONF_WINTER_MODE}":
             new_data = {**self.entry.data, CONF_WINTER_MODE: True}
             self.hass.config_entries.async_update_entry(self.entry, data=new_data)
+            self.update_ha_state()
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Turn the switch off."""
@@ -436,6 +437,7 @@ class RobonectConfigSwitch(RobonectEntity, SwitchEntity, RestoreEntity):
         if self.entity_description.key == f".{CONF_WINTER_MODE}":
             new_data = {**self.entry.data, CONF_WINTER_MODE: False}
             self.hass.config_entries.async_update_entry(self.entry, data=new_data)
+            self.update_ha_state()
 
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
