@@ -34,10 +34,18 @@ commit_count = compare_info["total_commits"]
 def is_dependabot_commit(commit):
     """Check if a commit was authored by Dependabot."""
     author = commit.get("author") or {}
-    commit_author = commit["commit"]["author"]
-    name = author.get("login", "") or commit_author.get("name", "")
-    email = commit_author.get("email", "")
-    return "dependabot" in name.lower() or "dependabot" in email.lower()
+    commit_meta = commit.get("commit") or {}
+    commit_author = commit_meta.get("author") or {}
+    commit_committer = commit_meta.get("committer") or {}
+    fields = [
+        author.get("login", ""),
+        commit_author.get("name", ""),
+        commit_author.get("email", ""),
+        commit_committer.get("name", ""),
+        commit_committer.get("email", ""),
+    ]
+    text = " ".join(x for x in fields if x)
+    return "dependabot" in text.lower()
 
 
 def get_semver_level(commit_messages, commits):
