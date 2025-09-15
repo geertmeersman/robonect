@@ -161,11 +161,9 @@ class RobonectClient:
         if response and response.status_code == 200:
             _LOGGER.debug(f"Successful response from {url}")
             if command == "reset_blades":
-                await self.client_close()
                 return {"successful": True}
             result_text = response.text
             if command == "equipment":
-                await self.client_close()
                 if "The changes were successfully applied" in result_text:
                     return {"successful": True}
                 else:
@@ -189,7 +187,6 @@ class RobonectClient:
             result_json["sync_time"] = datetime.now()
         elif response and response.status_code >= 400:
             response.raise_for_status()
-        await self.client_close()
 
         if self.transform_json:
             return transform_json_to_single_depth(result_json)
@@ -207,7 +204,6 @@ class RobonectClient:
                     json_res = await self.async_cmd(cmd)
                     if json_res:
                         result.update({cmd: json_res})
-            await self.client_close()
         return result
 
     async def state(self) -> dict:
@@ -216,7 +212,6 @@ class RobonectClient:
         result = await self.async_cmd("status")
         if result:
             self.is_sleeping = result.get("status").get("status") == 17
-            await self.client_close()
         return result
 
     async def async_start(self) -> bool:
