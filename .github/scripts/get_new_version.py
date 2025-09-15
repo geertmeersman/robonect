@@ -64,26 +64,25 @@ def get_semver_level(commit_messages, commits):
 
     for i, message in enumerate(commit_messages):
         if not is_dependabot_commit(commits[i]):
-            if any(keyword in message.lower() for keyword in major_keywords):
+            ml = message.lower()
+            if any(keyword in ml for keyword in major_keywords):
                 return "major"
 
     for i, message in enumerate(commit_messages):
         if not is_dependabot_commit(commits[i]):
-            if any(keyword in message.lower() for keyword in minor_keywords):
+            ml = message.lower()
+            if any(keyword in ml for keyword in minor_keywords):
                 return "minor"
 
     return "patch"
 
 
 # Determine version components based on commit messages
-commit_messages = []
-for commit in compare_info["commits"]:
-    commit_messages.append(commit["commit"]["message"])
-
 commit_messages = [c["commit"]["message"] for c in compare_info["commits"]]
 bump = get_semver_level(commit_messages, compare_info["commits"])
 
-major, minor, patch = map(int, latest_version[1:].split("."))
+base = latest_version.lstrip("v").split("-", 1)[0]
+major, minor, patch = map(int, base.split("."))
 
 if bump == "major":
     major += 1
