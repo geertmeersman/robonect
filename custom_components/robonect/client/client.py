@@ -81,7 +81,7 @@ class RobonectClient:
             # self.client = None
             _LOGGER.debug("Skipping client close; HA manages the shared HTTPX client")
 
-    async def async_cmd(self, command=None, params={}) -> list[dict]:
+    async def async_cmd(self, command=None, params: dict | None = None) -> list[dict]:
         """Send command to mower."""
         ext = None
         if command is None:
@@ -89,8 +89,12 @@ class RobonectClient:
         if params is None:
             params = ""
         else:
+            # copy to avoid mutating caller-provided dict
+            params = dict(params)
             if command == "equipment":
-                ext = params.pop("ext")
+                ext = params.pop("ext", None)
+                if ext is None:
+                    raise ValueError("equipment command requires 'ext' in params")
             params = urllib.parse.urlencode(params)
 
         if command == "job":
@@ -244,7 +248,6 @@ class RobonectClient:
         """Return if the mower is sleeping."""
         return self.is_sleeping
 
-    async def async_reset_blades(self) -> bool:
+    async def async_reset_blades(self) -> dict:
         """Reset the mower blades."""
-        result = await self.async_cmd("reset_blades")
-        return {"successful": result}
+        return await self.async_cmd("reset_blades")
