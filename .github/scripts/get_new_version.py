@@ -17,8 +17,13 @@ response = requests.get(
     f"https://api.github.com/repos/{owner}/{repo}/releases/latest",
     timeout=10,
 )
-latest_release = response.json()
-latest_version = latest_release["tag_name"]
+if response.status_code == 404:
+    # No releases yet; start from v0.0.0
+    latest_version = "v0.0.0"
+else:
+    response.raise_for_status()
+    latest_release = response.json()
+    latest_version = latest_release["tag_name"]
 
 ref = os.environ["GITHUB_REF"]
 
@@ -82,8 +87,11 @@ major, minor, patch = map(int, latest_version[1:].split("."))
 
 if bump == "major":
     major += 1
+    minor = 0
+    patch = 0
 elif bump == "minor":
     minor += 1
+    patch = 0
 else:
     patch += 1
 
