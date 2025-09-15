@@ -211,7 +211,8 @@ class RobonectClient:
         await self.client_start()
         result = await self.async_cmd("status")
         if result:
-            self.is_sleeping = result.get("status").get("status") == 17
+            status_block = (result or {}).get("status") or {}
+            self.is_sleeping = status_block.get("status") == 17
         return result
 
     async def async_start(self) -> bool:
