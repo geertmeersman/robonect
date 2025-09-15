@@ -81,7 +81,9 @@ class RobonectClient:
             # self.client = None
             _LOGGER.debug("Skipping client close; HA manages the shared HTTPX client")
 
-    async def async_cmd(self, command=None, params: dict | None = None) -> list[dict]:
+    async def async_cmd(
+        self, command: str | None = None, params: dict | str | None = None
+    ) -> dict | bool | None:
         """Send command to mower."""
         ext = None
         if command is None:
