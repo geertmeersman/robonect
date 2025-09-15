@@ -76,13 +76,10 @@ class RobonectClient:
                 self.client.auth = self.auth
 
     async def client_close(self):
-        """Properly close and cleanup the httpx client."""
+        """No-op: HTTPX client is managed by Home Assistant; do not close here."""
         if self.client:
-            # await self.client.aclose() commented as this closes the HA httpx client
-            # Don't close the client as it's a shared Home Assistant HTTPX client
-            # that's managed by Home Assistant itself
-            _LOGGER.debug("Not closing the client as it is a shared connection")
             # self.client = None
+            _LOGGER.debug("Skipping client close; HA manages the shared HTTPX client")
 
     async def async_cmd(self, command=None, params={}) -> list[dict]:
         """Send command to mower."""
