@@ -142,12 +142,12 @@ class RobonectClient:
                     )
                     continue
             except httpx.TimeoutException as e:
-                _LOGGER.warning(f"Timeout while connecting to {url}")
+                _LOGGER.warning(f"Timeout while connecting to {url}: {e!r}")
                 last_exception = e
                 last_url = url
                 continue
             except httpx.RequestError as e:
-                _LOGGER.warning(f"Request error from {url}")
+                _LOGGER.warning(f"Request error from {url}: {e!r}")
                 last_url = url
                 last_exception = e
                 continue
