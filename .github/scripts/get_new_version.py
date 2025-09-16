@@ -14,10 +14,16 @@ owner, repo = repository.split("/")
 
 # Get the latest release information
 response = requests.get(
-    f"https://api.github.com/repos/{owner}/{repo}/releases/latest", timeout=10
+    f"https://api.github.com/repos/{owner}/{repo}/releases/latest",
+    timeout=10,
 )
-latest_release = response.json()
-latest_version = latest_release["tag_name"]
+if response.status_code == 404:
+    # No releases yet; start from v0.0.0
+    latest_version = "v0.0.0"
+else:
+    response.raise_for_status()
+    latest_release = response.json()
+    latest_version = latest_release["tag_name"]
 
 ref = os.environ["GITHUB_REF"]
 
@@ -30,32 +36,61 @@ compare_info = response.json()
 commit_count = compare_info["total_commits"]
 
 
-def get_semver_level(commit_messages):
-    """Extract SemVer level."""
+def is_dependabot_commit(commit):
+    """Check if a commit was authored by Dependabot."""
+    author = commit.get("author") or {}
+    commit_meta = commit.get("commit") or {}
+    commit_author = commit_meta.get("author") or {}
+    commit_committer = commit_meta.get("committer") or {}
+    fields = [
+        author.get("login", ""),
+        commit_author.get("name", ""),
+        commit_author.get("email", ""),
+        commit_committer.get("name", ""),
+        commit_committer.get("email", ""),
+    ]
+    text = " ".join(x for x in fields if x)
+    return "dependabot" in text.lower()
+
+
+def get_semver_level(commit_messages, commits):
+    """Extract SemVer level, but treat Dependabot commits as patch."""
     major_keywords = ["breaking change", "major"]
     minor_keywords = ["feat", "minor"]
-    for message in commit_messages:
-        if any(keyword in message for keyword in major_keywords):
-            return "major"
-    for message in commit_messages:
-        if any(keyword in message for keyword in minor_keywords):
-            return "minor"
+
+    # If all commits are from dependabot, just return patch
+    if all(is_dependabot_commit(c) for c in commits):
+        return "patch"
+
+    for i, message in enumerate(commit_messages):
+        if not is_dependabot_commit(commits[i]):
+            ml = message.lower()
+            if any(keyword in ml for keyword in major_keywords):
+                return "major"
+
+    for i, message in enumerate(commit_messages):
+        if not is_dependabot_commit(commits[i]):
+            ml = message.lower()
+            if any(keyword in ml for keyword in minor_keywords):
+                return "minor"
+
     return "patch"
 
 
 # Determine version components based on commit messages
-commit_messages = []
-for commit in compare_info["commits"]:
-    commit_messages.append(commit["commit"]["message"])
+commit_messages = [c["commit"]["message"] for c in compare_info["commits"]]
+bump = get_semver_level(commit_messages, compare_info["commits"])
 
-bump = get_semver_level(commit_messages)
-
-major, minor, patch = map(int, latest_version[1:].split("."))
+base = latest_version.lstrip("v").split("-", 1)[0]
+major, minor, patch = map(int, base.split("."))
 
 if bump == "major":
     major += 1
+    minor = 0
+    patch = 0
 elif bump == "minor":
     minor += 1
+    patch = 0
 else:
     patch += 1
 

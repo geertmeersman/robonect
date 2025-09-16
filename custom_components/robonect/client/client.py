@@ -76,14 +76,14 @@ class RobonectClient:
                 self.client.auth = self.auth
 
     async def client_close(self):
-        """Properly close and cleanup the httpx client."""
+        """No-op: HTTPX client is managed by Home Assistant; do not close here."""
         if self.client:
-            # await self.client.aclose() commented as this closes the HA httpx client
-            # Don't close the client as it's a shared Home Assistant HTTPX client
-            # that's managed by Home Assistant itself
-            self.client = None
+            # self.client = None
+            _LOGGER.debug("Skipping client close; HA manages the shared HTTPX client")
 
-    async def async_cmd(self, command=None, params={}) -> list[dict]:
+    async def async_cmd(
+        self, command: str | None = None, params: dict | str | None = None
+    ) -> dict | bool | None:
         """Send command to mower."""
         ext = None
         if command is None:
@@ -91,8 +91,12 @@ class RobonectClient:
         if params is None:
             params = ""
         else:
+            # copy to avoid mutating caller-provided dict
+            params = dict(params)
             if command == "equipment":
-                ext = params.pop("ext")
+                ext = params.pop("ext", None)
+                if ext is None:
+                    raise ValueError("equipment command requires 'ext' in params")
             params = urllib.parse.urlencode(params)
 
         if command == "job":
@@ -140,12 +144,12 @@ class RobonectClient:
                     )
                     continue
             except httpx.TimeoutException as e:
-                _LOGGER.warning(f"Timeout while connecting to {url}")
+                _LOGGER.warning(f"Timeout while connecting to {url}: {e!r}")
                 last_exception = e
                 last_url = url
                 continue
             except httpx.RequestError as e:
-                _LOGGER.warning(f"Request error from {url}")
+                _LOGGER.warning(f"Request error from {url}: {e!r}")
                 last_url = url
                 last_exception = e
                 continue
@@ -159,11 +163,9 @@ class RobonectClient:
         if response and response.status_code == 200:
             _LOGGER.debug(f"Successful response from {url}")
             if command == "reset_blades":
-                await self.client_close()
                 return {"successful": True}
             result_text = response.text
             if command == "equipment":
-                await self.client_close()
                 if "The changes were successfully applied" in result_text:
                     return {"successful": True}
                 else:
@@ -187,7 +189,6 @@ class RobonectClient:
             result_json["sync_time"] = datetime.now()
         elif response and response.status_code >= 400:
             response.raise_for_status()
-        await self.client_close()
 
         if self.transform_json:
             return transform_json_to_single_depth(result_json)
@@ -205,7 +206,6 @@ class RobonectClient:
                     json_res = await self.async_cmd(cmd)
                     if json_res:
                         result.update({cmd: json_res})
-            await self.client_close()
         return result
 
     async def state(self) -> dict:
@@ -213,8 +213,8 @@ class RobonectClient:
         await self.client_start()
         result = await self.async_cmd("status")
         if result:
-            self.is_sleeping = result.get("status").get("status") == 17
-            await self.client_close()
+            status_block = (result or {}).get("status") or {}
+            self.is_sleeping = status_block.get("status") == 17
         return result
 
     async def async_start(self) -> bool:
@@ -246,7 +246,6 @@ class RobonectClient:
         """Return if the mower is sleeping."""
         return self.is_sleeping
 
-    async def async_reset_blades(self) -> bool:
+    async def async_reset_blades(self) -> dict:
         """Reset the mower blades."""
-        result = await self.async_cmd("reset_blades")
-        return {"successful": result}
+        return await self.async_cmd("reset_blades")
