@@ -1,5 +1,25 @@
 # Changelog
 
+## [v4.1.0](https://github.com/geertmeersman/robonect/tree/v4.1.0) (2025-09-16)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v4.0.1-beta.11...v4.1.0)
+
+**Closed issues:**
+
+- Robonect integration leaks connections, causing Home Assistant to crash after 2–3 hours [\#334](https://github.com/geertmeersman/robonect/issues/334)
+
+**Merged pull requests:**
+
+- fix: Avoid closing the shared Home Assistant HTTP client to improve stability during reloads/unloads; enhanced error logging and more robust state handling, fixes \#334 [\#335](https://github.com/geertmeersman/robonect/pull/335) ([geertmeersman](https://github.com/geertmeersman))
+
+## [v4.0.1-beta.11](https://github.com/geertmeersman/robonect/tree/v4.0.1-beta.11) (2025-09-15)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v4.0.0...v4.0.1-beta.11)
+
+**Merged pull requests:**
+
+- build\(deps\): bump ruff from 0.12.12 to 0.13.0 [\#333](https://github.com/geertmeersman/robonect/pull/333) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v4.0.0](https://github.com/geertmeersman/robonect/tree/v4.0.0) (2025-09-10)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v3.1.0...v4.0.0)
