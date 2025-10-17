@@ -158,10 +158,11 @@ class RobonectClient:
                 continue
 
         if response is None:
-            raise Exception(
-                f"Failed to get a response from the mower at {last_url}. "
-                f"Last error: `{str(last_exception) or type(last_exception).__name__}`"
-            )
+            raise RobonectException(
+                cmd=command,
+                exception=last_exception,
+                result=f"no response from {last_url}",
+            ) from (last_exception or None)
 
         if response and response.status_code == 200:
             _LOGGER.debug(f"Successful response from {url}")
@@ -200,8 +201,8 @@ class RobonectClient:
 
     async def async_cmds(self, commands=None, bypass_sleeping=False) -> dict:
         """Send multiple commands to the mower in limited parallel (safe for Robonect)."""
-        await self.client_start()
-        result = await self.state()
+        async with self._semaphore:
+            result = await self.state()
         results = {"status": result} if result else {}
 
         allowed_cmds = [
@@ -232,10 +233,9 @@ class RobonectClient:
 
     async def state(self) -> dict:
         """Send status command to mower."""
-        await self.client_start()
         result = await self.async_cmd("status")
         if result:
-            status_block = (result or {}).get("status") or {}
+            status_block = result.get("status", {})
             self.is_sleeping = status_block.get("status") == 17
         return result
 
