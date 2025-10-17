@@ -63,6 +63,13 @@ class RobonectClient:
         self, command: str | None = None, params: dict | str | None = None
     ) -> dict | bool | None:
         """Send command to mower."""
+        async with self._semaphore:
+            return await self._async_cmd_impl(command, params)
+
+    async def _async_cmd_impl(
+        self, command: str | None = None, params: dict | str | None = None
+    ) -> dict | bool | None:
+        """Send command to mower, Internal implementation of async_cmd."""
         ext = None
         if command is None:
             return False
@@ -189,8 +196,7 @@ class RobonectClient:
 
     async def async_cmds(self, commands=None, bypass_sleeping=False) -> dict:
         """Send multiple commands to the mower in limited parallel (safe for Robonect)."""
-        async with self._semaphore:
-            result = await self.state()
+        result = await self.state()
         results = {"status": result} if result else {}
 
         allowed_cmds = [
@@ -203,12 +209,11 @@ class RobonectClient:
             return results
 
         async def limited_cmd(cmd):
-            async with self._semaphore:
-                try:
-                    return await self.async_cmd(cmd)
-                except Exception as e:
-                    _LOGGER.warning(f"Command {cmd} failed: {e}")
-                    return None
+            try:
+                return await self.async_cmd(cmd)
+            except Exception as e:
+                _LOGGER.warning(f"Command {cmd} failed: {e}")
+                return None
 
         tasks = [limited_cmd(cmd) for cmd in allowed_cmds]
         responses = await asyncio.gather(*tasks)
