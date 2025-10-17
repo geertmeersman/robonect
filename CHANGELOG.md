@@ -1,8 +1,26 @@
 # Changelog
 
+## [v5.0.0](https://github.com/geertmeersman/robonect/tree/v5.0.0) (2025-10-17)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v4.1.0...v5.0.0)
+
+**Closed issues:**
+
+- Error when configuring failed \(but previously working\) Robonect integration: 'RobonectOptionsFlow' object has no attribute 'config\_entry' [\#338](https://github.com/geertmeersman/robonect/issues/338)
+- No sum of mowing times [\#317](https://github.com/geertmeersman/robonect/issues/317)
+
+**Merged pull requests:**
+
+- refactor: Refactor RobonectClient to fully async HTTPX with limited concurrency [\#344](https://github.com/geertmeersman/robonect/pull/344) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.13.3 to 0.14.0 [\#343](https://github.com/geertmeersman/robonect/pull/343) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump github/codeql-action from 3 to 4 [\#342](https://github.com/geertmeersman/robonect/pull/342) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.13.2 to 0.13.3 [\#340](https://github.com/geertmeersman/robonect/pull/340) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.13.1 to 0.13.2 [\#339](https://github.com/geertmeersman/robonect/pull/339) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump ruff from 0.13.0 to 0.13.1 [\#337](https://github.com/geertmeersman/robonect/pull/337) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v4.1.0](https://github.com/geertmeersman/robonect/tree/v4.1.0) (2025-09-16)
 
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v4.0.1-beta.11...v4.1.0)
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v4.0.0...v4.1.0)
 
 **Closed issues:**
 
@@ -11,13 +29,6 @@
 **Merged pull requests:**
 
 - fix: Avoid closing the shared Home Assistant HTTP client to improve stability during reloads/unloads; enhanced error logging and more robust state handling, fixes \#334 [\#335](https://github.com/geertmeersman/robonect/pull/335) ([geertmeersman](https://github.com/geertmeersman))
-
-## [v4.0.1-beta.11](https://github.com/geertmeersman/robonect/tree/v4.0.1-beta.11) (2025-09-15)
-
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v4.0.0...v4.0.1-beta.11)
-
-**Merged pull requests:**
-
 - build\(deps\): bump ruff from 0.12.12 to 0.13.0 [\#333](https://github.com/geertmeersman/robonect/pull/333) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [v4.0.0](https://github.com/geertmeersman/robonect/tree/v4.0.0) (2025-09-10)
