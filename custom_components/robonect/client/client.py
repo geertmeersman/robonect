@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 from datetime import datetime
 import json
 import logging
@@ -36,7 +37,7 @@ def validate_json(json_str):
     try:
         return json.loads(json_str)
     except ValueError as error:
-        print(error)
+        _LOGGER.debug(error)
         return False
 
 
@@ -78,7 +79,7 @@ class RobonectClient:
     async def client_close(self):
         """No-op: HTTPX client is managed by Home Assistant; do not close here."""
         if self.client:
-            # self.client = None
+            self.client = None
             _LOGGER.debug("Skipping client close; HA manages the shared HTTPX client")
 
     async def async_cmd(
@@ -135,14 +136,29 @@ class RobonectClient:
             try:
                 response = await self.client.get(url)
                 _LOGGER.debug(f"Received status code {response.status_code} from {url}")
-                if response.status_code == 200 or response.status_code >= 400:
-                    self.scheme = [scheme]  # Set scheme for future calls
-                    break  # Exit the loop on usable response
+                if response.status_code == 200:
+                    # Success — keep this scheme for future calls
+                    self.scheme = [scheme]
+                    break
                 elif 300 <= response.status_code < 400:
+                    # Redirects — try next scheme
                     _LOGGER.debug(
                         f"Redirect ({response.status_code}) from {url}, trying next scheme"
                     )
                     continue
+                elif 400 <= response.status_code < 500:
+                    # Client-side errors (auth, not found) — try next scheme
+                    _LOGGER.debug(
+                        f"Client error ({response.status_code}) from {url}, trying next scheme"
+                    )
+                    continue
+                elif response.status_code >= 500:
+                    # Server-side errors — keep this scheme but surface the issue
+                    _LOGGER.warning(
+                        f"Server error ({response.status_code}) from {url}, keeping scheme {scheme}"
+                    )
+                    self.scheme = [scheme]
+                    break
             except httpx.TimeoutException as e:
                 _LOGGER.warning(f"Timeout while connecting to {url}: {e!r}")
                 last_exception = e
@@ -196,17 +212,39 @@ class RobonectClient:
         return result_json
 
     async def async_cmds(self, commands=None, bypass_sleeping=False) -> dict:
-        """Send command to mower."""
+        """Send multiple commands to the mower in limited parallel (safe for Robonect)."""
         await self.client_start()
         result = await self.state()
-        if result:
-            result = {"status": result}
-            for cmd in commands:
-                if not self.is_sleeping or bypass_sleeping or cmd in SAFE_COMMANDS:
-                    json_res = await self.async_cmd(cmd)
-                    if json_res:
-                        result.update({cmd: json_res})
-        return result
+        results = {"status": result} if result else {}
+
+        allowed_cmds = [
+            cmd
+            for cmd in (commands or [])
+            if not self.is_sleeping or bypass_sleeping or cmd in SAFE_COMMANDS
+        ]
+
+        if not allowed_cmds:
+            return results
+
+        # Limit concurrent requests to 2 (Robonect can’t handle more)
+        semaphore = asyncio.Semaphore(2)
+
+        async def limited_cmd(cmd):
+            async with semaphore:
+                try:
+                    return await self.async_cmd(cmd)
+                except Exception as e:
+                    _LOGGER.warning(f"Command {cmd} failed: {e}")
+                    return None
+
+        tasks = [limited_cmd(cmd) for cmd in allowed_cmds]
+        responses = await asyncio.gather(*tasks)
+
+        for cmd, res in zip(allowed_cmds, responses):
+            if res:
+                results[cmd] = res
+
+        return results
 
     async def state(self) -> dict:
         """Send status command to mower."""
