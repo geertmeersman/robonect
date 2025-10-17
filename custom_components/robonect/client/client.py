@@ -245,27 +245,27 @@ class RobonectClient:
 
         return result
 
-    async def async_start(self) -> bool:
+    async def async_start(self) -> dict | bool | None:
         """Start the mower."""
         result = await self.async_cmd("start")
         return result
 
-    async def async_stop(self) -> bool:
+    async def async_stop(self) -> dict | bool | None:
         """Stop the mower."""
         result = await self.async_cmd("stop")
         return result
 
-    async def async_reboot(self) -> bool:
+    async def async_reboot(self) -> dict | bool | None:
         """Reboot Robonect."""
         result = await self.async_cmd("service", {"service": "reboot"})
         return result
 
-    async def async_shutdown(self) -> bool:
+    async def async_shutdown(self) -> dict | bool | None:
         """Shutdown Robonect."""
         result = await self.async_cmd("service", {"service": "shutdown"})
         return result
 
-    async def async_sleep(self) -> bool:
+    async def async_sleep(self) -> dict | bool | None:
         """Make Robonect sleep."""
         result = await self.async_cmd("service", {"service": "sleep"})
         return result
