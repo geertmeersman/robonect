@@ -17,19 +17,6 @@ from .utils import transform_json_to_single_depth
 _LOGGER = logging.getLogger(__name__)
 
 
-def encode_dict_values_to_utf8(dictionary):
-    """Encode dict values to utf8."""
-    encoded_dict = {}
-    for key, value in dictionary.items():
-        if isinstance(value, dict):
-            encoded_dict[key] = encode_dict_values_to_utf8(value)
-        elif isinstance(value, str):
-            encoded_dict[key] = value.encode("utf-8")
-        else:
-            encoded_dict[key] = value
-    return encoded_dict
-
-
 def validate_json(json_str):
     """Validate json string."""
     if isinstance(json_str, dict):
