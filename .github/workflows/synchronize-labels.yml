@@ -1,16 +1,24 @@
-name: Labels - Synchronize
-"on":
+---
+name: Sync labels
+
+# yamllint disable-line rule:truthy
+on:
   push:
+    branches:
+      - main
     paths:
       - .github/labels.yml
-  workflow_dispatch: {}
+  workflow_dispatch:
+
 jobs:
-  synchronize:
-    name: Synchronize Labels
-    runs-on:
-      - ubuntu-22.04
+  labels:
+    name: ♻️ Sync labels
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: micnncim/action-label-syncer@v1
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v5.0.0
+
+      - name: 🚀 Run Label Syncer
+        uses: micnncim/action-label-syncer@v1.3.0
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
