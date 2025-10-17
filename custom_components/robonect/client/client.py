@@ -101,8 +101,13 @@ class RobonectClient:
             self.scheme = ["http", "https"]
 
         if command == "direct":
-            status = await self.async_stop()
-            if status.get("successful") is False and status.get("error_code") != 7:
+            # Avoid nested semaphore acquisition (re-entrancy deadlock).
+            status = await self._async_cmd_impl("stop")
+            if (
+                isinstance(status, dict)
+                and status.get("successful") is False
+                and status.get("error_code") != 7
+            ):
                 _LOGGER.warning(
                     f"Mower not stopped before `direct` command: {status.get('error_code')}"
                 )
