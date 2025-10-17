@@ -51,6 +51,7 @@ class RobonectClient:
         self.client = None
         self.is_sleeping = None
         self.transform_json = transform_json
+        self._semaphore = asyncio.Semaphore(2)
         if username is not None and password is not None:
             self.auth = (username, password)
 
@@ -134,11 +135,10 @@ class RobonectClient:
                     )
                     continue
                 elif 400 <= response.status_code < 500:
-                    # Client-side errors (auth, not found) — try next scheme
-                    _LOGGER.debug(
-                        f"Client error ({response.status_code}) from {url}, trying next scheme"
-                    )
-                    continue
+                    # Client-side errors (auth, not found) — fail fast
+                    _LOGGER.debug(f"Client error ({response.status_code}) from {url}")
+                    self.scheme = [scheme]
+                    break
                 elif response.status_code >= 500:
                     # Server-side errors — keep this scheme but surface the issue
                     _LOGGER.warning(
@@ -213,11 +213,8 @@ class RobonectClient:
         if not allowed_cmds:
             return results
 
-        # Limit concurrent requests to 2 (Robonect can’t handle more)
-        semaphore = asyncio.Semaphore(2)
-
         async def limited_cmd(cmd):
-            async with semaphore:
+            async with self._semaphore:
                 try:
                     return await self.async_cmd(cmd)
                 except Exception as e:
@@ -228,7 +225,7 @@ class RobonectClient:
         responses = await asyncio.gather(*tasks)
 
         for cmd, res in zip(allowed_cmds, responses):
-            if res:
+            if res is not None:
                 results[cmd] = res
 
         return results
