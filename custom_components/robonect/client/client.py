@@ -17,17 +17,6 @@ from .utils import transform_json_to_single_depth
 _LOGGER = logging.getLogger(__name__)
 
 
-def validate_json(json_str):
-    """Validate json string."""
-    if isinstance(json_str, dict):
-        return True
-    try:
-        return json.loads(json_str)
-    except ValueError as error:
-        _LOGGER.debug(error)
-        return False
-
-
 class RobonectException(Exception):
     """Raised when an update has failed."""
 
@@ -140,12 +129,11 @@ class RobonectClient:
                     self.scheme = [scheme]
                     break
                 elif response.status_code >= 500:
-                    # Server-side errors — keep this scheme but surface the issue
+                    # Server-side error — log and try next scheme (if any)
                     _LOGGER.warning(
-                        f"Server error ({response.status_code}) from {url}, keeping scheme {scheme}"
+                        f"Server error ({response.status_code}) from {url}, trying next scheme"
                     )
-                    self.scheme = [scheme]
-                    break
+                    continue
             except httpx.TimeoutException as e:
                 _LOGGER.warning(f"Timeout while connecting to {url}: {e!r}")
                 last_exception = e
@@ -235,8 +223,17 @@ class RobonectClient:
         """Send status command to mower."""
         result = await self.async_cmd("status")
         if result:
-            status_block = result.get("status", {})
-            self.is_sleeping = status_block.get("status") == 17
+            status_val = None
+            status_field = result.get("status")
+            if isinstance(status_field, dict):
+                status_val = status_field.get("status")
+            elif isinstance(status_field, int):
+                status_val = status_field
+            else:
+                # flattened forms from transform_json_to_single_depth, e.g. "status.status" or "status_status"
+                status_val = result.get("status.status") or result.get("status_status")
+            self.is_sleeping = status_val == 17
+
         return result
 
     async def async_start(self) -> bool:
