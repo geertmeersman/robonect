@@ -236,7 +236,9 @@ class RobonectClient:
                 status_val = status_field
             else:
                 # flattened forms from transform_json_to_single_depth, e.g. "status.status" or "status_status"
-                status_val = result.get("status.status") or result.get("status_status")
+                status_val = result.get("status.status")
+                if status_val is None:
+                    status_val = result.get("status_status")
             self.is_sleeping = status_val == 17
 
         return result
