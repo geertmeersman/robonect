@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 from datetime import datetime
 import json
 import logging
@@ -14,30 +15,6 @@ from .const import SAFE_COMMANDS
 from .utils import transform_json_to_single_depth
 
 _LOGGER = logging.getLogger(__name__)
-
-
-def encode_dict_values_to_utf8(dictionary):
-    """Encode dict values to utf8."""
-    encoded_dict = {}
-    for key, value in dictionary.items():
-        if isinstance(value, dict):
-            encoded_dict[key] = encode_dict_values_to_utf8(value)
-        elif isinstance(value, str):
-            encoded_dict[key] = value.encode("utf-8")
-        else:
-            encoded_dict[key] = value
-    return encoded_dict
-
-
-def validate_json(json_str):
-    """Validate json string."""
-    if isinstance(json_str, dict):
-        return True
-    try:
-        return json.loads(json_str)
-    except ValueError as error:
-        print(error)
-        return False
 
 
 class RobonectException(Exception):
@@ -63,6 +40,7 @@ class RobonectClient:
         self.client = None
         self.is_sleeping = None
         self.transform_json = transform_json
+        self._semaphore = asyncio.Semaphore(2)
         if username is not None and password is not None:
             self.auth = (username, password)
 
@@ -78,13 +56,20 @@ class RobonectClient:
     async def client_close(self):
         """No-op: HTTPX client is managed by Home Assistant; do not close here."""
         if self.client:
-            # self.client = None
+            self.client = None
             _LOGGER.debug("Skipping client close; HA manages the shared HTTPX client")
 
     async def async_cmd(
         self, command: str | None = None, params: dict | str | None = None
     ) -> dict | bool | None:
         """Send command to mower."""
+        async with self._semaphore:
+            return await self._async_cmd_impl(command, params)
+
+    async def _async_cmd_impl(
+        self, command: str | None = None, params: dict | str | None = None
+    ) -> dict | bool | None:
+        """Send command to mower, Internal implementation of async_cmd."""
         ext = None
         if command is None:
             return False
@@ -116,8 +101,13 @@ class RobonectClient:
             self.scheme = ["http", "https"]
 
         if command == "direct":
-            status = await self.async_stop()
-            if status.get("successful") is False and status.get("error_code") != 7:
+            # Avoid nested semaphore acquisition (re-entrancy deadlock).
+            status = await self._async_cmd_impl("stop")
+            if (
+                isinstance(status, dict)
+                and status.get("successful") is False
+                and status.get("error_code") != 7
+            ):
                 _LOGGER.warning(
                     f"Mower not stopped before `direct` command: {status.get('error_code')}"
                 )
@@ -135,12 +125,25 @@ class RobonectClient:
             try:
                 response = await self.client.get(url)
                 _LOGGER.debug(f"Received status code {response.status_code} from {url}")
-                if response.status_code == 200 or response.status_code >= 400:
-                    self.scheme = [scheme]  # Set scheme for future calls
-                    break  # Exit the loop on usable response
+                if response.status_code == 200:
+                    # Success — keep this scheme for future calls
+                    self.scheme = [scheme]
+                    break
                 elif 300 <= response.status_code < 400:
+                    # Redirects — try next scheme
                     _LOGGER.debug(
                         f"Redirect ({response.status_code}) from {url}, trying next scheme"
+                    )
+                    continue
+                elif 400 <= response.status_code < 500:
+                    # Client-side errors (auth, not found) — fail fast
+                    _LOGGER.debug(f"Client error ({response.status_code}) from {url}")
+                    self.scheme = [scheme]
+                    break
+                elif response.status_code >= 500:
+                    # Server-side error — log and try next scheme (if any)
+                    _LOGGER.warning(
+                        f"Server error ({response.status_code}) from {url}, trying next scheme"
                     )
                     continue
             except httpx.TimeoutException as e:
@@ -155,10 +158,11 @@ class RobonectClient:
                 continue
 
         if response is None:
-            raise Exception(
-                f"Failed to get a response from the mower at {last_url}. "
-                f"Last error: `{str(last_exception) or type(last_exception).__name__}`"
-            )
+            raise RobonectException(
+                cmd=command,
+                exception=last_exception,
+                result=f"no response from {last_url}",
+            ) from (last_exception or None)
 
         if response and response.status_code == 200:
             _LOGGER.debug(f"Successful response from {url}")
@@ -179,13 +183,10 @@ class RobonectClient:
             if command == "wire":
                 # Extract the lowest quality value from the sensors list
                 sensors = result_json.get("sensors", [])
-                if sensors:
-                    min_quality = min(
-                        sensor.get("quality", float("inf")) for sensor in sensors
-                    )
-                    result_json["lowest_quality"] = min_quality
-                else:
-                    result_json["lowest_quality"] = None
+                qualities = [
+                    s.get("quality") for s in sensors if s.get("quality") is not None
+                ]
+                result_json["lowest_quality"] = min(qualities) if qualities else None
             result_json["sync_time"] = datetime.now()
         elif response and response.status_code >= 400:
             response.raise_for_status()
@@ -196,48 +197,75 @@ class RobonectClient:
         return result_json
 
     async def async_cmds(self, commands=None, bypass_sleeping=False) -> dict:
-        """Send command to mower."""
-        await self.client_start()
+        """Send multiple commands to the mower in limited parallel (safe for Robonect)."""
         result = await self.state()
-        if result:
-            result = {"status": result}
-            for cmd in commands:
-                if not self.is_sleeping or bypass_sleeping or cmd in SAFE_COMMANDS:
-                    json_res = await self.async_cmd(cmd)
-                    if json_res:
-                        result.update({cmd: json_res})
-        return result
+        results = {"status": result} if result else {}
+
+        allowed_cmds = [
+            cmd
+            for cmd in (commands or [])
+            if not self.is_sleeping or bypass_sleeping or cmd in SAFE_COMMANDS
+        ]
+
+        if not allowed_cmds:
+            return results
+
+        async def limited_cmd(cmd):
+            try:
+                return await self.async_cmd(cmd)
+            except Exception as e:
+                _LOGGER.warning(f"Command {cmd} failed: {e}")
+                return None
+
+        tasks = [limited_cmd(cmd) for cmd in allowed_cmds]
+        responses = await asyncio.gather(*tasks)
+
+        for cmd, res in zip(allowed_cmds, responses):
+            if res is not None:
+                results[cmd] = res
+
+        return results
 
     async def state(self) -> dict:
         """Send status command to mower."""
-        await self.client_start()
         result = await self.async_cmd("status")
         if result:
-            status_block = (result or {}).get("status") or {}
-            self.is_sleeping = status_block.get("status") == 17
+            status_val = None
+            status_field = result.get("status")
+            if isinstance(status_field, dict):
+                status_val = status_field.get("status")
+            elif isinstance(status_field, int):
+                status_val = status_field
+            else:
+                # flattened forms from transform_json_to_single_depth, e.g. "status.status" or "status_status"
+                status_val = result.get("status.status")
+                if status_val is None:
+                    status_val = result.get("status_status")
+            self.is_sleeping = status_val == 17
+
         return result
 
-    async def async_start(self) -> bool:
+    async def async_start(self) -> dict | bool | None:
         """Start the mower."""
         result = await self.async_cmd("start")
         return result
 
-    async def async_stop(self) -> bool:
+    async def async_stop(self) -> dict | bool | None:
         """Stop the mower."""
         result = await self.async_cmd("stop")
         return result
 
-    async def async_reboot(self) -> bool:
+    async def async_reboot(self) -> dict | bool | None:
         """Reboot Robonect."""
         result = await self.async_cmd("service", {"service": "reboot"})
         return result
 
-    async def async_shutdown(self) -> bool:
+    async def async_shutdown(self) -> dict | bool | None:
         """Shutdown Robonect."""
         result = await self.async_cmd("service", {"service": "shutdown"})
         return result
 
-    async def async_sleep(self) -> bool:
+    async def async_sleep(self) -> dict | bool | None:
         """Make Robonect sleep."""
         result = await self.async_cmd("service", {"service": "sleep"})
         return result
