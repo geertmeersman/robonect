@@ -183,13 +183,10 @@ class RobonectClient:
             if command == "wire":
                 # Extract the lowest quality value from the sensors list
                 sensors = result_json.get("sensors", [])
-                if sensors:
-                    min_quality = min(
-                        sensor.get("quality", float("inf")) for sensor in sensors
-                    )
-                    result_json["lowest_quality"] = min_quality
-                else:
-                    result_json["lowest_quality"] = None
+                qualities = [
+                    s.get("quality") for s in sensors if s.get("quality") is not None
+                ]
+                result_json["lowest_quality"] = min(qualities) if qualities else None
             result_json["sync_time"] = datetime.now()
         elif response and response.status_code >= 400:
             response.raise_for_status()
