@@ -1,17 +1,19 @@
-name: Release - Bump and Release
+name: Release - Bump and Release 🚀
 on: [workflow_dispatch]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
-  create_release_draft:
-    name: Create the release draft
+  release:
+    name: Create and publish release
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
+
     steps:
       - name: ⤵️　Checkout code
         uses: actions/checkout@v5
@@ -23,15 +25,21 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 📝　Draft release
-        uses: release-drafter/release-drafter@v6
-        id: release_drafter
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 🔢 Calculate next semantic version
+        id: semver
+        uses: ietf-tools/semver-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+
+      - name: 🧾 Display version info
+        run: |
+          echo "Current version: ${{ steps.semver.outputs.current }}"
+          echo "Next version: ${{ steps.semver.outputs.next }}"
 
       - name: 🔄　Update version in 'VERSION' and 'manifest.json' and push changes
         env:
-          tag_name: ${{ steps.release_drafter.outputs.tag_name }}
+          tag_name: ${{ steps.semver.outputs.next }}
           GITHUB_REPO: ${{ github.event.repository.name }}
         run: |
           echo "** Manifest before replace **"
@@ -47,12 +55,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          name: Release ${{ steps.semver.outputs.next }}
+          tag: ${{ steps.semver.outputs.next }}
           publish: true
 
       - name: "✏️　Generate release changelog"
-        uses: heinrichreimer/github-changelog-generator-action@v2.4
+        uses: janheinrichmerker/action-github-changelog-generator@v2.4
         with:
           token: ${{ secrets.GH_PAT }}
+          output: CHANGELOG.md
           issues: true
           issuesWoLabels: true
           pullRequests: true
@@ -63,7 +74,9 @@ jobs:
       - name: ✅　Commit release notes and bump version
         uses: EndBug/add-and-commit@v9
         with:
-          message: Commit release notes and bump version ${{ steps.release_drafter.outputs.tag_name }}
+          add: "VERSION CHANGELOG.md custom_components/${{ github.event.repository.name }}/manifest.json"
+          message: "chore(release): changelog & bump version to ${{ steps.semver.outputs.next }}"
+          push: true
 
       - name: 📦 Create zip file
         run: |
@@ -71,17 +84,11 @@ jobs:
           zip -r "${{ github.event.repository.name }}.zip" .
           mv "${{ github.event.repository.name }}.zip" ../..
 
-      - name: 📎 Upload zip file to release
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-artifact
-          path: "${{ github.event.repository.name }}.zip"
-
-      - name: 📝 Update release with zip file
+      - name: 📎 Upload zip to release
         run: |
-          gh release upload ${{ steps.release_drafter.outputs.tag_name }} "${{ github.event.repository.name }}.zip"
+          gh release upload "${{ steps.semver.outputs.next }}" "${{ github.event.repository.name }}.zip"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
 
       - name: 🚮 Remove pre-releases
         run: |
@@ -97,10 +104,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🚀　Discord notification
-        env:
-          tag_name: ${{ steps.release_drafter.outputs.tag_name }}
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: 🚀 Send Discord notification
         uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          args: "New release published: https://github.com/{{ EVENT_PAYLOAD.repository.full_name }}/releases/tag/{{tag_name}}"
+          args: "🎉 New release published: https://github.com/${{ github.repository }}/releases/tag/${{ steps.semver.outputs.next }}"
