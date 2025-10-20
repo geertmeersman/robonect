@@ -18,7 +18,6 @@ jobs:
       - name: ⤵️　Checkout code
         uses: actions/checkout@v5
         with:
-          fetch-depth: 1
           ref: ${{ github.ref }}
 
       - name: 🗑　Delete drafts
