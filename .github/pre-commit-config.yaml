@@ -33,8 +33,6 @@ repos:
         stages: [manual]
       - id: check-json
         stages: [manual]
-      - id: requirements-txt-fixer
-        stages: [manual]
       - id: check-ast
         stages: [manual]
       - id: mixed-line-ending
