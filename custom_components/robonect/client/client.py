@@ -95,6 +95,8 @@ class RobonectClient:
                 return f"{scheme}://{self.host}/?btexe="
             if command == "equipment":
                 return f"{scheme}://{self.host}/{ext}?{params}"
+            if command == "clock":
+                return f"{scheme}://{self.host}/clock?sntp=1&ds=on&save="
             return f"{scheme}://{self.host}/json?cmd={command}&{params}"
 
         if self.scheme is None:
@@ -166,7 +168,7 @@ class RobonectClient:
 
         if response and response.status_code == 200:
             _LOGGER.debug(f"Successful response from {url}")
-            if command == "reset_blades":
+            if command in ("reset_blades", "clock"):
                 return {"successful": True}
             result_text = response.text
             if command == "equipment":

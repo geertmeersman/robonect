@@ -156,6 +156,9 @@
       },
       "stop": {
         "name": "Arr\u00eater"
+      },
+      "sync_clock": {
+        "name": "Synchroniser l'horloge"
       }
     },
     "device_tracker": {
