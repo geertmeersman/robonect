@@ -40,7 +40,7 @@ class RobonectClient:
         self.client = None
         self.is_sleeping = None
         self.transform_json = transform_json
-        self._semaphore = asyncio.Semaphore(2)
+        self._semaphore = asyncio.Semaphore(1)
         if username is not None and password is not None:
             self.auth = (username, password)
 
@@ -95,7 +95,7 @@ class RobonectClient:
                 return f"{scheme}://{self.host}/?btexe="
             if command == "equipment":
                 return f"{scheme}://{self.host}/{ext}?{params}"
-            if command == "clock":
+            if command == "sync_clock":
                 return f"{scheme}://{self.host}/clock?sntp=1&ds=on&save="
             return f"{scheme}://{self.host}/json?cmd={command}&{params}"
 
@@ -168,7 +168,7 @@ class RobonectClient:
 
         if response and response.status_code == 200:
             _LOGGER.debug(f"Successful response from {url}")
-            if command in ("reset_blades", "clock"):
+            if command in ("reset_blades", "sync_clock"):
                 return {"successful": True}
             result_text = response.text
             if command == "equipment":

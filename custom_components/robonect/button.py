@@ -56,7 +56,7 @@ BUTTON_TYPES = (
     RobonectButtonEntityDescription(
         key="sync_clock",
         icon="mdi:update",
-        cmd="clock",
+        cmd="sync_clock",
         category="NONE",
     ),
     RobonectButtonEntityDescription(
