@@ -1,5 +1,23 @@
 # Changelog
 
+## [v5.1.0](https://github.com/geertmeersman/robonect/tree/v5.1.0) (2025-11-03)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.0.0...v5.1.0)
+
+**Closed issues:**
+
+- Question about triggers when stuck/picked up [\#336](https://github.com/geertmeersman/robonect/issues/336)
+
+**Merged pull requests:**
+
+- feat: Added a new sync clock button to control device time synchronization [\#352](https://github.com/geertmeersman/robonect/pull/352) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump actions/upload-artifact from 4 to 5 [\#351](https://github.com/geertmeersman/robonect/pull/351) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore: archived ruff-actions replaced [\#350](https://github.com/geertmeersman/robonect/pull/350) ([geertmeersman](https://github.com/geertmeersman))
+- chore: requirements cleanup [\#349](https://github.com/geertmeersman/robonect/pull/349) ([geertmeersman](https://github.com/geertmeersman))
+- fix: removed colorlog from requirements [\#348](https://github.com/geertmeersman/robonect/pull/348) ([geertmeersman](https://github.com/geertmeersman))
+- build\(deps\): bump ruff from 0.14.0 to 0.14.1 [\#347](https://github.com/geertmeersman/robonect/pull/347) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(release\): improved release workflow [\#345](https://github.com/geertmeersman/robonect/pull/345) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.0.0](https://github.com/geertmeersman/robonect/tree/v5.0.0) (2025-10-17)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v4.1.0...v5.0.0)
