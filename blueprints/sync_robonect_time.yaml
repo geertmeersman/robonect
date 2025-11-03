@@ -1,7 +1,8 @@
 blueprint:
   name: Daily Sync Robonect Time To DST
   description: >
-    Presses the time sync button at a specific time each day to synchronize time.
+    Presses the Robonect time sync button at a specific time each day.
+    The Robonect device will synchronize its clock using SNTP and update daylight saving settings.
   domain: automation
   input:
     sync_time:
