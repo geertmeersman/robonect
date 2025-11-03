@@ -13,7 +13,6 @@ A Home Assistant integration to monitor Robonect
 - REST API client
 - All Robonect sensors (if MQTT enabled priority to MQTT sensors over REST)
 - Automower lawn mower entity
-- Automower vacuum entity (remains until the lawn mower entity, introduced in 2023.9 will be fully developed)
 - Buttons (change mode, start, stop, return home, ...)
 - Service calls to Robonect actions, like scheduling a job, modifying a timer
 
@@ -116,31 +115,6 @@ This integration will set up the following platforms.
 | Platform   | Description                           |
 | ---------- | ------------------------------------- |
 | `robonect` | Home Assistant component for Robonect |
-
-## Contributions are welcome
-
-If you want to contribute to this please read the [Contribution guidelines](CONTRIBUTING.md)
-
-## Troubleshooting
-
-[![discord](http://invidget.switchblade.xyz/wZHsA4aGvS)](https://discord.gg/wZHsA4aGvS)
-
-### Frequently asked questions
-
-- I am missing a lot of sensors: please check that the MQTT topic you have entered in the HA config flow equals the MQTT topic in Robonect
-- If you would be expecting specific sensors and you don't see them, make sure your Robonect firmware is up to date.
-
-### Enable debug logging
-
-To enable debug logging, go to Settings -> Devices & Services and then click the triple dots for the Robonect integration and click Enable Debug Logging.
-
-![enable-debug-logging](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/enable-debug-logging.gif)
-
-### Disable debug logging and download logs
-
-Once you enable debug logging, you ideally need to make the error happen. Run your automation, change up your device or whatever was giving you an error and then come back and disable Debug Logging. Disabling debug logging is the same as enabling, but now you will see Disable Debug Logging. After you disable debug logging, it will automatically prompt you to download your log file. Please provide this logfile.
-
-![disable-debug-logging](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/disable-debug-logging.gif)
 
 ## Extra sensor for daily mowing time
 
@@ -665,8 +639,8 @@ cards:
 - **Name**: `job`
 - **Description**: The mower performs a mowing job.
   - **Fields**:
-    - `entity_id`: The entity ID of the Robonect vacuum.
-      - **Example**: `vacuum.automower_robonect`
+    - `entity_id`: The entity ID of the Robonect mower.
+      - **Example**: `lawn_mower.automower_robonect`
     - `start`: Start time in 'hh:mm'. If omitted, the job starts immediately.
       - **Example**: `"10:00"`
     - `end`: End time in 'hh:mm'.
@@ -699,8 +673,8 @@ cards:
 - **Name**: `timer`
 - **Description**: Modify a Robonect timer.
   - **Fields**:
-    - `entity_id`: The entity ID of the Robonect vacuum.
-      - **Example**: `vacuum.automower_robonect`
+    - `entity_id`: The entity ID of the Robonect mower.
+      - **Example**: `lawn_mower.automower_robonect`
     - `timer`: Timer ID.
       - **Example**: `"1"`
       - **Default**: `"1"`
@@ -720,7 +694,7 @@ cards:
 - **Description**: Control GPIO or OUT channels, set modes, handle errors, and signal inversion.
   - **Fields**:
     - `entity_id`: The entity ID of the Robonect mower.
-      - **Example**: `vacuum.automower_robonect`
+      - **Example**: `lawn_mower.automower_robonect`
     - `ext`: External equipment selection.
       - **Options**:
         - `GPIO1`, `GPIO2`, `OUT1`, `OUT2`
@@ -739,13 +713,27 @@ cards:
 - **Description**: Direct a Robonect mower by setting the speed percentage for each wheel and duration.
   - **Fields**:
     - `entity_id`: The entity ID of the Robonect mower.
-      - **Example**: `vacuum.automower_robonect`
+      - **Example**: `lawn_mower.automower_robonect`
     - `left`: The speed percentage of the left wheel. Positive or negative.
       - **Example**: `50%`
     - `right`: The speed percentage of the right wheel. Positive or negative.
       - **Example**: `50%`
     - `timeout`: The timeout/duration in milliseconds.
       - **Example**: `3000 ms`
+
+## Blueprints
+
+### Syncing Robonect Time
+
+Automatically press a Robonect clock sync button at a specific time each day to keep your mower’s internal clock accurate and aligned with Home Assistant time.
+
+This blueprint allows you to configure the target button entity (e.g. button.automower_sync_clock) and choose the time of day when synchronization should occur.
+
+The options that are sent are to sync automatically over the Internet with automatic summer/winter time adjustment active.
+
+It’s a simple, reliable way to ensure your mower’s schedule and time-based automations stay precise — no manual syncing required. 🌱🕓
+
+[![Import the blueprint.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fgeertmeersman%2Frobonect%2Fblob%2Fmain%2Fblueprints%2Fsync_robonect_time.yaml)
 
 ## Screenshots
 
@@ -785,3 +773,28 @@ cards:
 Note: if the sensor is a REST sensor and the category does not equal 'status', the sensor will only be updated during the non-sleeping phase of the mower
 
 ![rest_category](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/rest_category.png)
+
+## Contributions are welcome
+
+If you want to contribute to this please read the [Contribution guidelines](CONTRIBUTING.md)
+
+## Troubleshooting
+
+[![discord](http://invidget.switchblade.xyz/wZHsA4aGvS)](https://discord.gg/wZHsA4aGvS)
+
+### Frequently asked questions
+
+- I am missing a lot of sensors: please check that the MQTT topic you have entered in the HA config flow equals the MQTT topic in Robonect
+- If you would be expecting specific sensors and you don't see them, make sure your Robonect firmware is up to date.
+
+### Enable debug logging
+
+To enable debug logging, go to Settings -> Devices & Services and then click the triple dots for the Robonect integration and click Enable Debug Logging.
+
+![enable-debug-logging](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/enable-debug-logging.gif)
+
+### Disable debug logging and download logs
+
+Once you enable debug logging, you ideally need to make the error happen. Run your automation, change up your device or whatever was giving you an error and then come back and disable Debug Logging. Disabling debug logging is the same as enabling, but now you will see Disable Debug Logging. After you disable debug logging, it will automatically prompt you to download your log file. Please provide this logfile.
+
+![disable-debug-logging](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/disable-debug-logging.gif)

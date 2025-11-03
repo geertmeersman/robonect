@@ -54,6 +54,12 @@ BUTTON_TYPES = (
         category="NONE",
     ),
     RobonectButtonEntityDescription(
+        key="sync_clock",
+        icon="mdi:update",
+        cmd="clock",
+        category="NONE",
+    ),
+    RobonectButtonEntityDescription(
         key="home",
         icon="mdi:home-import-outline",
         topic="control/mode",

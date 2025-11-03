@@ -156,6 +156,9 @@
       },
       "stop": {
         "name": "Stop"
+      },
+      "sync_clock": {
+        "name": "Klok synchroniseren"
       }
     },
     "device_tracker": {

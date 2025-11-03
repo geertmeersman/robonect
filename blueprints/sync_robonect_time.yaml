@@ -1,0 +1,32 @@
+blueprint:
+  name: Daily Sync Robonect Time To DST
+  description: >
+    Presses the time sync button at a specific time each day to synchronize time.
+  domain: automation
+  input:
+    sync_time:
+      name: Sync Time
+      description: Time of day when the sync should run.
+      default: "04:00:00"  # default placeholder for YAML validation
+      selector:
+        time: {}
+    target_button:
+      name: Target Button
+      description: The Robonect button entity to press for time synchronization.
+      default: button.automower_sync_clock  # default placeholder for YAML validation
+      selector:
+        entity:
+          domain: button
+
+trigger:
+  - platform: time
+    at: !input sync_time  # Home Assistant will resolve !input at runtime
+
+condition: []
+
+action:
+  - service: button.press
+    target:
+      entity_id: !input target_button  # Home Assistant will resolve !input at runtime
+
+mode: single
