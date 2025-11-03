@@ -1,5 +1,13 @@
 # Changelog
 
+## [v5.1.1](https://github.com/geertmeersman/robonect/tree/v5.1.1) (2025-11-03)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.0...v5.1.1)
+
+**Merged pull requests:**
+
+- fix: Renamed sync clock command [\#353](https://github.com/geertmeersman/robonect/pull/353) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.0](https://github.com/geertmeersman/robonect/tree/v5.1.0) (2025-11-03)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.0.0...v5.1.0)
