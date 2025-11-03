@@ -40,7 +40,7 @@ class RobonectClient:
         self.client = None
         self.is_sleeping = None
         self.transform_json = transform_json
-        self._semaphore = asyncio.Semaphore(2)
+        self._semaphore = asyncio.Semaphore(1)
         if username is not None and password is not None:
             self.auth = (username, password)
 
