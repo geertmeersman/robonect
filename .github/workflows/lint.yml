@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout the repository"
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: "Run Ruff"
         uses: astral-sh/ruff-action@v3
