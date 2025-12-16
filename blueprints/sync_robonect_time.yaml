@@ -32,7 +32,7 @@ trigger:
 
 conditions:
   - condition: state
-    entity_id: !input winter_mode # Home Assistant will resolve !winter_mode at runtime
+    entity_id: !input winter_mode # Home Assistant will resolve !input at runtime
     state:
       - "off"
 
