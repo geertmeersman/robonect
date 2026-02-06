@@ -6,7 +6,7 @@
     "error": {
       "cannot_connect": "Cannot connect",
       "invalid_auth": "Invalid authentication | {exception}",
-      "mqtt_disabled": "MQTT integration is not available.\nAdd it to Home Assistant (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nYou can choose to use only REST API monitoring.",
+      "mqtt_disabled": "MQTT integration is not available.\nAdd it to Home Assistant.\n\nYou can choose to use only REST API monitoring.",
       "service_error": "Service not available",
       "topic_used": "MQTT Topic already in use",
       "unknown": "Unexpected error | {exception}"
@@ -859,7 +859,7 @@
     "error": {
       "cannot_connect": "Unable to connect",
       "invalid_auth": "Invalid authentication",
-      "mqtt_disabled": "MQTT integration is not available.\nAdd them to Home Assistant (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nYou can choose to use only REST API monitoring.",
+      "mqtt_disabled": "MQTT integration is not available.\nAdd them to Home Assistant.\n\nYou can choose to use only REST API monitoring.",
       "service_error": "Service not available",
       "unknown": "Unexpected error"
     },

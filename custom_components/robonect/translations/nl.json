@@ -6,7 +6,7 @@
     "error": {
       "cannot_connect": "Kan geen verbinding maken",
       "invalid_auth": "Ongeldige authenticatie | {exception}",
-      "mqtt_disabled": "MQTT integratie is niet beschikbaar.\nVoeg ze toe aan Home Assistant (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nJe kan uiteraard kiezen om enkel REST API monitoring te gebruiken.",
+      "mqtt_disabled": "MQTT integratie is niet beschikbaar.\nVoeg ze toe aan Home Assistant.\n\nJe kan uiteraard kiezen om enkel REST API monitoring te gebruiken.",
       "service_error": "Service niet beschikbaar",
       "topic_used": "MQTT Topic reeds in gebruik",
       "unknown": "Onverwachte fout | {exception}"
@@ -859,7 +859,7 @@
     "error": {
       "cannot_connect": "Kan geen verbinding maken",
       "invalid_auth": "Ongeldige authenticatie",
-      "mqtt_disabled": "MQTT integratie is niet beschikbaar.\nVoeg ze toe aan Home Assistant (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nJe kan uiteraard kiezen om enkel REST API monitoring te gebruiken.",
+      "mqtt_disabled": "MQTT integratie is niet beschikbaar.\nVoeg ze toe aan Home Assistant.\n\nJe kan uiteraard kiezen om enkel REST API monitoring te gebruiken.",
       "service_error": "Service niet beschikbaar",
       "unknown": "Onverwachte fout"
     },
