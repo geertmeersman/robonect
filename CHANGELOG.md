@@ -1,5 +1,22 @@
 # Changelog
 
+## [v5.1.2](https://github.com/geertmeersman/robonect/tree/v5.1.2) (2026-02-06)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.1...v5.1.2)
+
+**Closed issues:**
+
+- Exception in callback Entity.\_async\_write\_ha\_state\_from\_call\_soon\_threadsafe\(\) [\#354](https://github.com/geertmeersman/robonect/issues/354)
+- Updating state for .... took ... seconds warning [\#341](https://github.com/geertmeersman/robonect/issues/341)
+
+**Merged pull requests:**
+
+- fix: Improved shutdown/unload handling, fixes \#354 [\#359](https://github.com/geertmeersman/robonect/pull/359) ([geertmeersman](https://github.com/geertmeersman))
+- fix: Removed urls from translations [\#358](https://github.com/geertmeersman/robonect/pull/358) ([geertmeersman](https://github.com/geertmeersman))
+- chore: added winter mode condition for sync time blueprint [\#357](https://github.com/geertmeersman/robonect/pull/357) ([geertmeersman](https://github.com/geertmeersman))
+- chore\(deps\): bump actions/upload-artifact from 5 to 6 [\#356](https://github.com/geertmeersman/robonect/pull/356) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps\): bump actions/checkout from 5 to 6 [\#355](https://github.com/geertmeersman/robonect/pull/355) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v5.1.1](https://github.com/geertmeersman/robonect/tree/v5.1.1) (2025-11-03)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.0...v5.1.1)
