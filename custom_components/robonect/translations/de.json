@@ -6,7 +6,7 @@
     "error": {
       "cannot_connect": "Verbindung konnte nicht hergestellt werden",
       "invalid_auth": "Ung\u00fcltige Authentifizierung | {exception}",
-      "mqtt_disabled": "MQTT-Integration ist nicht verf\u00fcgbar.\nF\u00fcgen Sie sie zu Home Assistant hinzu (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nSie k\u00f6nnen nat\u00fcrlich auch nur die REST API \u00dcberwachung verwenden.",
+      "mqtt_disabled": "MQTT-Integration ist nicht verf\u00fcgbar.\nF\u00fcgen Sie sie zu Home Assistant hinzu.\n\nSie k\u00f6nnen nat\u00fcrlich auch nur die REST API \u00dcberwachung verwenden.",
       "service_error": "Dienst ist nicht verf\u00fcgbar",
       "topic_used": "MQTT Thema wird bereits verwendet",
       "unknown": "Unerwarteter Fehler | {exception}"
@@ -859,7 +859,7 @@
     "error": {
       "cannot_connect": "Verbindung kann nicht hergestellt werden",
       "invalid_auth": "Ung\u00fcltige Authentifizierung",
-      "mqtt_disabled": "Die MQTT-Integration ist nicht verf\u00fcgbar.\nF\u00fcgen Sie sie zu Home Assistant hinzu (https://my.home-assistant.io/redirect/config_flow_start?domain=mqtt).\n\nSie k\u00f6nnen nat\u00fcrlich auch nur die REST API-\u00dcberwachung verwenden.",
+      "mqtt_disabled": "Die MQTT-Integration ist nicht verf\u00fcgbar.\nF\u00fcgen Sie sie zu Home Assistant hinzu.\n\nSie k\u00f6nnen nat\u00fcrlich auch nur die REST API-\u00dcberwachung verwenden.",
       "service_error": "Dienst nicht verf\u00fcgbar",
       "unknown": "Unerwarteter Fehler"
     },
