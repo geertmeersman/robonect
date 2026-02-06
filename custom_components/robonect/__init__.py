@@ -230,8 +230,14 @@ async def async_remove_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
 
+    coordinator = hass.data[DOMAIN][entry.entry_id].get("coordinator")
+
     # Unload the platforms first
     if unload_ok := await hass.config_entries.async_unload_platforms(entry, PLATFORMS):
+        if coordinator:
+            coordinator._unloading = True
+            coordinator.async_stop()
+
         hass.data[DOMAIN].pop(entry.entry_id)
 
         # Define blocking file operations
@@ -271,6 +277,7 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
         self.store = store
         self._init = True
         self.hass = hass
+        self._unloading = False
         super().__init__(
             hass,
             _LOGGER,
@@ -297,6 +304,9 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def _async_update_data(self) -> dict | None:
         """Update data."""
+        if self._unloading or self.hass.is_stopping:
+            return self.data or {}
+
         if not self.entry.data.get(CONF_WINTER_MODE, True):
             if self._debug:
                 cleanup = False
