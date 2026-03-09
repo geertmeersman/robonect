@@ -122,11 +122,16 @@ class RobonectEntity(RestoreEntity):
                 retain=False,
             )
 
-    def update_ha_state(self):
-        """Update HA state."""
-        self.last_synced = datetime.now()
-        self.schedule_update_ha_state()
+    @callback
+    def update_ha_state(self) -> None:
+        """Safely write HA state."""
+        if not self.hass:
+            return
 
+        self.last_synced = datetime.now()
+
+        if self.hass.loop.is_running():
+            self.hass.loop.call_soon_threadsafe(self.async_write_ha_state)
 
 class RobonectCoordinatorEntity(
     CoordinatorEntity[RobonectDataUpdateCoordinator], RestoreEntity

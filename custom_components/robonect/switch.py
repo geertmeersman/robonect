@@ -297,7 +297,11 @@ class RobonectRestSwitch(RobonectCoordinatorEntity, RobonectTimerSwitchEntity):
         RobonectTimerSwitchEntity.__init__(
             self, hass, entry, coordinator, description, timer_id
         )
-        self._handle_coordinator_update()
+        if self.coordinator.data and self.category in self.coordinator.data:
+            self._is_on = get_json_dict_path(
+                self.coordinator.data, self.entity_description.rest
+            )
+        self.set_extra_attributes()
 
     @callback
     def _handle_coordinator_update(self) -> None:
