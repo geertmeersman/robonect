@@ -297,7 +297,7 @@ class RobonectRestSwitch(RobonectCoordinatorEntity, RobonectTimerSwitchEntity):
         RobonectTimerSwitchEntity.__init__(
             self, hass, entry, coordinator, description, timer_id
         )
-        self._handle_coordinator_update()
+        #self._handle_coordinator_update()
 
     @callback
     def _handle_coordinator_update(self) -> None:

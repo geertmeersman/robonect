@@ -129,8 +129,9 @@ class RobonectEntity(RestoreEntity):
             return
 
         self.last_synced = datetime.now()
-        self.async_write_ha_state()
 
+        if self.hass.loop.is_running():
+            self.hass.loop.call_soon_threadsafe(self.async_write_ha_state)
 
 class RobonectCoordinatorEntity(
     CoordinatorEntity[RobonectDataUpdateCoordinator], RestoreEntity
