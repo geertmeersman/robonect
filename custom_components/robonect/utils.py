@@ -8,6 +8,7 @@ import math
 import re
 
 from jsonpath import jsonpath
+from homeassistant.components import mqtt
 import pytz
 
 from .const import ATTR_STATE_UNITS, DOMAIN, WEEKDAYS_HEX
@@ -15,6 +16,12 @@ from .const import ATTR_STATE_UNITS, DOMAIN, WEEKDAYS_HEX
 _LOGGER = logging.getLogger(__name__)
 
 _cached_timezone = None
+
+
+async def mqtt_subscribe_entry(hass, entry, topic, callback, qos=0):
+    """Unsubscribe mqtt entries."""
+    unsub = await mqtt.async_subscribe(hass, topic, callback, qos)
+    entry.async_on_unload(unsub)
 
 
 def parse_duration_seconds_to_minutes(payload: str | int) -> str:

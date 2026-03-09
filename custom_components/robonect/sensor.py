@@ -32,6 +32,7 @@ from .utils import (
     filter_out_units,
     get_json_dict_path,
     unix_to_datetime,
+    mqtt_subscribe_entry,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -72,8 +73,12 @@ async def async_setup_entry(
 
     if entry.data[CONF_MQTT_ENABLED] is True:
         _LOGGER.debug(f"MQTT Subscribing to {entry.data[CONF_MQTT_TOPIC]}/#")
-        await mqtt.async_subscribe(
-            hass, f"{entry.data[CONF_MQTT_TOPIC]}/#", async_mqtt_event_received, 0
+        await mqtt_subscribe_entry(
+            hass,
+            entry,
+            f"{entry.data[CONF_MQTT_TOPIC]}/#",
+            async_mqtt_event_received,
+            0,
         )
 
     if entry.data[CONF_REST_ENABLED] is True:
@@ -212,7 +217,9 @@ class RobonectSensor(RobonectEntity, SensorEntity):
             _LOGGER.debug(f"Last state is none for {self._attr_unique_id}")
         """
         if self.entry.data[CONF_MQTT_ENABLED] is True:
-            await mqtt.async_subscribe(self.hass, self.topic, message_received, 1)
+            await mqtt_subscribe_entry(
+                self.hass, self.entry, self.topic, message_received, 1
+            )
 
         await super().async_added_to_hass()
 
