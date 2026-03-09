@@ -1,8 +1,16 @@
 # Changelog
 
+## [v5.1.4](https://github.com/geertmeersman/robonect/tree/v5.1.4) (2026-03-09)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.3...v5.1.4)
+
+**Merged pull requests:**
+
+- fix: ensure MQTT subscriptions are cleaned up on config entry unload [\#364](https://github.com/geertmeersman/robonect/pull/364) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.3](https://github.com/geertmeersman/robonect/tree/v5.1.3) (2026-03-09)
 
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.3-beta.5...v5.1.3)
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.2...v5.1.3)
 
 **Closed issues:**
 
@@ -11,18 +19,7 @@
 **Merged pull requests:**
 
 - fix: thread safety for ha state writing, fixes \#361 [\#363](https://github.com/geertmeersman/robonect/pull/363) ([geertmeersman](https://github.com/geertmeersman))
-
-## [v5.1.3-beta.5](https://github.com/geertmeersman/robonect/tree/v5.1.3-beta.5) (2026-03-09)
-
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.3-beta.1...v5.1.3-beta.5)
-
-**Merged pull requests:**
-
 - chore\(deps\): bump actions/upload-artifact from 6 to 7 [\#360](https://github.com/geertmeersman/robonect/pull/360) ([dependabot[bot]](https://github.com/apps/dependabot))
-
-## [v5.1.3-beta.1](https://github.com/geertmeersman/robonect/tree/v5.1.3-beta.1) (2026-03-02)
-
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.2...v5.1.3-beta.1)
 
 ## [v5.1.2](https://github.com/geertmeersman/robonect/tree/v5.1.2) (2026-02-06)
 
