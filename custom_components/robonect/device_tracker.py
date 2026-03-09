@@ -211,8 +211,8 @@ class RobonectGPSEntity(RobonectEntity, TrackerEntity, RestoreEntity):
                 ),
             ]
 
-            for topic, callback in topics:
-                await mqtt_subscribe_entry(self.hass, self.entry, topic, callback, 1)
+            for topic, cb in topics:
+                await mqtt_subscribe_entry(self.hass, self.entry, topic, cb, 1)
 
         # Don't restore if status is fetched from coordinator data
         if self.entry.data[CONF_MQTT_ENABLED] is False and self.update_rest_gps_state():
