@@ -1,5 +1,29 @@
 # Changelog
 
+## [v5.1.3](https://github.com/geertmeersman/robonect/tree/v5.1.3) (2026-03-09)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.3-beta.5...v5.1.3)
+
+**Closed issues:**
+
+- Startup race: "Attribute hass is None" beim Anlegen der MQTT Lawn-Mower-Entität \(HA 2026.2.3, Robonect v5.1.2, MQTT+REST\) [\#361](https://github.com/geertmeersman/robonect/issues/361)
+
+**Merged pull requests:**
+
+- fix: thread safety for ha state writing, fixes \#361 [\#363](https://github.com/geertmeersman/robonect/pull/363) ([geertmeersman](https://github.com/geertmeersman))
+
+## [v5.1.3-beta.5](https://github.com/geertmeersman/robonect/tree/v5.1.3-beta.5) (2026-03-09)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.3-beta.1...v5.1.3-beta.5)
+
+**Merged pull requests:**
+
+- chore\(deps\): bump actions/upload-artifact from 6 to 7 [\#360](https://github.com/geertmeersman/robonect/pull/360) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [v5.1.3-beta.1](https://github.com/geertmeersman/robonect/tree/v5.1.3-beta.1) (2026-03-02)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.2...v5.1.3-beta.1)
+
 ## [v5.1.2](https://github.com/geertmeersman/robonect/tree/v5.1.2) (2026-02-06)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.1...v5.1.2)
