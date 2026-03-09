@@ -35,6 +35,7 @@ from .utils import (
     get_json_dict_path,
     parse_duration_seconds_to_minutes,
     unix_to_datetime,
+    mqtt_subscribe_entry,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -77,8 +78,12 @@ async def async_setup_entry(
 
     if entry.data[CONF_MQTT_ENABLED] is True:
         _LOGGER.debug("Creating MQTT Lawn mower")
-        await mqtt.async_subscribe(
-            hass, f"{entry.data[CONF_MQTT_TOPIC]}/mqtt", async_mqtt_event_received, 0
+        await mqtt_subscribe_entry(
+            hass,
+            entry,
+            f"{entry.data[CONF_MQTT_TOPIC]}/mqtt",
+            async_mqtt_event_received,
+            0,
         )
     elif entry.data[CONF_REST_ENABLED] is True:
         _LOGGER.debug("Creating REST Lawn mower")
@@ -273,30 +278,28 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
                 self._attributes |= {slug: payload}
 
         if self.entry.data[CONF_MQTT_ENABLED] is True:
-            await mqtt.async_subscribe(
-                self.hass,
-                f"{self.entry.data[CONF_MQTT_TOPIC]}/mower/battery/charge",
-                battery_received,
-                1,
-            )
-            await mqtt.async_subscribe(
-                self.hass,
-                f"{self.entry.data[CONF_MQTT_TOPIC]}/mower/status",
-                state_received,
-                1,
-            )
-            await mqtt.async_subscribe(
-                self.hass,
-                f"{self.entry.data[CONF_MQTT_TOPIC]}/mower/substatus",
-                substatus_received,
-                1,
-            )
-            await mqtt.async_subscribe(
-                self.hass,
-                f"{self.entry.data[CONF_MQTT_TOPIC]}/mower/#",
-                topic_received,
-                1,
-            )
+            topics = [
+                (
+                    f"{self.entry.data[CONF_MQTT_TOPIC]}/mower/battery/charge",
+                    battery_received,
+                ),
+                (
+                    f"{self.entry.data[CONF_MQTT_TOPIC]}/mower/status",
+                    state_received,
+                ),
+                (
+                    f"{self.entry.data[CONF_MQTT_TOPIC]}/mower/substatus",
+                    substatus_received,
+                ),
+                (
+                    f"{self.entry.data[CONF_MQTT_TOPIC]}/mower/#",
+                    topic_received,
+                ),
+            ]
+
+            for topic, cb in topics:
+                await mqtt_subscribe_entry(self.hass, self.entry, topic, cb, 1)
+
         # Don't restore if status is fetched from coordinator data
         if self.entry.data[CONF_MQTT_ENABLED] is False and self.update_rest_state():
             await super().async_added_to_hass()

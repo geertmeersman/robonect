@@ -28,7 +28,12 @@ from .definitions import SWITCHES, RobonectSwitchEntityDescription
 from .entity import RobonectCoordinatorEntity, RobonectEntity
 from .exceptions import RobonectException
 from .models import RobonectTimer
-from .utils import adapt_attributes, get_json_dict_path, hex2weekdays
+from .utils import (
+    adapt_attributes,
+    get_json_dict_path,
+    hex2weekdays,
+    mqtt_subscribe_entry,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -75,8 +80,9 @@ async def async_setup_entry(
                 )
 
     if entry.data[CONF_MQTT_ENABLED] is True:
-        await mqtt.async_subscribe(
+        await mqtt_subscribe_entry(
             hass,
+            entry,
             f"{timer_topic}#",
             async_mqtt_event_received,
             0,
@@ -270,8 +276,9 @@ class RobonectTimerSwitchEntity(RobonectEntity, SwitchEntity, RestoreEntity):
             self.update_ha_state()
 
         if self.entry.data[CONF_MQTT_ENABLED] is True and self.category == "timer":
-            await mqtt.async_subscribe(
+            await mqtt_subscribe_entry(
                 self.hass,
+                self.entry,
                 f"{self.entry.data[CONF_MQTT_TOPIC]}/mower/timer/ch{self.timer_id}/#",
                 timer_received,
                 1,

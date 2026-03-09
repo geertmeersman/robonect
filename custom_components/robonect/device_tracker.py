@@ -24,7 +24,11 @@ from .const import (
     DOMAIN,
 )
 from .entity import RobonectCoordinatorEntity, RobonectEntity
-from .utils import convert_coordinate_degree_to_float, filter_out_units
+from .utils import (
+    convert_coordinate_degree_to_float,
+    filter_out_units,
+    mqtt_subscribe_entry,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -55,14 +59,7 @@ async def async_setup_entry(
 
         async_add_entities([RobonectMqttGPSEntity(hass, entry)])
 
-    if entry.data[CONF_MQTT_ENABLED] is True:
-        await mqtt.async_subscribe(
-            hass,
-            f"{entry.data[CONF_MQTT_TOPIC]}/gps/latitude",
-            async_mqtt_event_received,
-            0,
-        )
-    elif entry.data[CONF_REST_ENABLED] is True:
+    if entry.data[CONF_MQTT_ENABLED] is False and entry.data[CONF_REST_ENABLED] is True:
         _LOGGER.debug("Creating REST device tracker")
         coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id][
             "coordinator"
@@ -197,31 +194,25 @@ class RobonectGPSEntity(RobonectEntity, TrackerEntity, RestoreEntity):
             self._attributes |= {"satellites": message.payload}
             self.update_ha_state()
 
-        if self.entry.data[CONF_MQTT_ENABLED] is True:
-            await mqtt.async_subscribe(
-                self.hass,
-                f"{self.entry.data[CONF_MQTT_TOPIC]}/gps/latitude",
-                latitude_received,
-                1,
-            )
-            await mqtt.async_subscribe(
-                self.hass,
-                f"{self.entry.data[CONF_MQTT_TOPIC]}/gps/longitude",
-                longitude_received,
-                1,
-            )
-            await mqtt.async_subscribe(
-                self.hass,
-                f"{self.entry.data[CONF_MQTT_TOPIC]}/gps/satellites",
-                satellites_received,
-                1,
-            )
-            await mqtt.async_subscribe(
-                self.hass,
-                f"{self.entry.data[CONF_MQTT_TOPIC]}/mower/battery/charge",
-                battery_received,
-                1,
-            )
+        if self.entry.data[CONF_MQTT_ENABLED]:
+            topics = [
+                (f"{self.entry.data[CONF_MQTT_TOPIC]}/gps/latitude", latitude_received),
+                (
+                    f"{self.entry.data[CONF_MQTT_TOPIC]}/gps/longitude",
+                    longitude_received,
+                ),
+                (
+                    f"{self.entry.data[CONF_MQTT_TOPIC]}/gps/satellites",
+                    satellites_received,
+                ),
+                (
+                    f"{self.entry.data[CONF_MQTT_TOPIC]}/mower/battery/charge",
+                    battery_received,
+                ),
+            ]
+
+            for topic, cb in topics:
+                await mqtt_subscribe_entry(self.hass, self.entry, topic, cb, 1)
 
         # Don't restore if status is fetched from coordinator data
         if self.entry.data[CONF_MQTT_ENABLED] is False and self.update_rest_gps_state():
