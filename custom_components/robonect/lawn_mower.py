@@ -135,7 +135,7 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
         self.entry = entry
         super().__init__(hass, entry, self.entity_description)
         self._attr_translation_key = "automower"
-        self.entity_id = f"lawn_mower.{self.base_topic}_robonect"
+        self.entity_id = f"lawn_mower.{self.slug}"
         self._battery = None
         self._attributes = {}
         self._attr_state = None
