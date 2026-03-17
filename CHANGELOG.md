@@ -1,5 +1,18 @@
 # Changelog
 
+## [v5.1.5](https://github.com/geertmeersman/robonect/tree/v5.1.5) (2026-03-17)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.4...v5.1.5)
+
+**Closed issues:**
+
+- Invalid ID warning in log [\#366](https://github.com/geertmeersman/robonect/issues/366)
+
+**Merged pull requests:**
+
+- fix: slugify lawn\_mower entity\_id, fixes \#366 [\#367](https://github.com/geertmeersman/robonect/pull/367) ([geertmeersman](https://github.com/geertmeersman))
+- chore\(deps\): bump release-drafter/release-drafter from 6 to 7 [\#365](https://github.com/geertmeersman/robonect/pull/365) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v5.1.4](https://github.com/geertmeersman/robonect/tree/v5.1.4) (2026-03-09)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.3...v5.1.4)
