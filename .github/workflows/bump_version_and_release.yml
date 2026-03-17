@@ -50,7 +50,7 @@ jobs:
           echo $tag_name > VERSION
 
       - name: 📝　Publish release
-        uses: release-drafter/release-drafter@v6
+        uses: release-drafter/release-drafter@v7
         id: release_published
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
