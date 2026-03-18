@@ -62,7 +62,23 @@ class RobonectClient:
     async def async_cmd(
         self, command: str | None = None, params: dict | str | None = None
     ) -> dict | bool | None:
-        """Publieke toegang met Semaphore om concurrency problemen te voorkomen."""
+        """Send a command to the mower and return the processed response.
+
+        This method ensures thread-safe communication by using an internal
+        semaphore to prevent concurrent requests to the Robonect API.
+
+        Args:
+            command: The Robonect API command to execute (e.g., 'status', 'start').
+            params: Optional dictionary or string of parameters for the command.
+
+        Returns:
+            The API response as a dictionary, True/False for specific actions
+            (like clock sync), or None if the command was skipped.
+
+        Raises:
+            RobonectException: If the request fails or the mower is unreachable.
+
+        """
         if command is None:
             return False
 
