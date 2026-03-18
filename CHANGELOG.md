@@ -1,5 +1,13 @@
 # Changelog
 
+## [v5.1.6](https://github.com/geertmeersman/robonect/tree/v5.1.6) (2026-03-18)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.5...v5.1.6)
+
+**Merged pull requests:**
+
+- fix: mqtt device tracker back in business [\#368](https://github.com/geertmeersman/robonect/pull/368) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.5](https://github.com/geertmeersman/robonect/tree/v5.1.5) (2026-03-17)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.4...v5.1.5)
