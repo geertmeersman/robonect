@@ -79,8 +79,9 @@ class RobonectClient:
             RobonectException: If the request fails or the mower is unreachable.
 
         """
-        if command is None:
-            return False
+        if not command:
+            _LOGGER.error("Missing command in async_cmd")
+            return {"successful": False, "error": "missing_command"}
 
         async with self._semaphore:
             await self.client_start()
