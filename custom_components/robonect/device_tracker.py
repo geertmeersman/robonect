@@ -121,7 +121,7 @@ class RobonectGPSEntity(RobonectEntity, TrackerEntity, RestoreEntity):
         self._latitude = None
         self._satellites = None
         self._battery = None
-        self._attributes = None
+        self._attributes = {}
 
     @property
     def battery_level(self) -> int | None:

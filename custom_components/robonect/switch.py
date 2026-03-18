@@ -193,7 +193,7 @@ class RobonectTimerSwitchEntity(RobonectEntity, SwitchEntity, RestoreEntity):
         super().__init__(hass, entry, self.entity_description)
         self.category = self.entity_description.category
         self.entity_id = f"switch.{self.slug}"
-        self._attributes = None
+        self._attributes = {}
         self._is_on = False
         self._weekdays = None
         self._weekdays_str = None
