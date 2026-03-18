@@ -48,7 +48,7 @@ class RobonectClient:
         """Start a new, isolated httpx client."""
         if not self.client:
             self.client = create_async_httpx_client(
-                self.hass, timeout=httpx.Timeout(20.0, read=20.0)
+                self.hass, timeout=httpx.Timeout(10.0, read=10.0)
             )
             if self.auth:
                 self.client.auth = self.auth
@@ -62,8 +62,29 @@ class RobonectClient:
     async def async_cmd(
         self, command: str | None = None, params: dict | str | None = None
     ) -> dict | bool | None:
-        """Send command to mower."""
+        """Send a command to the mower and return the processed response.
+
+        This method ensures thread-safe communication by using an internal
+        semaphore to prevent concurrent requests to the Robonect API.
+
+        Args:
+            command: The Robonect API command to execute (e.g., 'status', 'start').
+            params: Optional dictionary or string of parameters for the command.
+
+        Returns:
+            The API response as a dictionary, True/False for specific actions
+            (like clock sync), or None if the command was skipped.
+
+        Raises:
+            RobonectException: If the request fails or the mower is unreachable.
+
+        """
+        if not command:
+            _LOGGER.error("Missing command in async_cmd")
+            return {"successful": False, "error": "missing_command"}
+
         async with self._semaphore:
+            await self.client_start()
             return await self._async_cmd_impl(command, params)
 
     async def _async_cmd_impl(
