@@ -61,8 +61,8 @@ async def async_setup_entry(
 
     if entry.data[CONF_MQTT_ENABLED] is True:
         await mqtt_subscribe_entry(
-            hass, 
-            entry, 
+            hass,
+            entry,
             f"{entry.data[CONF_MQTT_TOPIC]}/gps/latitude",
             async_mqtt_event_received,
             0,
