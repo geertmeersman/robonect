@@ -59,6 +59,15 @@ async def async_setup_entry(
 
         async_add_entities([RobonectMqttGPSEntity(hass, entry)])
 
+    if entry.data[CONF_MQTT_ENABLED] is True:
+        await mqtt_subscribe_entry(
+            hass,
+            entry,
+            f"{entry.data[CONF_MQTT_TOPIC]}/gps/latitude",
+            async_mqtt_event_received,
+            0,
+        )
+
     if entry.data[CONF_MQTT_ENABLED] is False and entry.data[CONF_REST_ENABLED] is True:
         _LOGGER.debug("Creating REST device tracker")
         coordinator: RobonectDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id][
@@ -112,7 +121,7 @@ class RobonectGPSEntity(RobonectEntity, TrackerEntity, RestoreEntity):
         self._latitude = None
         self._satellites = None
         self._battery = None
-        self._attributes = None
+        self._attributes = {}
 
     @property
     def battery_level(self) -> int | None:
@@ -137,6 +146,11 @@ class RobonectGPSEntity(RobonectEntity, TrackerEntity, RestoreEntity):
         """Return the source type of the device."""
         return SourceType.GPS
 
+    @property
+    def extra_state_attributes(self) -> dict:
+        """Return the specific state attributes of this mower."""
+        return self._attributes | {"last_synced": self.last_synced}
+
     def update_rest_gps_state(self):
         """Update state based on REST GPS State."""
         if self.coordinator is None:
@@ -151,7 +165,6 @@ class RobonectGPSEntity(RobonectEntity, TrackerEntity, RestoreEntity):
                 self._longitude = float(gps_state.get(ATTR_LONGITUDE))
                 self._attributes = {
                     "last_synced": self.last_synced,
-                    "category": self.category,
                     ATTR_SATELLITES: gps_state.get(ATTR_SATELLITES),
                 }
             else:
