@@ -48,7 +48,7 @@ class RobonectClient:
         """Start a new, isolated httpx client."""
         if not self.client:
             self.client = create_async_httpx_client(
-                 self.hass, timeout=httpx.Timeout(10.0, read=10.0)
+                self.hass, timeout=httpx.Timeout(10.0, read=10.0)
             )
             if self.auth:
                 self.client.auth = self.auth
@@ -60,16 +60,15 @@ class RobonectClient:
             _LOGGER.debug("Skipping client close; HA manages the shared HTTPX client")
 
     async def async_cmd(
-            self, command: str | None = None, params: dict | str | None = None
-        ) -> dict | bool | None:
-            """Publieke toegang met Semaphore om concurrency problemen te voorkomen."""
-            if command is None:
-                return False
-                
-            async with self._semaphore:
-                # Zorg dat de client gestart is binnen de lock
-                await self.client_start()
-                return await self._async_cmd_impl(command, params)
+        self, command: str | None = None, params: dict | str | None = None
+    ) -> dict | bool | None:
+        """Publieke toegang met Semaphore om concurrency problemen te voorkomen."""
+        if command is None:
+            return False
+
+        async with self._semaphore:
+            await self.client_start()
+            return await self._async_cmd_impl(command, params)
 
     async def _async_cmd_impl(
         self, command: str | None = None, params: dict | str | None = None
