@@ -133,6 +133,7 @@ class RobonectEntity(RestoreEntity):
         if self.hass.loop.is_running():
             self.hass.loop.call_soon_threadsafe(self.async_write_ha_state)
 
+
 class RobonectCoordinatorEntity(
     CoordinatorEntity[RobonectDataUpdateCoordinator], RestoreEntity
 ):
@@ -148,7 +149,7 @@ class RobonectCoordinatorEntity(
         self.entity_description = description
 
     async def async_added_to_hass(self) -> None:
-        """Called when entity is added to Home Assistant."""
+        """Run when entity is added to Home Assistant."""
         await super().async_added_to_hass()
         self._handle_coordinator_update()
 
