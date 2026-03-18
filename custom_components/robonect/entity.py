@@ -147,6 +147,11 @@ class RobonectCoordinatorEntity(
         super().__init__(coordinator)
         self.entity_description = description
 
+    async def async_added_to_hass(self) -> None:
+        """Called when entity is added to Home Assistant."""
+        await super().async_added_to_hass()
+        self._handle_coordinator_update()
+
     @callback
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
