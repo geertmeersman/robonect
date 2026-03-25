@@ -72,7 +72,7 @@ jobs:
           addSections: '{"documentation":{"prefix":"**Documentation:**","labels":["documentation"]}}'
 
       - name: ✅　Commit release notes and bump version
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@v10
         with:
           add: "VERSION CHANGELOG.md custom_components/${{ github.event.repository.name }}/manifest.json"
           message: "chore(release): changelog & bump version to ${{ steps.semver.outputs.next }}"
