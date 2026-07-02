@@ -9,68 +9,88 @@ template: |
   $CHANGES
   **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
 categories:
+  - type: "pre-exclude"
+    when:
+      labels:
+        - skip-changelog
+
+  - type: "version-resolver"
+    semver-increment: "major"
+    when:
+      labels:
+        - major
+  - type: "version-resolver"
+    semver-increment: "minor"
+    when:
+      labels:
+        - minor
+  - type: "version-resolver"
+    semver-increment: "patch"
+    when:
+      labels:
+        - patch
+
   - title: 🚀 Features
-    labels:
-      - feat
-      - feature
-      - enhancement
+    when:
+      labels:
+        - feat
+        - feature
+        - enhancement
   - title: 🐛 Bug Fixes
-    labels:
-      - fix
-      - bug
+    when:
+      labels:
+        - fix
+        - bug
   - title: ⚠️ Breaking
-    labels:
-      - breaking
-      - breaking change
+    when:
+      labels:
+        - breaking
+        - breaking change
   - title: ⚠️ Changes
-    labels:
-      - changed
+    when:
+      labels:
+        - changed
   - title: ⛔️ Deprecated
-    labels:
-      - deprecated
+    when:
+      labels:
+        - deprecated
   - title: 🗑 Removed
-    labels:
-      - removed
+    when:
+      labels:
+        - removed
   - title: 🔐 Security
-    labels:
-      - security
+    when:
+      labels:
+        - security
   - title: 📄 Documentation
-    labels:
-      - docs
-      - doc
-      - documentation
+    when:
+      labels:
+        - docs
+        - doc
+        - documentation
   - title: 🛠 Refactoring
-    labels:
-      - refactor
-      - style
+    when:
+      labels:
+        - refactor
+        - style
   - title: 🚀 Performance
-    labels:
-      - perf
+    when:
+      labels:
+        - perf
   - title: 🧪 Test
-    labels:
-      - test
+    when:
+      labels:
+        - test
   - title: 👷 Chore
-    labels:
-      - chore
+    when:
+      labels:
+        - chore
   - title: 🧩 Dependency Updates
-    labels:
-      - deps
-      - dependencies
+    when:
+      labels:
+        - deps
+        - dependencies
     collapse-after: 5
 
 change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
 change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
-version-resolver:
-  major:
-    labels:
-      - major
-  minor:
-    labels:
-      - minor
-  patch:
-    labels:
-      - patch
-  default: patch
-
-exclude-labels:
-  - skip-changelog

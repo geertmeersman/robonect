@@ -1,0 +1,56 @@
+name: PR - Labeler
+
+on:
+    pull_request:
+        types: [opened, reopened, synchronize]
+
+jobs:
+    label_and_check:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            pull-requests: write
+        steps:
+            - name: Apply labels based on commits
+              uses: actions/github-script@v9
+              with:
+                  script: |
+                      // Labeling based on Conventional Commits (https://www.conventionalcommits.org)
+                      // - major: 'BREAKING CHANGE:' footer or '!' suffix on any type (e.g. feat!: or fix!:)
+                      // - minor: 'feat:' or 'feat(scope):'
+                      // - patch: fix/perf/refactor/revert/build/ci/chore/docs/style/test with optional scope
+                      const { data: commits } = await github.rest.pulls.listCommits({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        pull_number: context.issue.number,
+                      });
+
+                      let labels = new Set();
+                      commits.forEach(c => {
+                        const msg = c.commit.message.toLowerCase();
+                        if (msg.includes('breaking change:') || /^[a-z]+(\([^)]+\))?!:/.test(msg)) labels.add('major');
+                        else if (/^feat(\([^)]+\))?:/.test(msg)) labels.add('minor');
+                        else if (/^(fix|perf|refactor|revert|build|ci|chore|docs|style|test)(\([^)]+\))?:/.test(msg)) labels.add('patch');
+                      });
+
+                      const labelsToAdd = Array.from(labels);
+                      if (labelsToAdd.length > 0) {
+                        await github.rest.issues.addLabels({
+                          owner: context.repo.owner,
+                          repo: context.repo.repo,
+                          issue_number: context.issue.number,
+                          labels: labelsToAdd
+                        });
+                      }
+
+                      // Check if we now have a label
+                      const { data: pr } = await github.rest.pulls.get({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        pull_number: context.issue.number,
+                      });
+
+                      const hasSemVer = pr.labels.some(l => ['major', 'minor', 'patch'].includes(l.name));
+                      if (!hasSemVer && labelsToAdd.length === 0) {
+                        core.setFailed('No SemVer label found! Add a feat, fix or breaking change to your commits.');
+                      }
