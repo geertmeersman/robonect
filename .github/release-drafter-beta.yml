@@ -3,39 +3,51 @@ template: |
   ## This is a beta release
 
 categories:
+  - type: "pre-exclude"
+    when:
+      labels:
+        - skip-changelog
+
   - title: 🚀 Features
-    labels:
-      - feature
-      - enhancement
+    when:
+      labels:
+        - feature
+        - enhancement
   - title: 🐛 Bug Fixes
-    labels:
-      - fix
-      - bug
+    when:
+      labels:
+        - fix
+        - bug
   - title: ⚠️ Breaking
-    labels:
-      - breaking
+    when:
+      labels:
+        - breaking
   - title: ⚠️ Changes
-    labels:
-      - changed
+    when:
+      labels:
+        - changed
   - title: ⛔️ Deprecated
-    labels:
-      - deprecated
+    when:
+      labels:
+        - deprecated
   - title: 🗑 Removed
-    labels:
-      - removed
+    when:
+      labels:
+        - removed
   - title: 🔐 Security
-    labels:
-      - security
+    when:
+      labels:
+        - security
   - title: 📄 Documentation
-    labels:
-      - docs
-      - documentation
+    when:
+      labels:
+        - docs
+        - documentation
   - title: 🧩 Dependency Updates
-    labels:
-      - deps
-      - dependencies
+    when:
+      labels:
+        - deps
+        - dependencies
 
 change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
 change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
-exclude-labels:
-  - skip-changelog
