@@ -120,7 +120,7 @@ BINARY_SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
     RobonectSensorEntityDescription(
         key="mower/error",
         rest="$.status.status.status",
-        rest_attrs="$.error.errors.0",
+        rest_attrs="$.error.errors[0]",
         icon="mdi:alert-octagon",
         category="status",
     ),
@@ -130,8 +130,8 @@ SWITCHES: tuple[RobonectSwitchEntityDescription, ...] = (
     RobonectSwitchEntityDescription(
         key=".timer/0",
         array=True,
-        rest="$.timer.timer.0.enabled",
-        rest_attrs="$.timer.timer.0",
+        rest="$.timer.timer[0].enabled",
+        rest_attrs="$.timer.timer[0]",
         icon="mdi:calendar-clock",
         entity_category=EntityCategory.DIAGNOSTIC,
         category="timer",
@@ -188,8 +188,8 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
     ),
     RobonectSensorEntityDescription(
         key=".battery/0",
-        rest="$.battery.batteries.0.charge",
-        rest_attrs="$.battery.batteries.0",
+        rest="$.battery.batteries[0].charge",
+        rest_attrs="$.battery.batteries[0]",
         array=True,
         device_class=SensorDeviceClass.BATTERY,
         state_class=SensorStateClass.MEASUREMENT,
@@ -348,7 +348,7 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
     ),
     RobonectSensorEntityDescription(
         key="mower/error/code",
-        rest="$.error.errors.0.error_code",
+        rest="$.error.errors[0].error_code",
         rest_attrs="$.error.errors",
         icon="mdi:alert-circle",
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -356,8 +356,8 @@ SENSORS: tuple[RobonectSensorEntityDescription, ...] = (
     ),
     RobonectSensorEntityDescription(
         key="mower/error/message",
-        rest="$.error.errors.0.error_message",
-        rest_attrs="$.error.errors.0",
+        rest="$.error.errors[0].error_message",
+        rest_attrs="$.error.errors[0]",
         icon="mdi:alert-circle",
         entity_category=EntityCategory.DIAGNOSTIC,
         category="error",
