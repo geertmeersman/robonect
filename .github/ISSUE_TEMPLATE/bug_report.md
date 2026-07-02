@@ -32,7 +32,7 @@ If possible activate debug logging on the component as mentioned below.
 logger:
   default: warning
   logs:
-    custom_components.robonect: debug
+    custom_components.<integration_name>: debug
 ```
 
 **Additional context**
