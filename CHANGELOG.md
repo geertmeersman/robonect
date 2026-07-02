@@ -1,5 +1,26 @@
 # Changelog
 
+## [v5.1.7](https://github.com/geertmeersman/robonect/tree/v5.1.7) (2026-07-02)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.6...v5.1.7)
+
+**Closed issues:**
+
+- Robonect entities become unavailable after HA 2026.7.0: TypeError: 'module' object is not callable \(jsonpath\) [\#377](https://github.com/geertmeersman/robonect/issues/377)
+- Missing Entities in HA 2026.7.0 [\#376](https://github.com/geertmeersman/robonect/issues/376)
+- Timer editing by dashboard input [\#373](https://github.com/geertmeersman/robonect/issues/373)
+
+**Merged pull requests:**
+
+- chore: update workflows for concurrency handling and add PR labeler [\#379](https://github.com/geertmeersman/robonect/pull/379) ([geertmeersman](https://github.com/geertmeersman))
+- fix: update jsonpath import and usage for compatibility, fixes \#377 [\#378](https://github.com/geertmeersman/robonect/pull/378) ([geertmeersman](https://github.com/geertmeersman))
+- chore\(deps\): bump actions/checkout from 6 to 7 [\#375](https://github.com/geertmeersman/robonect/pull/375) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps\): bump actions/dependency-review-action from 4 to 5 [\#374](https://github.com/geertmeersman/robonect/pull/374) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps\): bump actions/github-script from 8 to 9 [\#372](https://github.com/geertmeersman/robonect/pull/372) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps\): bump hugo19941994/delete-draft-releases from 2.0.0 to 3.0.0 [\#371](https://github.com/geertmeersman/robonect/pull/371) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps\): bump EndBug/add-and-commit from 9 to 10 [\#370](https://github.com/geertmeersman/robonect/pull/370) ([dependabot[bot]](https://github.com/apps/dependabot))
+- fix: httpx client - Improved thread-safety of command execution with proper synchronization [\#369](https://github.com/geertmeersman/robonect/pull/369) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.6](https://github.com/geertmeersman/robonect/tree/v5.1.6) (2026-03-18)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.5...v5.1.6)
