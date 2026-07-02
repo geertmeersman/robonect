@@ -33,9 +33,9 @@ from .entity import RobonectCoordinatorEntity, RobonectEntity
 from .utils import (
     filter_out_units,
     get_json_dict_path,
+    mqtt_subscribe_entry,
     parse_duration_seconds_to_minutes,
     unix_to_datetime,
-    mqtt_subscribe_entry,
 )
 
 _LOGGER = logging.getLogger(__name__)
