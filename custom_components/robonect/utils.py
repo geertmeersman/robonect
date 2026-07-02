@@ -111,11 +111,16 @@ def sizeof_fmt(num, suffix="b"):
 
 
 def get_json_dict_path(dictionary, path):
-    """Fetch info based on jsonpath from dict."""
+    """Fetch info based on jsonpath from dict, maintaining original behavior."""
     matches = [match.value for match in jsonpath_parse(path).find(dictionary)]
+
     if not matches:
         return None
-    return matches[0]
+
+    if len(matches) == 1:
+        return matches[0]
+
+    return matches
 
 
 def wifi_signal_to_percentage(signal_strength, entity=None):
