@@ -141,7 +141,10 @@ class RobonectGPSEntity(RobonectEntity, TrackerEntity, RestoreEntity):
     @property
     def extra_state_attributes(self) -> dict:
         """Return the specific state attributes of this mower."""
-        return self._attributes | {"last_synced": self.last_synced, ATTR_BATTERY_LEVEL: self._battery}
+        return self._attributes | {
+            "last_synced": self.last_synced,
+            ATTR_BATTERY_LEVEL: self._battery,
+        }
 
     def update_rest_gps_state(self):
         """Update state based on REST GPS State."""

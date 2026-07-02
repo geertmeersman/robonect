@@ -66,7 +66,7 @@ async def async_setup_entry(
                 _LOGGER.debug(f"[sensor|async_setup_entry|adding] {path}")
                 if description.array:
                     array = get_json_dict_path(
-                        coordinator.data, description.rest_attrs.replace(".0", "")
+                        coordinator.data, description.rest_attrs.replace("[0]", "")
                     )
                     if array is None:
                         continue
@@ -74,9 +74,9 @@ async def async_setup_entry(
                         _LOGGER.debug(f"Item in array: {item}")
                         desc = copy.copy(description)
                         desc.rest_attrs = description.rest_attrs.replace(
-                            ".0", f".{idx}"
+                            "[0]", f"[{idx}]"
                         )
-                        desc.key = description.key.replace(".0", f".{idx}")
+                        desc.key = description.key.replace("[0]", f"[{idx}]")
                         entities.append(
                             RobonectRestBinarySensor(
                                 hass,
