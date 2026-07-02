@@ -7,7 +7,7 @@ import logging
 import math
 import re
 
-import jsonpath
+from jsonpath_ng.ext import parse as jsonpath_parse
 import pytz
 from homeassistant.components import mqtt
 
@@ -112,12 +112,10 @@ def sizeof_fmt(num, suffix="b"):
 
 def get_json_dict_path(dictionary, path):
     """Fetch info based on jsonpath from dict."""
-    json_dict = jsonpath.jsonpath(dictionary, path)
-    if json_dict is False:
+    matches = [match.value for match in jsonpath_parse(path).find(dictionary)]
+    if not matches:
         return None
-    if isinstance(json_dict, list):
-        json_dict = json_dict[0]
-    return json_dict
+    return matches[0]
 
 
 def wifi_signal_to_percentage(signal_strength, entity=None):
