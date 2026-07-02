@@ -1,5 +1,16 @@
 # Changelog
 
+## [v5.1.9](https://github.com/geertmeersman/robonect/tree/v5.1.9) (2026-07-02)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.8...v5.1.9)
+
+**Merged pull requests:**
+
+- fix: update JSON path syntax in binary\_sensor and sensor modules [\#384](https://github.com/geertmeersman/robonect/pull/384) ([geertmeersman](https://github.com/geertmeersman))
+- fix: remove pre-commit configuration file [\#383](https://github.com/geertmeersman/robonect/pull/383) ([geertmeersman](https://github.com/geertmeersman))
+- fix: update workflow to include emoji in release name and improve dev-current sync process [\#382](https://github.com/geertmeersman/robonect/pull/382) ([geertmeersman](https://github.com/geertmeersman))
+- fix: remove device\_tracker battery\_level property and include battery status in extra state attributes [\#381](https://github.com/geertmeersman/robonect/pull/381) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.8](https://github.com/geertmeersman/robonect/tree/v5.1.8) (2026-07-02)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.7...v5.1.8)
