@@ -7,9 +7,9 @@ import logging
 import math
 import re
 
-from jsonpath import jsonpath
-from homeassistant.components import mqtt
+import jsonpath
 import pytz
+from homeassistant.components import mqtt
 
 from .const import ATTR_STATE_UNITS, DOMAIN, WEEKDAYS_HEX
 
@@ -112,7 +112,7 @@ def sizeof_fmt(num, suffix="b"):
 
 def get_json_dict_path(dictionary, path):
     """Fetch info based on jsonpath from dict."""
-    json_dict = jsonpath(dictionary, path)
+    json_dict = jsonpath.jsonpath(dictionary, path)
     if json_dict is False:
         return None
     if isinstance(json_dict, list):
