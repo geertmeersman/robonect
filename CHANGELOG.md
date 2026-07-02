@@ -1,5 +1,13 @@
 # Changelog
 
+## [v5.1.10](https://github.com/geertmeersman/robonect/tree/v5.1.10) (2026-07-02)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.9...v5.1.10)
+
+**Merged pull requests:**
+
+- fix: improve get\_json\_dict\_path function to maintain original behavior and add debug logging [\#385](https://github.com/geertmeersman/robonect/pull/385) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.9](https://github.com/geertmeersman/robonect/tree/v5.1.9) (2026-07-02)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.8...v5.1.9)
