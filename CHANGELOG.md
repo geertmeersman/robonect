@@ -1,5 +1,13 @@
 # Changelog
 
+## [v5.1.8](https://github.com/geertmeersman/robonect/tree/v5.1.8) (2026-07-02)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.7...v5.1.8)
+
+**Merged pull requests:**
+
+- fix: update jsonpath usage for compatibility with HA 2026.7 [\#380](https://github.com/geertmeersman/robonect/pull/380) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.7](https://github.com/geertmeersman/robonect/tree/v5.1.7) (2026-07-02)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.6...v5.1.7)
