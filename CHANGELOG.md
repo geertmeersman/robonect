@@ -1,5 +1,13 @@
 # Changelog
 
+## [v5.1.11](https://github.com/geertmeersman/robonect/tree/v5.1.11) (2026-07-06)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.10...v5.1.11)
+
+**Merged pull requests:**
+
+- fix: update switch for JSON path syntax in async\_setup\_entry for array handling, refs \#386 [\#387](https://github.com/geertmeersman/robonect/pull/387) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.10](https://github.com/geertmeersman/robonect/tree/v5.1.10) (2026-07-02)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.9...v5.1.10)
