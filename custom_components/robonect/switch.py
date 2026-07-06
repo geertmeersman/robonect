@@ -127,16 +127,16 @@ async def async_setup_entry(
                 _LOGGER.debug(f"[async_setup_entry|REST|adding] {path}")
                 if description.array:
                     array = get_json_dict_path(
-                        coordinator.data, description.rest_attrs.replace(".0", "")
+                        coordinator.data, description.rest_attrs.replace("[0]", "")
                     )
                     for idx, item in enumerate(array):
                         _LOGGER.debug(
                             f"[async_setup_entry|REST|adding] Item in array: {item}"
                         )
                         desc = copy.copy(description)
-                        desc.rest = description.rest.replace(".0", f".{idx}")
+                        desc.rest = description.rest.replace("[0]", f"[{idx}]")
                         desc.rest_attrs = description.rest_attrs.replace(
-                            ".0", f".{idx}"
+                            "[0]", f"[{idx}]"
                         )
                         desc.key = description.key.replace("/0", f"/{idx + 1}")
                         entities.append(
