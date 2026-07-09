@@ -1,5 +1,18 @@
 # Changelog
 
+## [v5.1.12](https://github.com/geertmeersman/robonect/tree/v5.1.12) (2026-07-09)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.11...v5.1.12)
+
+**Closed issues:**
+
+- Timers cannot be fetched properly [\#386](https://github.com/geertmeersman/robonect/issues/386)
+
+**Merged pull requests:**
+
+- fix: update beta release workflow for semantic versioning and improve version display [\#390](https://github.com/geertmeersman/robonect/pull/390) ([geertmeersman](https://github.com/geertmeersman))
+- fix: Performance Improvements - optimize JSONPath parsing by caching compiled expressions, refs \#388 [\#389](https://github.com/geertmeersman/robonect/pull/389) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.11](https://github.com/geertmeersman/robonect/tree/v5.1.11) (2026-07-06)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.10...v5.1.11)
