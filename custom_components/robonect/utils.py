@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import datetime
+from functools import lru_cache
 import logging
 import math
 import re
@@ -110,9 +111,15 @@ def sizeof_fmt(num, suffix="b"):
     return f"{num:.1f}Yi{suffix}"
 
 
+@lru_cache(maxsize=256)
+def _compile_jsonpath(path):
+    """Cache compiled JSONPath expressions."""
+    return jsonpath_parse(path)
+
+
 def get_json_dict_path(dictionary, path):
     """Fetch info based on jsonpath from dict, maintaining original behavior."""
-    matches = [match.value for match in jsonpath_parse(path).find(dictionary)]
+    matches = [match.value for match in _compile_jsonpath(path).find(dictionary)]
 
     if not matches:
         return None
