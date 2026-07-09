@@ -1,5 +1,4 @@
-name: Release - Bump and BETA
-
+name: Release - Bump and BETA 🧪
 on: [workflow_dispatch]
 
 concurrency:
@@ -16,30 +15,49 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ⤵️ Checkout code
+      - name: ⤵️　Checkout code
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
           ref: dev-current
 
-      - name: 🗑 Delete draft releases
+      - name: 🗑　Delete drafts
         uses: hugo19941994/delete-draft-releases@v3.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🔢 Calculate next beta version
-        id: next-version
+      - name: 🔢 Calculate next semantic version
+        id: semver
+        uses: ietf-tools/semver-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: dev-current
+          patchList: fix, bugfix, perf, refactor, test, tests, chore, ci, build
+          noVersionBumpBehavior: patch
+          noNewCommitBehavior: current
+
+      - name: 🏷️ Determine beta tag
+        id: beta
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NEXT: ${{ steps.semver.outputs.next }}
         run: |
-          python -m pip install --no-deps requests==2.32.3
-          NEXT_VERSION="$(TARGET_REF=dev-current python .github/scripts/calc_next_version.py)"
-          echo "Next beta version: $NEXT_VERSION"
-          echo "NEW_VERSION=$NEXT_VERSION" >> "$GITHUB_OUTPUT"
+          BASE="${NEXT%-*}"
+          # Count existing beta tags for this version
+          COUNT=$(gh release list --json tagName -q "[.[] | select(.tagName | startswith(\"${BASE}-beta.\"))] | length")
+          BETA_VERSION="${BASE}-beta.$((COUNT + 1))"
+          echo "version=$BETA_VERSION" >> "$GITHUB_OUTPUT"
+          echo "Beta version: $BETA_VERSION"
 
-      - name: 🔄 Update version in 'VERSION' and 'manifest.json'
+      - name: 🧾 Display version info
+        run: |
+          echo "Current version: ${{ steps.semver.outputs.current }}"
+          echo "Next version: ${{ steps.semver.outputs.next }}"
+          echo "Beta version: ${{ steps.beta.outputs.version }}"
+
+      - name: 🔄　Update version in 'VERSION' and 'manifest.json'
         env:
-          NEXT_VERSION: ${{ steps.next-version.outputs.NEW_VERSION }}
+          NEXT_VERSION: ${{ steps.beta.outputs.version }}
           GITHUB_REPO: ${{ github.event.repository.name }}
         run: |
           echo "** Manifest before replace **"
@@ -49,7 +67,7 @@ jobs:
           cat custom_components/$GITHUB_REPO/manifest.json
           echo "$NEXT_VERSION" > VERSION
 
-      - name: 📝 Publish beta release
+      - name: 📝　Publish beta release
         uses: release-drafter/release-drafter@v7
         id: release_published
         env:
@@ -59,10 +77,10 @@ jobs:
           prerelease: true
           publish: true
           commitish: dev-current
-          tag: ${{ steps.next-version.outputs.NEW_VERSION }}
-          name: "Beta ${{ steps.next-version.outputs.NEW_VERSION }}"
+          tag: ${{ steps.beta.outputs.version }}
+          name: "Beta ${{ steps.beta.outputs.version }}"
 
-      - name: "✏️ Generate release changelog"
+      - name: "✏️　Generate release changelog"
         uses: janheinrichmerker/action-github-changelog-generator@v2.4
         with:
           token: ${{ secrets.GH_PAT }}
@@ -74,29 +92,28 @@ jobs:
           unreleased: false
           addSections: '{"documentation":{"prefix":"**Documentation:**","labels":["documentation"]}}'
 
-      - name: ✅ Commit release notes and bump version
+      - name: ✅　Commit release notes and bump version
         uses: EndBug/add-and-commit@v10
         with:
           add: "VERSION CHANGELOG.md custom_components/${{ github.event.repository.name }}/manifest.json"
-          message: "chore(beta): changelog & bump version to ${{ steps.next-version.outputs.NEW_VERSION }}"
+          message: "chore(beta): changelog & bump version to ${{ steps.beta.outputs.version }}"
           push: true
 
       - name: 📦 Create zip file
         run: |
           cd custom_components/${{ github.event.repository.name }}
-          zip -r "${{ github.event.repository.name }}-beta-${{ steps.next-version.outputs.NEW_VERSION }}.zip" .
-          mv "${{ github.event.repository.name }}-beta-${{ steps.next-version.outputs.NEW_VERSION }}.zip" ../..
+          zip -r "${{ github.event.repository.name }}-beta-${{ steps.beta.outputs.version }}.zip" .
+          mv "${{ github.event.repository.name }}-beta-${{ steps.beta.outputs.version }}.zip" ../..
 
       - name: 📎 Upload zip to release
         run: |
-          gh release upload "${{ steps.next-version.outputs.NEW_VERSION }}" "${{ github.event.repository.name }}-beta-${{ steps.next-version.outputs.NEW_VERSION }}.zip"
+          gh release upload "${{ steps.beta.outputs.version }}" "${{ github.event.repository.name }}-beta-${{ steps.beta.outputs.version }}.zip"
         env:
           GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
 
-      - name: 🚀 Discord notification
+      - name: 🚀 Send Discord notification
         uses: Ilshidur/action-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_BETA }}
-          NEXT_VERSION: ${{ steps.next-version.outputs.NEW_VERSION }}
         with:
-          args: "New BETA release published: https://github.com/{{ EVENT_PAYLOAD.repository.full_name }}/releases/tag/${{ steps.next-version.outputs.NEW_VERSION }}"
+          args: "🧪 New BETA release published: https://github.com/${{ github.repository }}/releases/tag/${{ steps.beta.outputs.version }}"
