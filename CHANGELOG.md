@@ -1,5 +1,18 @@
 # Changelog
 
+## [v5.1.13](https://github.com/geertmeersman/robonect/tree/v5.1.13) (2026-08-03)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.12...v5.1.13)
+
+**Closed issues:**
+
+- Periodic multi-second event loop stalls: get\_json\_dict\_path\(\) re-parses JSONPath on every entity update \(no caching in jsonpath\_ng\) [\#388](https://github.com/geertmeersman/robonect/issues/388)
+
+**Merged pull requests:**
+
+- fix: ensure category data is a dictionary before accessing attributes [\#394](https://github.com/geertmeersman/robonect/pull/394) ([geertmeersman](https://github.com/geertmeersman))
+- chore\(deps\): bump actions/stale from 10 to 11 [\#392](https://github.com/geertmeersman/robonect/pull/392) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v5.1.12](https://github.com/geertmeersman/robonect/tree/v5.1.12) (2026-07-09)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.11...v5.1.12)
