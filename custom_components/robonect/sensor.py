@@ -324,7 +324,11 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
 
     def set_extra_attributes(self):
         """Set the attributes for the sensor from coordinator."""
-        if len(self.coordinator.data) and self.category in self.coordinator.data:
+        if (
+            len(self.coordinator.data)
+            and self.category in self.coordinator.data
+            and isinstance(self.coordinator.data[self.category], dict)
+        ):
             attributes = {
                 "last_synced": self.coordinator.data[self.category]["sync_time"],
                 "category": self.category,
