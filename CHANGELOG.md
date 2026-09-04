@@ -1,5 +1,20 @@
 # Changelog
 
+## [v5.1.14](https://github.com/geertmeersman/robonect/tree/v5.1.14) (2026-09-04)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.13...v5.1.14)
+
+**Closed issues:**
+
+- AttributeError: 'RobonectRestSensor' object has no attribute '\_attr\_extra\_state\_attributes' [\#396](https://github.com/geertmeersman/robonect/issues/396)
+- Lovelace Dashboard issue [\#393](https://github.com/geertmeersman/robonect/issues/393)
+- TypeError: 'bool' object is not subscriptable in set\_extra\_attributes \(sensor.py:329\) [\#391](https://github.com/geertmeersman/robonect/issues/391)
+
+**Merged pull requests:**
+
+- fix: initialize extra state attributes in binary and sensor classes, fixes \#396 [\#397](https://github.com/geertmeersman/robonect/pull/397) ([geertmeersman](https://github.com/geertmeersman))
+- chore\(deps\): bump EndBug/add-and-commit from 10 to 11 [\#395](https://github.com/geertmeersman/robonect/pull/395) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v5.1.13](https://github.com/geertmeersman/robonect/tree/v5.1.13) (2026-08-03)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.12...v5.1.13)
