@@ -158,6 +158,7 @@ class RobonectRestBinarySensor(RobonectCoordinatorEntity, RobonectBinarySensor):
         super().__init__(coordinator, description)
         self.category = self.entity_description.category
         self.entity_description = description
+        self._attr_extra_state_attributes = {}
 
     def handle_last_state(self, last_state: State | None) -> None:
         """Handle the last state."""

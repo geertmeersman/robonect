@@ -288,6 +288,7 @@ class RobonectRestSensor(RobonectCoordinatorEntity, RobonectSensor):
         RobonectSensor.__init__(self, hass, entry, description)
         self.category = self.entity_description.category
         self.entity_description = description
+        self._attr_extra_state_attributes = {}
 
     @callback
     def _handle_coordinator_update(self) -> None:
