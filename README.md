@@ -66,6 +66,7 @@ The **REST sensors**, are updated on a configurable scan interval. When the mowe
     - [Frequently asked questions](#frequently-asked-questions)
     - [Enable debug logging](#enable-debug-logging)
     - [Disable debug logging and download logs](#disable-debug-logging-and-download-logs)
+    - [Robot temporarily unreachable](#robot-temporarily-unreachable)
   - [Extra sensor for daily mowing time](#extra-sensor-for-daily-mowing-time)
   - [Extra sensors templates, used for lovelace card](#extra-sensors-templates-used-for-lovelace-card)
   - [Lovelace examples](#lovelace-examples)
@@ -786,6 +787,20 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 
 - I am missing many sensors: please verify that the MQTT topic you have entered in the HA config flow equals the MQTT topic in Robonect
 - If you would be expecting specific sensors and you don't see them, make sure your Robonect firmware is up to date.
+
+### Robot temporarily unreachable
+
+When the robot is powered off, docked, or outside Wi-Fi range, HA will periodically try to reach it and fail. By default, these connection failures are logged at `DEBUG` level only, so they will **not** appear in the HA log under normal conditions.
+
+If you are seeing repeated `WARNING` messages like `ConnectError` or `All connection attempts failed`, make sure you are running the latest version of this integration.
+
+To inspect connectivity issues in detail, enable debug logging for `custom_components.robonect` in your `configuration.yaml`:
+
+```yaml
+logger:
+  logs:
+    custom_components.robonect: debug
+```
 
 ### Enable debug logging
 
