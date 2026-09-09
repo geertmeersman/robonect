@@ -1,5 +1,13 @@
 # Changelog
 
+## [v5.1.15](https://github.com/geertmeersman/robonect/tree/v5.1.15) (2026-09-09)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.14...v5.1.15)
+
+**Merged pull requests:**
+
+- fix: reduce log noise when robot is unreachable [\#398](https://github.com/geertmeersman/robonect/pull/398) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.14](https://github.com/geertmeersman/robonect/tree/v5.1.14) (2026-09-04)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.13...v5.1.14)
