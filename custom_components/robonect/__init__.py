@@ -83,7 +83,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             try:
                 await client.state()
             except Exception as exception:
-                _LOGGER.warning(f"Exception: {exception}")
+                _LOGGER.debug(f"Exception: {exception}")
 
         storage_dir = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}")
         if storage_dir.is_file():
