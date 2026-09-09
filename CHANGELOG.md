@@ -1,5 +1,13 @@
 # Changelog
 
+## [v5.1.16](https://github.com/geertmeersman/robonect/tree/v5.1.16) (2026-09-09)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.15...v5.1.16)
+
+**Merged pull requests:**
+
+- fix: change log level from warning to debug for exception handling in async\_setup\_entry [\#399](https://github.com/geertmeersman/robonect/pull/399) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.15](https://github.com/geertmeersman/robonect/tree/v5.1.15) (2026-09-09)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.14...v5.1.15)
