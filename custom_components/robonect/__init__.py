@@ -325,7 +325,7 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
                 if cleanup:
                     await self.async_trigger_cleanup()
             except Exception as exception:
-                _LOGGER.warning(f"Exception {exception}")
+                _LOGGER.debug(f"Exception {exception}")
 
         if len(self.data) > 0:
             return self.data
