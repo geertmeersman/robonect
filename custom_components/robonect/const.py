@@ -99,18 +99,21 @@ SERVICE_JOB_REMOTESTART_CODES = {
     "Remote start 4": 5,
     "Remote start 5": 6,
 }
+# These are the codes /json?cmd=mode accepts. They are NOT the values used by
+# the <select> in the /control HTML form, which encodes the same labels as
+# 255, 0, 2, 4, 7, 9, 11, 13, 15, 18, 20 - two endpoints, two encodings.
 SERVICE_JOB_CORRIDOR_CODES = {
-    "Normal": 255,
+    "Normal": -1,
     "0": 0,
-    "1": 2,
-    "2": 4,
-    "3": 7,
-    "4": 9,
-    "5": 11,
-    "6": 13,
-    "7": 15,
-    "8": 18,
-    "9": 20,
+    "1": 1,
+    "2": 2,
+    "3": 3,
+    "4": 4,
+    "5": 5,
+    "6": 6,
+    "7": 7,
+    "8": 8,
+    "9": 9,
 }
 SERVICE_JOB_AFTER_VALUES = list(SERVICE_JOB_AFTER_CODES)
 SERVICE_JOB_REMOTESTART_VALUES = list(SERVICE_JOB_REMOTESTART_CODES)
@@ -126,7 +129,10 @@ SERVICE_JOB_SCHEMA = vol.Schema(
         vol.Optional("remotestart", default="Normal"): vol.In(
             SERVICE_JOB_REMOTESTART_VALUES
         ),
-        vol.Optional("corridor", default="Normal"): vol.In(SERVICE_JOB_CORRIDOR_VALUES),
+        # No default on purpose: voluptuous injects declared defaults into
+        # service.data, so a default here sends a corridor value on every job,
+        # including the ones where the caller never asked to change it.
+        vol.Optional("corridor"): vol.In(SERVICE_JOB_CORRIDOR_VALUES),
     }
 )
 WEEKDAYS_SHORT = ["mo", "tu", "we", "th", "fr", "sa", "su"]
