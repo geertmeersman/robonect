@@ -89,29 +89,32 @@ SERVICE_EQUIPMENT = "ext"
 CONF_ENTRY_ID = "entry_id"
 
 ROBONECT_BRANDS = ["Husqvarna", "Gardena", "Flymo", "McCulloch"]
-SERVICE_JOB_AFTER_VALUES = ["Auto", "Home", "End of day"]
-SERVICE_JOB_REMOTESTART_VALUES = [
-    "Normal",
-    "From charging station",
-    "Remote start 1",
-    "Remote start 2",
-    "Remote start 3",
-    "Remote start 4",
-    "Remote start 5",
-]
-SERVICE_JOB_CORRIDOR_VALUES = [
-    "Normal",
-    "0",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-]
+SERVICE_JOB_AFTER_CODES = {"Auto": 3, "Home": 1, "End of day": 2}
+SERVICE_JOB_REMOTESTART_CODES = {
+    "Normal": 0,
+    "From charging station": 1,
+    "Remote start 1": 2,
+    "Remote start 2": 3,
+    "Remote start 3": 4,
+    "Remote start 4": 5,
+    "Remote start 5": 6,
+}
+SERVICE_JOB_CORRIDOR_CODES = {
+    "Normal": 255,
+    "0": 0,
+    "1": 2,
+    "2": 4,
+    "3": 7,
+    "4": 9,
+    "5": 11,
+    "6": 13,
+    "7": 15,
+    "8": 18,
+    "9": 20,
+}
+SERVICE_JOB_AFTER_VALUES = list(SERVICE_JOB_AFTER_CODES)
+SERVICE_JOB_REMOTESTART_VALUES = list(SERVICE_JOB_REMOTESTART_CODES)
+SERVICE_JOB_CORRIDOR_VALUES = list(SERVICE_JOB_CORRIDOR_CODES)
 SERVICE_MODE_VALUES = ["man", "auto", "eod", "home"]
 SERVICE_JOB_SCHEMA = vol.Schema(
     {
