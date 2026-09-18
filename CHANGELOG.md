@@ -1,5 +1,13 @@
 # Changelog
 
+## [v5.1.17-beta.1](https://github.com/geertmeersman/robonect/tree/v5.1.17-beta.1) (2026-09-18)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.16...v5.1.17-beta.1)
+
+**Closed issues:**
+
+- operating hours of the blades are reset with every charge [\#400](https://github.com/geertmeersman/robonect/issues/400)
+
 ## [v5.1.16](https://github.com/geertmeersman/robonect/tree/v5.1.16) (2026-09-09)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.15...v5.1.16)
