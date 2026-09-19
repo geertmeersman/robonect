@@ -42,9 +42,9 @@ from .const import (
     SERVICE_EQUIPMENT,
     SERVICE_EQUIPMENT_SCHEMA,
     SERVICE_JOB,
-    SERVICE_JOB_AFTER_VALUES,
-    SERVICE_JOB_CORRIDOR_VALUES,
-    SERVICE_JOB_REMOTESTART_VALUES,
+    SERVICE_JOB_AFTER_CODES,
+    SERVICE_JOB_CORRIDOR_CODES,
+    SERVICE_JOB_REMOTESTART_CODES,
     SERVICE_JOB_SCHEMA,
     SERVICE_TIMER,
     SERVICE_TIMER_SCHEMA,
@@ -177,27 +177,15 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         if "duration" in service.data:
             params |= {"duration": service.data["duration"]}
         if "after" in service.data:
-            try:
-                index = SERVICE_JOB_AFTER_VALUES.index(service.data["after"])
-            except ValueError as error:
-                raise RobonectException(error)
-            params |= {"after": index}
+            params |= {"after": SERVICE_JOB_AFTER_CODES[service.data["after"]]}
         if "remotestart" in service.data:
-            try:
-                index = SERVICE_JOB_REMOTESTART_VALUES.index(
+            params |= {
+                "remotestart": SERVICE_JOB_REMOTESTART_CODES[
                     service.data["remotestart"]
-                )
-            except ValueError as error:
-                raise RobonectException(error)
-            params |= {"remotestart": index}
+                ]
+            }
         if "corridor" in service.data:
-            try:
-                if service.data["corridor"] == "Normal":
-                    pass
-                index = SERVICE_JOB_CORRIDOR_VALUES.index(service.data["corridor"]) - 1
-            except ValueError as error:
-                raise RobonectException(error)
-            params |= {"corridor": index}
+            params |= {"corridor": SERVICE_JOB_CORRIDOR_CODES[service.data["corridor"]]}
         try:
             entry = get_entry_from_service(hass, service)
         except ValueError as error:

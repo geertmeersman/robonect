@@ -102,12 +102,12 @@ jobs:
       - name: 📦 Create zip file
         run: |
           cd custom_components/${{ github.event.repository.name }}
-          zip -r "${{ github.event.repository.name }}-beta-${{ steps.beta.outputs.version }}.zip" .
-          mv "${{ github.event.repository.name }}-beta-${{ steps.beta.outputs.version }}.zip" ../..
+          zip -r "${{ github.event.repository.name }}.zip" .
+          mv "${{ github.event.repository.name }}.zip" ../..
 
       - name: 📎 Upload zip to release
         run: |
-          gh release upload "${{ steps.beta.outputs.version }}" "${{ github.event.repository.name }}-beta-${{ steps.beta.outputs.version }}.zip"
+          gh release upload "${{ steps.beta.outputs.version }}" "${{ github.event.repository.name }}.zip"
         env:
           GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
 
