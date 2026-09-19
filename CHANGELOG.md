@@ -1,5 +1,9 @@
 # Changelog
 
+## [v5.1.17-beta.2](https://github.com/geertmeersman/robonect/tree/v5.1.17-beta.2) (2026-09-19)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.17-beta.1...v5.1.17-beta.2)
+
 ## [v5.1.17-beta.1](https://github.com/geertmeersman/robonect/tree/v5.1.17-beta.1) (2026-09-18)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.16...v5.1.17-beta.1)
