@@ -1,8 +1,20 @@
 # Changelog
 
+## [v5.1.17](https://github.com/geertmeersman/robonect/tree/v5.1.17) (2026-09-19)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.17-beta.2...v5.1.17)
+
+**Merged pull requests:**
+
+- fix: replace service job value lists with corresponding codes for better clarity and efficiency [\#403](https://github.com/geertmeersman/robonect/pull/403) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.17-beta.2](https://github.com/geertmeersman/robonect/tree/v5.1.17-beta.2) (2026-09-19)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.17-beta.1...v5.1.17-beta.2)
+
+**Merged pull requests:**
+
+- fix\(job\): use the /json?cmd=mode corridor codes, and don't send corridor by default [\#404](https://github.com/geertmeersman/robonect/pull/404) ([MarcFinns](https://github.com/MarcFinns))
 
 ## [v5.1.17-beta.1](https://github.com/geertmeersman/robonect/tree/v5.1.17-beta.1) (2026-09-18)
 
