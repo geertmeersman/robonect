@@ -1,28 +1,31 @@
 # Changelog
 
+## [v5.1.18](https://github.com/geertmeersman/robonect/tree/v5.1.18) (2026-09-30)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.17...v5.1.18)
+
+**Closed issues:**
+
+- Timer values are not conform with robonect website [\#405](https://github.com/geertmeersman/robonect/issues/405)
+- job service: after/remotestart/corridor sent as list indexes, not Robonect's values \("Auto" unreachable\) [\#402](https://github.com/geertmeersman/robonect/issues/402)
+- Update interval for realtime values? [\#401](https://github.com/geertmeersman/robonect/issues/401)
+
+**Merged pull requests:**
+
+- fix: update weather command status to reflect wake-up behavior [\#408](https://github.com/geertmeersman/robonect/pull/408) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.17](https://github.com/geertmeersman/robonect/tree/v5.1.17) (2026-09-19)
 
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.17-beta.2...v5.1.17)
-
-**Merged pull requests:**
-
-- fix: replace service job value lists with corresponding codes for better clarity and efficiency [\#403](https://github.com/geertmeersman/robonect/pull/403) ([geertmeersman](https://github.com/geertmeersman))
-
-## [v5.1.17-beta.2](https://github.com/geertmeersman/robonect/tree/v5.1.17-beta.2) (2026-09-19)
-
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.17-beta.1...v5.1.17-beta.2)
-
-**Merged pull requests:**
-
-- fix\(job\): use the /json?cmd=mode corridor codes, and don't send corridor by default [\#404](https://github.com/geertmeersman/robonect/pull/404) ([MarcFinns](https://github.com/MarcFinns))
-
-## [v5.1.17-beta.1](https://github.com/geertmeersman/robonect/tree/v5.1.17-beta.1) (2026-09-18)
-
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.16...v5.1.17-beta.1)
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.16...v5.1.17)
 
 **Closed issues:**
 
 - operating hours of the blades are reset with every charge [\#400](https://github.com/geertmeersman/robonect/issues/400)
+
+**Merged pull requests:**
+
+- fix\(job\): use the /json?cmd=mode corridor codes, and don't send corridor by default [\#404](https://github.com/geertmeersman/robonect/pull/404) ([MarcFinns](https://github.com/MarcFinns))
+- fix: replace service job value lists with corresponding codes for better clarity and efficiency [\#403](https://github.com/geertmeersman/robonect/pull/403) ([geertmeersman](https://github.com/geertmeersman))
 
 ## [v5.1.16](https://github.com/geertmeersman/robonect/tree/v5.1.16) (2026-09-09)
 
