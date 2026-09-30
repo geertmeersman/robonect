@@ -252,7 +252,7 @@ SENSOR_GROUPS = [
     "status",  # ok when sleeping
     "timer",  # ok when sleeping
     "version",  # wakes up robonect
-    "weather",  # ok when sleeping
+    "weather",  # wakes up robonect
     "wlan",  # ok when sleeping
     "wire",  # wakes up robonect
 ]
