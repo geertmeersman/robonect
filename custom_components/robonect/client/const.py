@@ -17,7 +17,7 @@ COMMANDS = [
     "status",  # ok when sleeping
     "timer",  # ok when sleeping
     "version",  # wakes up robonect
-    "weather",  # ok when sleeping
+    "weather",  # wakes up robonect
     "wlan",  # ok when sleeping
     "wire",  # wakes up robonect
 ]
@@ -29,6 +29,5 @@ SAFE_COMMANDS = [
     "health",  # ok when sleeping
     "status",  # ok when sleeping
     "timer",  # ok when sleeping
-    "weather",  # ok when sleeping
     "wlan",  # ok when sleeping
 ]
