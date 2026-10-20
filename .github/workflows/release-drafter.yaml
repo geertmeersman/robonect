@@ -22,9 +22,17 @@ jobs:
         with:
           token: ${{ github.token }}
           branch: main
+          majorVersion: 1
+          noVersionBumpBehavior: patch
+          noNewCommitBehavior: patch
+
+      - name: Fallback version if semver output is empty
+        if: steps.semver.outputs.next == ''
+        id: semver_fallback
+        run: echo "next=v1.0.0" >> $GITHUB_OUTPUT
 
       - name: Print next version
-        run: echo "Next calculated version ${{ steps.semver.outputs.next }}"
+        run: echo "Next calculated version ${{ steps.semver.outputs.next || steps.semver_fallback.outputs.next }}"
 
       - name: 🗑　Delete Release drafts
         uses: hugo19941994/delete-draft-releases@v3.0.0
@@ -36,4 +44,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           commitish: ${{ github.ref }}
-          tag: ${{ steps.semver.outputs.next }}
+          tag: ${{ steps.semver.outputs.next || steps.semver_fallback.outputs.next }}
