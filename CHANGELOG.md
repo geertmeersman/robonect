@@ -1,5 +1,24 @@
 # Changelog
 
+## [v5.1.19](https://github.com/geertmeersman/robonect/tree/v5.1.19) (2026-10-21)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.18...v5.1.19)
+
+**Closed issues:**
+
+- Command door failed [\#409](https://github.com/geertmeersman/robonect/issues/409)
+- Weather command failed with no response [\#407](https://github.com/geertmeersman/robonect/issues/407)
+
+**Merged pull requests:**
+
+- chore: remove dead commented-out state restore code in sensor.py [\#416](https://github.com/geertmeersman/robonect/pull/416) ([geertmeersman](https://github.com/geertmeersman))
+- fix: deduplicate storage cleanup, fix double get\_data call and improve migration logging [\#415](https://github.com/geertmeersman/robonect/pull/415) ([geertmeersman](https://github.com/geertmeersman))
+- fix: correct typo in DEFAULT\_ENTRY\_DATA and invalid TypedDict annotations [\#414](https://github.com/geertmeersman/robonect/pull/414) ([geertmeersman](https://github.com/geertmeersman))
+- docs: update README and add docs folder [\#413](https://github.com/geertmeersman/robonect/pull/413) ([geertmeersman](https://github.com/geertmeersman))
+- docs: add downloads \(latest release\) badge to README [\#412](https://github.com/geertmeersman/robonect/pull/412) ([geertmeersman](https://github.com/geertmeersman))
+- chore: add local brand assets [\#411](https://github.com/geertmeersman/robonect/pull/411) ([geertmeersman](https://github.com/geertmeersman))
+- chore: add semver fallback for missing tags in release workflows [\#410](https://github.com/geertmeersman/robonect/pull/410) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.18](https://github.com/geertmeersman/robonect/tree/v5.1.18) (2026-09-30)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.17...v5.1.18)
