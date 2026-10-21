@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-import datetime
+import datetime as dt
 from functools import lru_cache
 import logging
 import math
@@ -161,7 +161,7 @@ def unix_to_datetime(epoch_timestamp, hass=None):
     if epoch_timestamp is None or int(epoch_timestamp) == 0 or hass is None:
         return None
     # Convert epoch timestamp to datetime object in UTC
-    datetime_utc = datetime.datetime.fromtimestamp(int(epoch_timestamp), pytz.UTC)
+    datetime_utc = dt.datetime.fromtimestamp(int(epoch_timestamp), pytz.UTC)
     # remove timezone info, das Robonect doesn't have any
     datetime_none = datetime_utc.replace(tzinfo=None)
     # Convert UTC datetime to the desired timezone
