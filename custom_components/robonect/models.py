@@ -19,8 +19,8 @@ class RobonectConfigEntryData(TypedDict):
     rest_enabled: bool | None
     monitored_variables: dict | None
     scan_interval: int | None
-    attributes_units: bool | True
-    winter_mode: bool | True
+    attributes_units: bool
+    winter_mode: bool
 
 
 @dataclass
@@ -34,7 +34,7 @@ class RobonectEnvironment:
 class RobonectTimer:
     """Robonect timer model."""
 
-    enable: bool | False
+    enable: bool
     weekdays: str | None
     weekdays_dict: dict | None
     start: str | None
