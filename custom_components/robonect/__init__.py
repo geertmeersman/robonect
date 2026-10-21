@@ -198,21 +198,18 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     return True
 
 
+def _remove_storage_files(hass: HomeAssistant, entry: ConfigEntry) -> None:
+    """Remove storage files for a config entry."""
+    storage = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}/{entry.entry_id}")
+    storage.unlink(missing_ok=True)
+    storage_dir = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}")
+    if storage_dir.is_dir() and not any(storage_dir.iterdir()):
+        storage_dir.rmdir()
+
+
 async def async_remove_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
     """Handle removal of pubsub subscriptions created during config flow."""
-
-    # Define blocking file operations
-    def remove_storage_files():
-        storage = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}/{entry.entry_id}")
-        storage.unlink(missing_ok=True)  # Unlink (delete) the storage file
-
-        storage_dir = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}")
-        # If the directory exists and is empty, remove it
-        if storage_dir.is_dir() and not any(storage_dir.iterdir()):
-            storage_dir.rmdir()
-
-    # Offload the file system operations to a thread
-    await hass.async_add_executor_job(remove_storage_files)
+    await hass.async_add_executor_job(_remove_storage_files, hass, entry)
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
@@ -227,18 +224,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
         hass.data[DOMAIN].pop(entry.entry_id)
 
-        # Define blocking file operations
-        def remove_storage_files():
-            storage = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}/{entry.entry_id}")
-            storage.unlink(missing_ok=True)  # Unlink (delete) the storage file
-
-            storage_dir = Path(f"{hass.config.path(STORAGE_DIR)}/{DOMAIN}")
-            # If the directory exists and is empty, remove it
-            if storage_dir.is_dir() and not any(storage_dir.iterdir()):
-                storage_dir.rmdir()
-
-        # Offload the file system operations to a thread
-        await hass.async_add_executor_job(remove_storage_files)
+        await hass.async_add_executor_job(_remove_storage_files, hass, entry)
 
     return unload_ok
 
@@ -295,23 +281,13 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
             return self.data or {}
 
         if not self.entry.data.get(CONF_WINTER_MODE, True):
-            if self._debug:
-                cleanup = False
-                if self.data is None:
-                    cleanup = True
-                await self.get_data()
-                if cleanup:
-                    await self.async_trigger_cleanup()
-                if self.data:
-                    _LOGGER.debug(f"Returned items: {self.data}")
-
             try:
-                cleanup = False
-                if self.data is None:
-                    cleanup = True
+                cleanup = self.data is None
                 await self.get_data()
                 if cleanup:
                     await self.async_trigger_cleanup()
+                if self._debug and self.data:
+                    _LOGGER.debug(f"Returned items: {self.data}")
             except Exception as exception:
                 _LOGGER.debug(f"Exception {exception}")
 
@@ -408,7 +384,6 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
 
     if current_version == 2:
         new = {**config_entry.data}
-        # TODO: modify Config Entry data
         if CONF_MONITORED_VARIABLES not in new:
             new[CONF_MONITORED_VARIABLES] = SENSOR_GROUPS
             new[CONF_MQTT_ENABLED] = False
@@ -466,7 +441,7 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
             entity_reg, config_entry.entry_id
         )
 
-        _LOGGER.critical("REMOVING V6")
+        _LOGGER.info("Migrating to version 6: removing legacy sensor entities")
         # Define the base entity IDs to match, allowing for renamed versions (e.g., "_2")
         base_entity_ids = [
             "sensor.automower_ext_gpio1",
