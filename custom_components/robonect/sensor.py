@@ -192,30 +192,6 @@ class RobonectSensor(RobonectEntity, SensorEntity):
                     self._state = state
             self.update_ha_state()
 
-        """
-        if state := await self.async_get_last_state():
-            if state.state in [STATE_UNAVAILABLE, STATE_UNKNOWN]:
-                _LOGGER.debug(f"Restoring state for: {self.entity_id} => {state.state}")
-            if (
-                state.state is not STATE_UNAVAILABLE
-                and state.as_dict().get("attributes").get("device_class")
-                == SensorDeviceClass.TIMESTAMP
-            ):
-                if state.state is STATE_UNKNOWN:
-                    self._state = None
-                else:
-                    self._state = unix_to_datetime(
-                        state.as_dict().get("attributes").get("unix"), self.hass
-                    )
-            else:
-                if state.state is STATE_UNAVAILABLE or state.state is STATE_UNKNOWN:
-                    self._state = None
-                else:
-                    self._state = state.state
-            self._attributes = state.attributes
-        else:
-            _LOGGER.debug(f"Last state is none for {self._attr_unique_id}")
-        """
         if self.entry.data[CONF_MQTT_ENABLED] is True:
             await mqtt_subscribe_entry(
                 self.hass, self.entry, self.topic, message_received, 1
