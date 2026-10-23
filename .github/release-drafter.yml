@@ -1,96 +1,76 @@
-name-template: "Release v$RESOLVED_VERSION"
-tag-template: "v$RESOLVED_VERSION"
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+version-resolver:
+  major:
+    labels: [breaking]
+  minor:
+    labels: [enhancement, feat, feature]
+  patch:
+    labels: [bug, fix, dependencies, chore, ci, docs]
+  default: patch
+categories:
+  - title: '🚀 New features'
+    semver-increment: minor
+    when:
+      - labels:
+          - enhancement
+          - feat
+          - feature
+      - conventional:
+          type: feat
+  - title: '🐛 Bug fixes'
+    when:
+      - labels:
+          - bug
+          - fix
+      - conventional:
+          type: fix
+  - title: '⚠️ Breaking'
+    when:
+      - label: breaking
+  - title: '🔒 Security'
+    when:
+      - label: security
+      - conventional:
+          type: security
+  - title: '📦 Dependencies'
+    when:
+      - label: dependencies
+      - conventional:
+          type: deps
+  - title: '🔧 Maintenance'
+    when:
+      - labels:
+          - chore
+          - ci
+          - refactor
+      - conventional:
+          types:
+            - chore
+            - ci
+            - refactor
+            - perf
+  - title: '📖 Documentation'
+    when:
+      - labels:
+          - docs
+          - doc
+          - documentation
+      - conventional:
+          type: docs
+  - type: pre-exclude
+    when:
+      label: skip-changelog
+change-template: '- $TITLE (#$NUMBER) @$AUTHOR'
+change-title-escapes: '\<*_&'
 template: |
-  [![maintainer](https://img.shields.io/badge/maintainer-Geert%20Meersman-green?style=for-the-badge&logo=github)](https://github.com/geertmeersman)
-  [![buyme_coffee](https://img.shields.io/badge/Buy%20me%20an%20Omer-donate-yellow?style=for-the-badge&logo=buymeacoffee)](https://www.buymeacoffee.com/geertmeersman)
-
-  ## What Changed 👀
+  ## What's changed
 
   $CHANGES
-  **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
-categories:
-  - type: "pre-exclude"
-    when:
-      labels:
-        - skip-changelog
 
-  - type: "version-resolver"
-    semver-increment: "major"
-    when:
-      labels:
-        - major
-  - type: "version-resolver"
-    semver-increment: "minor"
-    when:
-      labels:
-        - minor
-  - type: "version-resolver"
-    semver-increment: "patch"
-    when:
-      labels:
-        - patch
-
-  - title: 🚀 Features
-    when:
-      labels:
-        - feat
-        - feature
-        - enhancement
-  - title: 🐛 Bug Fixes
-    when:
-      labels:
-        - fix
-        - bug
-  - title: ⚠️ Breaking
-    when:
-      labels:
-        - breaking
-        - breaking change
-  - title: ⚠️ Changes
-    when:
-      labels:
-        - changed
-  - title: ⛔️ Deprecated
-    when:
-      labels:
-        - deprecated
-  - title: 🗑 Removed
-    when:
-      labels:
-        - removed
-  - title: 🔐 Security
-    when:
-      labels:
-        - security
-  - title: 📄 Documentation
-    when:
-      labels:
-        - docs
-        - doc
-        - documentation
-  - title: 🛠 Refactoring
-    when:
-      labels:
-        - refactor
-        - style
-  - title: 🚀 Performance
-    when:
-      labels:
-        - perf
-  - title: 🧪 Test
-    when:
-      labels:
-        - test
-  - title: 👷 Chore
-    when:
-      labels:
-        - chore
-  - title: 🧩 Dependency Updates
-    when:
-      labels:
-        - deps
-        - dependencies
-    collapse-after: 5
-
-change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
-change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
+  ---
+  🙏 Thanks to $CONTRIBUTORS for contributing to this release!
+exclude-contributors:
+  - geertmeersman[bot]
+  - dependabot[bot]
+  - github-actions[bot]

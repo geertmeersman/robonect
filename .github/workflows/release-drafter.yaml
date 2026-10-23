@@ -1,4 +1,3 @@
----
 name: Release Drafter
 
 # yamllint disable-line rule:truthy
@@ -8,10 +7,17 @@ on:
       - main
   workflow_dispatch:
 
+concurrency:
+  group: release-drafter
+  cancel-in-progress: true
+
 jobs:
   update_release_draft:
     name: ✏️ Draft release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -22,26 +28,22 @@ jobs:
         with:
           token: ${{ github.token }}
           branch: main
-          majorVersion: 1
+          patchAll: true
+          fallbackTag: v0.0.0
           noVersionBumpBehavior: patch
-          noNewCommitBehavior: patch
-
-      - name: Fallback version if semver output is empty
-        if: steps.semver.outputs.next == ''
-        id: semver_fallback
-        run: echo "next=v1.0.0" >> $GITHUB_OUTPUT
 
       - name: Print next version
-        run: echo "Next calculated version ${{ steps.semver.outputs.next || steps.semver_fallback.outputs.next }}"
+        run: echo "Next calculated version ${{ steps.semver.outputs.next }}"
 
       - name: 🗑　Delete Release drafts
         uses: hugo19941994/delete-draft-releases@v3.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: 🚀 Run Release Drafter
         uses: release-drafter/release-drafter@v7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           commitish: ${{ github.ref }}
-          tag: ${{ steps.semver.outputs.next || steps.semver_fallback.outputs.next }}
+          tag: ${{ steps.semver.outputs.next }}
