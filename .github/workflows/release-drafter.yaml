@@ -24,18 +24,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
-      - name: Calculate next version
-        id: semver
-        uses: ietf-tools/semver-action@v1
-        with:
-          token: ${{ github.token }}
-          branch: main
-          patchAll: true
-          fallbackTag: v0.0.0
-          noVersionBumpBehavior: patch
 
-      - name: Print next version
-        run: echo "Next calculated version ${{ steps.semver.outputs.next }}"
 
       - name: 🗑　Delete Release drafts
         uses: hugo19941994/delete-draft-releases@v3.0.0
@@ -48,4 +37,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           commitish: ${{ github.ref }}
-          tag: ${{ steps.semver.outputs.next }}
