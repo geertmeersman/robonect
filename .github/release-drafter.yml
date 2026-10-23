@@ -39,6 +39,7 @@ categories:
       - conventional:
           type: deps
   - title: '🔧 Maintenance'
+    semver-increment: patch
     when:
       - labels:
           - chore
@@ -51,6 +52,7 @@ categories:
             - refactor
             - perf
   - title: '📖 Documentation'
+    semver-increment: patch
     when:
       - labels:
           - docs
