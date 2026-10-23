@@ -1,13 +1,5 @@
 name-template: 'v$RESOLVED_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
-version-resolver:
-  major:
-    labels: [breaking]
-  minor:
-    labels: [enhancement, feat, feature]
-  patch:
-    labels: [bug, fix, dependencies, chore, ci, docs]
-  default: patch
 categories:
   - title: '🚀 New features'
     semver-increment: minor
@@ -19,6 +11,7 @@ categories:
       - conventional:
           type: feat
   - title: '🐛 Bug fixes'
+    semver-increment: patch
     when:
       - labels:
           - bug
@@ -26,14 +19,17 @@ categories:
       - conventional:
           type: fix
   - title: '⚠️ Breaking'
+    semver-increment: major
     when:
       - label: breaking
   - title: '🔒 Security'
+    semver-increment: patch
     when:
       - label: security
       - conventional:
           type: security
   - title: '📦 Dependencies'
+    semver-increment: patch
     when:
       - label: dependencies
       - conventional:
