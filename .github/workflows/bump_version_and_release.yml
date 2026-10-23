@@ -20,34 +20,29 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
+      - name: 🔢 Get version from draft release
+        id: semver
+        run: |
+          tag=$(gh release list --json tagName,isDraft -q '.[] | select(.isDraft == true) | .tagName' | head -1)
+          echo "next=$tag" >> $GITHUB_OUTPUT
+          echo "Next version: $tag"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: 🗑　Delete drafts
         uses: hugo19941994/delete-draft-releases@v3.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🔢 Calculate next semantic version
-        id: semver
-        uses: ietf-tools/semver-action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
-          majorVersion: 1
-          noVersionBumpBehavior: patch
-          noNewCommitBehavior: patch
-
-      - name: 🔢 Fallback version if semver output is empty
-        if: steps.semver.outputs.next == ''
-        id: semver_fallback
-        run: echo "next=v1.0.0" >> $GITHUB_OUTPUT
-
       - name: 🧾 Display version info
         run: |
-          echo "Current version: ${{ steps.semver.outputs.current }}"
-          echo "Next version: ${{ steps.semver.outputs.next || steps.semver_fallback.outputs.next }}"
+          echo "Next version: $NEXT_VERSION"
+        env:
+          NEXT_VERSION: ${{ steps.semver.outputs.next }}
 
       - name: 🔄　Update version in 'VERSION' and 'manifest.json' and push changes
         env:
-          tag_name: ${{ steps.semver.outputs.next || steps.semver_fallback.outputs.next }}
+          tag_name: ${{ steps.semver.outputs.next }}
           GITHUB_REPO: ${{ github.event.repository.name }}
         run: |
           echo "** Manifest before replace **"
@@ -63,8 +58,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: Release ${{ steps.semver.outputs.next || steps.semver_fallback.outputs.next }}
-          tag: ${{ steps.semver.outputs.next || steps.semver_fallback.outputs.next }}
+          name: Release ${{ steps.semver.outputs.next }}
+          tag: ${{ steps.semver.outputs.next }}
           publish: true
 
       - name: "✏️　Generate release changelog"
@@ -83,7 +78,7 @@ jobs:
         uses: EndBug/add-and-commit@v11
         with:
           add: "VERSION CHANGELOG.md custom_components/${{ github.event.repository.name }}/manifest.json"
-          message: "chore(release): changelog & bump version to ${{ steps.semver.outputs.next || steps.semver_fallback.outputs.next }}"
+          message: "chore(release): changelog & bump version to ${{ steps.semver.outputs.next }}"
           push: true
 
       - name: 📦 Create zip file
@@ -94,7 +89,7 @@ jobs:
 
       - name: 📎 Upload zip to release
         run: |
-          gh release upload "${{ steps.semver.outputs.next || steps.semver_fallback.outputs.next }}" "${{ github.event.repository.name }}.zip"
+          gh release upload "${{ steps.semver.outputs.next }}" "${{ github.event.repository.name }}.zip"
         env:
           GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
 
@@ -117,4 +112,4 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          args: "🎉 New release published: https://github.com/${{ github.repository }}/releases/tag/${{ steps.semver.outputs.next || steps.semver_fallback.outputs.next }}"
+          args: "🎉 New release published: https://github.com/${{ github.repository }}/releases/tag/${{ steps.semver.outputs.next }}"
