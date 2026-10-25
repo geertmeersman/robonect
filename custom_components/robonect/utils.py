@@ -169,7 +169,10 @@ def unix_to_datetime(epoch_timestamp, hass=None):
     if timezone is None:
         timezone = pytz.UTC  # Fallback in case timezone isn't cached properly
 
-    datetime_with_timezone = timezone.localize(datetime_none, is_dst=None)
+    try:
+        datetime_with_timezone = timezone.localize(datetime_none, is_dst=None)
+    except (pytz.exceptions.AmbiguousTimeError, pytz.exceptions.NonExistentTimeError):
+        datetime_with_timezone = timezone.localize(datetime_none, is_dst=False)
     return datetime_with_timezone
 
 
