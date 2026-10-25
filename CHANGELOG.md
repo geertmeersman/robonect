@@ -1,5 +1,22 @@
 # Changelog
 
+## [v5.1.20](https://github.com/geertmeersman/robonect/tree/v5.1.20) (2026-10-25)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.19...v5.1.20)
+
+**Merged pull requests:**
+
+- fix: handle pytz AmbiguousTimeError and NonExistentTimeError in unix\_to\_datetime [\#428](https://github.com/geertmeersman/robonect/pull/428) ([geertmeersman](https://github.com/geertmeersman))
+- fix: add maintainer badges and full changelog link to release template [\#426](https://github.com/geertmeersman/robonect/pull/426) ([geertmeersman](https://github.com/geertmeersman))
+- fix: get version from draft release instead of semver-action [\#425](https://github.com/geertmeersman/robonect/pull/425) ([geertmeersman](https://github.com/geertmeersman))
+- fix: let release-drafter determine version via semver-increment, remove semver-action [\#424](https://github.com/geertmeersman/robonect/pull/424) ([geertmeersman](https://github.com/geertmeersman))
+- fix: add Release prefix to release name template [\#423](https://github.com/geertmeersman/robonect/pull/423) ([geertmeersman](https://github.com/geertmeersman))
+- fix: migrate release-drafter to new format, remove deprecated version-resolver [\#422](https://github.com/geertmeersman/robonect/pull/422) ([geertmeersman](https://github.com/geertmeersman))
+- fix: add semver-increment patch to Maintenance and Documentation categories [\#421](https://github.com/geertmeersman/robonect/pull/421) ([geertmeersman](https://github.com/geertmeersman))
+- chore: only trigger release drafter on custom\_components changes [\#419](https://github.com/geertmeersman/robonect/pull/419) ([geertmeersman](https://github.com/geertmeersman))
+- chore: update release drafter template, remove beta release and dev-current workflows [\#418](https://github.com/geertmeersman/robonect/pull/418) ([geertmeersman](https://github.com/geertmeersman))
+- feat: add workflow to auto-label PRs without custom\_components changes as skip-changelog [\#417](https://github.com/geertmeersman/robonect/pull/417) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.19](https://github.com/geertmeersman/robonect/tree/v5.1.19) (2026-10-21)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.18...v5.1.19)
