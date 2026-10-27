@@ -41,6 +41,6 @@ jobs:
 
       - name: 🗑 Delete empty draft
         if: contains(steps.release_drafter.outputs.body, '* No changes')
-        run: gh release delete "${{ steps.release_drafter.outputs.tag_name }}" --yes --cleanup-tag
+        run: gh release delete "${{ steps.release_drafter.outputs.tag_name }}" --yes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
