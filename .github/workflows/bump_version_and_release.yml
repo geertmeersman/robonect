@@ -13,6 +13,8 @@ jobs:
   release:
     name: Create and publish release
     runs-on: ubuntu-latest
+    env:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
 
     steps:
       - name: ⤵️　Checkout code
@@ -108,7 +110,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🚀 Send Discord notification
-        if: ${{ secrets.DISCORD_WEBHOOK != '' }}
+        if: env.DISCORD_WEBHOOK != ''
         uses: Ilshidur/action-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
