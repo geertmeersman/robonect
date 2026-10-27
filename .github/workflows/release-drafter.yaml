@@ -32,8 +32,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🚀 Run Release Drafter
+        id: release_drafter
         uses: release-drafter/release-drafter@v7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           commitish: ${{ github.ref }}
+
+      - name: 🗑 Delete empty draft
+        if: contains(steps.release_drafter.outputs.body, '* No changes')
+        run: gh release delete "${{ steps.release_drafter.outputs.tag_name }}" --yes --cleanup-tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
