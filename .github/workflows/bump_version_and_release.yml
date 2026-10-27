@@ -108,6 +108,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🚀 Send Discord notification
+        if: ${{ secrets.DISCORD_WEBHOOK != '' }}
         uses: Ilshidur/action-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
