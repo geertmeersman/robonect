@@ -112,7 +112,5 @@ jobs:
       - name: 🚀 Send Discord notification
         if: env.DISCORD_WEBHOOK != ''
         uses: Ilshidur/action-discord@master
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
           args: "🎉 New release published: https://github.com/${{ github.repository }}/releases/tag/${{ steps.semver.outputs.next }}"
