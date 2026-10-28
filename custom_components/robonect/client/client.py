@@ -83,6 +83,10 @@ class RobonectClient:
             _LOGGER.error("Missing command in async_cmd")
             return {"successful": False, "error": "missing_command"}
 
+        if self.is_sleeping and command not in SAFE_COMMANDS:
+            _LOGGER.debug(f"Skipping command '{command}': mower is sleeping")
+            return None
+
         async with self._semaphore:
             await self.client_start()
             return await self._async_cmd_impl(command, params)
