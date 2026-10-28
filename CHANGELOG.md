@@ -1,5 +1,20 @@
 # Changelog
 
+## [v5.1.21](https://github.com/geertmeersman/robonect/tree/v5.1.21) (2026-10-28)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.20...v5.1.21)
+
+**Closed issues:**
+
+- AmbiguousTimeError in unix\_to\_datetime during the repeated hour at the end of DST [\#427](https://github.com/geertmeersman/robonect/issues/427)
+
+**Merged pull requests:**
+
+- fix: skip unsafe commands when mower is sleeping [\#433](https://github.com/geertmeersman/robonect/pull/433) ([geertmeersman](https://github.com/geertmeersman))
+- chore: remove redundant DISCORD\_WEBHOOK from step-level env [\#431](https://github.com/geertmeersman/robonect/pull/431) ([geertmeersman](https://github.com/geertmeersman))
+- fix: use env var for Discord webhook conditional [\#430](https://github.com/geertmeersman/robonect/pull/430) ([geertmeersman](https://github.com/geertmeersman))
+- chore: skip Discord notification if webhook secret is not set [\#429](https://github.com/geertmeersman/robonect/pull/429) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.20](https://github.com/geertmeersman/robonect/tree/v5.1.20) (2026-10-25)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.19...v5.1.20)
