@@ -1,0 +1,84 @@
+name: PR 🏷️
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+concurrency:
+  group: pr-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  label:
+    name: Label PR from commits
+    runs-on: ubuntu-latest
+    steps:
+      - name: Apply SemVer labels based on commits
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { data: commits } = await github.rest.pulls.listCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+
+            const labels = new Set();
+            commits.forEach(c => {
+              const msg = c.commit.message.toLowerCase();
+              if (msg.includes('breaking change:') || /^[a-z]+(\([^)]+\))?!:/.test(msg)) labels.add('major');
+              else if (/^feat(\([^)]+\))?:/.test(msg)) labels.add('minor');
+              else if (/^(fix|perf|refactor|revert|build|ci|chore|docs|style|test)(\([^)]+\))?:/.test(msg)) labels.add('patch');
+            });
+
+            const labelsToAdd = Array.from(labels);
+            if (labelsToAdd.length > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels: labelsToAdd,
+              });
+            }
+
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+
+            const hasSemVer = pr.labels.some(l => ['major', 'minor', 'patch'].includes(l.name));
+            if (!hasSemVer && labelsToAdd.length === 0) {
+              core.setFailed('No SemVer label found! Add a feat, fix or breaking change to your commits.');
+            }
+
+  skip-changelog:
+    name: Skip changelog
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add skip-changelog label if no custom_components changes
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+
+            const hasCustomComponentChanges = files.some(f =>
+              f.filename.startsWith('custom_components/')
+            );
+
+            if (!hasCustomComponentChanges) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels: ['skip-changelog'],
+              });
+            }
