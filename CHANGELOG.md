@@ -1,5 +1,18 @@
 # Changelog
 
+## [v5.1.22](https://github.com/geertmeersman/robonect/tree/v5.1.22) (2026-11-05)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.21...v5.1.22)
+
+**Closed issues:**
+
+- HA integration wakes up AutoMower causing a double beep [\#432](https://github.com/geertmeersman/robonect/issues/432)
+
+**Merged pull requests:**
+
+- fix: convert ReadOnlyDict to dict to allow attribute updates via MQTT [\#435](https://github.com/geertmeersman/robonect/pull/435) ([geertmeersman](https://github.com/geertmeersman))
+- ci: combine PR workflows into single pr.yml [\#434](https://github.com/geertmeersman/robonect/pull/434) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.21](https://github.com/geertmeersman/robonect/tree/v5.1.21) (2026-10-28)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.20...v5.1.21)
