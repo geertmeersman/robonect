@@ -313,7 +313,7 @@ class RobonectLawnMowerEntity(RobonectEntity, LawnMowerEntity, RestoreEntity):
             return
 
         attr = state.attributes
-        self._attributes = attr
+        self._attributes = dict(attr)
         self._battery = attr.get(ATTR_BATTERY_LEVEL)
         await super().async_added_to_hass()
 
