@@ -1,5 +1,24 @@
 # Changelog
 
+## [v5.1.23](https://github.com/geertmeersman/robonect/tree/v5.1.23) (2026-11-12)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.22.beta1...v5.1.23)
+
+**Merged pull requests:**
+
+- docs: replace HACS with HA Marketplace and fix dead Discord widget [\#440](https://github.com/geertmeersman/robonect/pull/440) ([geertmeersman](https://github.com/geertmeersman))
+- fix: use timezone-aware dt\_util.now\(\) instead of naive datetime.now\(\) [\#439](https://github.com/geertmeersman/robonect/pull/439) ([geertmeersman](https://github.com/geertmeersman))
+- fix: increase HTTP timeout to 35s to allow sleeping mower to wake up [\#438](https://github.com/geertmeersman/robonect/pull/438) ([geertmeersman](https://github.com/geertmeersman))
+- fix: bypass sleeping guard for explicit user commands [\#437](https://github.com/geertmeersman/robonect/pull/437) ([geertmeersman](https://github.com/geertmeersman))
+
+## [v5.1.22.beta1](https://github.com/geertmeersman/robonect/tree/v5.1.22.beta1) (2026-11-12)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.22...v5.1.22.beta1)
+
+**Closed issues:**
+
+- `robonect.job` is silently dropped while the integration thinks the mower is "Sleeping", then fails with `TypeError: NoneType | dict` [\#436](https://github.com/geertmeersman/robonect/issues/436)
+
 ## [v5.1.22](https://github.com/geertmeersman/robonect/tree/v5.1.22) (2026-11-05)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.21...v5.1.22)
