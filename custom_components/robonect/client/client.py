@@ -48,7 +48,7 @@ class RobonectClient:
         """Start a new, isolated httpx client."""
         if not self.client:
             self.client = create_async_httpx_client(
-                self.hass, timeout=httpx.Timeout(10.0, read=10.0)
+                self.hass, timeout=httpx.Timeout(35.0, read=35.0)
             )
             if self.auth:
                 self.client.auth = self.auth
