@@ -1,0 +1,67 @@
+name: Release - Beta 🧪
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to release as beta"
+        required: true
+        default: "main"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  beta:
+    name: Create beta pre-release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⤵️　Checkout branch
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: 🔢 Determine beta version
+        id: version
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPO: ${{ github.event.repository.name }}
+        run: |
+          base=$(cat VERSION)
+          count=$(gh release list --json tagName,isPrerelease -q \
+            '.[] | select(.isPrerelease == true) | .tagName' \
+            | grep -c "^${base}\.beta" || true)
+          next=$((count + 1))
+          beta_tag="${base}.beta${next}"
+          echo "base=$base" >> $GITHUB_OUTPUT
+          echo "tag=$beta_tag" >> $GITHUB_OUTPUT
+          echo "Beta version: $beta_tag"
+
+      - name: 📝 Patch manifest.json with beta version (no commit)
+        env:
+          GITHUB_REPO: ${{ github.event.repository.name }}
+        run: |
+          sed -i 's/"version": ".*"/"version": "${{ steps.version.outputs.tag }}"/g' \
+            custom_components/$GITHUB_REPO/manifest.json
+
+      - name: 📦 Create zip file
+        env:
+          GITHUB_REPO: ${{ github.event.repository.name }}
+        run: |
+          cd custom_components/$GITHUB_REPO
+          zip -r "../../$GITHUB_REPO.zip" .
+
+      - name: 🚀 Create GitHub pre-release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.version.outputs.tag }}" \
+            "${{ github.event.repository.name }}.zip" \
+            --title "Beta ${{ steps.version.outputs.tag }}" \
+            --notes "🧪 Beta release from branch \`${{ github.event.inputs.branch }}\`" \
+            --prerelease \
+            --target "${{ github.event.inputs.branch }}"
