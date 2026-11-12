@@ -3,12 +3,12 @@
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime
 import json
 import logging
 import urllib.parse
 
 from homeassistant.helpers.httpx_client import create_async_httpx_client
+from homeassistant.util import dt as dt_util
 import httpx
 
 from .const import SAFE_COMMANDS
@@ -214,7 +214,7 @@ class RobonectClient:
                     s.get("quality") for s in sensors if s.get("quality") is not None
                 ]
                 result_json["lowest_quality"] = min(qualities) if qualities else None
-            result_json["sync_time"] = datetime.now()
+            result_json["sync_time"] = dt_util.now()
         elif response and response.status_code >= 400:
             response.raise_for_status()
 
