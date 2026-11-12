@@ -1,0 +1,32 @@
+name: "Tests 🧪"
+
+on:
+  push:
+    branches: ["main"]
+    paths: ["**.py"]
+  pull_request:
+    branches: ["main"]
+    paths: ["**.py"]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pytest:
+    name: "pytest"
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️　Checkout the repository
+        uses: actions/checkout@v7
+
+      - name: 🐍　Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 📦　Install dependencies
+        run: pip install -r requirements_test.txt
+
+      - name: 🧪　Run tests
+        run: python -m pytest tests/ -v --tb=short

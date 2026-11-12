@@ -107,6 +107,11 @@ class RobonectEntity(RestoreEntity):
             except Exception as exception:
                 _LOGGER.error(f"Exception during async command execution: {exception}")
                 response = {"successful": False, "exception": str(exception)}
+            if response is None:
+                _LOGGER.warning(
+                    f"Command '{command}' was skipped because the mower is sleeping"
+                )
+                return
             await self.async_fire_event(
                 {**response, "command": command, "params": params}
             )
