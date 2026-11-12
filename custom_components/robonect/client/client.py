@@ -60,7 +60,10 @@ class RobonectClient:
             _LOGGER.debug("Skipping client close; HA manages the shared HTTPX client")
 
     async def async_cmd(
-        self, command: str | None = None, params: dict | str | None = None
+        self,
+        command: str | None = None,
+        params: dict | str | None = None,
+        bypass_sleeping: bool = False,
     ) -> dict | bool | None:
         """Send a command to the mower and return the processed response.
 
@@ -70,6 +73,7 @@ class RobonectClient:
         Args:
             command: The Robonect API command to execute (e.g., 'status', 'start').
             params: Optional dictionary or string of parameters for the command.
+            bypass_sleeping: If True, send the command even when the mower is sleeping.
 
         Returns:
             The API response as a dictionary, True/False for specific actions
@@ -83,7 +87,7 @@ class RobonectClient:
             _LOGGER.error("Missing command in async_cmd")
             return {"successful": False, "error": "missing_command"}
 
-        if self.is_sleeping and command not in SAFE_COMMANDS:
+        if self.is_sleeping and not bypass_sleeping and command not in SAFE_COMMANDS:
             _LOGGER.debug(f"Skipping command '{command}': mower is sleeping")
             return None
 

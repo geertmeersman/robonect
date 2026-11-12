@@ -191,7 +191,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         except ValueError as error:
             raise RobonectException(error)
 
-        await async_send_command(hass, entry, "mode", params)
+        await async_send_command(hass, entry, "mode", params, bypass_sleeping=True)
 
     hass.services.async_register(DOMAIN, SERVICE_JOB, job, schema=SERVICE_JOB_SCHEMA)
 
@@ -354,6 +354,7 @@ async def async_send_command(
     entry: ConfigEntry,
     command: str,
     params: dict[str, Any] | list[Any] | None = None,
+    bypass_sleeping: bool = False,
     **kwargs: Any,
 ) -> None:
     """Send a command to a Robonect mower."""
@@ -367,9 +368,14 @@ async def async_send_command(
     )
 
     try:
-        response = await coordinator.client.async_cmd(command, params)
+        response = await coordinator.client.async_cmd(command, params, bypass_sleeping)
     except Exception as exception:
         response = {"successful": False, "exception": f"{exception}"}
+    if response is None:
+        _LOGGER.warning(
+            f"Command '{command}' was skipped because the mower is sleeping"
+        )
+        return
     await async_fire_event(
         hass, entry, response | {"command": command, "params": params}
     )
