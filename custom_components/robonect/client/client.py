@@ -229,7 +229,14 @@ class RobonectClient:
 
     async def async_cmds(self, commands=None, bypass_sleeping=False) -> dict:
         """Send multiple commands to the mower in limited parallel (safe for Robonect)."""
-        result = await self.state()
+        try:
+            result = await self.state()
+        except Exception as e:
+            if self.is_sleeping:
+                _LOGGER.debug(f"Command status failed (mower sleeping): {e}")
+            else:
+                _LOGGER.warning(f"Command status failed: {e}")
+            result = None
         results = {"status": result} if result else {}
 
         allowed_cmds = [
@@ -245,7 +252,10 @@ class RobonectClient:
             try:
                 return await self.async_cmd(cmd)
             except Exception as e:
-                _LOGGER.warning(f"Command {cmd} failed: {e}")
+                if self.is_sleeping:
+                    _LOGGER.debug(f"Command {cmd} failed (mower sleeping): {e}")
+                else:
+                    _LOGGER.warning(f"Command {cmd} failed: {e}")
                 return None
 
         tasks = [limited_cmd(cmd) for cmd in allowed_cmds]

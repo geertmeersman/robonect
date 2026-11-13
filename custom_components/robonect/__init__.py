@@ -281,6 +281,12 @@ class RobonectDataUpdateCoordinator(DataUpdateCoordinator):
             return self.data or {}
 
         if not self.entry.data.get(CONF_WINTER_MODE, True):
+            # If MQTT is active and the mower is sleeping, skip REST polling
+            if self.entry.data.get(CONF_MQTT_ENABLED) and self.client.is_sleeping:
+                _LOGGER.debug(
+                    "Skipping REST poll: MQTT is active and mower is sleeping"
+                )
+                return self.data or {}
             try:
                 cleanup = self.data is None
                 await self.get_data()
