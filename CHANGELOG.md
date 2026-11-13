@@ -1,15 +1,12 @@
 # Changelog
 
-## [v5.1.25](https://github.com/geertmeersman/robonect/tree/v5.1.25) (2026-11-13)
-
-[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.24...v5.1.25)
-
 ## [v5.1.24](https://github.com/geertmeersman/robonect/tree/v5.1.24) (2026-11-13)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.23...v5.1.24)
 
 **Merged pull requests:**
 
+- fix\(ci\): use release-drafter output tag instead of fragile draft lookup [\#443](https://github.com/geertmeersman/robonect/pull/443) ([geertmeersman](https://github.com/geertmeersman))
 - fix: skip REST poll and suppress warnings when MQTT active and mower sleeping [\#442](https://github.com/geertmeersman/robonect/pull/442) ([geertmeersman](https://github.com/geertmeersman))
 - tests: add unit tests + fix None response bug in entity.py [\#441](https://github.com/geertmeersman/robonect/pull/441) ([geertmeersman](https://github.com/geertmeersman))
 
