@@ -6,13 +6,24 @@ The integration includes a built-in Lovelace card that is automatically register
 
 ![Robonect Card](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/robonect-card.png)
 
+The card is automatically suggested in the visual editor when you add a card for a `lawn_mower` entity. The entity is automatically filled in when selected from the entity picker.
+
+![Robonect Card Editor](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/robonect-card-editor.png)
+
 To add it manually:
 
 ```yaml
 type: custom:robonect-card
 ```
 
-The card auto-detects your mower prefix and supports Dutch, English, German and French.
+The `entity` config is optional. If omitted, the card uses the first `lawn_mower` entity it finds. With multiple mowers, specify the entity explicitly:
+
+```yaml
+type: custom:robonect-card
+entity: lawn_mower.garage_robonect
+```
+
+The card supports Dutch, English, German and French.
 
 ---
 

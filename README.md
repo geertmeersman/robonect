@@ -64,7 +64,18 @@ The integration ships a built-in Lovelace card that is automatically registered 
 type: custom:robonect-card
 ```
 
-The card is automatically suggested in the visual editor when adding a card for a `lawn_mower` entity.
+The card is automatically suggested in the visual editor when adding a card for a `lawn_mower` entity. The entity is automatically filled in when selected from the entity picker.
+
+```yaml
+type: custom:robonect-card
+```
+
+The `entity` config is optional — if omitted, the card uses the first `lawn_mower` entity it finds. With multiple mowers, specify it explicitly:
+
+```yaml
+type: custom:robonect-card
+entity: lawn_mower.garage_robonect
+```
 
 - → Full entity reference: [docs/entities.md](docs/entities.md)
 - → Available services: [docs/services.md](docs/services.md)
