@@ -1,5 +1,13 @@
 # Changelog
 
+## [v5.2.0](https://github.com/geertmeersman/robonect/tree/v5.2.0) (2026-11-15)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.24...v5.2.0)
+
+**Merged pull requests:**
+
+- feat: bundle Lovelace card with integration [\#444](https://github.com/geertmeersman/robonect/pull/444) ([geertmeersman](https://github.com/geertmeersman))
+
 ## [v5.1.24](https://github.com/geertmeersman/robonect/tree/v5.1.24) (2026-11-13)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.1.23...v5.1.24)
