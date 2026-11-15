@@ -4,6 +4,10 @@
 
 ![Robonect Card](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/robonect-card.png)
 
+### Visual editor
+
+![Robonect Card Editor](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/robonect-card-editor.png)
+
 ## Integration page
 
 ![Integration device](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/integration_device.png)

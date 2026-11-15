@@ -63,6 +63,7 @@ class RobonectCard extends HTMLElement {
     this._childCards = [];
     this._rendered = false;
     this._prefix = null;
+    if (config.entity && !config.entity.startsWith('lawn_mower.')) throw new Error('entity must be a lawn_mower entity');
   }
 
   _t(key) {
@@ -73,7 +74,7 @@ class RobonectCard extends HTMLElement {
   _detectPrefix() {
     if (this._prefix) return this._prefix;
     if (!this._hass) return 'automower';
-    const lawnMower = Object.keys(this._hass.states).find(id => id.startsWith('lawn_mower.'));
+    const lawnMower = this._config?.entity || Object.keys(this._hass.states).find(id => id.startsWith('lawn_mower.'));
     if (lawnMower) this._prefix = lawnMower.replace('lawn_mower.', '').replace('_robonect', '');
     else this._prefix = 'automower';
     return this._prefix;
@@ -109,7 +110,7 @@ class RobonectCard extends HTMLElement {
     // Update header name
     const headerName = this.querySelector('#header-name');
     if (headerName) {
-      const lawnEntity = Object.keys(this._hass.states).find(id => id.startsWith('lawn_mower.'));
+      const lawnEntity = this._config?.entity || Object.keys(this._hass.states).find(id => id.startsWith('lawn_mower.'));
       const friendlyName = this._hass.states[lawnEntity]?.attributes?.friendly_name || 'Grasmaaier';
       const name = this._hass.entities?.[lawnEntity]?.name || friendlyName.replace(/^.*?\s/, '') || friendlyName;
       headerName.textContent = name;
@@ -338,7 +339,7 @@ class RobonectCard extends HTMLElement {
     const lawnSlot = this.querySelector('#lawn-mower-slot');
     try {
       const helpers = await window.loadCardHelpers();
-      const lawnEntity = Object.keys(this._hass.states).find(id => id.startsWith('lawn_mower.'));
+      const lawnEntity = this._config?.entity || Object.keys(this._hass.states).find(id => id.startsWith('lawn_mower.'));
       const lawnCard = await helpers.createCardElement({
         type: 'tile',
         entity: lawnEntity,
@@ -382,12 +383,30 @@ class RobonectCard extends HTMLElement {
 
   getCardSize() { return 5; }
   static getStubConfig() { return {}; }
+  static getConfigElement() { return document.createElement('robonect-card-editor'); }
 }
 
+class RobonectCardEditor extends HTMLElement {
+  setConfig(config) { this._config = config; this._render(); }
+  set hass(hass) { this._hass = hass; const s = this.querySelector('ha-selector'); if (s) s.hass = hass; }
+
+  _render() {
+    this.innerHTML = `<div style="padding:16px"><label style="font-size:12px;color:var(--secondary-text-color)">Lawn mower entity (optional)</label><ha-selector></ha-selector></div>`;
+    const sel = this.querySelector('ha-selector');
+    sel.hass = this._hass;
+    sel.selector = { entity: { domain: 'lawn_mower' } };
+    sel.value = this._config?.entity || '';
+    sel.addEventListener('value-changed', e => {
+      this.dispatchEvent(new CustomEvent('config-changed', { detail: { config: { ...this._config, entity: e.detail.value || undefined } } }));
+    });
+  }
+}
+
+customElements.define('robonect-card-editor', RobonectCardEditor);
 customElements.define('robonect-card', RobonectCard);
 
 window.customCards = window.customCards || [];
 if (!window.customCards.find(c => c.type === 'robonect-card')) {
   window.customCards.push({ type: 'robonect-card', name: 'Robonect Card', description: 'Card for Robonect lawn mower.', supportedTypes: ['lawn_mower'],
-    getEntitySuggestion: (hass, entityId) => entityId.startsWith('lawn_mower.') ? [{ label: 'Robonect Card', config: { type: 'custom:robonect-card' } }] : null });
+    getEntitySuggestion: (hass, entityId) => entityId.startsWith('lawn_mower.') ? [{ label: 'Robonect Card', config: { type: 'custom:robonect-card', entity: entityId } }] : null });
 }
