@@ -5,6 +5,7 @@ const ROBONECT_I18N = {
     current: 'Stroom', voltage: 'Spanning', capacity: 'Capaciteit',
     winter: 'Winter', stopped: 'Gestopt — klik om te starten',
     next_start: 'Volgende start',
+    at: 'om',
     weather_stop: 'Gestopt omwille van het weer',
     winter_active: 'Wintermode actief',
     days: ['zo','ma','di','wo','do','vr','za'],
@@ -16,6 +17,7 @@ const ROBONECT_I18N = {
     current: 'Current', voltage: 'Voltage', capacity: 'Capacity',
     winter: 'Winter', stopped: 'Stopped — click to start',
     next_start: 'Next start',
+    at: 'at',
     weather_stop: 'Stopped due to weather',
     winter_active: 'Winter mode active',
     days: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
@@ -27,6 +29,7 @@ const ROBONECT_I18N = {
     current: 'Strom', voltage: 'Spannung', capacity: 'Kapazität',
     winter: 'Winter', stopped: 'Gestoppt — klicken zum Starten',
     next_start: 'Nächster Start',
+    at: 'um',
     weather_stop: 'Gestoppt wegen Wetter',
     winter_active: 'Wintermodus aktiv',
     days: ['So','Mo','Di','Mi','Do','Fr','Sa'],
@@ -38,6 +41,7 @@ const ROBONECT_I18N = {
     current: 'Courant', voltage: 'Tension', capacity: 'Capacité',
     winter: 'Hiver', stopped: 'Arrêté — cliquer pour démarrer',
     next_start: 'Prochain démarrage',
+    at: 'à',
     weather_stop: 'Arrêté à cause de la météo',
     winter_active: 'Mode hiver actif',
     days: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
@@ -153,9 +157,10 @@ class RobonectCard extends HTMLElement {
     if (timerSection && nextTimer && !['unknown', 'unavailable'].includes(nextTimer)) {
       timerSection.style.display = '';
       const d = new Date(nextTimer);
-      const days = ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'];
-      const months = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
-      if (timerMsg) timerMsg.textContent = `${this._t('next_start')}: ${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} om ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
+      const days = this._t('days');
+      const months = this._t('months');
+      const at = this._t('at');
+      if (timerMsg) timerMsg.textContent = `${this._t('next_start')}: ${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${at} ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
     } else if (timerSection) {
       timerSection.style.display = 'none';
     }
