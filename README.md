@@ -54,6 +54,18 @@ A Home Assistant integration to monitor and control your Robonect-equipped robot
 | `switch` | Timers 1–14, GPIO/OUT channels, Winter mode |
 | `device_tracker` | GPS position of the mower |
 
+### Bundled Lovelace card
+
+The integration ships a built-in Lovelace card that is automatically registered as a resource. No manual installation needed.
+
+![Robonect Card](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/robonect-card.png)
+
+```yaml
+type: custom:robonect-card
+```
+
+The card is automatically suggested in the visual editor when adding a card for a `lawn_mower` entity.
+
 - → Full entity reference: [docs/entities.md](docs/entities.md)
 - → Available services: [docs/services.md](docs/services.md)
 - → Lovelace examples: [docs/lovelace.md](docs/lovelace.md)
