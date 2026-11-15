@@ -6,6 +6,8 @@
   ],
   "config_flow": true,
   "dependencies": [
+    "http",
+    "lovelace",
     "mqtt",
     "lawn_mower"
   ],

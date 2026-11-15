@@ -6,6 +6,8 @@ from pathlib import Path
 from typing import Any
 
 from homeassistant.components import mqtt
+from homeassistant.components.http import StaticPathConfig
+from homeassistant.components.lovelace import DOMAIN as LOVELACE_DOMAIN
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_HOST,
@@ -16,6 +18,7 @@ from homeassistant.const import (
     CONF_USERNAME,
 )
 from homeassistant.core import HomeAssistant, ServiceCall, callback
+from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import device_registry as dr, entity_registry as er
 from homeassistant.helpers.storage import STORAGE_DIR, Store
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
@@ -23,6 +26,11 @@ import pytz
 
 from .client.client import RobonectClient
 from .const import (
+    CARD_FILENAME,
+    CARD_ICON_FILENAME,
+    CARD_ICON_URL,
+    CARD_REGISTERED,
+    CARD_URL,
     CONF_ATTRS_UNITS,
     CONF_BRAND,
     CONF_ENABLE,
@@ -55,8 +63,83 @@ from .exceptions import RobonectException
 _LOGGER = logging.getLogger(__name__)
 
 
+async def _async_register_card(hass: HomeAssistant) -> None:
+    """Serve the bundled Lovelace card and register it as a Lovelace resource."""
+    if hass.data.setdefault(DOMAIN, {}).get(CARD_REGISTERED):
+        return
+
+    frontend_dir = Path(__file__).parent / "frontend"
+    card_path = frontend_dir / CARD_FILENAME
+    icon_path = frontend_dir / CARD_ICON_FILENAME
+
+    if not await hass.async_add_executor_job(card_path.is_file):
+        _LOGGER.warning(
+            "Lovelace card %s not found, it will not be registered", card_path
+        )
+        return
+
+    static_paths = [StaticPathConfig(CARD_URL, str(card_path), False)]
+    if await hass.async_add_executor_job(icon_path.is_file):
+        static_paths.append(StaticPathConfig(CARD_ICON_URL, str(icon_path), True))
+
+    try:
+        await hass.http.async_register_static_paths(static_paths)
+    except (HomeAssistantError, RuntimeError, ValueError) as err:
+        _LOGGER.error("Lovelace card could not be served: %s", err)
+        return
+
+    hass.data[DOMAIN][CARD_REGISTERED] = True
+
+    from homeassistant.loader import async_get_integration
+
+    integration = await async_get_integration(hass, DOMAIN)
+    url = f"{CARD_URL}?v={integration.version}"
+
+    data = hass.data.get(LOVELACE_DOMAIN)
+    resources = (
+        (
+            data.get("resources")
+            if isinstance(data, dict)
+            else getattr(data, "resources", None)
+        )
+        if data
+        else None
+    )
+
+    if resources is None or not hasattr(resources, "async_create_item"):
+        _LOGGER.warning(
+            "Could not register the Lovelace card automatically. Add %s as a "
+            "JavaScript module under Settings -> Dashboards -> Resources",
+            url,
+        )
+        return
+
+    try:
+        await resources.async_get_info()
+        existing = [
+            item
+            for item in (resources.async_items() or [])
+            if str(item.get("url", "")).split("?", 1)[0] == CARD_URL
+        ]
+        if not existing:
+            await resources.async_create_item({"res_type": "module", "url": url})
+            _LOGGER.debug("Lovelace card registered as a resource: %s", url)
+        elif existing[0].get("url") != url:
+            await resources.async_update_item(existing[0]["id"], {"url": url})
+            _LOGGER.debug("Lovelace card resource updated to %s", url)
+    except (HomeAssistantError, KeyError, TypeError, ValueError) as err:
+        _LOGGER.warning(
+            "Could not register the Lovelace card automatically (%s). Add %s as "
+            "a JavaScript module under Settings -> Dashboards -> Resources",
+            err,
+            url,
+        )
+
+
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up the Robonect integration."""
+
+    await _async_register_card(hass)
 
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = {}
 
