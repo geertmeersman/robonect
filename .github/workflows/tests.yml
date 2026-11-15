@@ -3,10 +3,10 @@ name: "Tests 🧪"
 on:
   push:
     branches: ["main"]
-    paths: ["**.py"]
+    paths: ["**.py", "custom_components/**/frontend/*.js"]
   pull_request:
     branches: ["main"]
-    paths: ["**.py"]
+    paths: ["**.py", "custom_components/**/frontend/*.js"]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -30,3 +30,40 @@ jobs:
 
       - name: 🧪　Run tests
         run: python -m pytest tests/ -v --tb=short
+
+  card:
+    name: "card (syntax & registration)"
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️　Checkout the repository
+        uses: actions/checkout@v7
+
+      - name: 🟩　Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📦　Install jsdom
+        run: npm install jsdom
+
+      - name: ✅　Syntax check
+        run: node --check custom_components/robonect/frontend/robonect-card.js
+
+      - name: ✅　customElements registration check
+        run: |
+          node -e "
+            const {JSDOM} = require('jsdom');
+            const dom = new JSDOM('', {url:'http://localhost'});
+            globalThis.window = dom.window;
+            globalThis.document = dom.window.document;
+            globalThis.HTMLElement = dom.window.HTMLElement;
+            globalThis.customElements = dom.window.customElements;
+            globalThis.CustomEvent = dom.window.CustomEvent;
+            require('./custom_components/robonect/frontend/robonect-card.js');
+            const cards = dom.window.customCards;
+            const card = cards?.find(c => c.type === 'robonect-card');
+            if (!card) { console.error('robonect-card not found in customCards'); process.exit(1); }
+            if (!card.supportedTypes?.includes('lawn_mower')) { console.error('supportedTypes missing lawn_mower'); process.exit(1); }
+            if (typeof card.getEntitySuggestion !== 'function') { console.error('getEntitySuggestion is not a function'); process.exit(1); }
+            console.log('OK: robonect-card registered correctly');
+          "
