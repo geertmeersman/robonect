@@ -1,5 +1,9 @@
 # Robonect — Screenshots
 
+## Lovelace card
+
+![Robonect Card](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/robonect-card.png)
+
 ## Integration page
 
 ![Integration device](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/integration_device.png)

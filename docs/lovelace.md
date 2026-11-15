@@ -1,5 +1,21 @@
 # Robonect — Lovelace Examples
 
+## Bundled Robonect Card
+
+The integration includes a built-in Lovelace card that is automatically registered when the integration is set up. No manual installation or resource configuration needed.
+
+![Robonect Card](https://raw.githubusercontent.com/geertmeersman/robonect/main/images/screenshots/robonect-card.png)
+
+To add it manually:
+
+```yaml
+type: custom:robonect-card
+```
+
+The card auto-detects your mower prefix and supports Dutch, English, German and French.
+
+---
+
 ## Extra sensor for daily mowing time
 
 Add the following to your `configuration.yaml`:
