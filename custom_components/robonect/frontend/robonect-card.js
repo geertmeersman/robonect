@@ -181,14 +181,14 @@ class RobonectCard extends HTMLElement {
 
     // Stats tiles
     const stats = [
-      { id: 'stat-duration', entity: this._e('mower_status_duration'), label: 'Duur', icon: 'mdi:timer' },
-      { id: 'stat-blades', entity: this._e('mower_blades_quality'), label: 'Messen', icon: 'mdi:fan' },
-      { id: 'stat-alarm', entity: this._eb('health_alarm'), label: 'Alarm', icon: 'mdi:alarm-light' },
-      { id: 'stat-distance', entity: this._e('mower_distance'), label: 'Afstand', icon: 'mdi:map-marker-distance' },
-      { id: 'stat-battery', entity: this._e('mower_battery_charge'), label: 'Batterij', icon: 'mdi:battery' },
-      { id: 'stat-rssi', entity: this._e('wlan_rssi'), label: 'WiFi', icon: 'mdi:wifi' },
-      { id: 'stat-temp', entity: this._e('health_climate_temperature'), label: 'Temp', icon: 'mdi:thermometer' },
-      { id: 'stat-humidity', entity: this._e('health_climate_humidity'), label: 'Vocht', icon: 'mdi:water-percent' },
+      { id: 'stat-duration', entity: this._e('mower_status_duration') },
+      { id: 'stat-blades', entity: this._e('mower_blades_quality') },
+      { id: 'stat-alarm', entity: this._eb('health_alarm') },
+      { id: 'stat-distance', entity: this._e('mower_distance') },
+      { id: 'stat-battery', entity: this._e('mower_battery_charge') },
+      { id: 'stat-rssi', entity: this._e('wlan_rssi') },
+      { id: 'stat-temp', entity: this._e('health_climate_temperature') },
+      { id: 'stat-humidity', entity: this._e('health_climate_humidity') },
     ];
     stats.forEach(({ id, entity }) => {
       const el = this.querySelector(`#${id} .stat-value`);
