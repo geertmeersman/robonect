@@ -8,6 +8,7 @@ const ROBONECT_I18N = {
     at: 'om',
     weather_stop: 'Gestopt omwille van het weer',
     winter_active: 'Wintermode actief',
+    weather: { toorainy: 'teveel regen', toocold: 'te koud', toowarm: 'te warm', toodry: 'te droog', toowet: 'te nat', day: 'overdag', night: "'s nachts" },
     days: ['zo','ma','di','wo','do','vr','za'],
     months: ['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'],
   },
@@ -20,6 +21,7 @@ const ROBONECT_I18N = {
     at: 'at',
     weather_stop: 'Stopped due to weather',
     winter_active: 'Winter mode active',
+    weather: { toorainy: 'too rainy', toocold: 'too cold', toowarm: 'too warm', toodry: 'too dry', toowet: 'too wet', day: 'daytime', night: 'nighttime' },
     days: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
     months: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
   },
@@ -32,6 +34,7 @@ const ROBONECT_I18N = {
     at: 'um',
     weather_stop: 'Gestoppt wegen Wetter',
     winter_active: 'Wintermodus aktiv',
+    weather: { toorainy: 'zu viel Regen', toocold: 'zu kalt', toowarm: 'zu warm', toodry: 'zu trocken', toowet: 'zu nass', day: 'tagsüber', night: 'nachts' },
     days: ['So','Mo','Di','Mi','Do','Fr','Sa'],
     months: ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],
   },
@@ -44,6 +47,7 @@ const ROBONECT_I18N = {
     at: 'à',
     weather_stop: 'Arrêté à cause de la météo',
     winter_active: 'Mode hiver actif',
+    weather: { toorainy: 'trop de pluie', toocold: 'trop froid', toowarm: 'trop chaud', toodry: 'trop sec', toowet: 'trop humide', day: 'de jour', night: 'de nuit' },
     days: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
     months: ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'],
   },
@@ -143,7 +147,7 @@ class RobonectCard extends HTMLElement {
     if (weatherBanner) {
       weatherBanner.style.display = weatherBreak ? '' : 'none';
       if (weatherBreak) {
-        const weatherData = { toorainy: 'teveel regen', toocold: 'te koud', toowarm: 'te warm', toodry: 'te droog', toowet: 'te nat', day: 'overdag', night: "'s nachts" };
+        const weatherData = this._t('weather');
         const conditions = this._a(this._eb('weather_service'), 'weather')?.condition || {};
         const reasons = Object.entries(conditions).filter(([, v]) => v).map(([k]) => weatherData[k] || k).join(', ');
         const wMsg = this.querySelector('#weather-msg');
