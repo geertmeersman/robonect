@@ -1,5 +1,15 @@
 # Changelog
 
+## [v5.3.1](https://github.com/geertmeersman/robonect/tree/v5.3.1) (2026-11-21)
+
+[Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.3.0...v5.3.1)
+
+**Merged pull requests:**
+
+- fix: localize weather condition labels in Lovelace card [\#450](https://github.com/geertmeersman/robonect/pull/450) ([geertmeersman](https://github.com/geertmeersman))
+- chore\(deps\): bump actions/setup-node from 4 to 7 [\#448](https://github.com/geertmeersman/robonect/pull/448) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps\): bump actions/setup-python from 5 to 7 [\#447](https://github.com/geertmeersman/robonect/pull/447) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v5.3.0](https://github.com/geertmeersman/robonect/tree/v5.3.0) (2026-11-15)
 
 [Full Changelog](https://github.com/geertmeersman/robonect/compare/v5.2.0...v5.3.0)
